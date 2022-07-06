@@ -11,7 +11,7 @@ public class FTController {
 
 	@RequestMapping("/")
 	public String main(Model m) {
-		m.addAttribute("center", "trainers/center");
+		m.addAttribute("center", "trainers/trcenter");
 		return "index";
 	}
 }
