@@ -18,4 +18,16 @@ public class UserController {
 		m.addAttribute("center", "user/join");
 		return "index";
 	}
+	
+	@RequestMapping("/join/trainer")
+	public String trainerjoin(Model m) {
+		m.addAttribute("center", "user/trainerjoin");
+		return "index";
+	}
+	
+	@RequestMapping("/join/trainee")
+	public String traineejoin(Model m) {
+		m.addAttribute("center", "user/traineejoin");
+		return "index";
+	}
 }
