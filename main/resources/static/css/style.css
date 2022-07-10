@@ -9165,9 +9165,10 @@ textarea.form-control {
     opacity: 1; }
 
 .ftco-footer {
+  
   font-size: 16px;
   background: #1b1919;
-  padding: 7em 0;
+
   z-index: 0;
   position: relative; }
   .ftco-footer .ftco-footer-logo {
@@ -9194,9 +9195,12 @@ textarea.form-control {
       background: #fff;
       border: 2px solid #fff !important; }
   .ftco-footer p {
-    color: rgba(255, 255, 255, 0.7); }
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    margin-top: 1em; }
   .ftco-footer a {
-    color: rgba(255, 255, 255, 0.7); }
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2em; }
     .ftco-footer a:hover {
       color: #fff; }
   .ftco-footer .ftco-heading-2 {
