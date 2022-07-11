@@ -1,20 +1,52 @@
 <style>
-	#btn_findid{
-		float:right;
-	}
+.selectjoin{
+	display: grid;
+	place-content: center;
+}
+	
 </style>
 <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-      <div class="container">
+
 	      	<div class="row justify-content-center mb-5 pb-3">
+	 <!-- header Start -->
 		          <div class="col-md-7 heading-section text-center ftco-animate">
 			            <span class="subheading">Sign UP</span>
 			            <h2 class="mb-4">회원가입</h2>
-			            <p>로그인 실패 시 이유 표시</p>
 		          </div>
+      <!-- header End -->
+      <!-- Body Start -->			          
 		          <div class="col-md-7 heading-section text-center ftco-animate">
-		           <a href="/join/trainee">일반회원</a>
-		           <a href="/join/trainer">트레이너 회원</a>
-		           </div>
+						 <div class="row">
+						 <!-- 일반회원 div -->
+						    <div class="col selectjoin">
+								  <div class="col-md-12 ftco-animate">
+							          	<div class="box p-2 px-3 bg-light d-flex">
+							          		<div>
+							          			<p>나를 도와줄 트레이너가 필요해요!</p>
+							          			<h3 class="mb-3">트레이너를 찾고 있다면?</h3>
+									             <a href="/join/trainee" class="btn btn-primary py-3 px-4">일반회원 가입</a>
+								            </div>
+								        </div>
+						          </div>
+						    </div>
+						 <!-- 일반회원 div End-->
+						 <!-- 트레이너회원 div Start-->
+						    <div class="col selectjoin">
+								  <div class="col-md-12 ftco-animate">
+							          	<div class="box p-2 px-3 bg-light d-flex">
+							          		<div>
+								          		<p>현재 트레이너로 일하고 있어요!</p>
+								          		<h3 class="mb-3">트레이너로 등록하고 싶다면?</h3>
+									             <a href="/join/trainee" class="btn btn-primary py-3 px-4">트레이너 가입</a>
+								            </div>
+								        </div>
+						          </div>
+						    </div>
+						 <!-- 트레이너회원 div End-->
+						</div>
+				  </div>
+	<!-- Body End -->			  
+		           	
+		           
 	        </div>
-      </div>
 </section>
