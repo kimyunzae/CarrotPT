@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.first.mapper.WorkdayMapper">
+
+	<select id="select" parameterType="Integer" resultType="workdayVO">
+		SELECT * FROM
+		workday WHERE id=#{id}
+	</select>
+	<select id="selectall" resultType="workdayVO">
+		SELECT * FROM workday
+	</select>
+	<insert id="insert" parameterType="workdayVO">
+		INSERT INTO workday VALUES(NULL, #{tid}, #{mon}, #{tue}, #{wed}, #{thu}, #{fri}, #{sat}, #{sun})
+	</insert>
+	<update id="update" parameterType="workdayVO">
+		UPDATE workday SET MON=#{mon}, TUE=#{tue}, WED=#{wed}, THU=#{thu}, FRI=#{fri}, SAT=#{sat}, SUN=#{sun}
+		WHERE tid=#{tid}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM workday WHERE id=#{id}
+	</delete>
+
+</mapper>
