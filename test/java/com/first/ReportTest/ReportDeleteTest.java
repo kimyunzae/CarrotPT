@@ -13,7 +13,7 @@ class ReportDeleteTest {
 	ReportBiz biz;
 	
 	@Test
-	void contextloads() {
+	void contextLoads() {
 		try {
 			biz.remove(1004);
 			System.out.println("Deleted");

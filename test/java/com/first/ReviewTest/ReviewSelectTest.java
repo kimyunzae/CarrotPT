@@ -1,22 +1,22 @@
-package com.first.ReportTest;
+package com.first.ReviewTest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.first.biz.ReportBiz;
-import com.first.vo.ReportVO;
+import com.first.biz.ReviewBiz;
+import com.first.vo.ReviewVO;
 
 @SpringBootTest
-class ReportSelectTest {
+class ReviewSelectTest {
 
 	@Autowired
-	ReportBiz biz;
+	ReviewBiz biz;
 	
 	@Test
 	void contextLoads() {
 		try {
-			ReportVO obj = biz.get(1000);
+			ReviewVO obj = biz.get(1001);
 			System.out.println(obj);
 		} catch (Exception e) {
 			e.printStackTrace();
