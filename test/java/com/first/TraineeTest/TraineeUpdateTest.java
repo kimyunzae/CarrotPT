@@ -15,11 +15,10 @@ class TraineeUpdateTest {
 	//	UPDATE trainee SET PWD=#{pwd},NAME=#{name},PHONE=#{phone},EMAIL=#{email},ZIP=#{zip},ADDR1=#{addr1},ADDR2=#{addr2},LEVEL=#{level} WHERE UID=#{uid}
 	@Test
 	void contextLoads() {
-		TraineeVO obj = new TraineeVO("id08", "pwd8","홍지훈","01012312412", "abc@naver.com", "29112","선릉로21", null,"일반회원");
+		TraineeVO obj = new TraineeVO("id08", "pwd8","홍지훈","01012312412", "abc@naver.com", "29112","선릉로21", null);
 		try {
 			biz.modify(obj);
-			System.out.println("Update OK");
-			System.out.println(obj);
+			System.out.println("Update OK " + obj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

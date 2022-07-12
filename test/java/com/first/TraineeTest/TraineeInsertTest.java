@@ -17,7 +17,7 @@ class TraineeInsertTest {
 	@Test
 	void contextLoads() {
 		TraineeVO obj = new TraineeVO("id09", "pwd09", "문설연", "01054131234", 
-				"sym@naver.com","73213","선릉로25", null, null, "일반회원");
+				"sym@naver.com","73213","선릉로25",null);
 		try {
 			biz.register(obj);
 			System.out.println("Registered OK");
