@@ -1,52 +1,165 @@
 <style>
-.selectjoin{
+.selectjoin {
 	display: grid;
 	place-content: center;
 }
-	
-</style>
-<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
 
-	      	<div class="row justify-content-center mb-5 pb-3">
-	 <!-- header Start -->
-		          <div class="col-md-7 heading-section text-center ftco-animate">
-			            <span class="subheading">Sign UP</span>
-			            <h2 class="mb-4">회원가입</h2>
-		          </div>
-      <!-- header End -->
-      <!-- Body Start -->			          
-		          <div class="col-md-7 heading-section text-center ftco-animate">
-						 <div class="row">
-						 <!-- 일반회원 div -->
-						    <div class="col selectjoin">
-								  <div class="col-md-12 ftco-animate">
-							          	<div class="box p-2 px-3 bg-light d-flex">
-							          		<div>
-							          			<p>나를 도와줄 트레이너가 필요해요!</p>
-							          			<h3 class="mb-3">트레이너를 찾고 있다면?</h3>
-									             <a href="/join/trainee" class="btn btn-primary py-3 px-4">일반회원 가입</a>
-								            </div>
-								        </div>
-						          </div>
-						    </div>
-						 <!-- 일반회원 div End-->
-						 <!-- 트레이너회원 div Start-->
-						    <div class="col selectjoin">
-								  <div class="col-md-12 ftco-animate">
-							          	<div class="box p-2 px-3 bg-light d-flex">
-							          		<div>
-								          		<p>현재 트레이너로 일하고 있어요!</p>
-								          		<h3 class="mb-3">트레이너로 등록하고 싶다면?</h3>
-									             <a href="/join/trainee" class="btn btn-primary py-3 px-4">트레이너 가입</a>
-								            </div>
-								        </div>
-						          </div>
-						    </div>
-						 <!-- 트레이너회원 div End-->
-						</div>
-				  </div>
-	<!-- Body End -->			  
-		           	
-		           
-	        </div>
-</section>
+.traineejoin {
+	background-image: url(images/fitness/TraineeJoin.jpg);
+	background-color: #cccccc;
+	height: 500px; /* You must set a specified height */
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover;
+	/* Resize the background image to cover the entire container */
+}
+
+.trainerjoin {
+	background-image: url(images/fitness/TrainerJoin.jpg);
+	background-color: #cccccc;
+	height: 500px; /* You must set a specified height */
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover;
+	/* Resize the background image to cover the entire container */
+}
+
+.hover {
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 60%;
+}
+
+.hover-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  transition: all 0.4s;
+}
+
+.hover img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.hover-content {
+  position: relative;
+  z-index: 99;
+}
+
+.hover-3::after {
+  content: '';
+  width: calc(100% - 3rem);
+  height: calc(100% - 3rem);
+  border: 1px solid #fff;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 90;
+  transition: all 0.3s;
+  transform: scale(1.1);
+  opacity: 0;
+  display: block;
+  opacity: 0;
+}
+
+.hover-3-content {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  text-align: center;
+  z-index: 99;
+}
+
+.hover-3-description {
+  opacity: 0;
+  transform: scale(1.3);
+  transition: all 0.3s;
+}
+
+
+.hover-3 img {
+  width: 110%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hover-3 .hover-overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.hover-3:hover img {
+  width: 100%;
+}
+
+.hover-3:hover::after {
+  opacity: 1;
+  transform: none;
+}
+
+.hover-3:hover .hover-3-description {
+  opacity: 1;
+  transform: none;
+}
+
+.hover-3-description {
+	color: white;
+}
+
+.hover-3-description:hover {
+	color: #769BCD;
+}
+
+.hover-3:hover .hover-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+</style>
+
+<div class="py-5 mt-5 ">
+	<div class="row mt-5 m-1">
+		<div class="col-lg-6 mb-3 mb-lg-0">
+			<div class="hover hover-3 text-white rounded">
+				<img src="images/fitness/TraineeJoin.jpg" alt="">
+				<div class="hover-overlay"></div>
+				<div class="hover-3-content px-5 py-4">
+					<h3
+						class="hover-3-title text-uppercase font-weight-bold mb-1 text-light">
+						<span class="font-weight-light">일반회원 </span>가입
+					</h3>
+					<a href="/join/trainee"
+						class="hover-3-description small text-uppercase mb-0">나를 도와줄
+						트레이너가 필요해요! <br>트레이너를 찾고 있다면?
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="hover hover-3 text-white rounded">
+				<img src="images/fitness/TrainerJoin.jpg" alt="">
+				<div class="hover-overlay"></div>
+				<div class="hover-3-content px-5 py-4">
+					<h3
+						class="hover-3-title text-uppercase font-weight-bold mb-1 text-light">
+						<span class="font-weight-light">트레이너 </span>가입
+					</h3>
+					<a href="/join/trainer"
+						class="hover-3-description small text-uppercase mb-0">현재 트레이너로
+						일하고 있어요! <br>트레이너로 등록하고 싶다면?
+					</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
