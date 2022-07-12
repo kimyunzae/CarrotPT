@@ -16,7 +16,7 @@ class ReportSelectAllTest {
 	ReportBiz biz;
 	
 	@Test
-	void contextloads() {
+	void contextLoads() {
 		try {
 			List<ReportVO> list = biz.get();
 			for (ReportVO obj : list) {

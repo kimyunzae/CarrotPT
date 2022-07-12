@@ -14,7 +14,7 @@ class ReportInsertTest {
 	ReportBiz biz;
 	
 	@Test
-	void contextloads() {
+	void contextLoads() {
 		ReportVO obj = new ReportVO("id06", "tid06", "욕설", "채팅 중 욕설 사용", null, null);
 		try {
 			biz.register(obj);

@@ -14,7 +14,7 @@ class ReportUpdateTest {
 	ReportBiz biz;
 	
 	@Test
-	void contextloads() {
+	void contextLoads() {
 		ReportVO obj = new ReportVO(1000, "처리완료");
 		try {
 			biz.modify(obj);

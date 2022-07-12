@@ -1,23 +1,24 @@
-package com.first.ReportTest;
+package com.first.ReviewTest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.first.biz.ReportBiz;
-import com.first.vo.ReportVO;
+import com.first.biz.ReviewBiz;
+import com.first.vo.ReviewVO;
 
 @SpringBootTest
-class ReportSelectTest {
+class ReviewInsertTest {
 
 	@Autowired
-	ReportBiz biz;
+	ReviewBiz biz;
 	
 	@Test
 	void contextLoads() {
+		ReviewVO obj = new ReviewVO("id05", "tid01", 5, null);
 		try {
-			ReportVO obj = biz.get(1000);
-			System.out.println(obj);
+			biz.register(obj);
+			System.out.println("Inserted" + obj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
