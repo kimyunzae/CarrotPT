@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.first.mapper.CslListMapper">
+
+	<select id="select" parameterType="int" resultType="cslListVO">
+		SELECT * FROM
+		csl_list WHERE id=#{id}
+	</select>
+	<select id="selectall" resultType="cslListVO">
+		SELECT * FROM csl_list
+	</select>
+<!-- select: uid로 선택-->
+	<select id="selectbyuid" resultType="cslListVO">
+		SELECT * FROM csl_list
+		WHERE uid=#{uid}
+	</select>	
+	<insert id="insert" parameterType="cslListVO">
+		INSERT INTO csl_list VALUES(NULL, #{uid}, #{age}, #{gender}, #{purpose}, #{frequency})
+	</insert>
+	<update id="update" parameterType="cslListVO">
+		UPDATE csl_list SET age=#{age}, gender=#{gender}, purpose=#{purpose}, frequency=#{frequency}
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM csl_list WHERE id=#{id}
+	</delete>
+
+</mapper>

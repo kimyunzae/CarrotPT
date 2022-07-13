@@ -1,6 +1,4 @@
-package com.first.Trainer;
-
-import java.util.List;
+package com.first.TrainerTest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,7 @@ import com.first.biz.TrainerBiz;
 import com.first.vo.TrainerVO;
 
 @SpringBootTest
-class TrainerSelectAllTest {
+class TrainerSelectTest {
 
 	@Autowired
 	TrainerBiz biz;
@@ -18,10 +16,8 @@ class TrainerSelectAllTest {
 	@Test
 	void contextLoads() {
 		try {
-			List<TrainerVO> list = biz.get();
-			for (TrainerVO obj : list) {
-				System.out.println(obj);
-			}
+			TrainerVO obj = biz.get("tid01");
+			System.out.println(obj);
 
 		} catch (Exception e) {
 			e.printStackTrace();

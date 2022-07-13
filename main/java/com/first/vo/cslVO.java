@@ -33,13 +33,23 @@ public class CslVO{
 		this.csl_time = csl_time;
 	}
 	
+	// for UPDATE: 상담 희망 날짜, 시간 수정
+	public CslVO(int id, Date csl_date, String csl_time) {
+		super();
+		this.id = id;
+		this.csl_date = csl_date;
+		this.csl_time = csl_time;
+	}
 	
-	// for UPDATE: 수락 여부 수정
+	// for UPDATE: 수락 여부 / 상담 여부 수정
 	public CslVO(int id, String csl_read) {
 		super();
 		this.id = id;
 		this.csl_read = csl_read;
 	}
 
+
+
 	
+
 }
