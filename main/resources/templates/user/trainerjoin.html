@@ -1,12 +1,231 @@
 <style>
-#btn_findid {
+ #btn_findid {
 	float: right;
+} 
+* {
+	margin: 0;
+	padding: 0
+}
+
+html {
+	height: 100%
+}
+
+p {
+	color: grey
+}
+
+
+#heading {
+	text-transform: uppercase;
+	color: #769BCD;
+	font-weight: normal
+}
+
+#msform {
+	text-align: center;
+	position: relative;
+	margin-top: 20px
+}
+
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 0.5rem;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0;
+	padding-bottom: 20px;
+	position: relative
+}
+
+.form-card {
+	text-align: left
+}
+
+#msform fieldset:not(:first-of-type) {
+	display: none
+}
+
+#msform input, #msform textarea {
+	padding: 8px 15px 8px 15px;
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	margin-bottom: 25px;
+	margin-top: 2px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	background-color: #ECEFF1;
+	font-size: 16px;
+	letter-spacing: 1px
+}
+
+#msform input:focus, #msform textarea:focus {
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	border: 1px solid #673AB7;
+	outline-width: 0
+}
+
+#msform .action-button {
+	width: 100px;
+	background: #769BCD;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 0px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 0px 10px 5px;
+	float: right
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+	background-color: #311B92
+}
+
+#msform .action-button-previous {
+	width: 100px;
+	background: #616161;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 0px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px 10px 0px;
+	float: right
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus
+	{
+	background-color: #000000
+}
+
+.card {
+	z-index: 0;
+	border: none;
+	position: relative
+}
+
+.fs-title {
+	font-size: 25px;
+	color:#769BCD;
+	margin-bottom: 15px;
+	font-weight: normal;
+	text-align: left
+}
+
+.purple-text {
+	color: #769BCD;
+	font-weight: normal
+}
+
+.steps {
+	font-size: 25px;
+	color: gray;
+	margin-bottom: 10px;
+	font-weight: normal;
+	text-align: right
+}
+
+.fieldlabels {
+	color: gray;
+	text-align: left
+}
+
+#progressbar {
+	margin-bottom: 30px;
+	overflow: hidden;
+	color: lightgrey
+}
+
+#progressbar .active {
+	color: #769BCD;
+}
+
+#progressbar li {
+	list-style-type: none;
+	font-size: 15px;
+	width: 25%;
+	float: left;
+	position: relative;
+	font-weight: 400
+}
+
+#progressbar #account:before {
+	font-family: FontAwesome;
+	content: "\f13e"
+}
+
+#progressbar #personal:before {
+	font-family: FontAwesome;
+	content: "\f007"
+}
+
+#progressbar #payment:before {
+	font-family: FontAwesome;
+	content: "\f030"
+}
+
+#progressbar #confirm:before {
+	font-family: FontAwesome;
+	content: "\f00c"
+}
+
+#progressbar li:before {
+	width: 50px;
+	height: 50px;
+	line-height: 45px;
+	display: block;
+	font-size: 20px;
+	color: #ffffff;
+	background: lightgray;
+	border-radius: 50%;
+	margin: 0 auto 10px auto;
+	padding: 2px
+}
+
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: lightgray;
+	position: absolute;
+	left: 0;
+	top: 25px;
+	z-index: -1;
+}
+
+#progressbar li.active:before, #progressbar li.active:after {
+	background: #769BCD;
+}
+
+.progress {
+	height: 20px
+}
+
+.progress-bar {
+	background-color: #769BCD; 
+}
+
+.fit-image {
+	width: 100%;
+
 }
 </style>
+
+
+
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	function sample6_execDaumPostcode() {
+	/* function sample6_execDaumPostcode() {
 		new daum.Postcode(
 				{
 					oncomplete : function(data) {
@@ -44,10 +263,296 @@
 								.focus();
 					}
 				}).open();
-	}
+	} */
+
+	$(document).ready(
+			function() {
+
+				var current_fs, next_fs, previous_fs; //fieldsets
+				var opacity;
+				var current = 1;
+				var steps = $("fieldset").length;
+
+				setProgressBar(current);
+
+				$(".next").click(
+						function() {
+
+							current_fs = $(this).parent();
+							next_fs = $(this).parent().next();
+
+							//Add Class Active
+							$("#progressbar li").eq(
+									$("fieldset").index(next_fs)).addClass(
+									"active");
+
+							//show the next fieldset
+							next_fs.show();
+							//hide the current fieldset with style
+							current_fs.animate({
+								opacity : 0
+							}, {
+								step : function(now) {
+									// for making fielset appear animation
+									opacity = 1 - now;
+
+									current_fs.css({
+										'display' : 'none',
+										'position' : 'relative'
+									});
+									next_fs.css({
+										'opacity' : opacity
+									});
+								},
+								duration : 500
+							});
+							setProgressBar(++current);
+						});
+
+				$(".previous").click(
+						function() {
+
+							current_fs = $(this).parent();
+							previous_fs = $(this).parent().prev();
+
+							//Remove class active
+							$("#progressbar li").eq(
+									$("fieldset").index(current_fs))
+									.removeClass("active");
+
+							//show the previous fieldset
+							previous_fs.show();
+
+							//hide the current fieldset with style
+							current_fs.animate({
+								opacity : 0
+							}, {
+								step : function(now) {
+									// for making fielset appear animation
+									opacity = 1 - now;
+
+									current_fs.css({
+										'display' : 'none',
+										'position' : 'relative'
+									});
+									previous_fs.css({
+										'opacity' : opacity
+									});
+								},
+								duration : 500
+							});
+							setProgressBar(--current);
+						});
+
+				function setProgressBar(curStep) {
+					var percent = parseFloat(100 / steps) * curStep;
+					percent = percent.toFixed();
+					$(".progress-bar").css("width", percent + "%")
+				}
+
+				$(".submit").click(function() {
+					return false;
+				})
+
+			});
 </script>
 
-<section class="ftco-section contact-section ftco-no-pb"
+<div class="container-fluid mt-4">
+	<div class="row justify-content-center">
+		<div
+			class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+			<div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+				<h2 id="heading">트레이너로 가입하기</h2>
+				<p>작성란에 모두 기입해주세요</p>
+				<form id="msform">
+					<!-- progressbar -->
+					<ul id="progressbar">
+						<li class="active" id="account"><strong>계정</strong></li>
+						<li id="personal"><strong>트레이너 정보</strong></li>
+						<li id="personal"><strong>헬스장 정보</strong></li>
+						<li id="personal"><strong>프로필 설정</strong></li>
+						<li id="payment"><strong>파일 첨부</strong></li>
+						<li id="confirm"><strong>가입완료</strong></li>
+					</ul>
+					<div class="progress">
+						<div
+							class="progress-bar progress-bar-striped progress-bar-animated"
+							role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<br>
+					<!-- fieldsets -->
+					<!-- 계정정보 -->
+					<fieldset>
+						<div class="form-card">
+							<div class="row">
+								<div class="col-7">
+									<h2 class="fs-title">계정 정보:</h2>
+								</div>
+								<div class="col-5">
+									<h2 class="steps">Step 1 - 6</h2>
+								</div>
+							</div>
+							<label class="fieldlabels">이메일: *</label> <input type="email"
+								name="email" placeholder="Email Id" /> <label
+								class="fieldlabels">아이디: *</label> <input type="text"
+								name="uname" placeholder="UserName" /> <label
+								class="fieldlabels">비밀번호: *</label> <input type="password"
+								name="pwd" placeholder="Password" /> <label class="fieldlabels">비밀번호
+								확인: *</label> <input type="password" name="cpwd"
+								placeholder="Confirm Password" />
+						</div>
+						<input type="button" name="next" class="next action-button"
+							value="다음" />
+					</fieldset>
+					
+					<!-- 트레이너 정보 -->
+					<fieldset>
+						<div class="form-card">
+							<div class="row">
+								<div class="col-7">
+									<h2 class="fs-title">트레이너 정보:</h2>
+								</div>
+								<div class="col-5">
+									<h2 class="steps">Step 2 - 6</h2>
+								</div>
+							</div>
+							<label class="fieldlabels">이름: *</label> <input
+								type="text" name="fname" placeholder="Name" /> <label
+								class="fieldlabels">휴대폰 번호: *</label> <input type="text"
+								name="lname" placeholder="Phone" /> <label
+								class="fieldlabels">성별: *</label> <input type="text"
+								name="phno" placeholder="Gender" /> <label
+								class="fieldlabels">운동종목: *</label> <input
+								type="text" name="phno_2" placeholder="Field (ex: Body-building, etc)" />
+						</div>
+						<input type="button" name="next" class="next action-button"
+							value="다음" /> <input type="button" name="previous"
+							class="previous action-button-previous" value="이전" />
+					</fieldset>
+					
+					<!-- 트레이너 정보 -->
+					<fieldset>
+						<div class="form-card">
+							<div class="row">
+								<div class="col-7">
+									<h2 class="fs-title">헬스장 정보:</h2>
+								</div>
+								<div class="col-5">
+									<h2 class="steps">Step 3 - 6</h2>
+								</div>
+							</div>
+							<label class="fieldlabels">헬스장 이름: *</label> 
+							<input type="text" name="fname" placeholder="Name" />
+							
+							<label class="fieldlabels">우편번호: *</label>
+							<button class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호 찾기</button> 		
+											
+							<input type="text" id="sample6_postcode" placeholder="우편번호">
+								
+							<label class="fieldlabels">주소: *</label> 
+							<input type="text"  id="sample6_address" placeholder="Address">
+							
+							<label class="fieldlabels">상세주소: *</label> 
+							<input type="text"  id="sample6_detailAddress" placeholder="Address detail"> 
+							
+			
+							<label class="fieldlabels">건물명: *</label> 
+							<input type="text" id="sample6_extraAddress" placeholder="Building">
+
+						</div>
+						
+						<input type="button" name="next" class="next action-button"
+							value="다음" /> <input type="button" name="previous"
+							class="previous action-button-previous" value="이전" />
+						
+					</fieldset>
+					
+					<!-- 트레이너 설정 -->
+					<fieldset>
+						<div class="form-card">
+							<div class="row">
+								<div class="col-7">
+									<h2 class="fs-title">프로필 설정:</h2>
+								</div>
+								<div class="col-5">
+									<h2 class="steps">Step 4 - 6</h2>
+								</div>
+							</div>
+							<label class="fieldlabels">소개글: *</label> <input
+								type="text" name="fname" placeholder="Introduction" /> <label
+								class="fieldlabels">경력 및 수상 내역: *</label> <input type="text"
+								name="lname" placeholder="Career" /> 
+							
+							<label class="fieldlabels">대표 프로필 사진: *</label> <input
+								type="file" name="pic" accept="image/*">
+							<label class="fieldlabels">프로필 사진 2: </label> <input
+								type="file" name="pic" accept="image/*">
+							<label class="fieldlabels">프로필 사진 3: </label> <input
+								type="file" name="pic" accept="image/*">
+
+						</div>							
+							<input type="button" name="next" class="next action-button"
+							value="다음" /> <input type="button" name="previous"
+							class="previous action-button-previous" value="이전" />
+					</fieldset>
+
+					<!-- 파일 첨부 -->
+					<fieldset>
+						<div class="form-card">
+							<div class="row">
+								<div class="col-7">
+									<h2 class="fs-title">경력 및 대회수상 파일 업로드:</h2>
+								</div>
+								<div class="col-5">
+									<h2 class="steps">Step 5 - 6</h2>
+								</div>
+							</div>
+							<label class="fieldlabels">파일 첨부 1: *:</label> <input
+								type="file" name="pic" accept="image/*"> <label
+								class="fieldlabels">파일 첨부 2:</label> <input
+								type="file" name="pic" accept="image/*">
+								<label
+								class="fieldlabels">파일 첨부 3:</label> <input
+								type="file" name="pic" accept="image/*">
+						</div>
+						<input type="button" name="next" class="next action-button" value="제출" /> 
+						<input type="button" name="previous" class="previous action-button-previous" value="이전" />
+					</fieldset>
+					
+					<fieldset>
+						<div class="form-card">
+							<div class="row">
+								<div class="col-7">
+									<h2 class="fs-title">가입완료:</h2>
+								</div>
+								<div class="col-5">
+									<h2 class="steps">Step 6 - 6</h2>
+								</div>
+							</div>
+							<br>
+							<br>
+							<h2 class=" text-center">
+								<strong>트레이너 가입완료!</strong>
+							</h2>
+							<br>
+							
+							<div class="row justify-content-center">
+								<div class="col-7 text-center">
+									<h5 class="purple-text text-center">트레이너 승인 신청: </h5>
+									<span>대기중</span>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- <section class="ftco-section contact-section ftco-no-pb"
 	id="contact-section">
 	<div class="container">
 		<div class="row justify-content-center mb-5 pb-3">
@@ -61,19 +566,19 @@
 				<form action="#" class="bg-light p-4 p-md-5 contact-form">
 					<div class="form-group">
 						<label>아이디 *: </label> <input type="text" class="form-control">
-						<!-- ajax를 이용해 아이디 중복 체크 기능 구현  -->
+						ajax를 이용해 아이디 중복 체크 기능 구현 
 						<button type="button" class="btn btn-primary" data-toggle="modal"
 							data-target="#myModal">중복확인</button>
 
-						<!-- The Modal -->
+						The Modal
 						<div class="modal" id="myModal">
 							<div class="modal-dialog">
 								<div class="modal-content">
 
-									<!-- Modal body-->
+									Modal body
 									<div class="modal-body">사용가능한 아이디입니다.</div>
 									<div class="modal-body">사용 불가능한 아이디입니다.</div>
-									<!-- Modal footer -->
+									Modal footer
 									<div class="modal-footer">
 										<button type="button" class="btn btn-danger"
 											data-dismiss="modal">Close</button>
@@ -94,13 +599,14 @@
 						<label>비밀번호 확인 *: </label> <input type="password"
 							placeholder="비밀번호를 다시 입력해주세요" class="form-control">
 					</div>
-					<!-- 비밀번호가 일치합니다 ajax로 구현  -->
+					비밀번호가 일치합니다 ajax로 구현 
 					<div class="form-group">
 						<label>이름 *: </label> <input type="text" class="form-control">
 					</div>
 					<div class="form-group">
-						<label>이메일 *: </label> <input type="email" id="email_id" class="form-control" value="" placeholder="이메일" maxlength="20"> 
-							<!-- @ <input type="text" id="email_domain"
+						<label>이메일 *: </label> <input type="email" id="email_id"
+							class="form-control" value="" placeholder="이메일" maxlength="20">
+						@ <input type="text" id="email_domain"
 							class="form-control col-sm-6" value="" title="이메일 도메인"
 							placeholder="이메일 도메인" maxlength="20"> <select
 							class="select" title="email domain adress">
@@ -113,7 +619,7 @@
 							<option value="@nate.com">nate.com</option>
 							<option value="@yahoo.com">yahoo.com</option>
 							<option value="직접 입력">직접 입력</option>
-						</select> -->
+						</select>
 
 					</div>
 					<div class="form-group">
@@ -140,4 +646,6 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section>  -->
+
+ 
