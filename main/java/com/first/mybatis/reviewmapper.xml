@@ -11,6 +11,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="reviewVO">
 		SELECT * FROM review
 	</select>
+<!-- select: tid별 리뷰 개수-->
+	<select id="selectcnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM review
+		WHERE tid=#{tid};
+	</select>
+<!-- select: tid별 별점 평균-->
+	<select id="selectavg" parameterType="String" resultType="Double">
+		SELECT ROUND(AVG(rv_rate), 1) AS avgrate FROM review
+		WHERE tid=#{tid};
+	</select>	
 	<insert id="insert" parameterType="reviewVO">
 		INSERT INTO review VALUES(NULL, #{uid}, #{tid}, #{rv_rate}, CURDATE(), #{rv_text})
 	</insert>

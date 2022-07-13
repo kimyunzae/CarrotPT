@@ -39,4 +39,9 @@ public class ReviewBiz implements Biz<Integer, ReviewVO> {
 	public List<ReviewVO> get() throws Exception {
 		return dao.selectall();
 	}
+	
+	// tid별 리뷰 개수
+	public int getcnt(String tid) throws Exception{
+		return dao.selectcnt(tid);
+	}
 }
