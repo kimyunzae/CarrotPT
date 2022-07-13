@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.first.mapper.CslMapper">
+
+	<select id="select" parameterType="int" resultType="cslVO">
+		SELECT * FROM
+		csl WHERE id=#{id}
+	</select>
+	<select id="selectall" resultType="cslVO">
+		SELECT * FROM csl
+	</select>
+	<insert id="insert" parameterType="cslVO">
+		INSERT INTO csl VALUES(NULL, #{uid}, #{tid}, #{csl_workoutday}, #{csl_date}, #{csl_time}, DEFAULT, DEFAULT)
+	</insert>
+	<update id="update" parameterType="cslVO">
+		UPDATE csl SET csl_time=#{csl_time}
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM csl WHERE id=#{id}
+	</delete>
+
+</mapper>
