@@ -11,13 +11,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class csl_listVO {
+public class Csl_listVO {
 	private String id;
 	private String uid;
 	private String age;
 	private String purpose;
 	private String frequency;
-	public  csl_listVO(String uid,String age,String purpose,String frequency) {
+	public  Csl_listVO(String uid,String age,String purpose,String frequency) {
 		this.uid=uid;
 		this.age=age;
 		this.purpose=purpose;
