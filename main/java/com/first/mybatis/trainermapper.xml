@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.first.mapper.TrainerMapper">
+
+	<select id="select" parameterType="String"
+		resultType="trainerVO">
+		SELECT * FROM trainer WHERE id=#{id}
+	</select>
+	<select id="selectall" resultType="trainerVO">
+		SELECT * FROM trainer
+	</select>
+	<insert id="insert" parameterType="trainerVO">
+		INSERT INTO trainer VALUES(#{id},#{pwd},#{name},#{phone},#{email},#{gender},#{major},
+		#{gym_name},#{gym_zip},#{gym_addr1},#{gym_addr2},#{intro},#{career},
+		#{license1},#{license2},#{license3},#{status},#{status_detail},
+		#{profile1},#{profile2},#{profile3},sysdate(),#{level})
+	</insert>
+	
+	<update id="update" parameterType="trainerVO">
+		UPDATE trainer SET
+		pwd=#{pwd},phone=#{phone},email=#{email},gender=#{gender},major=#{major},
+		gym_name=#{gym_name},gym_zip=#{gym_zip},gym_addr1=#{gym_addr1},gym_addr2=#{gym_addr2},intro=#{intro},career=#{career},
+		license1=#{license1},license2=#{license2},license3=#{license3},status=#{status},status_detail=#{status_detail},
+		profile1=#{profile1},profile2=#{profile2},profile3=#{profile3},level=#{level} WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM trainer WHERE id=#{id}
+	</delete>
+
+</mapper>

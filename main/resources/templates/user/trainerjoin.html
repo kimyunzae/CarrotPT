@@ -3,16 +3,17 @@
 	float: right;
 }
 </style>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
 				{
 					oncomplete : function(data) {
-						
-						var addr = ''; 
-						var extraAddr = ''; 				
-						if (data.userSelectedType === 'R') { 
+
+						var addr = '';
+						var extraAddr = '';
+						if (data.userSelectedType === 'R') {
 							addr = data.roadAddress;
 						} else {
 							addr = data.jibunAddress;
@@ -59,36 +60,62 @@
 			<div class="col-md-7 order-md-last d-flex">
 				<form action="#" class="bg-light p-4 p-md-5 contact-form">
 					<div class="form-group">
-						<label>아이디 *: </label> 
-						<input type="text" class="form-control">
+						<label>아이디 *: </label> <input type="text" class="form-control">
 						<!-- ajax를 이용해 아이디 중복 체크 기능 구현  -->
-						<button type="button">중복확인</button> 
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#myModal">중복확인</button>
+
+						<!-- The Modal -->
+						<div class="modal" id="myModal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+
+									<!-- Modal body-->
+									<div class="modal-body">사용가능한 아이디입니다.</div>
+									<div class="modal-body">사용 불가능한 아이디입니다.</div>
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										<button type="button" class="btn btn-danger"
+											data-dismiss="modal">Close</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="form-group">
+						<label>비밀번호 *: </label> <input type="password"
+							placeholder="영문과 숫자를 포함해 4~20자리를 입력해 주세요" class="form-control">
 					</div>
 					<div class="form-group">
-						<label>비밀번호 *: </label> <input type="password" placeholder="영문과 숫자를 포함해 4~20자리를 입력해 주세요"
-							class="form-control">
+						<label>비밀번호 확인 *: </label> <input type="password"
+							placeholder="비밀번호를 다시 입력해주세요" class="form-control">
 					</div>
+					<!-- 비밀번호가 일치합니다 ajax로 구현  -->
 					<div class="form-group">
 						<label>이름 *: </label> <input type="text" class="form-control">
 					</div>
 					<div class="form-group">
-						<label>이메일 *: </label> 
-						<input type="email" id="email_id" class="form-control col-sm-6" value="" placeholder="이메일" maxlength="20"> 
-						@
-						<input type="text" id="email_domain" class="form-control col-sm-6" value="" title="이메일 도메인" placeholder="이메일 도메인" maxlength="20">
-						<select class="select" title="email domain adress">
-    					<option value="">-선택-</option>
-    					<option value="naver.com">naver.com</option>
-   						<option value="gmail.com">gmail.com</option>
-    					<option value="hanmail.net">hanmail.net</option>
-    					<option value="hotmail.com">hotmail.com</option>
-    					<option value="korea.com">korea.com</option>
-    					<option value="nate.com">nate.com</option>
-    					<option value="yahoo.com">yahoo.com</option>
-    					<option value="직접 입력">직접 입력</option>
-						</select>
- 						
- 				</div>
+						<label>이메일 *: </label> <input type="email" id="email_id" class="form-control" value="" placeholder="이메일" maxlength="20"> 
+							<!-- @ <input type="text" id="email_domain"
+							class="form-control col-sm-6" value="" title="이메일 도메인"
+							placeholder="이메일 도메인" maxlength="20"> <select
+							class="select" title="email domain adress">
+							<option value="">-선택-</option>
+							<option value="@naver.com">naver.com</option>
+							<option value="@gmail.com">gmail.com</option>
+							<option value="@hanmail.net">hanmail.net</option>
+							<option value="@hotmail.com">hotmail.com</option>
+							<option value="@korea.com">korea.com</option>
+							<option value="@nate.com">nate.com</option>
+							<option value="@yahoo.com">yahoo.com</option>
+							<option value="직접 입력">직접 입력</option>
+						</select> -->
+
+					</div>
 					<div class="form-group">
 						<label>전화번호 *: </label> <input type="text" class="form-control">
 					</div>
@@ -97,10 +124,12 @@
 					</div>
 					<div class="form-group">
 						<input type="text" id="sample6_postcode" placeholder="우편번호">
-						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" class="form-control" id="sample6_address" placeholder="주소"><br>
-						<input type="text" class="form-control" id="sample6_detailAddress" placeholder="상세주소"> 
-						<input type="text" class="form-control" id="sample6_extraAddress" placeholder="건물명">
+						<input type="button" onclick="sample6_execDaumPostcode()"
+							value="우편번호 찾기"><br> <input type="text"
+							class="form-control" id="sample6_address" placeholder="주소"><br>
+						<input type="text" class="form-control" id="sample6_detailAddress"
+							placeholder="상세주소"> <input type="text"
+							class="form-control" id="sample6_extraAddress" placeholder="건물명">
 					</div>
 					<div class="form-group">
 						<input type="submit" value="회원가입"
