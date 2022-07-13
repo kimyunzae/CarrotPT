@@ -17,6 +17,7 @@ public class Csl_listVO {
 	private String age;
 	private String purpose;
 	private String frequency;
+	
 	public  Csl_listVO(String uid,String age,String purpose,String frequency) {
 		this.uid=uid;
 		this.age=age;

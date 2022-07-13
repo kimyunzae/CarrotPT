@@ -1,6 +1,5 @@
 package com.first.CslTest;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.first.biz.CslBiz;
 import com.first.frame.StringToDateConverter;
+import com.first.vo.CslVO;
 
 
 @SpringBootTest
@@ -17,10 +17,18 @@ class CslInsertTest {
 	@Autowired
 	CslBiz biz;
 	
+	@Autowired
+	StringToDateConverter convert;
+	
 	@Test
 	void contextloads() {
-		
-		Date d = StringToDateConverter.convert("2022-07-13");
-			
+		Date d = convert.convert("2022-07-13");
+		CslVO obj = new CslVO("id05", "tid03", "금, 토", d, "15:00");
+		try {
+			biz.register(obj);
+			System.out.println("Inserted: " + obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
