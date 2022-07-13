@@ -1,26 +1,29 @@
-package com.first.Trainer;
+package com.first.CslListTest;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.first.biz.TrainerBiz;
+import com.first.biz.CslListBiz;
+import com.first.vo.CslListVO;
 
 @SpringBootTest
-class TrainerDeleteTest {
+class CslListSelectByUidTest {
 	
 	@Autowired
-	TrainerBiz biz;
-
+	CslListBiz biz;
+	
 	@Test
 	void contextLoads() {
 		try {
-			biz.remove("tid10");
-			System.out.print("Delete OK");
+			List<CslListVO> list = biz.getbyuid("id01");
+			for (CslListVO obj : list) {
+				System.out.println(obj);
+			}
 		} catch (Exception e) {
-			System.out.print("Delete FAIL");
 			e.printStackTrace();
 		}
 	}
-
 }

@@ -4,21 +4,31 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.first.mapper.CslMapper">
 
-	<select id="select" parameterType="int" resultType="cslVO">
-		SELECT * FROM
-		csl WHERE id=#{id}
-	</select>
-	<select id="selectall" resultType="cslVO">
-		SELECT * FROM csl
-	</select>
-	<insert id="insert" parameterType="cslVO">
-		INSERT INTO csl VALUES(NULL, #{uid}, #{tid}, #{csl_workoutday}, #{csl_date}, #{csl_time}, DEFAULT, DEFAULT)
-	</insert>
+		<select id="select" parameterType="int" resultType="cslVO">
+			SELECT * FROM
+			csl WHERE id=#{id}
+		</select>
+		<select id="selectall" resultType="cslVO">
+			SELECT * FROM csl
+		</select>
+		<insert id="insert" parameterType="cslVO">
+			INSERT INTO csl VALUES(NULL, #{uid}, #{tid}, #{csl_workoutday}, #{csl_date}, #{csl_time}, DEFAULT, DEFAULT)
+		</insert>
+	<!-- update: 상담 희망 date, time 수정-->
+		<update id="update" parameterType="cslVO">
+			UPDATE csl SET csl_date=#{csl_date}, csl_time=#{csl_time}
+			WHERE id=#{id}
+		</update>
 	<!-- update: 수락 여부 수정-->
-	<update id="update" parameterType="cslVO">
-		UPDATE csl SET csl_read=#{csl_read}
-		WHERE id=#{id}
-	</update>
+		<update id="updateread" parameterType="cslVO">
+			UPDATE csl SET csl_read=#{csl_read}
+			WHERE id=#{id}
+		</update>
+	<!-- update: 상담 여부 수정-->
+		<update id="updateprogress" parameterType="cslVO">
+			UPDATE csl SET csl_progress=#{csl_read}
+			WHERE id=#{id}
+		</update>
 	<delete id="delete" parameterType="int">
 		DELETE FROM csl WHERE id=#{id}
 	</delete>

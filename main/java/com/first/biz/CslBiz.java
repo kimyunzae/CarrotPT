@@ -42,6 +42,16 @@ public class CslBiz implements Biz<Integer, CslVO> {
 		return dao.selectall();
 	}
 
+	public void modifyread(CslVO v) throws Exception {
+		dao.updateread(v);
+	}
+	
+	public void modifyprogress(CslVO v) throws Exception{
+		dao.updateprogress(v);
+	}
+
+
+
 	
 	
 }

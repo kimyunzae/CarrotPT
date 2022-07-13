@@ -1,4 +1,4 @@
-package com.first.Trainer;
+package com.first.TrainerTest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

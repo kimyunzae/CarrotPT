@@ -12,7 +12,9 @@ import com.first.vo.CslVO;
 public interface CslMapper {
 	public void insert(CslVO obj) throws Exception;
 	public void delete(int id) throws Exception;
-	public void update(CslVO obj) throws Exception;	
+	public void update(CslVO obj) throws Exception;
+	public void updateread(CslVO obj) throws Exception;
+	public void updateprogress(CslVO obj) throws Exception;	
 	public CslVO select(int id) throws Exception;
 	public List<CslVO> selectall() throws Exception;
 }
