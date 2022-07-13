@@ -36,4 +36,10 @@ public class UserController {
 		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
+	
+	@RequestMapping("/tmypage")
+	public String tmypage(Model m) {
+		m.addAttribute("center", "user/tmypage");
+		return "index";
+	}
 }
