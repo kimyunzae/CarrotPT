@@ -235,7 +235,8 @@ p {
 	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	/* function sample6_execDaumPostcode() {
+	/* 주소지 API
+	function sample6_execDaumPostcode() {
 		new daum.Postcode(
 				{
 					oncomplete : function(data) {
@@ -274,6 +275,19 @@ p {
 					}
 				}).open();
 	} */
+	
+	/* INSERT 기능
+	$(document).ready(function() {
+
+		$('#registerbtn').click(function() {
+			$('.user').attr({
+				'enctype' : 'multipart/form-data',
+				'method' : 'post',
+				'action' : 'addimpl'
+			});
+			$('.user').submit();
+		});
+	}); */
 
 	$(document).ready(
 			function() {
