@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.first.mapper.ReportMapper">
+
+	<select id="select" parameterType="int" resultType="reportVO">
+		SELECT * FROM
+		report WHERE id=#{id}
+	</select>
+	<select id="selectall" resultType="reportVO">
+		SELECT * FROM report
+	</select>
+	<insert id="insert" parameterType="reportVO">
+		INSERT INTO report VALUES(NULL, #{uid}, #{tid}, #{rp_reason}, #{rp_detail}, #{rp_imgname}, DEFAULT, CURDATE())
+	</insert>
+	<update id="update" parameterType="reportVO">
+		UPDATE report SET rp_status=#{rp_status}
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM report WHERE id=#{id}
+	</delete>
+
+</mapper>

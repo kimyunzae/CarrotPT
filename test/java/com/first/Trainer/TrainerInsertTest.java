@@ -1,7 +1,5 @@
 package com.first.Trainer;
 
-import java.sql.Date;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,9 +15,8 @@ class TrainerInsertTest {
 
 	@Test
 	void contextLoads() {
-		TrainerVO obj = new TrainerVO("tid13", "pwd13", "공일삼","010-1111-1112","abc13@naver.com","m","보디빌딩",
-				"성신헬스10","00010","서울시 성북구",null,null,"경력10년입니다",null,null,null,
-				"매칭완료",null,null,null,null,"date","트레이너");
+		TrainerVO obj = new TrainerVO("tid14","pwd14","공일사","010-1111-1114","abc14@naver.com","m","크로스핏",
+				"성신헬스14","00014","서울시 성북구","경력5년이상","date");
 		try {
 			biz.register(obj);
 			System.out.println(obj);
