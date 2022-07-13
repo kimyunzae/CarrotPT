@@ -17,21 +17,22 @@ public class CslVO{
 	private int id;
 	private String uid;
 	private String tid;
-	private String csl_workday;
+	private String csl_workoutday;
 	private Date csl_date;
 	private String csl_time;
 	private String csl_read;
 	private String csl_progress;
 	
 	// for INSERT
-	public CslVO(String uid,String tid,String csl_workday,
-			Date csl_date,String csl_time,String csl_read,String csl_progress) {
-		this.uid=uid;
-		this.tid=tid;
-		this.csl_workday=csl_workday;
-		this.csl_date= csl_date;
-		
+	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time) {
+		super();
+		this.uid = uid;
+		this.tid = tid;
+		this.csl_workoutday = csl_workoutday;
+		this.csl_date = csl_date;
+		this.csl_time = csl_time;
 	}
+	
 	
 	// for UPDATE: 수락 여부 수정
 	public CslVO(int id, String csl_read) {
@@ -39,7 +40,6 @@ public class CslVO{
 		this.id = id;
 		this.csl_read = csl_read;
 	}
-	
-	
+
 	
 }
