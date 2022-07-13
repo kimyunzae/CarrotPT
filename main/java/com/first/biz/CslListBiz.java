@@ -40,6 +40,7 @@ public class CslListBiz implements Biz<Integer, CslListVO> {
 		return dao.selectall();
 	}
 	
+	// uid로 선택
 	public List<CslListVO> getbyuid(String uid) throws Exception{
 		return dao.selectbyuid(uid);
 	}

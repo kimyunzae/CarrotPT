@@ -1,219 +1,64 @@
-<style>
-.trcenter-body {
-	
-}
 
-</style>
+<!-- Header image Start -->
+	<section class="hero-wrap hero-wrap-2 trcenter-body"
+		style="background-image: url('/images/fitness/FindTrainers8.jpg');"
+		data-stellar-background-ratio="0.5">
+	</section>
+<!-- Header image End -->
 
 
 
-<section class="hero-wrap hero-wrap-2 trcenter-body "
-	style="background-image: url('/images/fitness/FindTrainers8.jpg');"
-	data-stellar-background-ratio="0.5">
-	<div class="overlay"></div>
-	
-</section>
 
 <section class="ftco-section">
-<div class="container">
-		<div
-			class="row no-gutters slider-text align-items-end justify-content-start">
-			<div class="col-md-9 ftco-animate pb-4">
-				<h3 class="mb-3 bread">당신에게 꼭 맞는 PT쌤</h3>
-				<p class="breadcrumbs">
-					<span class="mr-2"><a href="index.html">Home <i
-							class="ion-ios-arrow-forward"></i></a></span> <span>트레이너 찾기 <i
-						class="ion-ios-arrow-forward"></i></span>
-				</p>
-			</div>
-		</div>
+
+	<div class="row justify-content-center mb-5 pb-3">
+       <div class="col-md-7 heading-section text-center ftco-animate">
+          <span class="subheading">Trainers</span>
+          <h2 class="mb-4">트레이너</h2>
+          <p>당근PT가 보증하는 현직 트레이너들!</p>
+          <div>
+			 <a href="#" class="btn btn-primary py-2 px-4">맞춤 트레이너 찾기</a>
+		 </div>
+       </div>
+       	
 	</div>
+
 	<div class="container">
 		<div class="row">
+		<!-- Left Start -->
 			<div class="col-lg-9 pr-lg-4">
 				<div class="row">
-					<div class="col-md-6 col-lg-4 ftco-animate">
+				<!-- Single Trainer Start -->
+					<div class="col-md-6 col-lg-4 ftco-animate" th:each="t : ${trlist}">
 						<div class="project">
+						<!-- 프로필 사진 -->
 							<div class="img">
-								
 								<a href="destination-single.html"><img
 									src="/images/team/team-1.jpg" class="img-fluid"
 									alt="Colorlib Template"></a>
 							</div>
+						<!-- 정보 Start-->
 							<div class="text">
-								
-								<span>머슬 트레이닝</span>
+								<span th:text="${t.major}"></span>
 								<h3>
-									<a href="destination-single.html">김현재 트레이너</a>
+									<a href="destination-single.html" th:text="${t.name}"></a>
 								</h3>
 								<div class="star d-flex clearfix">
 									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
 										<span class="ion-ios-star"></span>
+										<span th:text="${t.avgrate}"></span>
 									</div>
 									<div class="float-right">
-										<span class="rate"><a href="#">(120)</a></span>
+										<span class="rate"><a href="#" th:text="'('+${t.rvcnt}+')'"></a></span>
 									</div>
 								</div>
 							</div>
-							<a href="/images/destination-1.jpg"
-								class="icon image-popup d-flex justify-content-center align-items-center">
-								<span class="icon-expand"></span>
-							</a>
+						<!-- 정보 End -->
 						</div>
 					</div>
-					<div class="col-md-6 col-lg-4 ftco-animate">
-						<div class="project">
-							<div class="img">
-								<a href="destination-single.html"><img
-									src="/images/team/team-2.jpg" class="img-fluid"
-									alt="Colorlib Template"></a>
-							</div>
-							<div class="text">
-								
-								<span>필라테스</span>
-								<h3>
-									<a href="destination-single.html">조나단 트레이너</a>
-								</h3>
-								<div class="star d-flex clearfix">
-									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span>
-									</div>
-									<div class="float-right">
-										<span class="rate"><a href="#">(120)</a></span>
-									</div>
-								</div>
-							</div>
-							<a href="/images/destination-2.jpg"
-								class="icon image-popup d-flex justify-content-center align-items-center">
-								<span class="icon-expand"></span>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-4 ftco-animate">
-						<div class="project">
-							<div class="img">
-								<a href="destination-single.html"><img
-									src="/images/team/team-3.jpg" class="img-fluid"
-									alt="Colorlib Template"></a>
-							</div>
-							<div class="text">
-								
-								<span>보디 빌딩</span>
-								<h3>
-									<a href="destination-single.html">김덕배 트레이너</a>
-								</h3>
-								<div class="star d-flex clearfix">
-									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span>
-									</div>
-									<div class="float-right">
-										<span class="rate"><a href="#">(120)</a></span>
-									</div>
-								</div>
-							</div>
-							<a href="/images/destination-3.jpg"
-								class="icon image-popup d-flex justify-content-center align-items-center">
-								<span class="icon-expand"></span>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-4 ftco-animate">
-						<div class="project">
-							<div class="img">
-								<a href="destination-single.html"><img
-									src="/images/team/team-4.jpg" class="img-fluid"
-									alt="Colorlib Template"></a>
-							</div>
-							<div class="text">
-								
-								<span>머슬 트레이닝</span>
-								<h3>
-									<a href="destination-single.html">백상은 트레이너</a>
-								</h3>
-								<div class="star d-flex clearfix">
-									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span>
-									</div>
-									<div class="float-right">
-										<span class="rate"><a href="#">(120)</a></span>
-									</div>
-								</div>
-							</div>
-							<a href="/images/destination-4.jpg"
-								class="icon image-popup d-flex justify-content-center align-items-center">
-								<span class="icon-expand"></span>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-4 ftco-animate">
-						<div class="project">
-							<div class="img">
-								<a href="destination-single.html"><img
-									src="/images/team/team-5.jpg" class="img-fluid"
-									alt="Colorlib Template"></a>
-							</div>
-							<div class="text">
-							
-								<span>머슬 트레이닝</span>
-								<h3>
-									<a href="destination-single.html">홍지훈 트레이너</a>
-								</h3>
-								<div class="star d-flex clearfix">
-									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span>
-									</div>
-									<div class="float-right">
-										<span class="rate"><a href="#">(120)</a></span>
-									</div>
-								</div>
-							</div>
-							<a href="/images/destination-5.jpg"
-								class="icon image-popup d-flex justify-content-center align-items-center">
-								<span class="icon-expand"></span>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-4 ftco-animate">
-						<div class="project">
-							<div class="img">
-								<a href="destination-single.html"><img
-									src="/images/team/team-6.jpg" class="img-fluid"
-									alt="Colorlib Template"></a>
-							</div>
-							<div class="text">
-								
-								<span>머슬 트레이닝</span>
-								<h3>
-									<a href="destination-single.html">문설연 트레이너</a>
-								</h3>
-								<div class="star d-flex clearfix">
-									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span> <span class="ion-ios-star"></span>
-										<span class="ion-ios-star"></span>
-									</div>
-									<div class="float-right">
-										<span class="rate"><a href="#">(120)</a></span>
-									</div>
-								</div>
-							</div>
-							<a href="/images/destination-6.jpg"
-								class="icon image-popup d-flex justify-content-center align-items-center">
-								<span class="icon-expand"></span>
-							</a>
-						</div>
-					</div>
+				<!-- Single Trainer End -->
 				</div>
+				<!-- Page Number Start -->
 				<div class="row mt-5">
 					<div class="col text-center">
 						<div class="block-27">
@@ -229,9 +74,14 @@
 						</div>
 					</div>
 				</div>
+				<!-- Page Number End -->
 			</div>
-			<!-- end -->
+		<!-- Left End -->
+		<!-- Right Start -->
+	
 			<div class="col-lg-3 p-4 bg-light">
+			
+			
 				<div class="search-wrap-1 ftco-animate">
 					<h2 class="mb-3">Find Places</h2>
 					<form action="#" class="search-property-1">
@@ -312,7 +162,7 @@
 					</form>
 				</div>
 			</div>
-			<!-- end -->
+		<!-- Right End -->
 		</div>
 	</div>
 </section>
