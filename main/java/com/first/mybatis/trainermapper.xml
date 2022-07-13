@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="trainerVO">
 		INSERT INTO trainer VALUES(#{id},#{pwd},#{name},#{phone},#{email},#{gender},#{major},
 		#{gym_name},#{gym_zip},#{gym_addr1},#{gym_addr2},#{intro},#{career},
-		#{license1},#{license2},#{license3},#{status},#{status_detail},
-		#{profile1},#{profile2},#{profile3},sysdate(),#{level})
+		#{license1},#{license2},#{license3},default,#{status_detail},
+		#{profile1},#{profile2},#{profile3},sysdate(),default)
 	</insert>
 	
 	<update id="update" parameterType="trainerVO">

@@ -38,6 +38,7 @@ public class TrainerVO {
 	private String regdate;
 	private String level;
 
+	
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
 
 	public TrainerVO(String id, String pwd, String phone, String email, String gender, String major, String gym_name,
@@ -70,22 +71,22 @@ public class TrainerVO {
 	
 	// for insert default null과 default 값 존재하는 column 제외
 
-//	public TrainerVO(String id, String pwd, String name, String phone, String email, String gender, String major,
-//			String gym_name, String gym_zip, String gym_addr1, String career, String regdate) {
-//		super();
-//		this.id = id;
-//		this.pwd = pwd;
-//		this.name = name;
-//		this.phone = phone;
-//		this.email = email;
-//		this.gender = gender;
-//		this.major = major;
-//		this.gym_name = gym_name;
-//		this.gym_zip = gym_zip;
-//		this.gym_addr1 = gym_addr1;
-//		this.career = career;
-//		this.regdate = regdate;
-//	}
+	public TrainerVO(String id, String pwd, String name, String phone, String email, String gender, String major,
+			String gym_name, String gym_zip, String gym_addr1, String career, String regdate) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.major = major;
+		this.gym_name = gym_name;
+		this.gym_zip = gym_zip;
+		this.gym_addr1 = gym_addr1;
+		this.career = career;
+		this.regdate = regdate;
+	}
 
 	
 
