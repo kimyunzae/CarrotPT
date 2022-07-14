@@ -1,25 +1,41 @@
 package com.first.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
+<<<<<<< HEAD
+import com.first.vo.TraineeVO;
+=======
 import com.first.frame.Util;
+>>>>>>> master
 import com.first.vo.TrainerVO;
 
 @Controller
 public class CrudController {
 
 	@Autowired
+<<<<<<< HEAD
+	TrainerBiz trainerbiz;
+
+	@Autowired
+	TraineeBiz traineebiz;
+
+	@RequestMapping("/addimpl")
+=======
 	TrainerBiz biz;
 	
 	@Value("${admindir}")
 	String admindir;
 
 	@RequestMapping("tregisterimpl")
+>>>>>>> master
 	public String addimpl(Model m, TrainerVO t) {
 		String profile1 = t.getPf1().getOriginalFilename();
 		String profile2 = t.getPf2().getOriginalFilename();
@@ -36,9 +52,14 @@ public class CrudController {
 		t.setLicense3(license3);
 
 		try {
+<<<<<<< HEAD
+			trainerbiz.register(t);
+//			Util.saveFile(t.getMf(), admindir);
+=======
 			biz.register(t);
 			Util.saveFile(t.getPf1(),t.getPf2(),t.getPf3(),
 					t.getLc1(),t.getLc2(),t.getLc3(),admindir);
+>>>>>>> master
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,4 +67,17 @@ public class CrudController {
 		return "index";
 	}
 
+<<<<<<< HEAD
+	@RequestMapping("/joinimpl")
+	public String joinimpl(Model m, TraineeVO trainee, HttpSession session) {
+		try {
+				traineebiz.register(trainee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "index";
+	}
+=======
+>>>>>>> master
 }
