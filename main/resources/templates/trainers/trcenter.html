@@ -26,16 +26,19 @@
 		font-style:bold;
 	}
 	
-</style>
-
-<style>
 	.btn btn-primary py-2 px-4:hover{
 		background-color:white;
 	}
 </style>
 
-<script>
-	
+<script th:inline="javascript">
+	$(function(){
+		var numberOfItems = [[${trcnt}]];
+		var limitPerPage = 6;
+		var totalPages = Math.ceil(numberOfItems / limitPerPage);
+		var paginationSize = 5;
+		var currentPage;
+	});
 </script>
 <!--  
 	<section class="hero-wrap hero-wrap-2 trcenter-body"
@@ -43,8 +46,6 @@
 		data-stellar-background-ratio="0.5">
 	</section>
 -->
-
-
 
 <section class="ftco-section">
 
@@ -54,7 +55,7 @@
           <h2 class="mb-4">트레이너</h2>
           <p>당근PT가 보증하는 현직 트레이너들!</p>
           <div>
-			 <a href="#" class="btn btn-primary py-2 px-4">맞춤 트레이너 찾기(Click!)</a>
+			 <a href="#" id="btn_findmytrainer" class="btn btn-primary py-2 px-4">맞춤 트레이너 찾기(Click!)</a>
 		 </div>
        </div>
        	
