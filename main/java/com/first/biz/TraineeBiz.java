@@ -41,4 +41,9 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 		return dao.selectall();
 	}
 
+	public TraineeVO getbyemail(String k) {
+		TraineeVO obj = dao.selectbyemail(k);
+		return obj;
+	}
+
 }

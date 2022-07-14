@@ -101,7 +101,12 @@ public class TrainerVO {
 	// 주소 두 번째 단어까지
 	public void shortenaddr() {
 		String[] addr = this.gym_addr1.split(" ");
-		this.addrshort = addr[0].toString() + " " + addr[1].toString();
+		if(addr.length >= 2) {
+			this.addrshort = addr[0].toString() + " " + addr[1].toString();
+		}else {
+			this.addrshort = addr[0].toString();
+		}
+		
 	}
 
 }
