@@ -66,7 +66,7 @@ p {
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
-	border: 1px solid #673AB7;
+	border: 1px solid #769BCD;
 	outline-width: 0
 }
 
@@ -84,7 +84,7 @@ p {
 }
 
 #msform .action-button:hover, #msform .action-button:focus {
-	background-color: #311B92
+	background-color: #469ACD;
 }
 
 #msform .action-button-previous {
@@ -225,6 +225,18 @@ p {
 .fit-image {
 	width: 100%;
 }
+
+#next-btn-1:disabled  {
+	color: rgba(white, 0.5);
+    background-color: grey;
+    cursor: auto;
+}
+
+#next-btn-1:disabled:hover {
+	color: rgba(white, 0.5);
+    background-color: grey;
+    cursor: auto;
+}
 </style>
 
 
@@ -235,50 +247,16 @@ p {
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	// 주소지 API
-	function sample6_execDaumPostcode() {
-		new daum.Postcode(
-				{
-					oncomplete : function(data) {
-
-						var addr = '';
-						var extraAddr = '';
-						if (data.userSelectedType === 'R') {
-							addr = data.roadAddress;
-						} else {
-							addr = data.jibunAddress;
-						}
-
-						if (data.userSelectedType === 'R') {
-							if (data.bname !== ''
-									&& /[동|로|가]$/g.test(data.bname)) {
-								extraAddr += data.bname;
-							}
-							if (data.buildingName !== ''
-									&& data.apartment === 'Y') {
-								extraAddr += (extraAddr !== '' ? ', '
-										+ data.buildingName : data.buildingName);
-							}
-							if (extraAddr !== '') {
-								extraAddr = ' (' + extraAddr + ')';
-							}
-						//	document.getElementById("sample6_extraAddress").value = extraAddr;
-
-						} else {
-						//	document.getElementById("sample6_extraAddress").value = '';
-						}
-
-						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr+extraAddr;
-						document.getElementById("sample6_detailAddress")
-								.focus();
-					}
-				}).open();
-	}
-
 
 	// ajax 이용해서 사용가능한 아이디, 불가능한 아이디 띄우기
 	$(document).ready(function() {
+		
+		$('#next-btn-1').attr('disabled','disabled');
+		$('#next-btn-2').attr('disabled','disabled');
+		$('#next-btn-3').attr('disabled','disabled');
+		$('#next-btn-4').attr('disabled','disabled');
+		$('#next-btn-5').attr('disabled','disabled'); 
+				
 		$('#id').keyup(function() {
 			var id = $(this).val();
 			$.ajax({
@@ -318,6 +296,57 @@ p {
 			});
 		});
 		
+		// 비밀번호 확인
+		$('input[name="cpwd"]').keyup(function(){
+			var pwd = $('input[name="pwd"]').val();
+			var pwd2 = $('input[name="cpwd"]').val();
+			if(pwd == pwd2){
+				$('#scpwd').text('일치 합니다.');
+				$('#next-btn-1').removeAttr('disabled');
+			}
+		});
+		
+		// 주소지 API
+		function sample6_execDaumPostcode() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+
+							var addr = '';
+							var extraAddr = '';
+							if (data.userSelectedType === 'R') {
+								addr = data.roadAddress;
+							} else {
+								addr = data.jibunAddress;
+							}
+
+							if (data.userSelectedType === 'R') {
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName : data.buildingName);
+								}
+								if (extraAddr !== '') {
+									extraAddr = ' (' + extraAddr + ')';
+								}
+							//	document.getElementById("sample6_extraAddress").value = extraAddr;
+
+							} else {
+							//	document.getElementById("sample6_extraAddress").value = '';
+							}
+
+							document.getElementById('sample6_postcode').value = data.zonecode;
+							document.getElementById("sample6_address").value = addr+extraAddr;
+							document.getElementById("sample6_detailAddress")
+									.focus();
+						}
+					}).open();
+		}
+		
 		// 	INSERT 기능
 		$('#register_btn').click(function() {
 
@@ -328,8 +357,11 @@ p {
 			});
 			$('.user').submit();
 		});
-
+		
+	
 	});
+	
+
 
 	// 멀티스텝 form
 	$(document).ready(
@@ -466,10 +498,12 @@ p {
 								<input type="text" id="id" name="id"
 								placeholder="UserName" /> <label class="fieldlabels">비밀번호:
 								*</label> <input type="password" name="pwd" placeholder="Password" /> <label
-								class="fieldlabels">비밀번호 확인: *</label> <input type="password"
+								class="fieldlabels">비밀번호 확인: *</label> <span id="scpwd"></span>
+								
+								<input type="password"
 								name="cpwd" placeholder="Confirm Password" />
 						</div>
-						<input type="button" name="next" class="next action-button"
+						<input type="button" name="next" class="next action-button" id="next-btn-1"
 							value="다음" />
 					</fieldset>
 
