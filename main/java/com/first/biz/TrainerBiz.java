@@ -66,5 +66,13 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		}
 		return list;
 	}
+	
+	public List<TrainerVO> getauthorized() throws Exception{
+		List<TrainerVO> list = dao.selectauthorized();
+		for (TrainerVO v : list) {
+			trainerinfo(v);
+		}
+		return list;
+	}
 
 }
