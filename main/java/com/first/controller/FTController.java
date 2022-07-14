@@ -29,5 +29,17 @@ public class FTController {
 		m.addAttribute("center", "trainers/trcenter");
 		return "index";
 	}
+	
+	@RequestMapping("/detail")
+	public String detail(Model m, String id) {
+		try {
+			TrainerVO obj = biz.get(id);
+			m.addAttribute("dtrainer", obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "trainers/trdetail");
+		return "index";
+	}
 
 }

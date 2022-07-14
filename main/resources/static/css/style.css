@@ -8649,13 +8649,13 @@ h1, h2, h3, h4, h5,
         background: #769BCD !important;
         color: #fff !important; }
   .btn.btn-secondary {
-    background: #b2bbc9 !important;
-    border: 1px solid #b2bbc9 !important;
-    color: #fff !important; }
+    background: #fff !important;
+    border: 1px solid #769BCD !important;
+    color: #769BCD !important; }
     .btn.btn-secondary:hover {
-      border: 1px solid #b2bbc9 !important;
-      background: transparent !important;
-      color: #b2bbc9 !important; }
+    background: #fff !important;
+    border: 1px solid #769BCD !important;
+    color: #769BCD !important; }
     .btn.btn-secondary.btn-outline-primary {
       border: 1px solid #b2bbc9;
       background: transparent;

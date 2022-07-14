@@ -1,4 +1,25 @@
+<style>
+	.majoraddr{
+		display:flex;
+		justify-content:space-between;
+	}
+	
+	#addrshort{
+		float:right;
+		background:white;
+		border:1px solid #769BCD;
+		border-radius:7px;
+		padding:0px 6px;
+	}
+	
+	#addrshort span{
+		color:#769BCD;
+	}
+</style>
 
+<script>
+	
+</script>
 <!-- Header image Start -->
 	<section class="hero-wrap hero-wrap-2 trcenter-body"
 		style="background-image: url('/images/fitness/FindTrainers8.jpg');"
@@ -33,23 +54,29 @@
 						<div class="project">
 						<!-- 프로필 사진 -->
 							<div class="img">
-								<a href="destination-single.html"><img
+								<a th:href="'/trainers/detail?id='+${t.id}"><img
 									src="/images/team/team-1.jpg" class="img-fluid"
 									alt="Colorlib Template"></a>
 							</div>
 						<!-- 정보 Start-->
 							<div class="text">
-								<span th:text="${t.major}"></span>
-								<h3>
-									<a href="destination-single.html" th:text="${t.name}"></a>
-								</h3>
+								<div id="info majoraddr">
+									<span th:text="${t.major}"></span>
+									<div id="addrshort"><span th:text="${t.addrshort}"></span></div>
+								</div>
+								<div>
+									<h3><a th:href="'/trainers/detail?id='+${t.id}" th:text="${t.name}"></a></h3>
+								</div>
+								
+								<span th:text="${t.gym_name}"></span>
+								 
 								<div class="star d-flex clearfix">
 									<div class="mr-auto float-left">
 										<span class="ion-ios-star"></span>
 										<span th:text="${t.avgrate}"></span>
 									</div>
 									<div class="float-right">
-										<span class="rate"><a href="#" th:text="'('+${t.rvcnt}+')'"></a></span>
+										<span class="rate"><a th:text="'('+${t.rvcnt}+')'"></a></span>
 									</div>
 								</div>
 							</div>
