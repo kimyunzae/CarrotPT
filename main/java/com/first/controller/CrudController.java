@@ -1,7 +1,5 @@
 package com.first.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,23 +9,24 @@ import com.first.biz.TrainerBiz;
 import com.first.vo.TrainerVO;
 
 @Controller
-
-@RequestMapping("/trainers")
-public class FTController {
+public class CrudController {
 
 	@Autowired
 	TrainerBiz biz;
+	
+	@RequestMapping("/addimpl")
+	public String addimpl(Model m, TrainerVO t) {
+//		String imgname = t.getMf().getOriginalFilename();
+//		t.setPimgname(imgname);
 
-	@RequestMapping("/")
-	public String main(Model m) {
 		try {
-			List<TrainerVO> list = biz.get();
-			m.addAttribute("trlist", list);
+			biz.register(t);
+//			Util.saveFile(t.getMf(), admindir);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		m.addAttribute("center", "trainers/trcenter");
+
 		return "index";
 	}
-
+	
 }

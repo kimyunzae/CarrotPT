@@ -42,6 +42,7 @@ public class UserController {
 		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
+<<<<<<< HEAD
 
 	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
 	@ResponseBody  //AJAX후 값을 리턴하기위해 작성
@@ -67,4 +68,12 @@ public class UserController {
 		}	
 	
 	
+=======
+	
+	@RequestMapping("/tmypage")
+	public String tmypage(Model m) {
+		m.addAttribute("center", "user/tmypage");
+		return "index";
+	}
+>>>>>>> 13d672725034da76bcca7e78a5809c59691481ef
 }

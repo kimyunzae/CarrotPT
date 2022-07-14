@@ -42,10 +42,12 @@ public class CslBiz implements Biz<Integer, CslVO> {
 		return dao.selectall();
 	}
 
+	// 수락 여부 수정
 	public void modifyread(CslVO v) throws Exception {
 		dao.updateread(v);
 	}
 	
+	// 상담 완료 여부 수정
 	public void modifyprogress(CslVO v) throws Exception{
 		dao.updateprogress(v);
 	}

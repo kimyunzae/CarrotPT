@@ -37,6 +37,8 @@ public class TrainerVO {
 	private String profile3;
 	private String regdate;
 	private String level;
+	private Double avgrate;
+	private int rvcnt;
 
 	
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
@@ -87,7 +89,6 @@ public class TrainerVO {
 		this.career = career;
 		this.regdate = regdate;
 	}
-
 	
 
 
