@@ -11,6 +11,21 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="trainerVO">
 		SELECT * FROM trainer
 	</select>
+<!-- select: status가 '수락'인 트레이너 목록-->
+	<select id="selectbyemail" resultType="trainerVO">
+		SELECT * FROM trainer WHERE email=#{email}
+	</select>
+
+<!-- select: status가 '수락'인 트레이너 목록-->
+	<select id="selectauthorized" resultType="trainerVO">
+		SELECT * FROM trainer
+		WHERE status='수락';
+	</select>
+<!-- select: status가 '수락'인 트레이너 데이터 개수-->
+	<select id="selectcnt" resultType="int">
+		SELECT COUNT(*) FROM trainer
+		WHERE status = '수락';
+	</select>
 
 	<insert id="insert" parameterType="trainerVO">
 		INSERT INTO trainer VALUES(#{id},#{pwd},#{name},#{phone},#{email},#{gender},#{major},

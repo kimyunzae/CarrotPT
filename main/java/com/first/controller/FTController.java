@@ -20,12 +20,19 @@ public class FTController {
 
 	@RequestMapping("/")
 	public String main(Model m) {
+		int cnt = 0;
 		try {
-			List<TrainerVO> list = biz.get();
+			List<TrainerVO> list = biz.getauthorized();
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		try {
+			cnt = biz.getcnt();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("trcnt", cnt);
 		m.addAttribute("center", "trainers/trcenter");
 		return "index";
 	}

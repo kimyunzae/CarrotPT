@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.first.biz.TraineeBiz;
+import com.first.biz.TrainerBiz;
 import com.first.vo.TraineeVO;
+import com.first.vo.TrainerVO;
 
 @RestController
 public class AJAXController {
@@ -13,21 +15,37 @@ public class AJAXController {
 	@Autowired
 	TraineeBiz traineebiz;
 	
+	@Autowired
+	TrainerBiz tbiz;
+
 	@RequestMapping("checkid")
 	public String checkid(String id) {
+<<<<<<< HEAD
 		
 		String result = "";
 		TraineeVO ie = null;
 		
 		if(id.equals("") || id == null) {
+=======
+
+		String result = "";
+		TraineeVO i = null;
+
+		if (id.equals("") || id == null) {
+>>>>>>> master
 			return "1";
 		}
-		
+
 		try {
+<<<<<<< HEAD
 			ie = traineebiz.get(id);
 			if(ie == null) {
+=======
+			i = biz.get(id);
+			if (i == null) {
+>>>>>>> master
 				result = "0";
-			}else{
+			} else {
 				result = "1";
 			}
 		} catch (Exception e) {
@@ -35,6 +53,7 @@ public class AJAXController {
 		}
 		return result;
 	}
+<<<<<<< HEAD
 	
 	@RequestMapping("checkemail")
 	public String checkemail(String email) {
@@ -58,6 +77,9 @@ public class AJAXController {
 		return result;
 	}
 	
+=======
+
+>>>>>>> master
 //	회원가입 성공 시 joinok page 띄우기
 //	@RequestMapping("/join_formimpl")
 //	public String join_formimpl(Model m,String id, String pwd) {
@@ -66,13 +88,51 @@ public class AJAXController {
 //	m.addAttribute("left","ajax/left");
 //		return "main";	
 //	}
-		
+
+	
+// ====================================== 트레이너 회원가입 ===========================================
+	@RequestMapping("checktid")
+	public String checktid(String id) {
+		String result = "";
+		TrainerVO i = null;
+
+		if (id.equals("") || id == null) {
+			return "1";
+		}
+
+		try {
+			i = tbiz.get(id);
+			if (i == null) {
+				result = "0";
+			} else {
+				result = "1";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@RequestMapping("checktemail")
+	public String checktemail(String email) {
+		String result = "";
+		TrainerVO i = null;
+
+		if (email.equals("") || email == null) {
+			return "1";
+		}
+
+		try {
+			i = tbiz.getbyemail(email);
+			if (i == null) {
+				result = "0";
+			} else {
+				result = "1";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }
-
-
-
-
-
-
-
-

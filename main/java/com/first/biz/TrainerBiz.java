@@ -66,5 +66,26 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		}
 		return list;
 	}
+	
+
+	// status가 '수락'인 trainer 목록
+	public TrainerVO getbyemail(String k) throws Exception {
+		TrainerVO obj = dao.selectbyemail(k);
+		trainerinfo(obj);
+		return obj;
+	}
+
+	public List<TrainerVO> getauthorized() throws Exception{
+		List<TrainerVO> list = dao.selectauthorized();
+		for (TrainerVO v : list) {
+			trainerinfo(v);
+		}
+		return list;
+	}
+	
+	// status가 '수락'인 trainer 데이터 개수
+	public int getcnt() throws Exception{
+		return dao.selectcnt();
+	}
 
 }

@@ -1,5 +1,7 @@
 package com.first.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,8 +42,13 @@ public class TrainerVO {
 	private Double avgrate;
 	private int rvcnt;
 	private String addrshort;
+	private MultipartFile lc1;
+	private MultipartFile lc2;
+	private MultipartFile lc3;
+	private MultipartFile pf1;
+	private MultipartFile pf2;
+	private MultipartFile pf3;
 
-	
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
 
 	public TrainerVO(String id, String pwd, String phone, String email, String gender, String major, String gym_name,
@@ -71,7 +78,7 @@ public class TrainerVO {
 		this.profile3 = profile3;
 		this.level = level;
 	}
-	
+
 	// for insert default null과 default 값 존재하는 column 제외
 
 	public TrainerVO(String id, String pwd, String name, String phone, String email, String gender, String major,
@@ -96,9 +103,5 @@ public class TrainerVO {
 		String[] addr = this.gym_addr1.split(" ");
 		this.addrshort = addr[0].toString() + " " + addr[1].toString();
 	}
-	
-	
-	
-
 
 }

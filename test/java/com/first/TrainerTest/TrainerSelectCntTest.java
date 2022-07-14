@@ -8,7 +8,7 @@ import com.first.biz.TrainerBiz;
 import com.first.vo.TrainerVO;
 
 @SpringBootTest
-class TrainerSelectTest {
+class TrainerSelectCntTest {
 
 	@Autowired
 	TrainerBiz biz;
@@ -16,9 +16,8 @@ class TrainerSelectTest {
 	@Test
 	void contextLoads() {
 		try {
-			TrainerVO obj = biz.get("ewq");
-			System.out.println(obj);
-
+			int cnt = biz.getcnt();
+			System.out.println(cnt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
