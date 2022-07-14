@@ -1,7 +1,6 @@
 package com.first.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,23 +11,45 @@ import com.first.vo.TraineeVO;
 public class AJAXController {
 
 	@Autowired
-	TraineeBiz biz;
+	TraineeBiz traineebiz;
 	
 	@RequestMapping("checkid")
-	public String checkuid(String id) {
+	public String checkid(String id) {
 		
 		String result = "";
-		TraineeVO i = null;
+		TraineeVO ie = null;
 		
 		if(id.equals("") || id == null) {
 			return "1";
 		}
 		
 		try {
-			i = biz.get(id);
-			if(i == null) {
+			ie = traineebiz.get(id);
+			if(ie == null) {
 				result = "0";
 			}else{
+				result = "1";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@RequestMapping("checkemail")
+	public String checkemail(String email) {
+		String result = "";
+		TraineeVO i = null;
+
+		if (email.equals("") || email == null) {
+			return "1";
+		}
+
+		try {
+			i = traineebiz.getbyemail(email);
+			if (i == null) {
+				result = "0";
+			} else {
 				result = "1";
 			}
 		} catch (Exception e) {

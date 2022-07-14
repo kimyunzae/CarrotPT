@@ -45,57 +45,59 @@
 					}
 				}).open();
 	}
+</script>
 
-	//jquery 이벤트 이용해서
-	function checkid(id) {
+<script>
+//아이디 중복 체크
+$(document).ready(function() {
+	$('#id').keyup(function() {
+		var inputid = $(this).val();
 		$.ajax({
-			url : 'checkid',
+			url : '/checkid',
 			data : {
-				'id' : id
+				id : inputid
+			},
+			success : function(result) {
+				if (result == '1') {
+					$('#ieid').text('사용불가능한 아이디입니다');
+				
+				} else {
+					$('#ieid').text('사용가능한 아이디입니다.');
+					
+				}
+			}
+		});
+	});
+	
+	//사용가능한 이메일 중복 체크
+	$('#email').keyup(function() {
+		var email = $(this).val();
+		$.ajax({
+			url : '/checkeemail',
+			data : {
+				email : inputemail
 			},
 			success : function(data) {
 				if (data == '1') {
-					$('#iid').text('사용가능 합니다.');
+					$('#ieemail').text('사용불가능한 이메일입니다');
+					
 				} else {
-					$('#iid').text('사용 불가능 합니다.');
+					$('#ieemail').text('사용가능한 이메일입니다.');
+					
 				}
 			}
 		});
-	};
-
-	$(document).ready(function() {
-		$('input[name="id"]').keyup(function() {
-			var id = $(this).val();
-			//길이가 3자리 미만이면 span에 "3자리 이상이어야 합니다." 출력
-			if (id.length < 3) {
-				$('#iid').text('3자리 이상이어야 합니다.');
-			} else { //3자리 이상이면 서버에 전송
-				$('#iid').text('');
-				checkid(id);
-			}
-			$('button').attr('disabled', 'disabled');
-			$('button').click(function() {
-
-				$('#join_form').attr({
-					'action' : 'join_formimpl',
-					'method' : 'post'
-				});
-				$('#join_form').submit();
-			});
-
-			$('input[name="pwd2"]').keyup(function name() {
-				var pwd = $('input[name="pwd"]').val();
-				var pwd2 = $('input[name="pwd2"]').val();
-				if (pwd == pwd2) {
-					$('#spwd2').text('일치합니다.');
-					$('button').removeAttr('disabled'); // 값을 입력하면 disabled를 지워서 버튼 활성화
-				}
-
-			});
-
-		});
-
 	});
+	
+/* 		// 	INSERT 기능
+	$('#join_btn').click(function() {
+		$('.user').attr({
+			'method' : 'post',
+			'action' : '/joinimpl'
+		});
+		$('.user').submit();
+	});
+}); */
 </script>
 
 <section class="ftco-section contact-section ftco-no-pb"
@@ -112,31 +114,8 @@
 				<form id="join_form" action=""
 					class="bg-light p-4 p-md-5 contact-form">
 					<div class="form-group">
-						<label>아이디 *: </label> <input type="text" name="id"
-							class="form-control">
-
-						<!-- 	ajax를 이용해 아이디 중복 체크 기능 구현  -->
-						<button id="id_btn" type="button" class="btn btn-primary"
-							data-toggle="modal" data-target="#myModal">중복확인</button>
-
-						<!-- 	The Modal  -->
-						<div class="modal" id="myModal">
-							<div class="modal-dialog">
-								<div class="modal-content">
-
-									<!--   Modal body -->
-									<div class="modal-body" id="iid">사용가능한 아이디입니다.</div>
-
-									<!--  Modal footer  -->
-									<div class="modal-footer">
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">Close</button>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
+						<label>아이디 *: </label> <span id="ieid"></span> 
+						<input type="text" id="id" name="id" class="form-control">
 					</div>
 
 
@@ -146,8 +125,8 @@
 					</div>
 					<div class="form-group">
 						<label>비밀번호 확인 *: </label> <input type="password" name="pwd2"
-							placeholder="비밀번호를 다시 입력해주세요" class="form-control">
-							<span id="spwd2"></span><br>
+							placeholder="비밀번호를 다시 입력해주세요" class="form-control"> <span
+							id="spwd2"></span><br>
 					</div>
 					<!-- 비밀번호가 일치합니다 ajax로 구현  -->
 					<div class="form-group">
@@ -157,8 +136,9 @@
 						<label>휴대폰 번호 *: </label> <input type="text" class="form-control">
 					</div>
 					<div class="form-group">
-						<label>이메일 *: </label> <input type="email" id="email_id"
-							class="form-control" value="" placeholder="이메일" maxlength="20">
+						<label>이메일 *: </label> <span id="ieemail"></span> 
+						<input type="text" id="email" name="email" class="form-control" value=""
+							placeholder="이메일" maxlength="20">
 						<!--<input type="text" id="email_domain"
 							class="form-control col-sm-6" value="" title="이메일 도메인"
 							placeholder="이메일 도메인" maxlength="20"> 
@@ -226,6 +206,8 @@
 					<div class="form-group">
 						<button type="submit" id="join_btn"
 							class="btn btn-primary py-3 px-5">회원가입</button>
+
+
 					</div>
 				</form>
 
