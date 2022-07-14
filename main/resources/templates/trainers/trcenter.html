@@ -34,8 +34,16 @@
 	}
 </style>
 
-<script>
-	
+<script th:inline="javascript">
+	$(function(){
+		var a = [[${trcnt}]];
+		alert("ddd");
+		//var numberOfItems = "[[${trcnt}]]";
+		var limitPerPage = 6;
+		var totalPages = Math.ceil(numberOfItems / limitPerPage);
+		var paginationSize = 5;
+		var currentPage;
+	});
 </script>
 <!--  
 	<section class="hero-wrap hero-wrap-2 trcenter-body"

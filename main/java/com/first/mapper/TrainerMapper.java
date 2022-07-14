@@ -17,4 +17,5 @@ public interface TrainerMapper {
 	public TrainerVO select(String obj) throws Exception;
 	public List<TrainerVO> selectall() throws Exception;
 	public List<TrainerVO> selectauthorized() throws Exception;
+	public int selectcnt() throws Exception;
 }
