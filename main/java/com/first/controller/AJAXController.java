@@ -20,40 +20,26 @@ public class AJAXController {
 
 	@RequestMapping("checkid")
 	public String checkid(String id) {
-<<<<<<< HEAD
-		
 		String result = "";
 		TraineeVO ie = null;
 		
-		if(id.equals("") || id == null) {
-=======
-
-		String result = "";
-		TraineeVO i = null;
-
 		if (id.equals("") || id == null) {
->>>>>>> master
-			return "1";
+			result = "1";
 		}
 
 		try {
-<<<<<<< HEAD
 			ie = traineebiz.get(id);
 			if(ie == null) {
-=======
-			i = biz.get(id);
-			if (i == null) {
->>>>>>> master
 				result = "0";
-			} else {
+			}else {
 				result = "1";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return result;
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping("checkemail")
 	public String checkemail(String email) {
@@ -77,9 +63,6 @@ public class AJAXController {
 		return result;
 	}
 	
-=======
-
->>>>>>> master
 //	회원가입 성공 시 joinok page 띄우기
 //	@RequestMapping("/join_formimpl")
 //	public String join_formimpl(Model m,String id, String pwd) {

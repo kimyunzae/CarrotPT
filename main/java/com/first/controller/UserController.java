@@ -1,12 +1,11 @@
 package com.first.controller; 
 
-<<<<<<< HEAD
-=======
+
 import java.util.Random;
 
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSenderImpl;
->>>>>>> master
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,8 +43,7 @@ public class UserController {
 		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
-<<<<<<< HEAD
-	
+
 	
 
 //
@@ -77,7 +75,6 @@ public class UserController {
 //		m.addAttribute("center", "user/tmypage");
 //		return "index";
 //	}
-=======
 
 
 //	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
@@ -111,5 +108,4 @@ public class UserController {
 		return "index";
 	}
 
->>>>>>> master
 }
