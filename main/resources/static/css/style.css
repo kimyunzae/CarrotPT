@@ -8637,8 +8637,8 @@ h1, h2, h3, h4, h5,
     border: 1px solid #769BCD !important;
     color: #fff !important; }
     .btn.btn-primary:hover {
-      border: 1px solid #769BCD;
-      background: #769BCD;
+      border: 1px solid #307DCA;
+      background: #2D70B3;
       color: #769BCD; }
     .btn.btn-primary.btn-outline-primary {
       border: 2px solid #769BCD !important;

@@ -16,5 +16,9 @@ public interface TrainerMapper {
 	public void update(TrainerVO obj) throws Exception;
 	public TrainerVO select(String obj) throws Exception;
 	public List<TrainerVO> selectall() throws Exception;
+<<<<<<< HEAD
 	public TrainerVO selectbyemail(String obj) throws Exception;
+=======
+	public List<TrainerVO> selectauthorized() throws Exception;
+>>>>>>> master
 }

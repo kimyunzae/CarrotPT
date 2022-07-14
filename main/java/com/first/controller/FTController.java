@@ -21,7 +21,7 @@ public class FTController {
 	@RequestMapping("/")
 	public String main(Model m) {
 		try {
-			List<TrainerVO> list = biz.get();
+			List<TrainerVO> list = biz.getauthorized();
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();

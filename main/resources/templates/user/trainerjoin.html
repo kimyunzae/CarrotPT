@@ -262,14 +262,14 @@ p {
 							if (extraAddr !== '') {
 								extraAddr = ' (' + extraAddr + ')';
 							}
-							document.getElementById("sample6_extraAddress").value = extraAddr;
+						//	document.getElementById("sample6_extraAddress").value = extraAddr;
 
 						} else {
-							document.getElementById("sample6_extraAddress").value = '';
+						//	document.getElementById("sample6_extraAddress").value = '';
 						}
 
 						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr;
+						document.getElementById("sample6_address").value = addr+extraAddr;
 						document.getElementById("sample6_detailAddress")
 								.focus();
 					}
@@ -518,9 +518,10 @@ p {
 								placeholder="우편번호"> <label class="fieldlabels">주소:
 								*</label> <input type="text" id="sample6_address" name="gym_addr1"
 								placeholder="Address"> <label class="fieldlabels">상세주소:
-								*</label> <input type="text" id="sample6_detailAddress" name="gym_addr2"
+								</label> <input type="text" id="sample6_detailAddress" name="gym_addr2"
 								placeholder="Address detail">
 
+					
 							<!-- <label class="fieldlabels">건물명: *</label> 
 							<input type="text" id="sample6_extraAddress" placeholder="Building">
  							-->

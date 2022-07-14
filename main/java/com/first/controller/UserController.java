@@ -1,4 +1,4 @@
-package com.first.controller;
+package com.first.controller; 
 
 import java.util.Random;
 
@@ -43,8 +43,10 @@ public class UserController {
 		return "index";
 	}
 
+
 //	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
 //	@ResponseBody  //AJAX후 값을 리턴하기위해 작성
+//
 //		public String SendMail(String mail) {
 //			Random random=new Random();  //난수 생성을 위한 랜덤 클래스
 //			String key="";  //인증번호 
@@ -72,4 +74,5 @@ public class UserController {
 		m.addAttribute("center", "user/tmypage");
 		return "index";
 	}
+
 }
