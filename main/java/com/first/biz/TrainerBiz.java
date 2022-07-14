@@ -66,5 +66,12 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		}
 		return list;
 	}
+	
+	public TrainerVO getbyemail(String k) throws Exception {
+		TrainerVO obj = dao.selectbyemail(k);
+		trainerinfo(obj);
+		return obj;
+	}
+
 
 }

@@ -1,7 +1,8 @@
 <style>
- #btn_findid {
+#btn_findid {
 	float: right;
-} 
+}
+
 * {
 	margin: 0;
 	padding: 0
@@ -14,7 +15,6 @@ html {
 p {
 	color: grey
 }
-
 
 #heading {
 	text-transform: uppercase;
@@ -113,7 +113,7 @@ p {
 
 .fs-title {
 	font-size: 25px;
-	color:#769BCD;
+	color: #769BCD;
 	margin-bottom: 15px;
 	font-weight: normal;
 	text-align: left
@@ -219,12 +219,11 @@ p {
 }
 
 .progress-bar {
-	background-color: #769BCD; 
+	background-color: #769BCD;
 }
 
 .fit-image {
 	width: 100%;
-
 }
 </style>
 
@@ -232,10 +231,11 @@ p {
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	/* 주소지 API
+	// 주소지 API
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
 				{
@@ -274,21 +274,64 @@ p {
 								.focus();
 					}
 				}).open();
-	} */
-	
-	/* INSERT 기능
-	$(document).ready(function() {
+	}
 
-		$('#registerbtn').click(function() {
+
+	// ajax 이용해서 사용가능한 아이디, 불가능한 아이디 띄우기
+	$(document).ready(function() {
+		$('#id').keyup(function() {
+			var id = $(this).val();
+			$.ajax({
+				url : '/checktid',
+				data : {
+					'id' : id
+				},
+				success : function(data) {
+					if (data == '1') {
+						$('#iuid').text('사용불가능한 아이디입니다');
+						/*  alert("사용 불가능한 아이디입니다")  */
+					} else {
+						$('#iuid').text('사용가능한 아이디입니다.');
+						/* alert("사용 가능한 아이디입니다.") */
+					}
+				}
+			});
+		});
+		
+		// ajax 이용해서 사용가능한 이메일, 불가능한 이메일 띄우기
+		$('#email').keyup(function() {
+			var email = $(this).val();
+			$.ajax({
+				url : '/checktemail',
+				data : {
+					'email' : email
+				},
+				success : function(data) {
+					if (data == '1') {
+						$('#iuemail').text('사용불가능한 이메일입니다');
+						/*  alert("사용 불가능한 아이디입니다")  */
+					} else {
+						$('#iuemail').text('사용가능한 이메일입니다.');
+						/* alert("사용 가능한 아이디입니다.") */
+					}
+				}
+			});
+		});
+		
+		// 	INSERT 기능
+		$('#register_btn').click(function() {
+
 			$('.user').attr({
 				'enctype' : 'multipart/form-data',
 				'method' : 'post',
-				'action' : 'addimpl'
+				'action' : '/tregisterimpl'
 			});
 			$('.user').submit();
 		});
-	}); */
 
+	});
+
+	// 멀티스텝 form
 	$(document).ready(
 			function() {
 
@@ -388,7 +431,7 @@ p {
 			<div class="card px-0 pt-4 pb-0 mt-3 mb-3">
 				<h2 id="heading">트레이너로 가입하기</h2>
 				<p>작성란에 모두 기입해주세요</p>
-				<form id="msform">
+				<form id="msform" class="user">
 					<!-- progressbar -->
 					<ul id="progressbar">
 						<li class="active" id="account"><strong>계정</strong></li>
@@ -416,19 +459,20 @@ p {
 									<h2 class="steps">Step 1 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">이메일: *</label> <input type="email"
-								name="email" placeholder="Email Id" /> <label
-								class="fieldlabels">아이디: *</label> <input type="text"
-								name="uname" placeholder="UserName" /> <label
-								class="fieldlabels">비밀번호: *</label> <input type="password"
-								name="pwd" placeholder="Password" /> <label class="fieldlabels">비밀번호
-								확인: *</label> <input type="password" name="cpwd"
-								placeholder="Confirm Password" />
+							<label class="fieldlabels">이메일: *</label> <span id="iuemail"></span>
+							<input type="email" id="email"
+								name="email" placeholder="Email" required /> <label
+								class="fieldlabels">아이디: *</label> <span id="iuid"></span>
+								<input type="text" id="id" name="id"
+								placeholder="UserName" /> <label class="fieldlabels">비밀번호:
+								*</label> <input type="password" name="pwd" placeholder="Password" /> <label
+								class="fieldlabels">비밀번호 확인: *</label> <input type="password"
+								name="cpwd" placeholder="Confirm Password" />
 						</div>
 						<input type="button" name="next" class="next action-button"
 							value="다음" />
 					</fieldset>
-					
+
 					<!-- 트레이너 정보 -->
 					<fieldset>
 						<div class="form-card">
@@ -440,20 +484,19 @@ p {
 									<h2 class="steps">Step 2 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">이름: *</label> <input
-								type="text" name="fname" placeholder="Name" /> <label
-								class="fieldlabels">휴대폰 번호: *</label> <input type="text"
-								name="lname" placeholder="Phone" /> <label
+							<label class="fieldlabels">이름: *</label> <input type="text"
+								name="name" placeholder="Name" /> <label class="fieldlabels">휴대폰
+								번호: *</label> <input type="text" name="phone" placeholder="Phone" /> <label
 								class="fieldlabels">성별: *</label> <input type="text"
-								name="phno" placeholder="Gender" /> <label
-								class="fieldlabels">운동종목: *</label> <input
-								type="text" name="phno_2" placeholder="Field (ex: Body-building, etc)" />
+								name="gender" placeholder="Gender" /> <label
+								class="fieldlabels">운동종목: *</label> <input type="text"
+								name="major" placeholder="Field (ex: Body-building, etc)" />
 						</div>
 						<input type="button" name="next" class="next action-button"
 							value="다음" /> <input type="button" name="previous"
 							class="previous action-button-previous" value="이전" />
 					</fieldset>
-					
+
 					<!-- 트레이너 정보 -->
 					<fieldset>
 						<div class="form-card">
@@ -465,32 +508,30 @@ p {
 									<h2 class="steps">Step 3 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">헬스장 이름: *</label> 
-							<input type="text" name="fname" placeholder="Name" />
-							
-							<label class="fieldlabels">우편번호: *</label>
-							<button class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호 찾기</button> 		
-											
-							<input type="text" id="sample6_postcode" placeholder="우편번호">
-								
-							<label class="fieldlabels">주소: *</label> 
-							<input type="text"  id="sample6_address" placeholder="Address">
-							
-							<label class="fieldlabels">상세주소: *</label> 
-							<input type="text"  id="sample6_detailAddress" placeholder="Address detail"> 
-							
-			
-							<label class="fieldlabels">건물명: *</label> 
-							<input type="text" id="sample6_extraAddress" placeholder="Building">
+							<label class="fieldlabels">헬스장 이름: *</label> <input type="text"
+								name="gym_name" placeholder="Name" /> <label
+								class="fieldlabels">우편번호: *</label>
+							<button class="btn btn-primary"
+								onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 
+							<input type="text" id="sample6_postcode" name="gym_zip"
+								placeholder="우편번호"> <label class="fieldlabels">주소:
+								*</label> <input type="text" id="sample6_address" name="gym_addr1"
+								placeholder="Address"> <label class="fieldlabels">상세주소:
+								*</label> <input type="text" id="sample6_detailAddress" name="gym_addr2"
+								placeholder="Address detail">
+
+							<!-- <label class="fieldlabels">건물명: *</label> 
+							<input type="text" id="sample6_extraAddress" placeholder="Building">
+ 							-->
 						</div>
-						
+
 						<input type="button" name="next" class="next action-button"
 							value="다음" /> <input type="button" name="previous"
 							class="previous action-button-previous" value="이전" />
-						
+
 					</fieldset>
-					
+
 					<!-- 트레이너 설정 -->
 					<fieldset>
 						<div class="form-card">
@@ -502,20 +543,18 @@ p {
 									<h2 class="steps">Step 4 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">소개글: *</label> <input
-								type="text" name="fname" placeholder="Introduction" /> <label
+							<label class="fieldlabels">소개글: *</label> <input type="text"
+								name="intro" placeholder="Introduction" /> <label
 								class="fieldlabels">경력 및 수상 내역: *</label> <input type="text"
-								name="lname" placeholder="Career" /> 
-							
-							<label class="fieldlabels">대표 프로필 사진: *</label> <input
-								type="file" name="pic" accept="image/*">
-							<label class="fieldlabels">프로필 사진 2: </label> <input
-								type="file" name="pic" accept="image/*">
-							<label class="fieldlabels">프로필 사진 3: </label> <input
-								type="file" name="pic" accept="image/*">
+								name="career" placeholder="Career" /> <label
+								class="fieldlabels">대표 프로필 사진: *</label> <input type="file"
+								name="pf1" accept="image/*"> <label class="fieldlabels">프로필
+								사진 2: </label> <input type="file" name="pf2" accept="image/*"> <label
+								class="fieldlabels">프로필 사진 3: </label> <input type="file"
+								name="pf3" accept="image/*">
 
-						</div>							
-							<input type="button" name="next" class="next action-button"
+						</div>
+						<input type="button" name="next" class="next action-button"
 							value="다음" /> <input type="button" name="previous"
 							class="previous action-button-previous" value="이전" />
 					</fieldset>
@@ -531,18 +570,18 @@ p {
 									<h2 class="steps">Step 5 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">파일 첨부 1: *:</label> <input
-								type="file" name="pic" accept="image/*"> <label
-								class="fieldlabels">파일 첨부 2:</label> <input
-								type="file" name="pic" accept="image/*">
-								<label
-								class="fieldlabels">파일 첨부 3:</label> <input
-								type="file" name="pic" accept="image/*">
+							<label class="fieldlabels">파일 첨부 1: *:</label> <input type="file"
+								name="lc1" accept="image/*"> <label class="fieldlabels">파일
+								첨부 2:</label> <input type="file" name="lc2" accept="image/*"> <label
+								class="fieldlabels">파일 첨부 3:</label> <input type="file"
+								name="lc3" accept="image/*">
 						</div>
-						<input type="button" name="next" class="next action-button" value="제출" /> 
-						<input type="button" name="previous" class="previous action-button-previous" value="이전" />
+						<input type="button" id="registerbtn" name="next"
+							class="next action-button" value="제출" /> <input type="button"
+							name="previous" class="previous action-button-previous"
+							value="이전" />
 					</fieldset>
-					
+
 					<fieldset>
 						<div class="form-card">
 							<div class="row">
@@ -553,16 +592,15 @@ p {
 									<h2 class="steps">Step 6 - 6</h2>
 								</div>
 							</div>
-							<br>
-							<br>
+							<br> <br>
 							<h2 class=" text-center">
 								<strong>트레이너 가입완료!</strong>
 							</h2>
 							<br>
-							
+
 							<div class="row justify-content-center">
 								<div class="col-7 text-center">
-									<h5 class="purple-text text-center">트레이너 승인 신청: </h5>
+									<h5 class="purple-text text-center">트레이너 승인 신청:</h5>
 									<span>대기중</span>
 								</div>
 							</div>
@@ -672,4 +710,4 @@ p {
 	</div>
 </section>  -->
 
- 
+
