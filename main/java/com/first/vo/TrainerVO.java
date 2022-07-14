@@ -39,6 +39,7 @@ public class TrainerVO {
 	private String level;
 	private Double avgrate;
 	private int rvcnt;
+	private String addrshort;
 
 	
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
@@ -89,6 +90,14 @@ public class TrainerVO {
 		this.career = career;
 		this.regdate = regdate;
 	}
+
+	// 주소 두 번째 단어까지
+	public void shortenaddr() {
+		String[] addr = this.gym_addr1.split(" ");
+		this.addrshort = addr[0].toString() + " " + addr[1].toString();
+	}
+	
+	
 	
 
 

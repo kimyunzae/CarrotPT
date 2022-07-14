@@ -37,7 +37,7 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		
 	}
 	
-	// 별점 평균, 리뷰 수 세팅
+	// 별점 평균, 리뷰 수, 주소 세팅
 	public void trainerinfo(TrainerVO v) throws Exception {
 		int cnt = rdao.selectcnt(v.getId());
 		double avgrate = 0.0;
@@ -48,6 +48,7 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 			avgrate = rdao.selectavg(v.getId());
 		}
 		v.setAvgrate(avgrate);
+		v.shortenaddr();
 	}
 	
 	@Override
