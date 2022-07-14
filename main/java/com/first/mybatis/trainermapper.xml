@@ -12,6 +12,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM trainer
 	</select>
 <!-- select: status가 '수락'인 트레이너 목록-->
+	<select id="selectbyemail" resultType="trainerVO">
+		SELECT * FROM trainer WHERE email=#{email}
+	</select>
+
+<!-- select: status가 '수락'인 트레이너 목록-->
 	<select id="selectauthorized" resultType="trainerVO">
 		SELECT * FROM trainer
 		WHERE status='수락';

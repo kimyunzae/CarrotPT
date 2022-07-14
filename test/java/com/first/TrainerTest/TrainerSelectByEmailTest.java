@@ -8,7 +8,7 @@ import com.first.biz.TrainerBiz;
 import com.first.vo.TrainerVO;
 
 @SpringBootTest
-class TrainerSelectTest {
+class TrainerSelectByEmailTest {
 
 	@Autowired
 	TrainerBiz biz;
@@ -16,7 +16,7 @@ class TrainerSelectTest {
 	@Test
 	void contextLoads() {
 		try {
-			TrainerVO obj = biz.get("ewq");
+			TrainerVO obj = biz.getbyemail("abc6@naver.com");
 			System.out.println(obj);
 
 		} catch (Exception e) {
