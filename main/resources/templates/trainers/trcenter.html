@@ -26,9 +26,6 @@
 		font-style:bold;
 	}
 	
-</style>
-
-<style>
 	.btn btn-primary py-2 px-4:hover{
 		background-color:white;
 	}
@@ -36,9 +33,7 @@
 
 <script th:inline="javascript">
 	$(function(){
-		var a = [[${trcnt}]];
-		alert("ddd");
-		//var numberOfItems = "[[${trcnt}]]";
+		var numberOfItems = [[${trcnt}]];
 		var limitPerPage = 6;
 		var totalPages = Math.ceil(numberOfItems / limitPerPage);
 		var paginationSize = 5;
@@ -52,8 +47,6 @@
 	</section>
 -->
 
-
-
 <section class="ftco-section">
 
 	<div class="row justify-content-center mb-5 pb-3">
@@ -62,7 +55,7 @@
           <h2 class="mb-4">트레이너</h2>
           <p>당근PT가 보증하는 현직 트레이너들!</p>
           <div>
-			 <a href="#" class="btn btn-primary py-2 px-4">맞춤 트레이너 찾기(Click!)</a>
+			 <a href="#" id="btn_findmytrainer" class="btn btn-primary py-2 px-4">맞춤 트레이너 찾기(Click!)</a>
 		 </div>
        </div>
        	
