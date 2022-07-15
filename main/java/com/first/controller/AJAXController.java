@@ -24,7 +24,7 @@ public class AJAXController {
 		TraineeVO ie = null;
 		
 		if (id.equals("") || id == null) {
-			result = "1";
+			return "1";
 		}
 
 		try {
@@ -44,24 +44,48 @@ public class AJAXController {
 	@RequestMapping("checkemail")
 	public String checkemail(String email) {
 		String result = "";
-		TraineeVO i = null;
-
+		TraineeVO ie = null;
+		
 		if (email.equals("") || email == null) {
-			result = "1";
+			return "1";
 		}
 
 		try {
-			i = traineebiz.getbyemail(email);
-			if (i == null) {
+			ie = traineebiz.get(email);
+			if(ie == null) {
 				result = "0";
-			} else {
+			}else {
 				result = "1";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return result;
 	}
+	
+//	@RequestMapping("checkpwd")
+//	public String checkpwd(String pwd) {
+//		String result = "";
+//		TraineeVO ie = null;
+//		
+//		if (pwd.equals("") || pwd == null) {
+//			return "1";
+//		}
+//
+//		try {
+//			ie = traineebiz.get(pwd);
+//			if(ie == null) {
+//				result = "0";
+//			}else {
+//				result = "1";
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return result;
+//	}
 	
 //	회원가입 성공 시 joinok page 띄우기
 //	@RequestMapping("/join_formimpl")
@@ -80,7 +104,7 @@ public class AJAXController {
 		TrainerVO i = null;
 
 		if (id.equals("") || id == null) {
-			result = "1";
+			return "1";
 		}
 
 		try {
@@ -102,7 +126,7 @@ public class AJAXController {
 		TrainerVO i = null;
 
 		if (email.equals("") || email == null) {
-			result = "1";
+			return "1";
 		}
 
 		try {
@@ -119,3 +143,4 @@ public class AJAXController {
 	}
 
 }
+
