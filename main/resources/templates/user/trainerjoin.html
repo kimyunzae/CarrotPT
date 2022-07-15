@@ -84,12 +84,12 @@ p {
 }
 
 #msform .action-button:hover, #msform .action-button:focus {
-	background-color: #469ACD;
+	background-color: #114d73;
 }
 
 #msform .action-button-previous {
 	width: 100px;
-	background: #616161;
+	background: #dbb3b3;
 	font-weight: bold;
 	color: white;
 	border: 0 none;
@@ -102,7 +102,7 @@ p {
 
 #msform .action-button-previous:hover, #msform .action-button-previous:focus
 	{
-	background-color: #000000
+	background-color: #bd7a7a
 }
 
 .card {
@@ -226,17 +226,17 @@ p {
 	width: 100%;
 }
 
-#next-btn-1:disabled  {
+#next-btn-1:disabled, #next-btn-2:disabled, #next-btn-3:disabled, #next-btn-4:disabled {
 	color: rgba(white, 0.5);
-    background-color: grey;
-    cursor: auto;
+	background-color: grey; 
+	cursor: auto;
 }
 
-#next-btn-1:disabled:hover {
+#next-btn-1:disabled:hover, #next-btn-2:disabled:hover, #next-btn-3:disabled:hover, #next-btn-4:disabled:hover {
 	color: rgba(white, 0.5);
-    background-color: grey;
-    cursor: auto;
-}
+	background-color: grey;
+	cursor: auto;
+} 
 </style>
 
 
@@ -247,213 +247,278 @@ p {
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-
-	// ajax 이용해서 사용가능한 아이디, 불가능한 아이디 띄우기
+	// 멀티스텝 form
 	$(document).ready(function() {
-		
-		$('#next-btn-1').attr('disabled','disabled');
-		$('#next-btn-2').attr('disabled','disabled');
-		$('#next-btn-3').attr('disabled','disabled');
-		$('#next-btn-4').attr('disabled','disabled');
-		$('#next-btn-5').attr('disabled','disabled'); 
-				
-		$('#id').keyup(function() {
-			var id = $(this).val();
-			$.ajax({
-				url : '/checktid',
-				data : {
-					'id' : id
-				},
-				success : function(data) {
-					if (data == '1') {
-						$('#iuid').text('사용불가능한 아이디입니다');
-						/*  alert("사용 불가능한 아이디입니다")  */
-					} else {
-						$('#iuid').text('사용가능한 아이디입니다.');
-						/* alert("사용 가능한 아이디입니다.") */
-					}
-				}
-			});
-		});
-		
-		// ajax 이용해서 사용가능한 이메일, 불가능한 이메일 띄우기
-		$('#email').keyup(function() {
-			var email = $(this).val();
-			$.ajax({
-				url : '/checktemail',
-				data : {
-					'email' : email
-				},
-				success : function(data) {
-					if (data == '1') {
-						$('#iuemail').text('사용불가능한 이메일입니다');
-						/*  alert("사용 불가능한 아이디입니다")  */
-					} else {
-						$('#iuemail').text('사용가능한 이메일입니다.');
-						/* alert("사용 가능한 아이디입니다.") */
-					}
-				}
-			});
-		});
-		
-		// 비밀번호 확인
-		$('input[name="cpwd"]').keyup(function(){
-			var pwd = $('input[name="pwd"]').val();
-			var pwd2 = $('input[name="cpwd"]').val();
-			if(pwd == pwd2){
-				$('#scpwd').text('일치 합니다.');
-				$('#next-btn-1').removeAttr('disabled');
-			}
-		});
-		
-		// 주소지 API
-		function sample6_execDaumPostcode() {
-			new daum.Postcode(
-					{
-						oncomplete : function(data) {
+		var current_fs, next_fs, previous_fs; //fieldsets
+		var opacity;
+		var current = 1;
+		var steps = $("fieldset").length;
 
-							var addr = '';
-							var extraAddr = '';
-							if (data.userSelectedType === 'R') {
-								addr = data.roadAddress;
-							} else {
-								addr = data.jibunAddress;
-							}
+		setProgressBar(current);
 
-							if (data.userSelectedType === 'R') {
-								if (data.bname !== ''
-										&& /[동|로|가]$/g.test(data.bname)) {
-									extraAddr += data.bname;
-								}
-								if (data.buildingName !== ''
-										&& data.apartment === 'Y') {
-									extraAddr += (extraAddr !== '' ? ', '
-											+ data.buildingName : data.buildingName);
-								}
-								if (extraAddr !== '') {
-									extraAddr = ' (' + extraAddr + ')';
-								}
-							//	document.getElementById("sample6_extraAddress").value = extraAddr;
+		$(".next").click(
+				function() {
 
-							} else {
-							//	document.getElementById("sample6_extraAddress").value = '';
-							}
+					current_fs = $(this).parent();
+					next_fs = $(this).parent().next();
 
-							document.getElementById('sample6_postcode').value = data.zonecode;
-							document.getElementById("sample6_address").value = addr+extraAddr;
-							document.getElementById("sample6_detailAddress")
-									.focus();
-						}
-					}).open();
+					//Add Class Active
+					$("#progressbar li").eq(
+							$("fieldset").index(next_fs)).addClass(
+							"active");
+
+					//show the next fieldset
+					next_fs.show();
+					//hide the current fieldset with style
+					current_fs.animate({
+						opacity : 0
+					}, {
+						step : function(now) {
+							// for making fielset appear animation
+							opacity = 1 - now;
+
+							current_fs.css({
+								'display' : 'none',
+								'position' : 'relative'
+							});
+							next_fs.css({
+								'opacity' : opacity
+							});
+						},
+						duration : 500
+					});
+					setProgressBar(++current);
+				});
+
+		$(".previous").click(
+				function() {
+
+					current_fs = $(this).parent();
+					previous_fs = $(this).parent().prev();
+
+					//Remove class active
+					$("#progressbar li").eq(
+							$("fieldset").index(current_fs))
+							.removeClass("active");
+
+					//show the previous fieldset
+					previous_fs.show();
+
+					//hide the current fieldset with style
+					current_fs.animate({
+						opacity : 0
+					}, {
+						step : function(now) {
+							// for making fielset appear animation
+							opacity = 1 - now;
+
+							current_fs.css({
+								'display' : 'none',
+								'position' : 'relative'
+							});
+							previous_fs.css({
+								'opacity' : opacity
+							});
+						},
+						duration : 500
+					});
+					setProgressBar(--current);
+				});
+
+		function setProgressBar(curStep) {
+			var percent = parseFloat(100 / steps) * curStep;
+			percent = percent.toFixed();
+			$(".progress-bar").css("width", percent + "%")
 		}
-		
-		// 	INSERT 기능
-		$('#register_btn').click(function() {
 
-			$('.user').attr({
-				'enctype' : 'multipart/form-data',
-				'method' : 'post',
-				'action' : '/tregisterimpl'
-			});
-			$('.user').submit();
-		});
-		
-	
+		$(".submit").click(function() {
+			return false; // 제출
+		})
+
 	});
 	
+	// 주소지 API
+	function sample6_execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
 
+						var addr = '';
+						var extraAddr = '';
+						if (data.userSelectedType === 'R') {
+							addr = data.roadAddress;
+						} else {
+							addr = data.jibunAddress;
+						}
 
-	// 멀티스텝 form
-	$(document).ready(
-			function() {
+						if (data.userSelectedType === 'R') {
+							if (data.bname !== ''
+									&& /[동|로|가]$/g
+											.test(data.bname)) {
+								extraAddr += data.bname;
+							}
+							if (data.buildingName !== ''
+									&& data.apartment === 'Y') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName
+										: data.buildingName);
+							}
+							if (extraAddr !== '') {
+								extraAddr = ' ('
+										+ extraAddr + ')';
+							}
+							//document.getElementById("sample6_extraAddress").value = extraAddr;
 
-				var current_fs, next_fs, previous_fs; //fieldsets
-				var opacity;
-				var current = 1;
-				var steps = $("fieldset").length;
+						} else {
+							//document.getElementById("sample6_extraAddress").value = '';
+						}
 
-				setProgressBar(current);
+						document
+								.getElementById('sample6_postcode').value = data.zonecode;
+						document
+								.getElementById("sample6_address").value = addr
+								+ extraAddr;
+						document.getElementById(
+								"sample6_detailAddress")
+								.focus();
+					}
+				}).open();
+	}
 
-				$(".next").click(
-						function() {
+	// jQuery
+	$(document).ready(function() {
+			$('#next-btn-1').attr('disabled', 'disabled');
+			$('#next-btn-2').attr('disabled', 'disabled');
+			$('#next-btn-3').attr('disabled', 'disabled');
+			$('#next-btn-4').attr('disabled', 'disabled');
+			$('#next-btn-5').attr('disabled', 'disabled');
 
-							current_fs = $(this).parent();
-							next_fs = $(this).parent().next();
-
-							//Add Class Active
-							$("#progressbar li").eq(
-									$("fieldset").index(next_fs)).addClass(
-									"active");
-
-							//show the next fieldset
-							next_fs.show();
-							//hide the current fieldset with style
-							current_fs.animate({
-								opacity : 0
-							}, {
-								step : function(now) {
-									// for making fielset appear animation
-									opacity = 1 - now;
-
-									current_fs.css({
-										'display' : 'none',
-										'position' : 'relative'
-									});
-									next_fs.css({
-										'opacity' : opacity
-									});
-								},
-								duration : 500
-							});
-							setProgressBar(++current);
-						});
-
-				$(".previous").click(
-						function() {
-
-							current_fs = $(this).parent();
-							previous_fs = $(this).parent().prev();
-
-							//Remove class active
-							$("#progressbar li").eq(
-									$("fieldset").index(current_fs))
-									.removeClass("active");
-
-							//show the previous fieldset
-							previous_fs.show();
-
-							//hide the current fieldset with style
-							current_fs.animate({
-								opacity : 0
-							}, {
-								step : function(now) {
-									// for making fielset appear animation
-									opacity = 1 - now;
-
-									current_fs.css({
-										'display' : 'none',
-										'position' : 'relative'
-									});
-									previous_fs.css({
-										'opacity' : opacity
-									});
-								},
-								duration : 500
-							});
-							setProgressBar(--current);
-						});
-
-				function setProgressBar(curStep) {
-					var percent = parseFloat(100 / steps) * curStep;
-					percent = percent.toFixed();
-					$(".progress-bar").css("width", percent + "%")
-				}
-
-				$(".submit").click(function() {
-					return false;
-				})
-
+			// ajax 이용해서 사용가능한 아이디, 불가능한 아이디 띄우기
+			$('#id').keyup(function() {
+				var id = $(this).val();
+				$.ajax({
+					url : '/checktid',
+					data : {
+						'id' : id
+					},
+					success : function(data) {
+						if (data == '1') {
+							$('#iuid').text('사용불가능한 아이디입니다');
+							/*  alert("사용 불가능한 아이디입니다")  */
+						} else {
+							$('#iuid').text('사용가능한 아이디입니다.');
+							/* alert("사용 가능한 아이디입니다.") */
+						}
+					}
+				});
 			});
+
+			// ajax 이용해서 사용가능한 이메일, 불가능한 이메일 띄우기
+			$('#email').keyup(function() {
+				var email = $(this).val();
+				$.ajax({
+					url : '/checktemail',
+					data : {
+						'email' : email
+					},
+					success : function(data) {
+						if (data == '1') {
+							$('#iuemail').text('사용불가능한 이메일입니다');
+							/*  alert("사용 불가능한 아이디입니다")  */
+						} else {
+							$('#iuemail').text('사용가능한 이메일입니다.');
+							/* alert("사용 가능한 아이디입니다.") */
+						}
+					}
+				});
+			});
+			
+			// 비밀번호 확인
+			$('input[name="cpwd"]').keyup(function() {
+				var pwd = $('input[name="pwd"]').val();
+				var pwd2 = $('input[name="cpwd"]').val();
+				if (pwd == pwd2) {
+					$('#scpwd').text('일치 합니다.');				
+				}
+				else {
+					$('#scpwd').text('일치하지 않습니다.');				
+				}
+			});
+			
+			//1번 필수입력창 확인
+				$('.field-1 input').on('keyup', function() {	
+					
+					var pwd = $('input[name="pwd"]').val();
+					var pwd2 = $('input[name="cpwd"]').val();
+					
+				    $('.field-1 input').each(function() {
+				      if(!$(this).val()){
+				    		$('#next-btn-1').attr('disabled', 'disabled');
+				           return false;
+				        }
+				     
+				      if(pwd==pwd2 && $(this).val()) {
+				    		$('#next-btn-1').removeAttr('disabled');
+				      }
+				    });   
+				});
+			
+	
+			//2번 필수입력창 확인
+				$('.field-2 input').on('keyup', function() {		
+				    $('.field-2 input').each(function() {
+				      if(!$(this).val()){
+				    		$('#next-btn-2').attr('disabled', 'disabled');
+				           return false;
+				        }
+				     
+				      else {
+				    		$('#next-btn-2').removeAttr('disabled');
+				      }
+				    });   
+				});
+			
+			//3번 필수입력창 확인
+				$('.field-3 input[name=gym_name],[name=gym_zip],[name=gym_addr1]').on('keyup', function() {		
+				    $('.field-3 input[name=gym_name],[name=gym_zip],[name=gym_addr1]').each(function() {
+				      if(!$(this).val()){
+				    		$('#next-btn-3').attr('disabled', 'disabled');
+				           return false;
+				        }
+				     
+				      else {
+				    		$('#next-btn-3').removeAttr('disabled');
+				      }
+				    });   
+				});
+			
+			//4번 필수입력창 확인
+				$('.field-4 input[name=intro],[name=career]').on('keyup', function() {		
+				    $('.field-4 input[name=intro],[name=career]').each(function() {
+				      if(!$(this).val()){
+				    		$('#next-btn-4').attr('disabled', 'disabled');
+				           return false;
+				        }
+				     
+				      else {
+				    		$('#next-btn-4').removeAttr('disabled');
+				      }
+				    });   
+				});
+		
+
+			// 	INSERT 기능
+			$('#register_btn').click(function() {
+
+				$('.user').attr({
+					'enctype' : 'multipart/form-data',
+					'method' : 'post',
+					'action' : '/tregisterimpl'
+				});
+				$('.user').submit();
+			});
+
+		});
 </script>
 
 <div class="container-fluid mt-4">
@@ -491,20 +556,20 @@ p {
 									<h2 class="steps">Step 1 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">이메일: *</label> <span id="iuemail"></span>
-							<input type="email" id="email"
-								name="email" placeholder="Email" required /> <label
-								class="fieldlabels">아이디: *</label> <span id="iuid"></span>
-								<input type="text" id="id" name="id"
-								placeholder="UserName" /> <label class="fieldlabels">비밀번호:
-								*</label> <input type="password" name="pwd" placeholder="Password" /> <label
-								class="fieldlabels">비밀번호 확인: *</label> <span id="scpwd"></span>
-								
-								<input type="password"
-								name="cpwd" placeholder="Confirm Password" />
+							<div class="field-1">
+								<label class="fieldlabels">이메일: *</label> <span id="iuemail"></span>
+								<input type="email" id="email" name="email" placeholder="Email"
+									required /> <label class="fieldlabels">아이디: *</label> <span
+									id="iuid"></span> <input type="text" id="id" name="id"
+									placeholder="UserName" /> <label class="fieldlabels">비밀번호:
+									*</label> <input type="password" name="pwd" placeholder="Password" /> <label
+									class="fieldlabels">비밀번호 확인: *</label> <span id="scpwd"></span>
+	
+								<input type="password" name="cpwd" placeholder="Confirm Password" />
+							</div>
 						</div>
-						<input type="button" name="next" class="next action-button" id="next-btn-1"
-							value="다음" />
+						<input type="button" name="next" class="next action-button"
+							id="next-btn-1" value="다음" />
 					</fieldset>
 
 					<!-- 트레이너 정보 -->
@@ -518,16 +583,20 @@ p {
 									<h2 class="steps">Step 2 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">이름: *</label> <input type="text"
-								name="name" placeholder="Name" /> <label class="fieldlabels">휴대폰
-								번호: *</label> <input type="text" name="phone" placeholder="Phone" /> <label
-								class="fieldlabels">성별: *</label> <input type="text"
-								name="gender" placeholder="Gender" /> <label
+							
+							<div class="field-2">
+								<label class="fieldlabels">이름: *</label> <input type="text"
+								name="name" placeholder="Name" id="name"/> <label class="fieldlabels">휴대폰
+								번호: *</label> <input type="text" name="phone" placeholder="Phone" id="phone"/> 
+								<label class="fieldlabels">성별: *</label> <input type="text"
+								name="gender" placeholder="Gender" id="gender"/> <label
 								class="fieldlabels">운동종목: *</label> <input type="text"
-								name="major" placeholder="Field (ex: Body-building, etc)" />
+								name="major" placeholder="Field (ex: Body-building, etc)" id="major"/>	
+							</div>
 						</div>
+							
 						<input type="button" name="next" class="next action-button"
-							value="다음" /> <input type="button" name="previous"
+							value="다음" id="next-btn-2"/> <input type="button" name="previous"
 							class="previous action-button-previous" value="이전" />
 					</fieldset>
 
@@ -542,9 +611,12 @@ p {
 									<h2 class="steps">Step 3 - 6</h2>
 								</div>
 							</div>
+							
+							<div class="field-3">
 							<label class="fieldlabels">헬스장 이름: *</label> <input type="text"
 								name="gym_name" placeholder="Name" /> <label
 								class="fieldlabels">우편번호: *</label>
+
 							<button class="btn btn-primary"
 								onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 
@@ -552,16 +624,14 @@ p {
 								placeholder="우편번호"> <label class="fieldlabels">주소:
 								*</label> <input type="text" id="sample6_address" name="gym_addr1"
 								placeholder="Address"> <label class="fieldlabels">상세주소:
-								</label> <input type="text" id="sample6_detailAddress" name="gym_addr2"
+							</label> <input type="text" id="sample6_detailAddress" name="gym_addr2"
 								placeholder="Address detail">
 
-					
-							<!-- <label class="fieldlabels">건물명: *</label> 
-							<input type="text" id="sample6_extraAddress" placeholder="Building">
- 							-->
+							</div>
+							
 						</div>
 
-						<input type="button" name="next" class="next action-button"
+						<input type="button" name="next" class="next action-button" id="next-btn-3"
 							value="다음" /> <input type="button" name="previous"
 							class="previous action-button-previous" value="이전" />
 
@@ -578,18 +648,20 @@ p {
 									<h2 class="steps">Step 4 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">소개글: *</label> <input type="text"
-								name="intro" placeholder="Introduction" /> <label
-								class="fieldlabels">경력 및 수상 내역: *</label> <input type="text"
-								name="career" placeholder="Career" /> <label
-								class="fieldlabels">대표 프로필 사진: *</label> <input type="file"
-								name="pf1" accept="image/*"> <label class="fieldlabels">프로필
-								사진 2: </label> <input type="file" name="pf2" accept="image/*"> <label
-								class="fieldlabels">프로필 사진 3: </label> <input type="file"
-								name="pf3" accept="image/*">
-
+							
+							<div class="field-4">
+								<label class="fieldlabels">소개글: *</label> <input type="text"
+									name="intro" placeholder="Introduction" /> <label
+									class="fieldlabels">경력 및 수상 내역: *</label> <input type="text"
+									name="career" placeholder="Career" /> <label
+									class="fieldlabels">대표 프로필 사진: *</label> <input type="file"
+									name="pf1" accept="images/*"> <label class="fieldlabels">프로필
+									사진 2: </label> <input type="file" name="pf2" accept="images/*"> <label
+									class="fieldlabels">프로필 사진 3: </label> <input type="file"
+									name="pf3" accept="images/*">
+							</div>
 						</div>
-						<input type="button" name="next" class="next action-button"
+						<input type="button" name="next" class="next action-button" id="next-btn-4"
 							value="다음" /> <input type="button" name="previous"
 							class="previous action-button-previous" value="이전" />
 					</fieldset>
@@ -605,14 +677,16 @@ p {
 									<h2 class="steps">Step 5 - 6</h2>
 								</div>
 							</div>
-							<label class="fieldlabels">파일 첨부 1: *:</label> <input type="file"
-								name="lc1" accept="image/*"> <label class="fieldlabels">파일
-								첨부 2:</label> <input type="file" name="lc2" accept="image/*"> <label
-								class="fieldlabels">파일 첨부 3:</label> <input type="file"
-								name="lc3" accept="image/*">
+							<div class="field-5">
+								<label class="fieldlabels">파일 첨부 1: *:</label> <input type="file"
+									name="lc1" accept="images/*"> <label class="fieldlabels">파일
+									첨부 2:</label> <input type="file" name="lc2" accept="images/*"> <label
+									class="fieldlabels">파일 첨부 3:</label> <input type="file"
+									name="lc3" accept="images/*">
+							</div>
 						</div>
 						<input type="button" id="registerbtn" name="next"
-							class="next action-button" value="제출" /> <input type="button"
+							class="next action-button" value="제출"/> <input type="button"
 							name="previous" class="previous action-button-previous"
 							value="이전" />
 					</fieldset>
