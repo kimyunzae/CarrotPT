@@ -47,7 +47,7 @@ public class AJAXController {
 		TraineeVO i = null;
 
 		if (email.equals("") || email == null) {
-			return "1";
+			result = "1";
 		}
 
 		try {
@@ -80,7 +80,7 @@ public class AJAXController {
 		TrainerVO i = null;
 
 		if (id.equals("") || id == null) {
-			return "1";
+			result = "1";
 		}
 
 		try {
@@ -102,7 +102,7 @@ public class AJAXController {
 		TrainerVO i = null;
 
 		if (email.equals("") || email == null) {
-			return "1";
+			result = "1";
 		}
 
 		try {

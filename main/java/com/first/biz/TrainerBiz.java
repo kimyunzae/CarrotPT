@@ -41,13 +41,12 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	public void trainerinfo(TrainerVO v) throws Exception {
 		int cnt = rdao.selectcnt(v.getId());
 		double avgrate = 0.0;
-		v.setRvcnt(cnt);
 		if(cnt == 0) {
 			avgrate = 0.0;
 		}else {
 			avgrate = rdao.selectavg(v.getId());
 		}
-		v.setAvgrate(avgrate);
+		v.changeinfo(avgrate, cnt);
 		v.shortenaddr();
 	}
 	
@@ -67,14 +66,14 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return list;
 	}
 	
-
-	// status가 '수락'인 trainer 목록
+	// email로 선택
 	public TrainerVO getbyemail(String k) throws Exception {
 		TrainerVO obj = dao.selectbyemail(k);
 		trainerinfo(obj);
 		return obj;
 	}
-
+	
+	// status가 '수락'인 trainer 목록
 	public List<TrainerVO> getauthorized() throws Exception{
 		List<TrainerVO> list = dao.selectauthorized();
 		for (TrainerVO v : list) {
@@ -87,5 +86,6 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	public int getcnt() throws Exception{
 		return dao.selectcnt();
 	}
+	
 
 }

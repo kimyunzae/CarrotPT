@@ -108,5 +108,13 @@ public class TrainerVO {
 		}
 		
 	}
+	// avgrate, rvcnt 세팅
+	public void changeinfo(Double avgrate, int rvcnt) {
+		this.avgrate = avgrate;
+		this.rvcnt = rvcnt;
+	}
+	
+	
+	
 
 }
