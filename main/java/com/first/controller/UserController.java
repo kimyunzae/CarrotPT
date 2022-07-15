@@ -33,7 +33,7 @@ public class UserController {
 public String loginimpl(Model m, String id, String pwd, HttpSession session) {
     try {
         TraineeVO obj = traineebiz.get(id);
-        System.out.println(obj);
+        
         if(obj.getPwd().equals(pwd)) {
             session.setAttribute("logincust", obj);
             m.addAttribute("logincust", obj);
