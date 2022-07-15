@@ -27,7 +27,7 @@ public class CrudController {
 	String admindir;
 
 	@RequestMapping("tregisterimpl")
-	public String addimpl(Model m, TrainerVO t) {
+	public String tregisterimpl(Model m, TrainerVO t) {
 		String profile1 = t.getPf1().getOriginalFilename();
 		String profile2 = t.getPf2().getOriginalFilename();
 		String profile3 = t.getPf3().getOriginalFilename();
