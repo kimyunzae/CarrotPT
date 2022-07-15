@@ -3,6 +3,10 @@ package com.first.controller;
 
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -10,15 +14,40 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.first.biz.TraineeBiz;
+import com.first.vo.TraineeVO;
+
 @Controller
 public class UserController {
-
+	
+	@Autowired
+	TraineeBiz traineebiz;
 	
 	@RequestMapping("/login")
 	public String login(Model m) {
 		m.addAttribute("center", "user/login");
 		return "index";
 	}
+
+@RequestMapping("/loginimpl")
+public String loginimpl(Model m, String id, String pwd, HttpSession session) {
+    try {
+        TraineeVO obj = traineebiz.get(id);
+        System.out.println(obj);
+        if(obj.getPwd().equals(pwd)) {
+            session.setAttribute("logincust", obj);
+            m.addAttribute("logincust", obj);
+            
+        }else {
+            return "redirect:/login";
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return "index";
+}
+
+
 
 	@RequestMapping("/join")
 	public String join(Model m) {
