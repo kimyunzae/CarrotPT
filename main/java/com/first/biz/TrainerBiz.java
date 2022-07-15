@@ -3,6 +3,9 @@ package com.first.biz;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.first.frame.Biz;
@@ -79,12 +82,17 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		for (TrainerVO v : list) {
 			trainerinfo(v);
 		}
-		return list;
+		return dao.selectauthorized();
 	}
 	
 	// status가 '수락'인 trainer 데이터 개수
 	public int getcnt() throws Exception{
 		return dao.selectcnt();
+	}
+	
+	public Page<TrainerVO> findPage(int pageNo, int pageSize){
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		return null;
 	}
 	
 
