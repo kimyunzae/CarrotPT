@@ -3,6 +3,7 @@ package com.first.vo;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-
 public class TrainerVO {
 
 	private String id;
@@ -106,7 +106,16 @@ public class TrainerVO {
 		}else {
 			this.addrshort = addr[0].toString();
 		}
-		
 	}
+	
+	// avgrate, rvcnt 세팅
+	public void changeinfo(Double avgrate, int rvcnt) {
+		this.avgrate = avgrate;
+		this.rvcnt = rvcnt;
+	}
+	
+	
+	
+	
 
 }

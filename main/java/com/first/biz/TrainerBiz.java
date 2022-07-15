@@ -3,6 +3,9 @@ package com.first.biz;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.first.frame.Biz;
@@ -41,13 +44,12 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	public void trainerinfo(TrainerVO v) throws Exception {
 		int cnt = rdao.selectcnt(v.getId());
 		double avgrate = 0.0;
-		v.setRvcnt(cnt);
 		if(cnt == 0) {
 			avgrate = 0.0;
 		}else {
 			avgrate = rdao.selectavg(v.getId());
 		}
-		v.setAvgrate(avgrate);
+		v.changeinfo(avgrate, cnt);
 		v.shortenaddr();
 	}
 	
@@ -67,25 +69,31 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return list;
 	}
 	
-
-	// status가 '수락'인 trainer 목록
+	// email로 선택
 	public TrainerVO getbyemail(String k) throws Exception {
 		TrainerVO obj = dao.selectbyemail(k);
 		trainerinfo(obj);
 		return obj;
 	}
-
+	
+	// status가 '수락'인 trainer 목록
 	public List<TrainerVO> getauthorized() throws Exception{
 		List<TrainerVO> list = dao.selectauthorized();
 		for (TrainerVO v : list) {
 			trainerinfo(v);
 		}
-		return list;
+		return dao.selectauthorized();
 	}
 	
 	// status가 '수락'인 trainer 데이터 개수
 	public int getcnt() throws Exception{
 		return dao.selectcnt();
 	}
+	
+	public Page<TrainerVO> findPage(int pageNo, int pageSize){
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		return null;
+	}
+	
 
 }
