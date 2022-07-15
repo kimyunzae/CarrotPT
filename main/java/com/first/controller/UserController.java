@@ -46,7 +46,13 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
     }
     return "index";
 }
-
+	@RequestMapping("/logout")
+	public String logout(Model m, HttpSession session) {
+	if(session != null) {
+		session.invalidate();
+	}
+	return "index";
+}
 
 
 	@RequestMapping("/join")
