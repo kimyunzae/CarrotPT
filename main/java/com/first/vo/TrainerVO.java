@@ -1,9 +1,10 @@
 package com.first.vo;
 
+import javax.persistence.Column;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,8 +28,13 @@ public class TrainerVO {
 	private String gym_zip;
 	private String gym_addr1;
 	private String gym_addr2;
+	
+	@Column(length = 300)
 	private String intro;
+	
+	@Column(length = 300)
 	private String career;
+	
 	private String license1;
 	private String license2;
 	private String license3;
