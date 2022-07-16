@@ -68,11 +68,17 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 	}
 
 	@RequestMapping("/join/trainee")
+	public String traineejoinselect(Model m) {
+		m.addAttribute("center", "user/traineejoinselect");
+		return "index";
+	}
+
+	@RequestMapping("join/trianeejoin")
 	public String traineejoin(Model m) {
 		m.addAttribute("center", "user/traineejoin");
 		return "index";
 	}
-
+	
 	@RequestMapping("/mypage")
 	public String mypage(Model m) {
 		m.addAttribute("center", "user/mypage");
