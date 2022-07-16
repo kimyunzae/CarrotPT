@@ -25,7 +25,8 @@ p {
 #msform {
 	text-align: center;
 	position: relative;
-	margin-top: 20px
+	margin-top: 20px;
+	font-family: "Poppins", Arial, sans-serif;
 }
 
 #msform fieldset {
@@ -36,7 +37,7 @@ p {
 	width: 100%;
 	margin: 0;
 	padding-bottom: 20px;
-	position: relative
+	position: relative;
 }
 
 .form-card {
@@ -47,7 +48,7 @@ p {
 	display: none
 }
 
-#msform input {
+#msform input, #msform select {
 	padding: 8px 15px 8px 15px;
 	border: 1px solid #ccc;
 	border-radius: 0px;
@@ -55,19 +56,19 @@ p {
 	margin-top: 2px;
 	width: 100%;
 	box-sizing: border-box;
-	font-family: montserrat;
-	color: #2C3E50;
-	background-color: #ECEFF1;
+	font-family: "Poppins", Arial, sans-serif;
+/* 	color: #2C3E50; */
+	/* background-color: #ECEFF1; */
 	font-size: 16px;
 	letter-spacing: 1px
 }
 
-#msform input:focus, #msform textarea:focus {
+#msform input:focus, #msform textarea:focus,  #msform select:focus  {
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 	border: 1px solid #769BCD;
-	outline-width: 0
+	outline-width: 0;
 }
 
 #msform .action-button {
@@ -239,9 +240,6 @@ p {
 } 
 
 
-#intro_count_message, #career_count_message {
-
-}
 </style>
 
 
@@ -252,6 +250,50 @@ p {
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+// 주소지 API
+function sample6_execDaumPostcode() {
+	new daum.Postcode(
+			{
+				oncomplete : function(data) {
+
+					var addr = '';
+					var extraAddr = '';
+					if (data.userSelectedType === 'R') {
+						addr = data.roadAddress;
+					} else {
+						addr = data.jibunAddress;
+					}
+
+					if (data.userSelectedType === 'R') {
+						if (data.bname !== ''
+								&& /[동|로|가]$/g
+										.test(data.bname)) {
+							extraAddr += data.bname;
+						}
+						if (data.buildingName !== ''
+								&& data.apartment === 'Y') {
+							extraAddr += (extraAddr !== '' ? ', '
+									+ data.buildingName
+									: data.buildingName);
+						}
+						if (extraAddr !== '') {
+							extraAddr = ' ('
+									+ extraAddr + ')';
+						}
+						//document.getElementById("sample6_extraAddress").value = extraAddr;
+
+					} else {
+						//document.getElementById("sample6_extraAddress").value = '';
+					}
+
+					document.getElementById('sample6_postcode').value = data.zonecode;
+					document.getElementById("sample6_address").value = addr+ extraAddr;											
+					document.getElementById("sample6_detailAddress").focus();
+
+				}
+			}).open();
+}
 	
 	// 멀티스텝 form
 	$(document).ready(function() {
@@ -343,49 +385,6 @@ p {
 
 	});
 	
-	// 주소지 API
-	function sample6_execDaumPostcode() {
-		new daum.Postcode(
-				{
-					oncomplete : function(data) {
-
-						var addr = '';
-						var extraAddr = '';
-						if (data.userSelectedType === 'R') {
-							addr = data.roadAddress;
-						} else {
-							addr = data.jibunAddress;
-						}
-
-						if (data.userSelectedType === 'R') {
-							if (data.bname !== ''
-									&& /[동|로|가]$/g
-											.test(data.bname)) {
-								extraAddr += data.bname;
-							}
-							if (data.buildingName !== ''
-									&& data.apartment === 'Y') {
-								extraAddr += (extraAddr !== '' ? ', '
-										+ data.buildingName
-										: data.buildingName);
-							}
-							if (extraAddr !== '') {
-								extraAddr = ' ('
-										+ extraAddr + ')';
-							}
-							//document.getElementById("sample6_extraAddress").value = extraAddr;
-
-						} else {
-							//document.getElementById("sample6_extraAddress").value = '';
-						}
-
-						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr+ extraAddr;											
-						document.getElementById("sample6_detailAddress").focus();
-	
-					}
-				}).open();
-	}
 
 	// jQuery
 	$(document).ready(function() {
@@ -480,6 +479,9 @@ p {
 				    });   
 				});
 			
+
+			
+			
 			//3번 필수입력창 확인
 			 	$('.field-3 input').on('keyup', function() {		
 				    $('.field-3 input').each(function() {
@@ -532,8 +534,6 @@ p {
 				  $('#count_message2').html(text_length + ' / ' + text_max);
 				});
 				
-				
-			
 				
 				//	INSERT 기능
 				$('#register_btn').click(function() {
@@ -616,10 +616,30 @@ p {
 								<label class="fieldlabels">이름: *</label> <input type="text"
 								name="name" placeholder="Name" id="name"/> <label class="fieldlabels">휴대폰
 								번호: *</label> <input type="text" name="phone" placeholder="Phone" id="phone"/> 
-								<label class="fieldlabels">성별: *</label> <input type="text"
-								name="gender" placeholder="Gender" id="gender"/> <label
-								class="fieldlabels">운동종목: *</label> <input type="text"
-								name="major" placeholder="Field (ex: Body-building, etc)" id="major"/>	
+								
+								<label class="fieldlabels">성별: *</label> 								
+								<!-- <input type="text"
+								name="gender" placeholder="Gender" id="gender"/>  -->
+								
+								<select class="form-control" name="gender" >
+								  <option>남</option>
+								  <option>여</option>
+								</select>
+
+								
+								<label
+								class="fieldlabels">운동종목: *</label> 
+								<!-- <input type="text"
+								name="major" placeholder="Field (ex: Body-building, etc)" id="major"/>	 -->
+								
+								<select class="form-control" name="major" >
+								  <option>보디빌딩</option>
+								  <option>파워리프팅</option>
+								  <option>피지크</option>
+								  <option>필라테스</option>
+								  <option>크로스핏</option>
+								  <option>요가</option>
+								</select>
 							</div>
 						</div>
 							
@@ -651,7 +671,7 @@ p {
 							<input type="text" id="sample6_postcode" name="gym_zip"
 								placeholder="우편번호"> <label class="fieldlabels">주소:
 								*</label> <input type="text" id="sample6_address" name="gym_addr1"
-								placeholder="Address"> <label class="fieldlabels">상세주소:
+								placeholder="Address"> <label class="fieldlabels">상세주소: *
 							</label> <input type="text" id="sample6_detailAddress" name="gym_addr2"
 								placeholder="Address detail (ex: 상호빌딩)">
 
@@ -680,7 +700,7 @@ p {
 							<div class="field-4">											
 									<label class="fieldlabels">소개글: *</label>		
 								   
-								        <textarea class="form-control" id="text" name="text" 
+								        <textarea class="form-control" id="text" name="intro" 
 								      	 maxlength="300" placeholder="Type in your message" rows="4"></textarea>
 								        <span class="float-right" id="count_message"></span>
 								      	<br> 

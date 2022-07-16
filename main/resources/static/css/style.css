@@ -4,6 +4,9 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ 
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -3437,6 +3440,7 @@ input[type="button"].btn-block {
   display: block; }
 
 .navbar {
+  font-family: "Poppins", Arial, sans-serif;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8320,6 +8324,7 @@ h1, h2, h3, h4, h5,
       .owl-carousel .owl-dots .owl-dot.active {
         background: #b3b3b3; }
   .owl-carousel.home-slider {
+  	font-family: "Poppins", Arial, sans-serif;
     position: relative;
     height: 900px;
     z-index: 0; }
@@ -9125,7 +9130,7 @@ textarea.form-control {
   @media (max-width: 767.98px) {
     .ftco-section {
       padding: 6em 0; } }
-
+      
 .ftco-no-pt {
   padding-top: 0 !important; }
 

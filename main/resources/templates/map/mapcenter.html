@@ -1,54 +1,92 @@
+<style>
+#map {
+	border: 1px solid rgba(47, 23, 15, 0.9);
+}
+</style>
 
-    <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-      <div class="container">
-      	<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-	            <h2 class="mb-4">내 주변 헬스장</h2>
-	            
-	            <div class="row">
-						<div class="col-md-12">
-							<div class="search-wrap-1 ftco-animate p-4">
-								<form action="#" class="search-property-1">
-					        		<div class="row">
-					        			<div class="col-lg align-items-end">
-					        				<div class="form-group">
-						          				<div class="form-field">
-						          					<div class="icon"><span class="ion-ios-search"></span></div>
-								               		<input type="text" class="form-control" placeholder="Search place">
-								              	</div>
-						             		</div>
-					        			</div>
-					        		
-					        			<div class="col-lg align-self-end">
-					        				<div class="form-group">
-					        					<div class="form-field">
-							               			 <input type="submit" value="Search" class="form-control btn btn-primary">
-							              		</div>
-						             		</div>
-					        			</div>
-					        	</div>
-				        	</form>
-			        	</div>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f24e1b4a7327e074faec9b9d750ab37"></script>
+<script>
+	$(document)
+			.ready(
+					function() {
+						var mapContainer = document.getElementById('map'), mapOption = {
+							center : new kakao.maps.LatLng(37.503376,
+									127.049776),
+							level : 3
+						};
+
+						var map = new kakao.maps.Map(mapContainer, mapOption);
+
+						var markerPosition = new kakao.maps.LatLng(37.503376,
+								127.049776);
+
+						var marker = new kakao.maps.Marker({
+							position : markerPosition
+						});
+
+						marker.setMap(map);
+
+						var iwContent = '<div style="padding:5px;">T7 Coffee! <br><a href="https://map.kakao.com/link/map/T7 Coffee!,37.503376,127.049776" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!," style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+						iwPosition = new kakao.maps.LatLng(37.503376,
+								127.049776)
+
+						var infowindow = new kakao.maps.InfoWindow({
+							position : iwPosition,
+							content : iwContent
+						});
+
+						infowindow.open(map, marker);
+					});
+</script>
+
+
+<section class="ftco-section contact-section ftco-no-pb"
+	id="contact-section">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3 col">
+
+			<div class="col-md-4">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="search-wrap-1 ftco-animate p-4">
+							<form action="#" class="search-property-1">
+								<div class="row">
+									<div class="col-lg align-items-end">
+										<div class="form-group">
+											<div class="form-field">
+												<div class="icon">
+													<span class="ion-ios-search"></span>
+												</div>
+												<input type="text" class="form-control"
+													placeholder="Search place">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg align-self-end">
+										<div class="form-group">
+											<div class="form-field">
+												<input type="submit" value="Search"
+													class="form-control btn btn-primary">
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						
+						<div class="row d-flex contact-info mb-5">
+							<p>Left div</p>
+						</div>
+						
 					</div>
-		    	</div>
-
-          </div>
-        </div>
-
-        <div class="row block-9">
- <!-- Right div Start -->
-          <div class="col-md-7 order-md-last d-flex">
-           	 <p>Right div</p>
-          </div>
-<!-- Right div End -->
-
-<!-- Left div Start -->
-          <div class="col-md-5 d-flex">
-          	<div class="row d-flex contact-info mb-5">
-		    	<p>Left div</p>      
-		    </div>
-          </div>
-<!-- Left div End -->
-        </div>
-      </div>
-    </section>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div id="map" class="" style="width: 110%; height: 500px;"></div>
+			</div>
+		</div>
+	</div>
+</section>
