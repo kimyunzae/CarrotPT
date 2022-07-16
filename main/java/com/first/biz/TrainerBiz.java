@@ -2,15 +2,20 @@ package com.first.biz;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.first.frame.Biz;
 import com.first.mapper.ReviewMapper;
 import com.first.mapper.TrainerMapper;
+import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
 @Service("trainerbiz")
@@ -82,7 +87,7 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		for (TrainerVO v : list) {
 			trainerinfo(v);
 		}
-		return dao.selectauthorized();
+		return list;
 	}
 	
 	// status가 '수락'인 trainer 데이터 개수
@@ -90,10 +95,12 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return dao.selectcnt();
 	}
 	
-	public Page<TrainerVO> findPage(int pageNo, int pageSize){
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		return null;
-	}
+//	public Page<TrainerVO> findPage(int pageNo, int pageSize){
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		return dao.findAll(pageable);
+//	}
+
+
 	
 
 }
