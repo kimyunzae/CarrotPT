@@ -35,7 +35,7 @@ public class CrudController {
 		String license2 = t.getLc2().getOriginalFilename();
 		String license3 = t.getLc3().getOriginalFilename();
 		
-		t.setProfile1(profile1);
+		t.setProfile1(profile1); 
 		t.setProfile2(profile2);
 		t.setProfile3(profile3);
 		t.setLicense1(license1);
