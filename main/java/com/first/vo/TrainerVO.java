@@ -88,7 +88,7 @@ public class TrainerVO {
 	// for insert default null과 default 값 존재하는 column 제외
 
 	public TrainerVO(String id, String pwd, String name, String phone, String email, String gender, String major,
-			String gym_name, String gym_zip, String gym_addr1, String career, String regdate) {
+			String gym_name, String gym_zip, String gym_addr1, String career) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -101,9 +101,35 @@ public class TrainerVO {
 		this.gym_zip = gym_zip;
 		this.gym_addr1 = gym_addr1;
 		this.career = career;
-		this.regdate = regdate;
 	}
 
+	// for INSERT 2
+	public TrainerVO(String id, String pwd, String name, String phone, String email, String gender, String major,
+			String gym_name, String gym_zip, String gym_addr1, String gym_addr2, String intro, String career,
+			String license1, String license2, String license3, String profile1, String profile2, String profile3) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.major = major;
+		this.gym_name = gym_name;
+		this.gym_zip = gym_zip;
+		this.gym_addr1 = gym_addr1;
+		this.gym_addr2 = gym_addr2;
+		this.intro = intro;
+		this.career = career;
+		this.license1 = license1;
+		this.license2 = license2;
+		this.license3 = license3;
+		this.profile1 = profile1;
+		this.profile2 = profile2;
+		this.profile3 = profile3;
+	}
+	
+	
 	// 주소 두 번째 단어까지
 	public void shortenaddr() {
 		String[] addr = this.gym_addr1.split(" ");
@@ -119,6 +145,8 @@ public class TrainerVO {
 		this.avgrate = avgrate;
 		this.rvcnt = rvcnt;
 	}
+
+
 	
 	
 	

@@ -15,7 +15,7 @@ class TrainerDeleteTest {
 	@Test
 	void contextLoads() {
 		try {
-			biz.remove("tid10");
+			biz.remove("id33");
 			System.out.print("Delete OK");
 		} catch (Exception e) {
 			System.out.print("Delete FAIL");
