@@ -56,7 +56,7 @@ public class CrudController {
 	@RequestMapping("/joinimpl")
 	public String joinimpl(Model m, TraineeVO trainee, HttpSession session) {
 		try {
-				traineebiz.register(trainee);
+			traineebiz.register(trainee);
 
 		} catch (Exception e) {
 			e.printStackTrace();

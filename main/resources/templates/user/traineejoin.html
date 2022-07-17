@@ -2,10 +2,127 @@
 #btn_findid {
 	float: right;
 }
+
+.register{
+    margin-top: 3%;
+    margin-bottom: 3%; 
+    padding: 3%; 
+}
+.register-left{
+ 	background: -webkit-linear-gradient(left, #c6724d, #769BCD);
+    text-align: center;
+    color: #fff;
+
+}
+.register-left input{
+    border: none;
+    border-radius: 1.2rem;
+    width: 60%;
+    background: #f8f9fa;
+    font-weight: bold;
+    color: #383d41;
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+.register-right{
+    background: #f8f9fa;
+    border-top-left-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+}
+
+.register-left img{
+    margin-top: 15%;
+    margin-bottom: 5%;
+    width: 25%;
+    -webkit-animation: mover 2s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+.register-left p{
+    font-weight: lighter;
+    padding: 12%;
+    margin-top: -9%;
+}
+.register .register-form{
+    padding: 10%;
+    margin-top: 10%;
+}
+.btnRegister{
+    float: right;
+    margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #769BCD;
+    color: #fff; 
+    font-weight: 600;
+    width: 50%;
+    cursor: pointer;
+}
+.register .nav-tabs{
+    margin-top: 3%;
+    border: none;
+    background:#769BCD;
+    border-radius: 1.5rem;
+    width: 28%;
+    float: right;
+}
+.register .nav-tabs .nav-link{
+    padding: 2%;
+    height: 34px;
+    font-weight: 600;
+    color: #fff;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+.register .nav-tabs .nav-link:hover{
+    border: none;
+}
+.register .nav-tabs .nav-link.active{
+    width: 100px;
+    color: #769BCD;
+    border: 2px solid #769BCD;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+}
+.register-heading{
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: -15%;
+    color: #495057;
+}
+
 </style>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
+window.Kakao.init("1246eaf5aa2f74f55a55378bd15623c5")
+
+function kakaoLogin() {
+	window.Kakao.Auth.login({
+		scope: 'profile_nickname, account_email, gender',
+		success: function(authObj) {
+			console.log(authObj);
+			window.Kakao.API.request({
+				url: '/v2/user/me',
+				success: res => {
+					const kakao_account = res.kakao_account;
+					console.log(kakao_account);
+				}
+			});
+		}
+	});
+}
+
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
 				{
@@ -91,18 +208,17 @@
 				}
 			});
 		});
-		
+
 		//비밀번호 확인
 		$('input[name="pwd2"]').keyup(function() {
-				var pwd = $('input[name="pwd"]').val();
-				var pwd2 = $('input[name="pwd2"]').val();
-				if (pwd == pwd2) {
-					$('#iepwd').text('');				
-				}
-				else {
-					$('#iepwd').text('비밀번호를 다시 확인해주세요');				
-				}
-			});
+			var pwd = $('input[name="pwd"]').val();
+			var pwd2 = $('input[name="pwd2"]').val();
+			if (pwd == pwd2) {
+				$('#iepwd').text('');
+			} else {
+				$('#iepwd').text('비밀번호를 다시 확인해주세요');
+			}
+		});
 
 		// 	INSERT 기능
 		$('#joinbtn').click(function() {
@@ -115,7 +231,130 @@
 	});
 </script>
 
-<section class="ftco-section contact-section ftco-no-pb"
+
+<div class="container register mt-5">
+	<div class="row mt-5">
+		<div class="col-md-3 register-left">
+			<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+			<h3 class="text-light mt-5">당신 근처의 PT쌤</h3>
+			<p>30초만에 가입하고 나한테 딱 맞는 트레이너 찾자!</p>
+			
+			<a href="/../login"><input class="p-1 mb-3" type="submit" name="" value="일반 로그인" /></a>
+			
+			<a href="javascript:kakaoLogin();"><input type="image"
+			src="/images/kakao_login.png">
+			</a>
+			<a href=""> <input type="image" src="/images/naver_login.png">
+			</a>
+			
+			
+		</div>
+		<div class="col-md-9 register-right">
+			<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+				<li class="nav-item"><a class="nav-link active" id="home-tab"
+					data-toggle="tab" href="#home" role="tab" aria-controls="home"
+					aria-selected="true">회원가입</a></li>
+				<li class="nav-item"><a class="nav-link" id="profile-tab"
+					data-toggle="tab" href="#profile" role="tab"
+					aria-controls="profile" aria-selected="false">소셜 로그인</a></li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="home" role="tabpanel"
+					aria-labelledby="home-tab">
+					<h3 class="register-heading">일반 회원가입</h3>
+					<form class="row register-form user">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" class="form-control" name="name" placeholder="이름 *"
+									value="" />
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" name="id" placeholder="아이디 *"
+									value="" />
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" name="pwd" placeholder="비밀번호 *"
+									value="" />
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control"
+									placeholder="비밀번호 확인 *" value="" />
+							</div>
+
+
+							<div class="form-group">
+								<label class="fieldlabels">정보 수집 동의: *</label>
+								<div class="maxl">
+									<label class="radio inline"> <input type="radio"
+										 value="male" checked> <span> 동의 </span>
+									</label> <label class="radio inline"> <input type="radio"
+										name="gender" value="female"> <span>동의 안함 </span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="email" class="form-control" name="email" placeholder="이메일 *"
+									value="" />
+							</div>
+							<div class="form-group">
+								<input type="text" minlength="10" maxlength="10"
+									 class="form-control" name="phone" placeholder="휴대폰 번호 *"
+									value="" />
+							</div>
+							<div class="form-group">
+								<input type="text" id="sample6_postcode" name="zip"
+									placeholder="우편번호">
+								<button class="btn btn-primary"
+									onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+							</div>
+
+							<div class="form-group">
+								<input type="text" id="sample6_address" name="addr1"
+									placeholder="주소" class="form-control">
+							</div>
+
+							<div class="form-group">
+								<input type="text" id="sample6_detailAddress" name="addr2"
+									placeholder="상세주소 (ex: 상호빌딩)" class="form-control"> 
+									<input id="joinbtn"
+									type="submit" class="btnRegister" value="제출" />
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<div class="tab-pane fade show" id="profile" role="tabpanel"
+					aria-labelledby="profile-tab">
+					<h3 class="register-heading">소셜 로그인</h3>
+					<div class="row register-form">
+					<div class="bg-light  p-md-5contact-form col-md-12 ml-5">
+							<!-- <div>
+										<a href="javascript:kakaoLogin();"><button>kakaologin</button></a>
+									</div> -->
+						<div class="socialbtn ml-5">
+							<a href="javascript:kakaoLogin();"> <input type="image"
+								src="/images/kakao_login.png"
+								style="height: 46px; widows: 10px;">
+							</a>
+						</div>
+						<div class="kakaobtn ml-5">
+							<a href=""> <input type="image" src="/images/naver_login.png"
+								style="height: 50px; widows: 8px;">
+							</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- <section class="ftco-section contact-section ftco-no-pb"
 	id="contact-section">
 	<div class="container">
 		<div class="row justify-content-center mb-5 pb-3">
@@ -143,7 +382,7 @@
 							type="password" name="pwd2" placeholder="비밀번호를 다시 입력해주세요"
 							class="form-control"> <br>
 					</div>
-					<!-- 비밀번호가 일치합니다 ajax로 구현  -->
+					비밀번호가 일치합니다 ajax로 구현
 					<div class="form-group">
 						<label>이름 *: </label> <input type="text" id="name" name="name"
 							class="form-control">
@@ -155,11 +394,10 @@
 					<div class="form-group">
 						<label>이메일 *: </label> <span id="ieemail"></span> <input
 							type="text" id="email" name="email" class="form-control" value=""
-							placeholder="이메일" maxlength="20">
-						<!--<input type="text" id="email_domain"
-							class="form-control col-sm-6" value="" title="이메일 도메인"
-							placeholder="이메일 도메인" maxlength="20"> 
-							<select class="select" title="email domain adress">
+							placeholder="이메일" maxlength="20"> <input type="text"
+							id="email_domain" class="form-control col-sm-6" value=""
+							title="이메일 도메인" placeholder="이메일 도메인" maxlength="20"> <select
+							class="select" title="email domain adress">
 							<option value="">-선택-</option>
 							<option value="@naver.com">@naver.com</option>
 							<option value="@gmail.com">@gmail.com</option>
@@ -168,22 +406,22 @@
 							<option value="@korea.com">@korea.com</option>
 							<option value="@nate.com">@nate.com</option>
 							<option value="@yahoo.com">@yahoo.com</option>
-							 <option value="직접 입력">직접 입력</option>
-						</select> -->
+							<option value="직접 입력">직접 입력</option>
+						</select>
 						<button type="button" class="btn btn-primary" data-toggle="modal"
 							data-target="#emailModal">이메일인증</button>
-						<!-- The Modal -->
+						The Modal
 						<div class="modal" id="emailModal">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<!-- Modal body-->
+									Modal body
 									<div class="modal-body">이메일로 인증코드를 발송했습니다.</div>
 									<div class="modal-body">
 										<input class="form-control mail-check-input"
 											placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled"
 											maxlength="6">
 									</div>
-									<!-- Modal footer -->
+									Modal footer
 									<div class="modal-footer">
 										<button type="button" class="btn btn-danger"
 											data-dismiss="modal">Close</button>
@@ -195,35 +433,34 @@
 
 					</div>
 
-					<!-- <div class="mail-check-box">
-										<input class="form-control mail-check-input"
-											placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled"
-											maxlength="6">
-									</div> 
-									<span id="mail-check-warn"></span>
-								</div>-->
-
-					<div>
-						<label>주소 *: </label>
+					<div class="mail-check-box">
+						<input class="form-control mail-check-input"
+							placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
 					</div>
-					<div class="form-group">
-						<input type="text" id="sample6_postcode" placeholder="우편번호"
-							name="zip"> <input type="button"
-							onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" class="form-control" id="sample6_address"
-							placeholder="주소" name="addr1"><br> <input
-							type="text" class="form-control" id="sample6_detailAddress"
-							placeholder="상세주소"> <input type="text"
-							class="form-control" id="sample6_extraAddress" placeholder="건물명"
-							name="addr2">
-					</div>
-					<div class="form-group">
-						<button type="submit" id="joinbtn" value="제출"
-							class="btn btn-primary py-3 px-5">회원가입</button>
-					</div>
-				</form>
-
+					<span id="mail-check-warn"></span>
 			</div>
+
+			<div>
+				<label>주소 *: </label>
+			</div>
+			<div class="form-group">
+				<input type="text" id="sample6_postcode" placeholder="우편번호"
+					name="zip"> <input type="button"
+					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" class="form-control" id="sample6_address"
+					placeholder="주소" name="addr1"><br> <input type="text"
+					class="form-control" id="sample6_detailAddress" placeholder="상세주소">
+				<input type="text" class="form-control" id="sample6_extraAddress"
+					placeholder="건물명" name="addr2">
+			</div>
+			<div class="form-group">
+				<button type="submit" id="joinbtn" value="제출"
+					class="btn btn-primary py-3 px-5">회원가입</button>
+			</div>
+			</form>
+
 		</div>
 	</div>
+</div>
 </section>
+ -->
