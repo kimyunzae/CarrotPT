@@ -40,6 +40,20 @@ public class FTController {
 		return "index";
 	}
 	
+	@RequestMapping("/{pageNo}")
+	public String findPage(@PathVariable("pageNo") int pageNo, Model m) {
+		int amount = 5;
+		List<TrainerVO> list = null;
+		try {
+			list = biz.getbypage(pageNo, amount);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "trainers/trcenter");
+		m.addAttribute("trlist", list);
+		return "index";
+	}
+	
 //	@RequestMapping("/{pageNo}")
 //	public String findPage(@PathVariable(value = "pageNo") int pageNo, Model m) {
 //		int pageSize = 6;

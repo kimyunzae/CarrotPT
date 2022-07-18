@@ -15,7 +15,7 @@ class TrainerInsertTest {
 
 	@Test
 	void contextLoads() {
-		TrainerVO obj = new TrainerVO("tid34", "pwd34", "Cougar", "01034343434", "cgr@gmail.com", "m", "헬스", "요가마나옴", "60121", "서울특별시 성북구", "1층", "요가마나옴입니다", "요가 강사 5년", "license.jpg", null, null, "profile.jpg", null, null);
+		TrainerVO obj = new TrainerVO("tid36", "pwd36", "김명원", "01036363636", "kmw@gmail.com", "f", "헬스", "무원짐", "60121", "서울특별시 성북구", "1층", "요가마나옴입니다", "생활체육지도사", "license.jpg", null, null, "profile.jpg", null, null);
 		try {
 			biz.register(obj);
 			System.out.println(obj);
