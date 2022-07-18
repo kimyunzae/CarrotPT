@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.first.biz.TraineeBiz;
 import com.first.vo.TraineeVO;
+import com.first.vo.TrainerVO;
 
 @Controller
 public class UserController {
@@ -78,15 +79,9 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 //	}
 //	
 	@RequestMapping("/mypage")
-	public String mypage(Model m, HttpSession session) {
+	public String mypage(Model m, String id) {
 		try {
-			TraineeVO vo = (TraineeVO) session.getAttribute("logincust");
-			if (vo == null) {
-				throw new Exception();
-			}
-			String id = vo.getId();
-			vo = traineebiz.get(id);
-		
+			TraineeVO vo = traineebiz.get(id);
 			m.addAttribute("vo", vo);
 			
 		} catch (Exception e) {
@@ -95,6 +90,7 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
+
 
 	
 

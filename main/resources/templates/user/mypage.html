@@ -82,31 +82,31 @@
 									</div>
 									<div class="col-md-6">
 										<label class="labels">비밀번호</label><input type="text"
-											class="form-control" value="" placeholder="비밀번호">
+											class="form-control" th:value="${vo.pwd}" placeholder="비밀번호">
 									</div>
 								</div>
 								<div class="row mt-3">
 									<div class="col-md-12">
 										<label class="labels">휴대폰 번호</label><input type="text"
-											class="form-control" placeholder="휴대폰 번호" value="">
+											class="form-control" th:value="${vo.phone}" placeholder="휴대폰 번호">
 									</div>
 									<div class="col-md-12">
 										<label class="labels">이메일</label><input type="text"
-											class="form-control" placeholder="Email" value="">
+											class="form-control" placeholder="Email" th:value="${vo.email}">
 									</div>
 									<div class="col-md-12">
 										<label class="labels">주소</label><input type="text"
-											class="form-control" placeholder="주소" value="">
+											class="form-control" placeholder="주소" th:value="${vo.addr1}">
 									</div>
 								</div>
 								<div class="row mt-3">
 									<div class="col-md-6">
 										<label class="labels">상세주소 </label><input type="text"
-											class="form-control" placeholder="상세정보" value="">
+											class="form-control" placeholder="상세정보" th:value="${vo.addr2}">
 									</div>
 									<div class="col-md-6">
 										<label class="labels">우편번호</label><input type="text"
-											class="form-control" value="" placeholder="우편번호">
+											class="form-control" th:value="${vo.zip}" placeholder="우편번호">
 									</div>
 								</div>
 								<div class="mt-5 text-center">
