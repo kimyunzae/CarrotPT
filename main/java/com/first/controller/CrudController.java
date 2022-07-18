@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
@@ -25,7 +26,32 @@ public class CrudController {
 	
 	@Value("${admindir}")
 	String admindir;
+	
+	//일반회원 가입 
+	@RequestMapping("/joinimpl")
+	public String joinimpl(Model m, TraineeVO trainee, HttpSession session) {
+		try {
+			traineebiz.register(trainee);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "index";
+	}
+	
+	//일반회원 마이페이지 업데이트
+	@RequestMapping("/updateimpl")
+	public RedirectView updateimpl(Model m, TraineeVO trainee) {
+		try {
+			traineebiz.modify(trainee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new RedirectView("/mypage");
+	}
+
+	//트레이너 회원가입
 	@RequestMapping("tregisterimpl")
 	public String tregisterimpl(Model m, TrainerVO t) {
 		String profile1 = t.getPf1().getOriginalFilename();
@@ -52,15 +78,8 @@ public class CrudController {
 
 		return "index";
 	}
+	
+	
 
-	@RequestMapping("/joinimpl")
-	public String joinimpl(Model m, TraineeVO trainee, HttpSession session) {
-		try {
-			traineebiz.register(trainee);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "index";
-	}
+	
 }

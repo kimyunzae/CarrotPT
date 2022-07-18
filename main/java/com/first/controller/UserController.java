@@ -1,8 +1,6 @@
 package com.first.controller; 
 
 
-import java.util.Random;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +78,20 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 //	}
 //	
 	@RequestMapping("/mypage")
-	public String mypage(Model m) {
+	public String mypage(Model m, HttpSession session) {
+		try {
+			TraineeVO vo = (TraineeVO) session.getAttribute("logincust");
+			if (vo == null) {
+				throw new Exception();
+			}
+			String id = vo.getId();
+			vo = traineebiz.get(id);
+		
+			m.addAttribute("vo", vo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("center", "user/mypage");
 		return "index";
 	}

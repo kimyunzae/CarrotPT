@@ -32,8 +32,7 @@ h3, p, span {
 
 .register-right {
 	background: #f8f9fa;
-	border-top-left-radius: 10% 50%;
-	border-bottom-left-radius: 10% 50%;
+	
 }
 
 .register-left img {
@@ -115,6 +114,11 @@ transform: translateY(-20px);}
 	margin-bottom: -15%;
 	color: #495057;
 }
+
+#joinbtn:disabled {
+	background-color: grey;
+	cursor: auto;
+}
 </style>
 
 
@@ -182,8 +186,11 @@ function kakaoLogin() {
 </script>
 
 <script>
-	//아이디 중복 체크 , id는 3자리 이상
+	
 	$(document).ready(function() {
+		$('#joinbtn').attr('disabled', 'disabled');
+		
+		//아이디 중복 체크 , id는 3자리 이상
 		$('#id').keyup(function() {
 			var id = $(this).val();
 			$.ajax({
@@ -235,6 +242,20 @@ function kakaoLogin() {
 			} else {
 				$('#iepwd').text('비밀번호를 다시 확인해주세요');
 			}
+		});
+		
+		
+		$('.user input').on('keyup', function() {		
+		    $('.user input').each(function() {
+		      if(!$(this).val()){
+		    		$('#joinbtn').attr('disabled', 'disabled');
+		           return false;
+		        }
+		     
+		      else {
+		    		$('#joinbtn').removeAttr('disabled');
+		      }
+		    });   
 		});
 
 		// 	INSERT 기능
@@ -318,21 +339,19 @@ function kakaoLogin() {
 									class="form-control" name="phone" placeholder="휴대폰 번호 *"
 									value="" />
 							</div>
-							<div>
-								<label>주소 *: </label>
-							</div>
+							
 							<div class="form-group">
-								<input type="text" id="sample6_postcode" placeholder="우편번호"
+								<input type="text" class="form-control" id="sample6_postcode" placeholder="우편번호 *"
 									name="zip"> 
 									<input type="button"
 									onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 							</div>
 							<div class="form-group">	
 								<input type="text" class="form-control" id="sample6_address"
-									placeholder="주소" name="addr1">
+									placeholder="주소 *" name="addr1">
 							</div>
 							<div class="form-group">	
-							 <input type="text" placeholder="상세주소" class="form-control" id="sample6_detailAddress" name="addr2"/>
+							 <input type="text" placeholder="상세주소 *" class="form-control" id="sample6_detailAddress" name="addr2"/>
 
 							</div>
 							<div class="form-group">
