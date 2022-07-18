@@ -1,5 +1,4 @@
-package com.first.controller; 
-
+package com.first.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,46 +12,61 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.first.biz.TraineeBiz;
+import com.first.biz.TrainerBiz;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	TraineeBiz traineebiz;
-	
+
+	@Autowired
+	TrainerBiz trainerbiz;
+
 	@RequestMapping("/login")
 	public String login(Model m) {
 		m.addAttribute("center", "user/login");
 		return "index";
 	}
 
-@RequestMapping("/loginimpl")
-public String loginimpl(Model m, String id, String pwd, HttpSession session) {
-    try {
-        TraineeVO obj = traineebiz.get(id);
-        
-        if(obj.getPwd().equals(pwd)) {
-            session.setAttribute("logincust", obj);
-            m.addAttribute("logincust", obj);
-            
-        }else {
-            return "redirect:/login";
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return "index";
-}
+	@RequestMapping("/loginimpl")
+	public String loginimpl(Model m, String id, String pwd, HttpSession session) {
+
+		TraineeVO trainee = null;
+		TrainerVO trainer = null;
+
+		try {
+			trainee = traineebiz.get(id);
+			if (trainee == null) {
+				trainer = trainerbiz.get(id);
+
+				if (trainer.getPwd().equals(pwd)) {
+					session.setAttribute("logintrainer", trainer);
+					m.addAttribute("logintrainer", trainer);
+				}
+			}
+			if (trainee.getPwd().equals(pwd)) {
+				session.setAttribute("logincust", trainee);
+				m.addAttribute("logincust", trainee);
+
+			} else {
+				return "redirect:/login";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "index";
+	}
+
 	@RequestMapping("/logout")
 	public String logout(Model m, HttpSession session) {
-	if(session != null) {
-		session.invalidate();
+		if (session != null) {
+			session.invalidate();
+		}
+		return "index";
 	}
-	return "index";
-}
-
 
 	@RequestMapping("/join")
 	public String join(Model m) {
@@ -83,16 +97,13 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 		try {
 			TraineeVO vo = traineebiz.get(id);
 			m.addAttribute("vo", vo);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
-
-
-	
 
 //
 //	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
@@ -124,7 +135,6 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 //		return "index";
 //	}
 
-
 //	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
 //	@ResponseBody  //AJAX후 값을 리턴하기위해 작성
 //
@@ -147,9 +157,7 @@ public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 //			javaMailSenderImpl.send(message);
 //	        return key;
 //		}	
-	
-	
-	
+
 	@RequestMapping("/tmypage")
 	public String tmypage(Model m) {
 		m.addAttribute("center", "user/tmypage");
