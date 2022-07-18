@@ -3,6 +3,10 @@
 	float: right;
 }
 
+h3, p, span {
+	font-family: "Poppins", Arial, sans-serif;
+}
+
 .register {
 	margin-top: 3%;
 	margin-bottom: 3%;
@@ -162,16 +166,16 @@ function kakaoLogin() {
 							if (extraAddr !== '') {
 								extraAddr = ' (' + extraAddr + ')';
 							}
-							document.getElementById("sample6_extraAddress").value = extraAddr;
+						//	document.getElementById("sample6_extraAddress").value = extraAddr;
 
 						} else {
-							document.getElementById("sample6_extraAddress").value = '';
+						//	document.getElementById("sample6_extraAddress").value = '';
 						}
 
 						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr;
-						document.getElementById("sample6_detailAddress")
-								.focus();
+						document.getElementById("sample6_address").value = addr + extraAddr;
+						document.getElementById("sample6_detailAddress").focus();
+								
 					}
 				}).open();
 	}
@@ -319,14 +323,17 @@ function kakaoLogin() {
 							</div>
 							<div class="form-group">
 								<input type="text" id="sample6_postcode" placeholder="우편번호"
-									name="zip"> <input type="button"
-									onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+									name="zip"> 
+									<input type="button"
+									onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+							</div>
+							<div class="form-group">	
 								<input type="text" class="form-control" id="sample6_address"
-									placeholder="주소" name="addr1"><br> <input
-									type="text" class="form-control" id="sample6_detailAddress"
-									placeholder="상세주소"> <input type="text"
-									class="form-control" id="sample6_extraAddress"
-									placeholder="건물명" name="addr2">
+									placeholder="주소" name="addr1">
+							</div>
+							<div class="form-group">	
+							 <input type="text" placeholder="상세주소" class="form-control" id="sample6_detailAddress" name="addr2"/>
+
 							</div>
 							<div class="form-group">
 								<button type="submit" id="joinbtn" value="회원가입"

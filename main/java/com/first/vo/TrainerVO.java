@@ -54,6 +54,7 @@ public class TrainerVO {
 	private MultipartFile pf1;
 	private MultipartFile pf2;
 	private MultipartFile pf3;
+	private int num;
 
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
 

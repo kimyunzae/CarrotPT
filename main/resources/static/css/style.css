@@ -5,7 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
  
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
 :root {
   --blue: #007bff;
@@ -3475,7 +3475,11 @@ input[type="button"].btn-block {
   margin-right: 1rem;
   font-size: 1.25rem;
   line-height: inherit;
-  white-space: nowrap; }
+  white-space: nowrap; 
+  font-family: 'Black Han Sans', sans-serif; 
+ 
+  }
+ 
   .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none; }
 
@@ -9649,6 +9653,14 @@ textarea.form-control {
       background: #b2bbc9;
       color: #fff;
       border: 1px solid transparent; }
+      
+.block-27 ul li a:hover{
+	background-color:#769BCD;;
+}
+
+ .block-27 li:hover{
+ 	color:white;
+ } 
 
 .contact-section .img {
   width: 100%;

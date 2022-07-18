@@ -87,11 +87,13 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return dao.selectcnt();
 	}
 	
-//	public Page<TrainerVO> findPage(int pageNo, int pageSize){
-//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-//		return dao.findAll(pageable);
-//	}
-
+	public List<TrainerVO> getbypage(int pageNo, int amount) throws Exception{
+		List<TrainerVO> list = dao.selectbypage(pageNo, amount);
+		for (TrainerVO v : list) {
+			trainerinfo(v);
+		}
+		return list;
+	}
 
 	
 
