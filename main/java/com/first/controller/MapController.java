@@ -5,12 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-
-@RequestMapping("/map")
 public class MapController {
-	
-	@RequestMapping("/")
-	public String main(Model m) {
+
+	@RequestMapping("/map")
+	public String mapcenter(Model m) {
 		m.addAttribute("center", "map/mapcenter");
 		return "index";
 	}
