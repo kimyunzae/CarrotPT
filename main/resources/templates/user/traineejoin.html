@@ -3,106 +3,123 @@
 	float: right;
 }
 
-.register{
-    margin-top: 3%;
-    margin-bottom: 3%; 
-    padding: 3%; 
-}
-.register-left{
- 	background: -webkit-linear-gradient(left, #c6724d, #769BCD);
-    text-align: center;
-    color: #fff;
-
-}
-.register-left input{
-    border: none;
-    border-radius: 1.2rem;
-    width: 60%;
-    background: #f8f9fa;
-    font-weight: bold;
-    color: #383d41;
-    margin-bottom: 3%;
-    cursor: pointer;
-}
-.register-right{
-    background: #f8f9fa;
-    border-top-left-radius: 10% 50%;
-    border-bottom-left-radius: 10% 50%;
+h3, p, span {
+	font-family: "Poppins", Arial, sans-serif;
 }
 
-.register-left img{
-    margin-top: 15%;
-    margin-bottom: 5%;
-    width: 25%;
-    -webkit-animation: mover 2s infinite  alternate;
-    animation: mover 1s infinite  alternate;
-}
-@-webkit-keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-@keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-.register-left p{
-    font-weight: lighter;
-    padding: 12%;
-    margin-top: -9%;
-}
-.register .register-form{
-    padding: 10%;
-    margin-top: 10%;
-}
-.btnRegister{
-    float: right;
-    margin-top: 10%;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 2%;
-    background: #769BCD;
-    color: #fff; 
-    font-weight: 600;
-    width: 50%;
-    cursor: pointer;
-}
-.register .nav-tabs{
-    margin-top: 3%;
-    border: none;
-    background:#769BCD;
-    border-radius: 1.5rem;
-    width: 28%;
-    float: right;
-}
-.register .nav-tabs .nav-link{
-    padding: 2%;
-    height: 34px;
-    font-weight: 600;
-    color: #fff;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
-}
-.register .nav-tabs .nav-link:hover{
-    border: none;
-}
-.register .nav-tabs .nav-link.active{
-    width: 100px;
-    color: #769BCD;
-    border: 2px solid #769BCD;
-    border-top-left-radius: 1.5rem;
-    border-bottom-left-radius: 1.5rem;
-}
-.register-heading{
-    text-align: center;
-    margin-top: 8%;
-    margin-bottom: -15%;
-    color: #495057;
+.register {
+	margin-top: 3%;
+	margin-bottom: 3%;
+	padding: 3%;
 }
 
+.register-left {
+	background: -webkit-linear-gradient(left, #c6724d, #769BCD);
+	text-align: center;
+	color: #fff;
+}
+
+.register-left input {
+	border: none;
+	border-radius: 1.2rem;
+	width: 60%;
+	background: #f8f9fa;
+	font-weight: bold;
+	color: #383d41;
+	margin-bottom: 3%;
+	cursor: pointer;
+}
+
+.register-right {
+	background: #f8f9fa;
+	border-top-left-radius: 10% 50%;
+	border-bottom-left-radius: 10% 50%;
+}
+
+.register-left img {
+	margin-top: 15%;
+	margin-bottom: 5%;
+	width: 25%;
+	-webkit-animation: mover 2s infinite alternate;
+	animation: mover 1s infinite alternate;
+}
+
+@-webkit-keyframes mover { 0% {
+	transform: translateY(0);
+} 100% {
+transform: translateY(-20px);}
+}
+
+@keyframes mover { 0% {
+	transform: translateY(0);
+} 100% {
+transform: translateY(-20px);}
+}
+.register-left p {
+	font-weight: lighter;
+	padding: 12%;
+	margin-top: -9%;
+}
+
+.register .register-form {
+	padding: 10%;
+	margin-top: 10%;
+}
+
+.btnRegister {
+	float: right;
+	margin-top: 10%;
+	border: none;
+	border-radius: 1.5rem;
+	padding: 2%;
+	background: #769BCD;
+	color: #fff;
+	font-weight: 600;
+	width: 50%;
+	cursor: pointer;
+}
+
+.register .nav-tabs {
+	margin-top: 3%;
+	border: none;
+	background: #769BCD;
+	border-radius: 1.5rem;
+	width: 28%;
+	float: right;
+}
+
+.register .nav-tabs .nav-link {
+	padding: 2%;
+	height: 34px;
+	font-weight: 600;
+	color: #fff;
+	border-top-right-radius: 1.5rem;
+	border-bottom-right-radius: 1.5rem;
+}
+
+.register .nav-tabs .nav-link:hover {
+	border: none;
+}
+
+.register .nav-tabs .nav-link.active {
+	width: 100px;
+	color: #769BCD;
+	border: 2px solid #769BCD;
+	border-top-left-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
+}
+
+.register-heading {
+	text-align: center;
+	margin-top: 8%;
+	margin-bottom: -15%;
+	color: #495057;
+}
 </style>
 
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 window.Kakao.init("1246eaf5aa2f74f55a55378bd15623c5")
@@ -149,16 +166,16 @@ function kakaoLogin() {
 							if (extraAddr !== '') {
 								extraAddr = ' (' + extraAddr + ')';
 							}
-							document.getElementById("sample6_extraAddress").value = extraAddr;
+						//	document.getElementById("sample6_extraAddress").value = extraAddr;
 
 						} else {
-							document.getElementById("sample6_extraAddress").value = '';
+						//	document.getElementById("sample6_extraAddress").value = '';
 						}
 
 						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr;
-						document.getElementById("sample6_detailAddress")
-								.focus();
+						document.getElementById("sample6_address").value = addr + extraAddr;
+						document.getElementById("sample6_detailAddress").focus();
+								
 					}
 				}).open();
 	}
@@ -238,16 +255,14 @@ function kakaoLogin() {
 			<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
 			<h3 class="text-light mt-5">당신 근처의 PT쌤</h3>
 			<p>30초만에 가입하고 나한테 딱 맞는 트레이너 찾자!</p>
-			
-			<a href="/../login"><input class="p-1 mb-3" type="submit" name="" value="일반 로그인" /></a>
-			
-			<a href="javascript:kakaoLogin();"><input type="image"
-			src="/images/kakao_login.png">
+
+			<a href="/../login"><input class="p-1 mb-3" type="submit" name=""
+				value="일반 로그인" /></a> <a href="javascript:kakaoLogin();"><input
+				type="image" src="/images/kakao_login.png"> </a> <a href="">
+				<input type="image" src="/images/naver_login.png">
 			</a>
-			<a href=""> <input type="image" src="/images/naver_login.png">
-			</a>
-			
-			
+
+
 		</div>
 		<div class="col-md-9 register-right">
 			<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -265,90 +280,94 @@ function kakaoLogin() {
 					<form class="row register-form user">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control" name="name" placeholder="이름 *"
-									value="" />
+								<input type="text" class="form-control" name="name"
+									placeholder="이름 *" value="" /><span></span>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" name="id" placeholder="아이디 *"
-									value="" />
+								<input type="text" class="form-control" name="id" id="id"
+									placeholder="아이디 *" value="" /><span id="ieid"></span>
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control" name="pwd" placeholder="비밀번호 *"
-									value="" />
+								<input type="password" class="form-control" name="pwd" id="pwd"
+									placeholder="비밀번호 *" value="" />
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control"
-									placeholder="비밀번호 확인 *" value="" />
+								<input type="password" class="form-control" name="pwd2"
+									id="pwd2" placeholder="비밀번호 확인 *" value="" /><span id="iepwd"></span>
 							</div>
 
 
 							<div class="form-group">
 								<label class="fieldlabels">정보 수집 동의: *</label>
-								<div class="maxl">
-									<label class="radio inline"> <input type="radio"
-										 value="male" checked> <span> 동의 </span>
-									</label> <label class="radio inline"> <input type="radio"
-										name="gender" value="female"> <span>동의 안함 </span>
+								<div class="radio-inline">
+									<label class="radio-inline"> <input type="radio"
+										name="optradio" checked>동의
+									</label> <label class="radio-inline"> <input type="radio"
+										name="optradio">동의 안함
 									</label>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="email" class="form-control" name="email" placeholder="이메일 *"
-									value="" />
+								<input type="email" class="form-control" name="email"
+									placeholder="이메일 *" value="" />
 							</div>
 							<div class="form-group">
 								<input type="text" minlength="10" maxlength="10"
-									 class="form-control" name="phone" placeholder="휴대폰 번호 *"
+									class="form-control" name="phone" placeholder="휴대폰 번호 *"
 									value="" />
 							</div>
-							<div class="form-group">
-								<input type="text" id="sample6_postcode" name="zip"
-									placeholder="우편번호">
-								<button class="btn btn-primary"
-									onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+							<div>
+								<label>주소 *: </label>
 							</div>
-
 							<div class="form-group">
-								<input type="text" id="sample6_address" name="addr1"
-									placeholder="주소" class="form-control">
+								<input type="text" id="sample6_postcode" placeholder="우편번호"
+									name="zip"> 
+									<input type="button"
+									onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 							</div>
+							<div class="form-group">	
+								<input type="text" class="form-control" id="sample6_address"
+									placeholder="주소" name="addr1">
+							</div>
+							<div class="form-group">	
+							 <input type="text" placeholder="상세주소" class="form-control" id="sample6_detailAddress" name="addr2"/>
 
+							</div>
 							<div class="form-group">
-								<input type="text" id="sample6_detailAddress" name="addr2"
-									placeholder="상세주소 (ex: 상호빌딩)" class="form-control"> 
-									<input id="joinbtn"
-									type="submit" class="btnRegister" value="제출" />
+								<button type="submit" id="joinbtn" value="회원가입"
+									class="btn btn-primary py-3 px-5">회원가입</button>
 							</div>
 						</div>
 					</form>
 				</div>
-				
+
 				<div class="tab-pane fade show" id="profile" role="tabpanel"
 					aria-labelledby="profile-tab">
 					<h3 class="register-heading">소셜 로그인</h3>
 					<div class="row register-form">
-					<div class="bg-light  p-md-5contact-form col-md-12 ml-5">
+						<div class="bg-light  p-md-5contact-form col-md-12 ml-5">
 							<!-- <div>
 										<a href="javascript:kakaoLogin();"><button>kakaologin</button></a>
 									</div> -->
-						<div class="socialbtn ml-5">
-							<a href="javascript:kakaoLogin();"> <input type="image"
-								src="/images/kakao_login.png"
-								style="height: 46px; widows: 10px;">
-							</a>
-						</div>
-						<div class="kakaobtn ml-5">
-							<a href=""> <input type="image" src="/images/naver_login.png"
-								style="height: 50px; widows: 8px;">
-							</a>
-						</div>
+							<div class="socialbtn ml-5">
+								<a href="javascript:kakaoLogin();"> <input type="image"
+									src="/images/kakao_login.png"
+									style="height: 46px; widows: 10px;">
+								</a>
+							</div>
+							<div class="kakaobtn ml-5">
+								<a href=""> <input type="image"
+									src="/images/naver_login.png"
+									style="height: 50px; widows: 8px;">
+								</a>
+							</div>
 
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	</div>
 </div>
@@ -454,7 +473,7 @@ function kakaoLogin() {
 					placeholder="건물명" name="addr2">
 			</div>
 			<div class="form-group">
-				<button type="submit" id="joinbtn" value="제출"
+				<button type="submit" id="joinbtn" value="회원가입"
 					class="btn btn-primary py-3 px-5">회원가입</button>
 			</div>
 			</form>
