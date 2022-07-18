@@ -9649,6 +9649,14 @@ textarea.form-control {
       background: #b2bbc9;
       color: #fff;
       border: 1px solid transparent; }
+      
+.block-27 ul li a:hover{
+	background-color:#769BCD;;
+}
+
+ .block-27 li:hover{
+ 	color:white;
+ } 
 
 .contact-section .img {
   width: 100%;

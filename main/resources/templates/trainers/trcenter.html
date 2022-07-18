@@ -32,12 +32,67 @@
 </style>
 
 <script th:inline="javascript">
+
+
+
+function GetTarget(j){
+	location.href='/trainers/'+j;
+}
+
+
+function paging(totalData, currentPage){
+	
+		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
+		var totalData = [[${totalData}]];
+		var currentPage = [[${currentPage}]];
+		var limitPerPage = 6; // 페이지당 데이터 수
+		var pageSize = 5; // 화면에 표시될 페이지 수
+		var totalPages = Math.ceil(totalData / limitPerPage);
+		var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+		var last = pageGroup * pageSize;
+		
+		if(currentPage <= 0){
+			currentPage = 1;
+		}
+		if(last > totalPages){
+			last = totalPages;
+		}
+		
+		var first = last - (pageSize - 1);
+		const next = last + 1;
+		var prev = first - 1;
+		
+		if(totalPages < 1){
+			first = last;
+		}
+		
+		var pages = $('#pages');
+		pages.empty();
+		
+		// prev 버튼
+		if(first > 1){
+			pages.append('<li><a onclick="GetTarget('+ first +')">prev</a></li>');
+		}
+		
+		// 페이지 숫자
+		for (var j = first; j <= last; j++) {
+			
+			if(currentPage == j){
+				pages.append('<li class="active"><a onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
+			}else if(j > 0){
+				pages.append('<li><a onclick="GetTarget('+ j +')">' + j + '</a></li>');
+				};
+			}
+		
+		// next 버튼
+		if(next > pageSize && next <= totalPages){
+			pages.append('<li><a onclick="GetTarget(' + next + ')">next</a></li>');
+		};
+	
+	}
+	
 	$(function(){
-	//	var numberOfItems = [[${trcnt}]];
-		var limitPerPage = 6;
-		var totalPages = Math.ceil(numberOfItems / limitPerPage);
-		var paginationSize = 5;
-		var currentPage;
+		paging();
 	});
 </script>
 <!--  
@@ -116,7 +171,8 @@
 				<div class="row mt-5">
 					<div class="col text-center">
 						<div class="block-27">
-							<ul>
+							<ul id="pages">
+							<!--  
 								<li><a href="#">&lt;</a></li>
 								<li class="active"><span>1</span></li>
 								<li><a href="#">2</a></li>
@@ -124,6 +180,7 @@
 								<li><a href="#">4</a></li>
 								<li><a href="#">5</a></li>
 								<li><a href="#">&gt;</a></li>
+								-->
 							</ul>
 						</div>
 					</div>

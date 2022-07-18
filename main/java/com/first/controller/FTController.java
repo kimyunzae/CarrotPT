@@ -20,8 +20,8 @@ public class FTController {
 	@Autowired
 	TrainerBiz biz;
 	
-	@ModelAttribute("totalCount")
-	public int totalCount() {
+	@ModelAttribute("totalData")
+	public int totalData() {
 		int cnt = 0;
 		try {
 			cnt = biz.getcnt();
@@ -40,24 +40,22 @@ public class FTController {
 
 	@RequestMapping("/")
 	public String main(Model m) {
-		
+		int amount = 6;
+		int pageNo = 1;
 		try {
-			List<TrainerVO> list = biz.getbypage(1, 6);
+			List<TrainerVO> list = biz.getbypage(pageNo, amount);
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		m.addAttribute("center", "trainers/trcenter");
+		m.addAttribute("currentPage", pageNo);
 		return "index";
 	}
 	
 	@RequestMapping("/{pageNo}")
 	public String findPage(@PathVariable("pageNo") int pageNo, Model m) {
-		
-		if(pageNo == 0) {
-			pageNo = 1;
-		}
 		
 		int amount = 6;
 		List<TrainerVO> list = null;
@@ -68,6 +66,7 @@ public class FTController {
 		}
 		m.addAttribute("center", "trainers/trcenter");
 		m.addAttribute("trlist", list);
+		m.addAttribute("currentPage", pageNo);
 		return "index";
 	}
 	
