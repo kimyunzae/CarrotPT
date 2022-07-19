@@ -1,5 +1,7 @@
 package com.first.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,8 +202,35 @@ public class UserController {
 //		}	
 
 	@RequestMapping("/tmypage")
-	public String tmypage(Model m) {
+	public String tmypage(Model m, String id) {
 		m.addAttribute("center", "user/tmypage");
+		return "index";
+	}
+	
+	// 관리자: 메인
+	@RequestMapping("/admin")
+	public String admin(Model m, String id) {
+		try {
+			List<TraineeVO> list = traineebiz.gettrainees();
+			m.addAttribute("tneelist", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "user/admin");
+		m.addAttribute("admincenter", "user/admintrainee");
+		return "index";
+	}
+	
+	// 관리자: 일반회원 상세
+	@RequestMapping("/admin/trainees")
+	public String traineedetail(Model m, String id) {
+		try {
+			TraineeVO obj = traineebiz.get(id);
+			m.addAttribute("vo", obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
 

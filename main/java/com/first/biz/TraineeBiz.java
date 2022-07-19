@@ -41,9 +41,17 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 		return dao.selectall();
 	}
 
+	
+	// 이메일로 선택
 	public TraineeVO getbyemail(String k) {
 		TraineeVO obj = dao.selectbyemail(k);
 		return obj;
+	}
+	
+	// level이 '일반회원'인 목록
+	public List<TraineeVO> gettrainees() throws Exception{
+		List<TraineeVO> list = dao.selecttrainees();
+		return list;
 	}
 
 }
