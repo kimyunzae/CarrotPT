@@ -40,7 +40,7 @@
 
 function GetTarget(j){
 	$.ajax({
-		url:'/trainers/list',
+		url:'/trainers/findpage',
 		data:{
 			'pageNo':j,
 		},
@@ -95,7 +95,18 @@ function GetTarget(j){
 		}
 		
 	});
-	// location.href='/trainers/' + j;
+	
+	history.pushState({
+		data:'/trainers/findpage',
+		pageNo: j
+	}, // state
+	null, // title
+	'/trainers/list?pageNo=' + j); // url
+	
+	$(window).on('popstate', function(event){
+		window.location = document.location.href;
+
+	});
 }
 
 
@@ -154,12 +165,6 @@ function paging(totalData, currentPage){
 		paging();
 	});
 </script>
-<!--  
-	<section class="hero-wrap hero-wrap-2 trcenter-body"
-		style="background-image: url('/images/fitness/FindTrainers8.jpg');"
-		data-stellar-background-ratio="0.5">
-	</section>
--->
 
 <section class="ftco-section">
 
