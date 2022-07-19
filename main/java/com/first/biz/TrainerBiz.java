@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.first.frame.Biz;
 import com.first.mapper.ReviewMapper;
 import com.first.mapper.TrainerMapper;
+import com.first.vo.MajorVO;
 import com.first.vo.TrainerVO;
 
 @Service("trainerbiz")
@@ -53,7 +54,9 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	@Override
 	public TrainerVO get(String k) throws Exception {
 		TrainerVO obj = dao.select(k);
-		trainerinfo(obj);
+		if(obj != null) {
+			trainerinfo(obj);
+		}
 		return obj;
 	}
 
@@ -94,6 +97,20 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		}
 		return list;
 	}
+	
+	// 검색
+	public List<TrainerVO> search(String loc, String major) throws Exception{
+		List<TrainerVO> list = dao.search(loc, major);
+		for (TrainerVO v : list) {
+			trainerinfo(v);
+		}
+		return list;
+	}
+	
+	public List<MajorVO> getmajor() throws Exception{
+		List<MajorVO> list = dao.selectmajor();
+		return list;
+	};
 
 	
 

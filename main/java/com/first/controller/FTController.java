@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.first.biz.TrainerBiz;
+import com.first.vo.MajorVO;
 import com.first.vo.TrainerVO;
 
 @Controller
@@ -35,6 +36,17 @@ public class FTController {
 	public int amount() {
 		int amount = 6;
 		return amount;
+	}
+	
+	@ModelAttribute("majors")
+	public List<MajorVO> majors(){
+		List<MajorVO> list = null;
+		try {
+			list = biz.getmajor();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 

@@ -39,7 +39,7 @@
 
 
 function GetTarget(j){
-	location.href='/trainers/'+j;
+	location.href='/trainers/' + j;
 }
 
 
@@ -48,7 +48,7 @@ function paging(totalData, currentPage){
 		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
 		var totalData = [[${totalData}]];
 		var currentPage = [[${currentPage}]];
-		var limitPerPage = 6; // 페이지당 데이터 수
+		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 		var pageSize = 5; // 화면에 표시될 페이지 수
 		var totalPages = Math.ceil(totalData / limitPerPage);
 		var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
@@ -202,63 +202,29 @@ function paging(totalData, currentPage){
 						<div class="row">
 							<div class="col-lg-12 align-items-end mb-3">
 								<div class="form-group">
-									<label for="#">Destination</label>
+									<label for="#">지역별 검색</label>
 									<div class="form-field">
 										<div class="icon">
 											<span class="ion-ios-search"></span>
 										</div>
-										<input type="text" class="form-control"
+										<form>
+											<input type="text" class="form-control"
 											placeholder="Search place">
+										</form>
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-lg-12 align-items-end mb-3">
 								<div class="form-group">
-									<label for="#">Check-in date</label>
-									<div class="form-field">
-										<div class="icon">
-											<span class="ion-ios-calendar"></span>
-										</div>
-										<input type="text" class="form-control checkin_date"
-											placeholder="Check In Date">
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12 align-items-end mb-3">
-								<div class="form-group">
-									<label for="#">Check-out date</label>
-									<div class="form-field">
-										<div class="icon">
-											<span class="ion-ios-calendar"></span>
-										</div>
-										<input type="text" class="form-control checkout_date"
-											placeholder="Check Out Date">
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12 align-items-end mb-3">
-								<div class="form-group">
-									<label for="#">Price Limit</label>
+									<label for="#">운동별 검색</label>
 									<div class="form-field">
 										<div class="select-wrap">
 											<div class="icon">
 												<span class="ion-ios-arrow-down"></span>
 											</div>
 											<select name="" id="" class="form-control">
-												<option value="">$5,000</option>
-												<option value="">$10,000</option>
-												<option value="">$50,000</option>
-												<option value="">$100,000</option>
-												<option value="">$200,000</option>
-												<option value="">$300,000</option>
-												<option value="">$400,000</option>
-												<option value="">$500,000</option>
-												<option value="">$600,000</option>
-												<option value="">$700,000</option>
-												<option value="">$800,000</option>
-												<option value="">$900,000</option>
-												<option value="">$1,000,000</option>
-												<option value="">$2,000,000</option>
+												<option th:each="m : ${majors}" th:value="${m.major}"></option>
 											</select>
 										</div>
 									</div>

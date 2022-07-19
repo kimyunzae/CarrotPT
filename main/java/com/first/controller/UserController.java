@@ -33,32 +33,73 @@ public class UserController {
 
 	@RequestMapping("/loginimpl")
 	public String loginimpl(Model m, String id, String pwd, HttpSession session) {
-
-		TraineeVO trainee = null;
-		TrainerVO trainer = null;
-
+		String result = "index";
+		TrainerVO tner = null;
+		TraineeVO tnee = null;
 		try {
-			trainee = traineebiz.get(id);
-			if (trainee == null) {
-				trainer = trainerbiz.get(id);
-
-				if (trainer.getPwd().equals(pwd)) {
-					session.setAttribute("logintrainer", trainer);
-					m.addAttribute("logintrainer", trainer);
+			tner = trainerbiz.get(id);
+			tnee = traineebiz.get(id);
+			
+			// 아이디 존재하지 않음
+			if(tner == null && tnee == null) {
+				result = "redirect:/login";
+				// trainer ID 존재
+			}else if(tner != null && tnee == null) {
+				if(tner.getPwd().equals(pwd)) {
+					m.addAttribute("logincust", tner);
+					session.setAttribute("logincust", tner);
+					result = "index";
+				}else {
+					// trainer ID 비밀번호 불일치
+					result = "redirect:/login";
+				}
+				// trainee ID 존재
+			}else if(tner == null && tnee != null) {
+				if(tnee.getPwd().equals(pwd)) {
+					m.addAttribute("logincust", tnee);
+					session.setAttribute("logincust", tnee);
+					result = "index";
+				}else {
+					// trainee ID 비밀번호 불일치
+					result = "redirect:/login";
 				}
 			}
-			if (trainee.getPwd().equals(pwd)) {
-				session.setAttribute("logincust", trainee);
-				m.addAttribute("logincust", trainee);
-
-			} else {
-				return "redirect:/login";
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "index";
+		return result;
 	}
+	
+	
+//	@RequestMapping("/loginimpl")
+//	public String loginimpl(Model m, String id, String pwd, HttpSession session) {
+//
+//		TraineeVO trainee = null;
+//		TrainerVO trainer = null;
+//
+//		try {
+//			trainee = traineebiz.get(id);
+//			if (trainee == null) {
+//				trainer = trainerbiz.get(id);
+//
+//				if (trainer.getPwd().equals(pwd)) {
+//					session.setAttribute("logintrainer", trainer);
+//					m.addAttribute("logintrainer", trainer);
+//				}
+//			}
+//			if (trainee.getPwd().equals(pwd)) {
+//				session.setAttribute("logincust", trainee);
+//				m.addAttribute("logincust", trainee);
+//
+//			} else {
+//				return "redirect:/login";
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return "index";
+//	}
 
 	@RequestMapping("/logout")
 	public String logout(Model m, HttpSession session) {

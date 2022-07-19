@@ -1,29 +1,31 @@
-package com.first.TraineeTest;
+package com.first.TrainerTest;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.first.biz.TraineeBiz;
-import com.first.vo.TraineeVO;
+import com.first.biz.TrainerBiz;
+import com.first.vo.MajorVO;
 
 @SpringBootTest
-class TraineeSelectTest {
-	
+class TrainerSelectMajorTest {
+
 	@Autowired
-	TraineeBiz biz;
-	
+	TrainerBiz biz;
+
 	@Test
 	void contextLoads() {
-		TraineeVO obj = null;
 		try {
-			obj = biz.get("id01121");
-			System.out.println(obj);
+			List<MajorVO> list = biz.getmajor();
+			for (MajorVO obj : list) {
+				System.out.println(obj);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 }
-
-

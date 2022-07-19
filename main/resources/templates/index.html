@@ -79,9 +79,9 @@
 							<a th:if="${session.logincust == null}" class="dropdown-item" href="/join">회원가입</a>
 							
 							
-							<a th:unless="${session.logincust == null}" class="dropdown-item" href="/logout">로그아웃</a>
-							<a th:unless="${session.logincust == null}" class="dropdown-item" href="/mypage" th:href="@{/mypage(id=${session.logincust.id})}">마이페이지</a>
-							<a th:unless="${session.logincust == null}" class="dropdown-item" href="/tmypage">트레이너 마이페이지(세션처리예정)</a>
+							<a th:if="${session.logincust != null}" class="dropdown-item" href="/logout">로그아웃</a>
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '일반회원'}" class="dropdown-item" href="/mypage" th:href="@{/mypage(id=${session.logincust.id})}">마이페이지</a>
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '트레이너'}" class="dropdown-item" href="/tmypage">트레이너 마이페이지(세션처리예정)</a>
 					    </div></li>
 				</ul>
 			</div>

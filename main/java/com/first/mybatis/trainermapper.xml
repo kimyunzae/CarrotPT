@@ -32,6 +32,28 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE status = '수락' AND num > (#{pageNo}-1)*#{amount}
 		LIMIT #{amount};
 	</select>
+<!-- select: 등록된 major -->
+	<select id="selectmajor" resultType="majorVO">
+		SELECT DISTINCT major FROM trainer;
+	</select>
+<!-- 검색 -->
+	<select id="search" resultType="trainerVO">
+		SELECT * FROM trainer
+		WHERE status = '수락'
+		<choose>
+			<when test = '(loc != null AND loc != "") AND (major != null AND major != "")'>
+				AND (gym_addr1 LIKE CONCAT('%',#{loc},'%') OR gym_addr2 LIKE CONCAT('%',#{loc},'%'))
+				AND major = #{major};
+			</when>
+			<when test = '(loc != null AND loc != "") AND (major == null OR major == "")'>
+				AND (gym_addr1 LIKE CONCAT('%',#{loc},'%') OR gym_addr2 LIKE CONCAT('%',#{loc},'%'))
+			</when>
+			<when test = '(loc == null OR loc == "") AND (major != null AND major != "")'>
+				AND major = #{major};
+			</when>
+		</choose>
+
+	</select>
 
 	<insert id="insert" parameterType="trainerVO">
 		INSERT INTO trainer VALUES(#{id},#{pwd},#{name},#{phone},#{email},#{gender},#{major},
