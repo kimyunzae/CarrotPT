@@ -64,12 +64,14 @@ public class FTController {
 		m.addAttribute("center", "trainers/trcenter");
 		m.addAttribute("trcenter_info", "trainers/trcenter_info");
 		m.addAttribute("currentPage", pageNo);
+		m.addAttribute("orderBy", orderBy);
 		return "index";
 	}
 	
 	
 	@RequestMapping("/findpage")
 	public String findPage(int pageNo, Model m, String orderBy) {
+		
 		int amount = 6;
 		int offset = 0;
 		List<TrainerVO> list = null;
@@ -78,6 +80,8 @@ public class FTController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		System.out.println("fp" + orderBy);
 		m.addAttribute("currentPage", pageNo);
 		m.addAttribute("trlist", list);
 		return "trainers/trcenter_info";
@@ -93,10 +97,11 @@ public class FTController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("list" + orderBy);
 		m.addAttribute("center", "trainers/trcenter");
 		m.addAttribute("trcenter_info", "trainers/trcenter_info");
 		m.addAttribute("currentPage", pageNo);
+		m.addAttribute("orderBy", orderBy);
 		return "index";
 	}
 	
