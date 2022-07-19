@@ -67,25 +67,6 @@ public class FTController {
 		return "index";
 	}
 	
-//	@ResponseBody
-//	@GetMapping("/list")
-//	public ModelAndView findPage(int pageNo) {
-//		ModelAndView mv = new ModelAndView();
-//		int amount = 6;
-//		List<TrainerVO> list = null;
-//		try {
-//			list = biz.getbypage(pageNo, amount);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		// m.addAttribute("center", "trainers/trcenter");
-//		mv.addObject("trlist", list);
-//		mv.addObject("currentPage", pageNo);
-//		System.out.println(list);
-//		mv.setViewName("trainers/trcenter_info");
-//		return mv;
-//	}
-	
 	
 	@RequestMapping("/findpage")
 	public String findPage(int pageNo, Model m) {
@@ -103,7 +84,6 @@ public class FTController {
 	
 	@RequestMapping("/list")
 	public String directPage(int pageNo, Model m) {
-		System.out.println("Direct");
 		int amount = 6;
 		try {
 			List<TrainerVO> list = biz.getbypage(pageNo, amount);

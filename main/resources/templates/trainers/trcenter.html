@@ -36,8 +36,6 @@
 
 <script th:inline="javascript">
 
-
-
 function GetTarget(j){
 	$.ajax({
 		url:'/trainers/findpage',
@@ -102,12 +100,13 @@ function GetTarget(j){
 	}, // state
 	null, // title
 	'/trainers/list?pageNo=' + j); // url
-	
+}
+
 	$(window).on('popstate', function(event){
 		window.location = document.location.href;
 
 	});
-}
+
 
 
 function paging(totalData, currentPage){
