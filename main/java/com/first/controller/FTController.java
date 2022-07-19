@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.first.biz.TrainerBiz;
 import com.first.vo.MajorVO;
@@ -62,13 +62,33 @@ public class FTController {
 		}
 		
 		m.addAttribute("center", "trainers/trcenter");
+		m.addAttribute("trcenter_info", "trainers/trcenter_info");
 		m.addAttribute("currentPage", pageNo);
 		return "index";
 	}
 	
-	@RequestMapping("/{pageNo}")
-	public String findPage(@PathVariable("pageNo") int pageNo, Model m) {
-		
+//	@ResponseBody
+//	@GetMapping("/list")
+//	public ModelAndView findPage(int pageNo) {
+//		ModelAndView mv = new ModelAndView();
+//		int amount = 6;
+//		List<TrainerVO> list = null;
+//		try {
+//			list = biz.getbypage(pageNo, amount);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		// m.addAttribute("center", "trainers/trcenter");
+//		mv.addObject("trlist", list);
+//		mv.addObject("currentPage", pageNo);
+//		System.out.println(list);
+//		mv.setViewName("trainers/trcenter_info");
+//		return mv;
+//	}
+	
+	
+	@RequestMapping("/list")
+	public String findPage(int pageNo, Model m) {
 		int amount = 6;
 		List<TrainerVO> list = null;
 		try {
@@ -76,10 +96,9 @@ public class FTController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		m.addAttribute("center", "trainers/trcenter");
-		m.addAttribute("trlist", list);
 		m.addAttribute("currentPage", pageNo);
-		return "index";
+		m.addAttribute("trlist", list);
+		return "trainers/trcenter_info";
 	}
 	
 	@RequestMapping("/detail")

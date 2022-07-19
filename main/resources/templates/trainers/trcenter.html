@@ -39,7 +39,63 @@
 
 
 function GetTarget(j){
-	location.href='/trainers/' + j;
+	$.ajax({
+		url:'/trainers/list',
+		data:{
+			'pageNo':j,
+		},
+		method:'GET',
+		success: function(result){
+			$('#div_trainer_row').empty();
+			$('#div_trainer_row').append(result);
+			
+			var currentPage = j;
+			var totalData = [[${totalData}]];
+			var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
+			var pageSize = 5; // 화면에 표시될 페이지 수
+			var totalPages = Math.ceil(totalData / limitPerPage);
+			var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+			var last = pageGroup * pageSize;
+			
+			if(currentPage <= 0){
+				currentPage = 1;
+			}
+			if(last > totalPages){
+				last = totalPages;
+			}
+			
+			var first = last - (pageSize - 1);
+			const next = last + 1;
+			var prev = first - 1;
+			
+			if(totalPages < 1){
+				first = last;
+			}
+			
+			var pages = $('#pages');
+			pages.empty();
+			
+			if(first > 1){
+				pages.append('<li><a onclick="GetTarget('+ first +')">prev</a></li>');
+			}
+			
+			for (var k = first; k <= last; k++) {
+				
+				if(currentPage == k){
+					pages.append('<li class="active"><a onclick="GetTarget(' + k + ');"' + '>' + k + '</a></li>');
+				}else if(k > 0){
+					pages.append('<li><a onclick="GetTarget('+ k +')">' + k + '</a></li>');
+					};
+				}
+			
+			if(next > pageSize && next <= totalPages){
+				pages.append('<li><a onclick="GetTarget(' + next + ')">next</a></li>');
+			};
+			
+		}
+		
+	});
+	// location.href='/trainers/' + j;
 }
 
 
@@ -123,51 +179,12 @@ function paging(totalData, currentPage){
 		<div class="row">
 		<!-- Left Start -->
 			<div class="col-lg-9 pr-lg-4">
-				<div class="row">
+				<div class="row" id="div_trainer_row">
+				<div id="div_trainer_replace" th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
+				</div>
+					
 				<!-- Single Trainer Start -->
-					<div class="col-md-6 col-lg-4 ftco-animate" th:each="t : ${trlist}">
-						<div class="project">
-						<!-- 프로필 사진 -->
-							<div class="img">
-								<a th:href="'/trainers/detail?id='+${t.id}"><img
-									src="/images/team/team-1.jpg" class="img-fluid"
-									alt="Colorlib Template"></a>
-							</div>
-						<!-- 정보 Start-->
-							<div class="text">
-							<!-- 운동 종류, 위치 -->
-								<div id="info majoraddr">
-									<div id="addrshort">
-										 <span id="tmajor" th:text="${t.major}"></span>
-									</div>
-									<div id="addrshort">
-										 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#769BCD" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-											  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-										 </svg>
-										<span th:text="${t.addrshort}"></span>
-									</div>
-								</div>
-								
-							<!-- 이름 -->
-								<div id="tname">
-									<h3><a th:href="'/trainers/detail?id='+${t.id}" th:text="${t.name}"></a></h3>
-								</div>
-								
-								<span id="tgymname" th:text="${t.gym_name}"></span>
-								 
-								<div class="star d-flex clearfix">
-									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span>
-										<span th:text="${t.avgrate}"></span>
-									</div>
-									<div class="float-right">
-										<span class="rate"><a th:text="'('+${t.rvcnt}+')'"></a></span>
-									</div>
-								</div>
-							</div>
-						<!-- 정보 End -->
-						</div>
-					</div>
+					
 				<!-- Single Trainer End -->
 				</div>
 				<!-- Page Number Start -->
@@ -175,15 +192,6 @@ function paging(totalData, currentPage){
 					<div class="col text-center">
 						<div class="block-27">
 							<ul id="pages">
-							<!--  
-								<li><a href="#">&lt;</a></li>
-								<li class="active"><span>1</span></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">&gt;</a></li>
-								-->
 							</ul>
 						</div>
 					</div>
