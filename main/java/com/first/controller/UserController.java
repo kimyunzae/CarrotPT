@@ -40,7 +40,7 @@ public class UserController {
 			tner = trainerbiz.get(id);
 			tnee = traineebiz.get(id);
 			
-			// 아이디 존재하지 않음
+			// 1) 아이디 존재하지 않음
 			if(tner == null && tnee == null) {
 				result = "redirect:/login";
 				// trainer ID 존재
@@ -53,14 +53,14 @@ public class UserController {
 					// trainer ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
-				// trainee ID 존재
+				// 2) trainee ID 존재
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);
 					result = "index";
 				}else {
-					// trainee ID 비밀번호 불일치
+					// 3) trainee ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
 			}
