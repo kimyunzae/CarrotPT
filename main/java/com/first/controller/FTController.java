@@ -51,16 +51,16 @@ public class FTController {
 
 
 	@RequestMapping("/")
-	public String main(Model m) {
+	public String main(Model m, String orderBy) {
 		int amount = 6;
 		int pageNo = 1;
+		int offset = 0;
 		try {
-			List<TrainerVO> list = biz.getbypage(pageNo, amount);
+			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset);
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		m.addAttribute("center", "trainers/trcenter");
 		m.addAttribute("trcenter_info", "trainers/trcenter_info");
 		m.addAttribute("currentPage", pageNo);
@@ -69,11 +69,12 @@ public class FTController {
 	
 	
 	@RequestMapping("/findpage")
-	public String findPage(int pageNo, Model m) {
+	public String findPage(int pageNo, Model m, String orderBy) {
 		int amount = 6;
+		int offset = 0;
 		List<TrainerVO> list = null;
 		try {
-			list = biz.getbypage(pageNo, amount);
+			list = biz.getbypage(pageNo, amount, orderBy, offset);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -83,10 +84,11 @@ public class FTController {
 	}
 	
 	@RequestMapping("/list")
-	public String directPage(int pageNo, Model m) {
+	public String directPage(int pageNo, String orderBy, Model m) {
 		int amount = 6;
+		int offset = 0;
 		try {
-			List<TrainerVO> list = biz.getbypage(pageNo, amount);
+			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset);
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();
