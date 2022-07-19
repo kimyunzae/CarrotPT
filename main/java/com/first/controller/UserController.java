@@ -207,7 +207,7 @@ public class UserController {
 		return "index";
 	}
 	
-	// 관리자 페이지
+	// 관리자: 메인
 	@RequestMapping("/admin")
 	public String admin(Model m, String id) {
 		try {
@@ -218,6 +218,19 @@ public class UserController {
 		}
 		m.addAttribute("center", "user/admin");
 		m.addAttribute("admincenter", "user/admintrainee");
+		return "index";
+	}
+	
+	// 관리자: 일반회원 상세
+	@RequestMapping("/admin/trainees")
+	public String traineedetail(Model m, String id) {
+		try {
+			TraineeVO obj = traineebiz.get(id);
+			m.addAttribute("vo", obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
 
