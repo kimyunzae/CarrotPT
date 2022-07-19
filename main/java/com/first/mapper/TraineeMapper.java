@@ -16,5 +16,5 @@ public interface TraineeMapper {
 	public TraineeVO select(String k) throws Exception;
 	public List<TraineeVO> selectall() throws Exception;
 	public TraineeVO selectbyemail(String k);
-	
+	public List<TraineeVO> selecttrainees() throws Exception;
 }

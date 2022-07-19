@@ -20,6 +20,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="TraineeVO">
 		SELECT * FROM trainee
 	</select>
+<!-- select: level='일반회원'만 선택-->
+	<select id="selecttrainees" resultType="TraineeVO">
+		SELECT * FROM trainee
+		WHERE level='일반회원';
+	</select>
 
 	
 </mapper>
