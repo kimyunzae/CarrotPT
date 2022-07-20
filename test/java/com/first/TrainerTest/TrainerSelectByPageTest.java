@@ -17,12 +17,13 @@ class TrainerSelectByPageTest {
 
 	@Test
 	void contextLoads() {
-		int pageNo = 2;
+		int pageNo = 1;
 		int amount = 6;
 		String orderBy = null;
+		String status = "거절";
 		try {
 			int offset = 0;
-			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset);
+			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset, status);
 			for (TrainerVO obj : list) {
 				System.out.println(obj);
 			}

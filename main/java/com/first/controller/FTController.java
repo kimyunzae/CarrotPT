@@ -55,8 +55,9 @@ public class FTController {
 		int amount = 6;
 		int pageNo = 1;
 		int offset = 0;
+		String status = "수락";
 		try {
-			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset);
+			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,9 +75,10 @@ public class FTController {
 		
 		int amount = 6;
 		int offset = 0;
+		String status = "수락";
 		List<TrainerVO> list = null;
 		try {
-			list = biz.getbypage(pageNo, amount, orderBy, offset);
+			list = biz.getbypage(pageNo, amount, orderBy, offset, status);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,8 +93,9 @@ public class FTController {
 	public String directPage(int pageNo, String orderBy, Model m) {
 		int amount = 6;
 		int offset = 0;
+		String status = "수락";
 		try {
-			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset);
+			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();

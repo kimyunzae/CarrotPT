@@ -31,13 +31,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		<choose>
 			<when test="orderBy != null">
 				SELECT row_number() over(order by ${orderBy}) as rownum,
-				</when>
+			</when>
 			<when test="orderBy == null">
 				SELECT row_number() over(order by num desc) as rownum,
-				</when>
+			</when>
 		</choose>
 		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, num FROM trainer	
-		WHERE status = '수락'
+			<if test="status != null">
+				WHERE status = #{status}
+			</if>
 		LIMIT #{offset}, #{amount}
 	</select>
 <!-- select: 등록된 major -->

@@ -1,0 +1,44 @@
+<ul class="nav nav-tabs">
+	<li class="nav-item"><a href="" class="active nav-link">ALL</a></li>
+	<li class="nav-item"><a href="" class="active nav-link">대기중</a></li>
+	<li class="nav-item"><a href="" class="active nav-link">수락</a></li>
+	<li class="nav-item"><a href="" class="active nav-link">거절</a></li>
+</ul>
+<div class="tab-content pt-3">
+	<div class="tab-pane active">
+		
+ <div class="row flex-lg-nowrap">
+      <div class="col mb-3">
+        <div class="e-panel card">
+          <div class="card-body">
+          <div>
+          	<form id="form_order">
+				<select name="orderBy" id="select_order">
+					<option value="id">아이디순</option>
+					<option value="name">이름순</option>
+					<option value="regdate desc">최근 가입 순</option>
+				</select>
+			</form>
+          </div>
+            <div class="e-table">
+            
+              <!-- Table Start -->
+            
+              <div id="div_trainee_row"
+              th:replace="${trainer_info} ? ${trainer_info} : trainer_info">
+              </div>
+              <!-- Table End-->
+              
+              <div class="d-flex justify-content-center">
+                <ul class="pagination mt-3 mb-0" id="pages">
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+	</div>
+</div>
