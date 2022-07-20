@@ -20,7 +20,7 @@ public interface TrainerMapper{
 	
 	public TrainerVO selectbyemail(String obj) throws Exception;
 	public List<TrainerVO> selectauthorized() throws Exception;
-	public int selectcnt() throws Exception;
+	public int selectcnt(String status) throws Exception;
 	public List<TrainerVO> selectbypage(@Param("pageNo")int pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset, @Param("status")String status) throws Exception;
 	public List<TrainerVO> search(String loc, String major) throws Exception;
 	

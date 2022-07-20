@@ -86,8 +86,8 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	}
 	
 	// status가 '수락'인 trainer 데이터 개수
-	public int getcnt() throws Exception{
-		return dao.selectcnt();
+	public int getcnt(String status) throws Exception{
+		return dao.selectcnt(status);
 	}
 	
 	// 페이지, 정렬
@@ -96,9 +96,6 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 			orderBy = "num desc";
 		}
 		
-		if(status == null) {
-			status = "수락";
-		}
 		int offset2 = (pageNo - 1) * amount;
 		List<TrainerVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2, status);
 
