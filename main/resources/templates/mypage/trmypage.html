@@ -1,23 +1,35 @@
+<style>
+</style>
+<script>
+	$(document).ready(function() {
+		$('#updatebtn').click(function() {
+			$('.user').attr({
+				'enctype' : 'multipart/form-data',
+				'method' : 'post',
+				'action' : 'update'
+			});
+			$('.user').submit();
+		});
+	});
+</script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-	
 <div class="container mt-5">
 	<div class="row flex-lg-nowrap">
 		<div class="col-12 col-lg-auto mb-3" style="width: 200px;">
 			<div class="card mt-5 p-3">
 				<div class="e-navlist e-navlist--active-bg">
 					<ul class="nav">
-						<li class="nav-item"><a class="nav-link px-2 active" href="/trmypage"><i
-								class="fa fa-fw fa-user mr-1"></i><span>프로필</span></a></li>
+						<li class="nav-item"><a class="nav-link px-2 active"
+							href="/trmypage"><i class="fa fa-fw fa-user mr-1"></i><span>계정</span></a></li>
 						<li class="nav-item"><a class="nav-link px-2"
-							href="/trcareer"
-							><i class="fa fa-fw fa-id-card mr-1"></i><span>경력 및 수상</span></a></li>
-						
+							href="/trprofile"><i class="fa fa-fw fa-id-card mr-1"></i><span>프로필
+							</span></a></li>
+
 						<li class="nav-item"><a class="nav-link px-2"
 							href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
 							target="__blank"><i class="fa fa-fw fa-history mr-1"></i><span>이용내역</span></a></li>
-							
-						
 					</ul>
 				</div>
 			</div>
@@ -34,12 +46,9 @@
 										<div class="mx-auto" style="width: 140px;">
 											<div
 												class="d-flex justify-content-center align-items-center rounded"
-												style="height: 140px; width: 115.11px; background-color: rgb(233, 236, 239);">
-												<!-- <img
-												src="/images/team/team-1.jpg" class="img-fluid" style="height: 140px;"
-												alt="Colorlib Template"> -->
-												<img th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}" style="height: 140px; width: 115.11px">
-												
+												style="height: 140px; width: 140px; background-color: rgb(233, 236, 239);">
+												<img th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}"
+													style="height: 140px; width: 140px">
 												<!-- <span
 													style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span> -->
 											</div>
@@ -48,30 +57,63 @@
 									<div
 										class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
 										<div class="text-center text-sm-left mb-2 mb-sm-0">
-											<h4 class="pt-sm-2 pb-1 mb-0 text-nowrap" th:text="${trainer.name}">John Smith</h4>
+											<h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"
+												th:text="${trainer.name}">John Smith</h4>
 											<p class="mb-0" th:text="'@' + ${trainer.id}">@tid01</p>
 											<div class="text-muted">
 												<small>Last seen 2 hours ago</small>
 											</div>
 											<div class="mt-2">
-												<button class="btn btn-primary" type="button">
-													<i class="fa fa-fw fa-camera"></i> <span>Change
-														Photo</span>
+												<button class="btn btn-primary" id="updatebtn" type="button"
+												data-toggle="modal" data-target="#myModal">
+													<i class="fa fa-fw fa-camera"></i> <span>대표 프로필 변경</span>
 												</button>
+												
 											</div>
+
+											<!-- The Modal -->
+											<div class="modal" id="myModal">
+												<div class="modal-dialog">
+													<div class="modal-content">
+
+														<!-- Modal Header -->
+														<div class="modal-header">
+															<h4 class="modal-title">Modal Heading</h4>
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+														</div>
+
+														<!-- Modal body -->
+														<div class="modal-body"><input type="file" name="profile1"></div>
+
+														<!-- Modal footer -->
+														<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">닫기</button>
+															<button type="button" class="btn btn-primary"
+																>변경하기</button>
+														</div>
+
+													</div>
+												</div>
+											</div>
+
+
 										</div>
 										<div class="text-center text-sm-right">
-											<span class="badge badge-secondary" th:text="${trainer.level}">trainer</span>
+											<span class="badge badge-secondary"
+												th:text="${trainer.level}">trainer</span>
 											<div class="text-muted">
-												<small th:text="'Joined ' + ${trainer.regdate}">Joined 09 Dec 2017</small>
+												<small th:text="'Joined ' + ${trainer.regdate}">Joined
+													09 Dec 2017</small>
 											</div>
 										</div>
 									</div>
 								</div>
-				
+
 								<!-- 여기부터 -->
-								<div th:replace="${trainercenter} ? ${trainercenter} : trprofile"></div>
-					
+								<div
+									th:replace="${trainercenter} ? ${trainercenter} : trprofile"></div>
+
 							</div>
 						</div>
 					</div>
