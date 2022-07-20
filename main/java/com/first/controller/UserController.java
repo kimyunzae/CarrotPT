@@ -45,7 +45,7 @@ public class UserController {
 			// 1) 아이디 존재하지 않음
 			if(tner == null && tnee == null) {
 				result = "redirect:/login";
-				// trainer ID 존재
+				// 2) trainer ID 존재
 			}else if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tner);
@@ -55,14 +55,14 @@ public class UserController {
 					// trainer ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
-				// 2) trainee ID 존재
+				// 3) trainee ID 존재
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);
 					result = "index";
 				}else {
-					// 3) trainee ID 비밀번호 불일치
+					// trainee ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
 			}
@@ -207,31 +207,6 @@ public class UserController {
 		return "index";
 	}
 	
-	// 관리자: 메인
-	@RequestMapping("/admin")
-	public String admin(Model m, String id) {
-		try {
-			List<TraineeVO> list = traineebiz.gettrainees();
-			m.addAttribute("tneelist", list);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/admin");
-		m.addAttribute("admincenter", "user/admintrainee");
-		return "index";
-	}
-	
-	// 관리자: 일반회원 상세
-	@RequestMapping("/admin/trainees")
-	public String traineedetail(Model m, String id) {
-		try {
-			TraineeVO obj = traineebiz.get(id);
-			m.addAttribute("vo", obj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/mypage");
-		return "index";
-	}
+
 
 }
