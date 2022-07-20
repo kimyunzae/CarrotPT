@@ -64,7 +64,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/findpage")
-	public String findPage(int pageNo, Model m, String orderBy) {
+	public String findPage(Integer pageNo, Model m, String orderBy) {
 		
 		int amount = 5;
 		int offset = 0;
@@ -80,7 +80,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/trainees")
-	public String directPage(int pageNo, String orderBy, Model m) {
+	public String directPage(Integer pageNo, String orderBy, Model m) {
 		int amount = 5;
 		int offset = 0;
 		try {
@@ -98,7 +98,7 @@ public class AdminController {
 	}
 	
 	// 관리자: 일반회원 상세
-	@RequestMapping("/detail")
+	@RequestMapping("/trainees/detail")
 	public String traineedetail(Model m, String id) {
 		try {
 			TraineeVO obj = traineebiz.get(id);
@@ -106,7 +106,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		m.addAttribute("center", "user/mypage");
+		m.addAttribute("center", "mypage/mypage");
 		return "index";
 	}
 

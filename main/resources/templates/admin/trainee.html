@@ -1,10 +1,13 @@
 <script th:inline="javascript">
 
 	function GetTarget(j){
+		var orderBy = $('#select_order').val();
+		
 		$.ajax({
 			url:'/admin/findpage',
 			data:{
-				'pageNo':j
+				'pageNo':j,
+				'orderBy':orderBy
 			},
 			method:'GET',
 			success: function(result){
@@ -63,7 +66,7 @@
 			pageNo: j
 		}, // state
 		null, // title
-		'/admin/trainees?pageNo=' + j); // url	
+		'/admin/trainees?pageNo=' + j + '&orderBy=' + orderBy); // url	
 	}
 	
 	$(window).on('popstate', function(event){
@@ -124,6 +127,11 @@
 	
 	$(function(){
 		paging();
+		
+		$('#select_order').change(function(){
+			var searchPage = 1;
+			GetTarget(parseInt(searchPage));
+		});
 	});
 </script>
 <ul class="nav nav-tabs">
@@ -136,6 +144,15 @@
       <div class="col mb-3">
         <div class="e-panel card">
           <div class="card-body">
+          <div>
+          	<form id="form_order">
+				<select name="orderBy" id="select_order">
+					<option value="id">아이디순</option>
+					<option value="name">이름순</option>
+					<option value="regdate desc">최근 가입 순</option>
+				</select>
+			</form>
+          </div>
             <div class="e-table">
             
               <!-- Table Start -->

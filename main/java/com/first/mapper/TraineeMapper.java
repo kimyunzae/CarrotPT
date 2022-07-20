@@ -19,5 +19,5 @@ public interface TraineeMapper {
 	public TraineeVO selectbyemail(String k);
 	public List<TraineeVO> selecttrainees() throws Exception;
 	public int selectcnt() throws Exception;
-	public List<TraineeVO> selectbypage(@Param("pageNo")int pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset) throws Exception;
+	public List<TraineeVO> selectbypage(@Param("pageNo")Integer pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset) throws Exception;
 }
