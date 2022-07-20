@@ -1,37 +1,41 @@
 <style>
-	.heading-section > span, h2, p, a {
-		font-family: "Poppins", Arial, sans-serif;
-	} 
-	.majoraddr{
-		display:flex;
-	}
-	
-	#addrshort{
-		background:white;
-		border:0.05rem solid #769BCD;
-		border-radius:0.6rem;
-		padding-left:0.3rem;
-		padding-right:0.3rem;
-		display:inline-block;
-	}
-	
-	#addrshort span{
-		color:#769BCD;
-	}
-	
-	#tname h3{
-		margin-top:0.5rem;
-		margin-bottom:0;
-	}
-	
-	#tgymname{
-		color:#343434;
-		font-style:bold;
-	}
-	
-	.btn btn-primary py-2 px-4:hover{
-		background-color:white;
-	}
+.heading-section>span, h2, p, a {
+	font-family: "Poppins", Arial, sans-serif;
+}
+
+.majoraddr {
+	display: flex;
+}
+
+#addrshort {
+	background: white;
+	border: 0.05rem solid #769BCD;
+	border-radius: 0.6rem;
+	padding-left: 0.3rem;
+	padding-right: 0.3rem;
+	display: inline-block;
+}
+
+#addrshort span {
+	color: #769BCD;
+}
+
+#tname h3 {
+	margin-top: 0.5rem;
+	margin-bottom: 0;
+}
+
+#tgymname {
+	color: #343434;
+	font-style: bold;
+}
+
+.btn btn-primary py-2 px-4:hover {
+	background-color: white;
+}
+modal-body-que {
+	color: black;
+}
 </style>
 
 <script th:inline="javascript">
@@ -185,28 +189,88 @@ function paging(totalData, currentPage){
 <section class="ftco-section">
 
 	<div class="row justify-content-center mb-5 pb-3">
-       <div class="col-md-7 heading-section text-center ftco-animate">
-          <span class="subheading">Trainers</span>
-          <h2 class="mb-4">트레이너</h2>
-          <p>당근PT가 보증하는 현직 트레이너들!</p>
-          <div>
-			 <a href="#" id="btn_findmytrainer" class="btn btn-primary py-2 px-4">맞춤 트레이너 찾기(Click!)</a>
-		 </div>
-       </div>
-       	
+		<div class="col-md-7 heading-section text-center ftco-animate">
+			<span class="subheading">Trainers</span>
+			<h2 class="mb-4">트레이너</h2>
+			<p>당근PT가 보증하는 현직 트레이너들!</p>
+		<!-- 	<a href="#" id="btn_findmytrainer" class="btn btn-primary py-2 px-4">맞춤트레이너찾기(Click!)</a> -->
+			
+			<!-- Trigger the modal with a button -->
+			<button type="button" class="btn btn-primary py-2 px-4"
+				data-toggle="modal" data-target="#myModal">맞춤트레이너찾기(Click!)</button>
+		</div>
 	</div>
+
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">맞춤 트레이너를 찾아드려요!</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+				</div>
+				<div class="modal-body">
+					<div class="modal-body-que">1. 고객님의의 성별이 어떻게 되나요?</div>
+					<div>
+						<label class="radio-inline"><input type="radio" id="f" name="optradio">여자</label> 
+						<label class="radio-inline"><input type="radio" id="m"name="optradio">남자</label>
+						<label class="radio-inline"><input type="radio" id="n"name="optradio">응답 거절</label>
+					</div>
+
+					<div class="modal-body-que">2. 고객님의 연령대는 어떻게 되나요?</div>
+					<div>
+						<label class="radio-inline"><input type="radio" id="10대" name="optradio" >10대</label> 
+						<label class="radio-inline"><input type="radio" id="20대" name="optradio">20대</label>
+						<label class="radio-inline"><input type="radio" id="30대" name="optradio">30대</label>
+						<label class="radio-inline"><input type="radio" id="40대" name="optradio">40대</label>
+						<label class="radio-inline"><input type="radio" id="50대" name="optradio">50대</label>
+						<label class="radio-inline"><input type="radio" id="60대" name="optradio">60대 이상</label>
+					</div>
+
+					<div class="modal-body-que">3. 운동하시려는 목적을 말씀해주세요(중복체크 가능)</div>
+					<div>
+						<label class="checkbox-inline"><input type="checkbox" value="">다이어트</label>
+						<label class="checkbox-inline"><input type="checkbox" value="">체력증진</label>
+						<label class="checkbox-inline"><input type="checkbox" value="">자세교정</label>
+						<label class="checkbox-inline"><input type="checkbox" value="">자격증 또는 대회</label>
+					</div>
+
+					<div class="modal-body-que">4. 평소에 운동을 얼마나 하시나요?</div>
+					<div>
+						<label class="radio-inline"><input type="radio" id="none" name="optradio">거의 하지 않음</label> 
+						<label class="radio-inline"><input type="radio" id="onemonth" name="optradio">한 달에 1-2번</label>
+						<label class="radio-inline"><input type="radio" id="oneweek" name="optradio">일주일에 1번</label>
+						<label class="radio-inline"><input type="radio" id="twice" name="optradio">일주일에 2-3번</label>
+						<label class="radio-inline"><input type="radio" id="four" name="optradio">일주일에 4번 이상</label>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
 
 	<div class="container">
 		<div class="row">
-		<!-- Left Start -->
+			<!-- Left Start -->
 			<div class="col-lg-9 pr-lg-4">
 				<div class="row" id="div_trainer_row">
-				<div id="div_trainer_replace" th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
-				</div>
-					
-				<!-- Single Trainer Start -->
-					
-				<!-- Single Trainer End -->
+					<div id="div_trainer_replace"
+						th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
+					</div>
+
+					<!-- Single Trainer Start -->
+
+					<!-- Single Trainer End -->
 				</div>
 				<!-- Page Number Start -->
 				<div class="row mt-5">
@@ -219,10 +283,14 @@ function paging(totalData, currentPage){
 				</div>
 				<!-- Page Number End -->
 			</div>
-		<!-- Left End -->
-		<!-- Right Start -->
-	
+			<!-- Left End -->
+			<!-- Right Start -->
+
 			<div class="col-lg-3 p-4 bg-light">
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 				<div class="search-wrap-1 ftco-animate">
 					<h2 class="mb-3">Find Places</h2>
 					<form action="#" class="search-property-1">
@@ -255,12 +323,12 @@ function paging(totalData, currentPage){
 										</div>
 										<form>
 											<input type="text" class="form-control"
-											placeholder="Search place">
+												placeholder="Search place">
 										</form>
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="col-lg-12 align-items-end mb-3">
 								<div class="form-group">
 									<label for="#">운동별 검색</label>
@@ -288,7 +356,7 @@ function paging(totalData, currentPage){
 					</form>
 				</div>
 			</div>
-		<!-- Right End -->
+			<!-- Right End -->
 		</div>
 	</div>
 </section>
