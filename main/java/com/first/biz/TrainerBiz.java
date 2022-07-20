@@ -90,8 +90,14 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return dao.selectcnt();
 	}
 	
-	public List<TrainerVO> getbypage(int pageNo, int amount) throws Exception{
-		List<TrainerVO> list = dao.selectbypage(pageNo, amount);
+	// 페이지, 정렬
+	public List<TrainerVO> getbypage(int pageNo, int amount, String orderBy, int offset) throws Exception{
+		if(orderBy == null) {
+			orderBy = "num desc";
+		}
+		int offset2 = (pageNo - 1) * amount;
+		List<TrainerVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2);
+
 		for (TrainerVO v : list) {
 			trainerinfo(v);
 		}
@@ -107,6 +113,7 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return list;
 	}
 	
+	// 등록된 운동 종류 선택
 	public List<MajorVO> getmajor() throws Exception{
 		List<MajorVO> list = dao.selectmajor();
 		return list;

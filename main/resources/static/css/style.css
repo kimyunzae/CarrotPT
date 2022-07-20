@@ -8974,7 +8974,7 @@ h1, h2, h3, h4, h5,
     border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
     color: #000000; }
   .table tbody tr th, .table tbody tr td {
-    text-align: left !important;
+    text-align: center !important;
     vertical-align: middle;
     padding: 20px 0;
     border: 1px solid transparent !important;

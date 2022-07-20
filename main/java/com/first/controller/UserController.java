@@ -1,5 +1,7 @@
 package com.first.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,7 @@ public class UserController {
 			// 1) 아이디 존재하지 않음
 			if(tner == null && tnee == null) {
 				result = "redirect:/login";
-				// trainer ID 존재
+				// 2) trainer ID 존재
 			}else if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tner);
@@ -53,14 +55,14 @@ public class UserController {
 					// trainer ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
-				// 2) trainee ID 존재
+				// 3) trainee ID 존재
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);
 					result = "index";
 				}else {
-					// 3) trainee ID 비밀번호 불일치
+					// trainee ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
 			}
@@ -200,9 +202,11 @@ public class UserController {
 //		}	
 
 	@RequestMapping("/tmypage")
-	public String tmypage(Model m) {
+	public String tmypage(Model m, String id) {
 		m.addAttribute("center", "user/tmypage");
 		return "index";
 	}
+	
+
 
 }
