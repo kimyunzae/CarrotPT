@@ -66,6 +66,11 @@
 		'/admin/trainees?pageNo=' + j); // url	
 	}
 	
+	$(window).on('popstate', function(event){
+		window.location = document.location.href;
+
+	});
+	
 	function paging(totalData, currentPage){
 		
 		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
@@ -142,16 +147,6 @@
               
               <div class="d-flex justify-content-center">
                 <ul class="pagination mt-3 mb-0" id="pages">
-                <!-- 
-                  <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
-                  <li class="active page-item"><a href="#" class="page-link">1</a></li>
-                  <li class="page-item"><a href="#" class="page-link">2</a></li>
-                  <li class="page-item"><a href="#" class="page-link">3</a></li>
-                  <li class="page-item"><a href="#" class="page-link">4</a></li>
-                  <li class="page-item"><a href="#" class="page-link">5</a></li>
-                  <li class="page-item"><a href="#" class="page-link">›</a></li>
-                  <li class="page-item"><a href="#" class="page-link">»</a></li>
-                   -->
                 </ul>
               </div>
             </div>

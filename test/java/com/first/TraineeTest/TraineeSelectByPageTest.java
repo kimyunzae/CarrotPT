@@ -17,7 +17,7 @@ class TraineeSelectByPageTest {
 
 	@Test
 	void contextLoads() {
-		int pageNo = 2;
+		int pageNo = 1;
 		int amount = 6;
 		String orderBy = null;
 		try {

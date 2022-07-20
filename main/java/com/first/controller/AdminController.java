@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.TraineeVO;
+import com.first.vo.TrainerVO;
 
 @RequestMapping("/admin")
 @Controller
@@ -78,8 +79,26 @@ public class AdminController {
 		return "admin/trainee_info";
 	}
 	
-	// 관리자: 일반회원 상세
 	@RequestMapping("/trainees")
+	public String directPage(int pageNo, String orderBy, Model m) {
+		int amount = 5;
+		int offset = 0;
+		try {
+			List<TraineeVO> list = traineebiz.getbypage(pageNo, amount, orderBy, offset);
+			m.addAttribute("tneelist", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "admin/admin");
+		m.addAttribute("admincenter", "admin/trainee");
+		m.addAttribute("trainee_info", "admin/trainee_info");
+		m.addAttribute("currentPage", pageNo);
+		m.addAttribute("orderBy", orderBy);
+		return "index";
+	}
+	
+	// 관리자: 일반회원 상세
+	@RequestMapping("/detail")
 	public String traineedetail(Model m, String id) {
 		try {
 			TraineeVO obj = traineebiz.get(id);

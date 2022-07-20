@@ -22,7 +22,7 @@
           </div>
         </td>
         <td class="text-nowrap align-middle">
-        	<a  th:text="${t.id}" th:href="@{/admin/trainees(id=${t.id})}"></a>
+        	<a  th:text="${t.id}" th:href="@{/admin/detail(id=${t.id})}"></a>
         </td>
         <td class="text-nowrap align-middle" th:text="${t.name}"></td>
         <td class="text-nowrap align-middle" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
