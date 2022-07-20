@@ -13,7 +13,6 @@
         <th class="sortable" width="300.73px">가입일</th>
       </tr>
     </thead>
-    
     <tbody th:each="t : ${tneelist}">
       <tr class="trainee_info">
         <td class="text-nowrap align-middle">
@@ -29,6 +28,5 @@
         <td class="text-nowrap align-middle" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
       </tr>
     </tbody>
-    
   </table>
 </div>

@@ -3,10 +3,6 @@ package com.first.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-//import org.springframework.mail.SimpleMailMessage;
-//import org.springframework.mail.javamail.JavaMailSenderImpl;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.TraineeVO;
-import com.first.vo.TrainerVO;
 
 @RequestMapping("/admin")
 @Controller
@@ -109,5 +104,16 @@ public class AdminController {
 		m.addAttribute("center", "mypage/mypage");
 		return "index";
 	}
+	
+	// 관리자: 트레이너 조회
+	@RequestMapping("/trainers")
+	public String directPage(Model m) {
+		m.addAttribute("center", "admin/admin");
+		m.addAttribute("admincenter", "admin/trainer");
+		m.addAttribute("trainer_info", "admin/trainer_info");
+		return "index";
+	}
+	
+	
 
 }
