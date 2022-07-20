@@ -1,5 +1,7 @@
 package com.first.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,7 @@ public class UserController {
 			// 1) 아이디 존재하지 않음
 			if(tner == null && tnee == null) {
 				result = "redirect:/login";
-				// trainer ID 존재
+				// 2) trainer ID 존재
 			}else if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tner);
@@ -53,14 +55,14 @@ public class UserController {
 					// trainer ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
-				// 2) trainee ID 존재
+				// 3) trainee ID 존재
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);
 					result = "index";
 				}else {
-					// 3) trainee ID 비밀번호 불일치
+					// trainee ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
 			}
@@ -108,6 +110,19 @@ public class UserController {
 		}
 		return "index";
 	}
+	
+	@RequestMapping("/update")
+	public String update(Model m,TraineeVO obj) {
+		
+		try {
+			traineebiz.modify(obj);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}//"redirect:detail?id=" +obj.getId();
+		
+		return "redirect:detail?id="+obj.getId();
+	}
 
 	@RequestMapping("/join")
 	public String join(Model m) {
@@ -133,19 +148,7 @@ public class UserController {
 //		return "index";
 //	}
 //	
-	@RequestMapping("/mypage")
-	public String mypage(Model m, String id) {
-		try {
-			TraineeVO vo = traineebiz.get(id);
-			m.addAttribute("vo", vo);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/mypage");
-		return "index";
-	}
-
+	
 //
 //	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
 //	@ResponseBody  //AJAX후 값을 리턴하기위해 작성
@@ -199,10 +202,8 @@ public class UserController {
 //	        return key;
 //		}	
 
-	@RequestMapping("/tmypage")
-	public String tmypage(Model m) {
-		m.addAttribute("center", "user/tmypage");
-		return "index";
-	}
+
+
+	
 
 }

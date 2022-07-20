@@ -24,8 +24,23 @@ public class CrudController {
 	@Autowired
 	TraineeBiz traineebiz;
 	
-	@Value("${admindir}")
-	String admindir;
+	@Value("${dir1}")
+	String dir1;
+	
+	@Value("${dir2}")
+	String dir2;
+	
+	@Value("${dir3}")
+	String dir3;
+	
+	@Value("${dir4}")
+	String dir4;
+	
+	@Value("${dir5}")
+	String dir5;
+	
+	@Value("${dir6}")
+	String dir6;
 	
 	//일반회원 가입 
 	@RequestMapping("/joinimpl")
@@ -71,7 +86,8 @@ public class CrudController {
 		try {
 			trainerbiz.register(t);
 			Util.saveFile(t.getPf1(),t.getPf2(),t.getPf3(),
-					t.getLc1(),t.getLc2(),t.getLc3(),admindir);
+					t.getLc1(),t.getLc2(),t.getLc3(),dir1,dir2,
+					dir3,dir4,dir5,dir6);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

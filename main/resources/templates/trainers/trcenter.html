@@ -42,10 +42,13 @@
 <script th:inline="javascript">
 
 function GetTarget(j){
+	var selected = $('#select_order option:selected').val();
+	
 	$.ajax({
 		url:'/trainers/findpage',
 		data:{
 			'pageNo':j,
+			'orderBy':selected
 		},
 		method:'GET',
 		success: function(result){
@@ -107,10 +110,11 @@ function GetTarget(j){
 	'/trainers/list?pageNo=' + j); // url
 }
 
-$(window).on('popstate', function(event){
-	window.location = document.location.href;
-	
-});
+	$(window).on('popstate', function(event){
+		window.location = document.location.href;
+
+	});
+
 
 
 function paging(totalData, currentPage){
@@ -164,8 +168,22 @@ function paging(totalData, currentPage){
 	
 	}
 	
+
+	
 	$(function(){
 		paging();
+		$('#select_order').change(function(){
+			var cp = [[${currentPage}]];
+			var ob = [[${orderBy}]];
+			$('input[name="pageNo"]').val(cp);
+			// $('#select_order').val(ob).prop('selected', true);
+			// $('#select_order option:selected').val(ob);
+			$('#form_order').attr({
+				'method':'get',
+				'action':'/trainers/list'
+			});
+			// $('#form_order').submit();
+		});
 	});
 </script>
 <script>function sample6_execDaumPostcode() {
@@ -238,28 +256,6 @@ sel=document.form.county
     }         
 }
 
-/*  하고 싶은 운동 직접 입력  
-$("input:radio[name=radio]").click(function(){
-     if($("input[name=radio]:checked").val() == "etc"){
-         $(".amuz-date-picker").attr("disabled",true);
-     }else {
-         $(".amuz-date-picker").attr("disabled",false);
-     }
- });*/
- 
- $('.radio-value').on('click', function() {
-
-	    var valueCheck = $('.radio-value:checked').val(); 
-
-	    if ($valueCheck == 'etc' ) {
-	        $('.radio-value-detail').attr('disabled', false); 
-	        $('.radio-value-detail').focus(); 
-	    } else {
-	        $('.radio-value-detail').val(''); 
-	        $('.radio-value-detail').attr('disabled', true); 
-	    }
-	});
-</script>
 
 <section class="ftco-section">
 
@@ -423,11 +419,29 @@ $("input:radio[name=radio]").click(function(){
 
 			<div class="col-lg-3 p-4 bg-light">
 
-
 				<div class="search-wrap-1 ftco-animate">
 					<h2 class="mb-3">Find Places</h2>
 					<form action="#" class="search-property-1">
 						<div class="row">
+							<div class="col-lg-12 align-items-end mb-3">
+								<div class="form-group">
+									<label for="#">정렬</label>
+									<div class="form-field">
+										<div class="icon">
+											<span class="ion-ios-search"></span>
+										</div>
+										<form id="form_order">
+											<select name="orderBy" id="select_order" class="form-control">
+												<option value="num desc">최신 등록순</option>
+												<option>리뷰 많은순</option>
+												<option value="name">이름순</option>
+											</select>
+											<input type="hidden" name="pageNo">
+										</form>
+									</div>
+								</div>
+							</div>
+							
 							<div class="col-lg-12 align-items-end mb-3">
 								<div class="form-group">
 									<label for="#">지역별 검색</label>
