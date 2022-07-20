@@ -201,11 +201,44 @@ public class UserController {
 //	        return key;
 //		}	
 
-	@RequestMapping("/tmypage")
-	public String tmypage(Model m, String id) {
-		m.addAttribute("center", "user/tmypage");
+	//트레이너 마이페이지: 메인
+	@RequestMapping("/trmypage")
+	public String trmypage(Model m, String id) {
+		try {
+			TrainerVO trainer = trainerbiz.get(id);
+			m.addAttribute("trainer", trainer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "user/trmypage");
+		m.addAttribute("trainercenter","user/trprofile");
 		return "index";
 	}
+	
+	//트레이너 마이페이지: 경력 및 수상
+	@RequestMapping("/trcareer")
+	public String trcareer(Model m, String id) {
+		try {
+			TrainerVO trainer = trainerbiz.get(id);
+			m.addAttribute("trainer", trainer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "user/trmypage");
+		m.addAttribute("trainercenter","user/trcareer");
+		return "index";
+	}
+	
+	//트레이너 마이페이지: 이용내역 
+		@RequestMapping("/trhistory")
+		public String trhistory(Model m) {
+			m.addAttribute("center", "user/trmypage");
+			m.addAttribute("trainercenter","user/trhistory");
+			return "index";
+		}
+
 	
 	// 관리자: 메인
 	@RequestMapping("/admin")
