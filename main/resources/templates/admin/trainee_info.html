@@ -1,0 +1,32 @@
+<div id="div_trainee_row" class="table-responsive table-lg mt-3">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="align-top">
+          <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
+            <input type="checkbox" class="custom-control-input" id="all-items">
+            <label class="custom-control-label" for="all-items"></label>
+          </div>
+        </th>
+        <th>아이디</th>
+        <th class="max-width">이름</th>
+        <th class="sortable">가입일</th>
+      </tr>
+    </thead>
+    <tbody th:each="t : ${tneelist}">
+      <tr class="trainee_info">
+        <td class="align-middle">
+          <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+            <input type="checkbox" class="custom-control-input" id="item-1">
+            <label class="custom-control-label" for="item-1"></label>
+          </div>
+        </td>
+        <td class="text-nowrap align-middle">
+        	<a  th:text="${t.id}" th:href="@{/admin/trainees(id=${t.id})}"></a>
+        </td>
+        <td class="text-nowrap align-middle" th:text="${t.name}"></td>
+        <td class="text-nowrap align-middle" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,6 +1,126 @@
-<style>
+<script th:inline="javascript">
 
-</style>
+	function GetTarget(j){
+		$.ajax({
+			url:'/admin/findpage',
+			data:{
+				'pageNo':j
+			},
+			method:'GET',
+			success: function(result){
+				$('#div_trainee_row').empty();
+				$('#div_trainee_row').append(result);
+				
+				var currentPage = j;
+				var totalData = [[${totalData}]];
+				var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
+				var pageSize = 5; // 화면에 표시될 페이지 수
+				var totalPages = Math.ceil(totalData / limitPerPage);
+				var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+				var last = pageGroup * pageSize;
+				
+				if(currentPage <= 0){
+					currentPage = 1;
+				}
+				if(last > totalPages){
+					last = totalPages;
+				}
+				
+				var first = last - (pageSize - 1);
+				const next = last + 1;
+				var prev = first - 1;
+				
+				if(totalPages < 1){
+					first = last;
+				}
+				
+				var pages = $('#pages');
+				pages.empty();
+				
+				if(first > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')">prev</a></li>');
+				}
+				
+				for (var k = first; k <= last; k++) {
+					
+					if(currentPage == k){
+						pages.append('<li class="active page-item"><a class="page-link" onclick="GetTarget(' + k + ');"' + '>' + k + '</a></li>');
+					}else if(k > 0){
+						pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ k +')">' + k + '</a></li>');
+						};
+					}
+				
+				if(next > pageSize && next <= totalPages){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">next</a></li>');
+				};
+				
+			}
+			
+		});
+		
+		history.pushState({
+			data:'/admin/findpage',
+			pageNo: j
+		}, // state
+		null, // title
+		'/admin/trainees?pageNo=' + j); // url	
+	}
+	
+	function paging(totalData, currentPage){
+		
+		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
+		var totalData = [[${totalData}]];
+		var currentPage = [[${currentPage}]];
+		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
+		var pageSize = 5; // 화면에 표시될 페이지 수
+		var totalPages = Math.ceil(totalData / limitPerPage);
+		var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+		var last = pageGroup * pageSize;
+		
+		if(currentPage <= 0){
+			currentPage = 1;
+		}
+		if(last > totalPages){
+			last = totalPages;
+		}
+		
+		var first = last - (pageSize - 1);
+		const next = last + 1;
+		var prev = first - 1;
+		
+		if(totalPages < 1){
+			first = last;
+		}
+		
+		var pages = $('#pages');
+		pages.empty();
+		
+		// prev 버튼
+		if(first > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')"><</a></li>');
+		}
+		
+		// 페이지 숫자
+		for (var j = first; j <= last; j++) {
+			
+			if(currentPage == j){
+				pages.append('<li class="page-item active"><a class="page-link" onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
+			}else if(j > 0){
+				pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ j +')">' + j + '</a></li>');
+				};
+			}
+		
+		// next 버튼
+		if(next > pageSize && next <= totalPages){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
+		};
+	
+	}
+	
+	$(function(){
+		paging();
+	});
+</script>
 <ul class="nav nav-tabs">
 	<li class="nav-item"><a href="" class="active nav-link">일반 회원</a></li>
 </ul>
@@ -15,42 +135,14 @@
             
               <!-- Table Start -->
             
-              <div class="table-responsive table-lg mt-3">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th class="align-top">
-                        <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
-                          <input type="checkbox" class="custom-control-input" id="all-items">
-                          <label class="custom-control-label" for="all-items"></label>
-                        </div>
-                      </th>
-                      <th>아이디</th>
-                      <th class="max-width">이름</th>
-                      <th class="sortable">가입일</th>
-                    </tr>
-                  </thead>
-                  <tbody th:each="t : ${tneelist}">
-                    <tr class="trainee_info">
-                      <td class="align-middle">
-                        <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                          <input type="checkbox" class="custom-control-input" id="item-1">
-                          <label class="custom-control-label" for="item-1"></label>
-                        </div>
-                      </td>
-                      <td class="text-nowrap align-middle">
-                      	<a  th:text="${t.id}" th:href="@{/admin/trainees(id=${t.id})}"></a>
-                      </td>
-                      <td class="text-nowrap align-middle" th:text="${t.name}"></td>
-                      <td class="text-nowrap align-middle" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div id="div_trainee_row" class="table-responsive table-lg mt-3"
+              th:replace="${trainee_info} ? ${trainee_info} : trainee_info">
               </div>
               <!-- Table End-->
               
               <div class="d-flex justify-content-center">
-                <ul class="pagination mt-3 mb-0">
+                <ul class="pagination mt-3 mb-0" id="pages">
+                <!-- 
                   <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
                   <li class="active page-item"><a href="#" class="page-link">1</a></li>
                   <li class="page-item"><a href="#" class="page-link">2</a></li>
@@ -59,6 +151,7 @@
                   <li class="page-item"><a href="#" class="page-link">5</a></li>
                   <li class="page-item"><a href="#" class="page-link">›</a></li>
                   <li class="page-item"><a href="#" class="page-link">»</a></li>
+                   -->
                 </ul>
               </div>
             </div>
