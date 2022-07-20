@@ -110,6 +110,19 @@ public class UserController {
 		}
 		return "index";
 	}
+	
+	@RequestMapping("/update")
+	public String update(Model m,TraineeVO obj) {
+		
+		try {
+			traineebiz.modify(obj);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}//"redirect:detail?id=" +obj.getId();
+		
+		return "redirect:detail?id="+obj.getId();
+	}
 
 	@RequestMapping("/join")
 	public String join(Model m) {
