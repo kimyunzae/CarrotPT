@@ -91,12 +91,16 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	}
 	
 	// 페이지, 정렬
-	public List<TrainerVO> getbypage(int pageNo, int amount, String orderBy, int offset) throws Exception{
+	public List<TrainerVO> getbypage(int pageNo, int amount, String orderBy, int offset, String status) throws Exception{
 		if(orderBy == null) {
 			orderBy = "num desc";
 		}
+		
+		if(status == null) {
+			status = "수락";
+		}
 		int offset2 = (pageNo - 1) * amount;
-		List<TrainerVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2);
+		List<TrainerVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2, status);
 
 		for (TrainerVO v : list) {
 			trainerinfo(v);
