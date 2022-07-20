@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.first.frame.Biz;
 import com.first.mapper.TraineeMapper;
 import com.first.vo.TraineeVO;
+import com.first.vo.TrainerVO;
 
 @Service("traineebiz")
 public class TraineeBiz implements Biz<String, TraineeVO> {
@@ -51,6 +52,17 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 	// level이 '일반회원'인 목록
 	public List<TraineeVO> gettrainees() throws Exception{
 		List<TraineeVO> list = dao.selecttrainees();
+		return list;
+	}
+	
+	// 페이지, 정렬
+	public List<TraineeVO> getbypage(int pageNo, int amount, String orderBy, int offset) throws Exception{
+		if(orderBy == null) {
+			orderBy = "regdate desc";
+		}
+		int offset2 = (pageNo - 1) * amount;
+		List<TraineeVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2);
+
 		return list;
 	}
 

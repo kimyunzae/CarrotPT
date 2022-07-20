@@ -37,7 +37,7 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		m.addAttribute("center", "admin/admin");
-		m.addAttribute("admincenter", "admin/admintrainee");
+		m.addAttribute("admincenter", "admin/trainee");
 		return "index";
 	}
 	
@@ -50,7 +50,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		m.addAttribute("center", "admin/mypage");
+		m.addAttribute("center", "user/mypage");
 		return "index";
 	}
 
