@@ -1,13 +1,12 @@
 package com.first.mapper;
 
-import java.util.List; 
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.first.vo.TraineeVO;
-import com.first.vo.TrainerVO;
 
 @Repository
 @Mapper
@@ -19,5 +18,6 @@ public interface TraineeMapper {
 	public List<TraineeVO> selectall() throws Exception;
 	public TraineeVO selectbyemail(String k);
 	public List<TraineeVO> selecttrainees() throws Exception;
-	public List<TraineeVO> selectbypage(@Param("pageNo")int pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset) throws Exception;
+	public int selectcnt() throws Exception;
+	public List<TraineeVO> selectbypage(@Param("pageNo")Integer pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset) throws Exception;
 }

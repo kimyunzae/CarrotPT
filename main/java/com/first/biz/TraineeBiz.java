@@ -55,10 +55,19 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 		return list;
 	}
 	
+	// level이 '일반회원'인 수
+	public int getcnt() throws Exception{
+		int cnt = dao.selectcnt();
+		return cnt;
+	}
+	
 	// 페이지, 정렬
-	public List<TraineeVO> getbypage(int pageNo, int amount, String orderBy, int offset) throws Exception{
+	public List<TraineeVO> getbypage(Integer pageNo, int amount, String orderBy, int offset) throws Exception{
 		if(orderBy == null) {
 			orderBy = "regdate desc";
+		}
+		if(pageNo == null) {
+			pageNo = 1;
 		}
 		int offset2 = (pageNo - 1) * amount;
 		List<TraineeVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2);
