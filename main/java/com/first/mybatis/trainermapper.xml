@@ -28,9 +28,17 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 <!-- select: 페이지별 select-->
 	<select id="selectbypage" resultType="trainerVO">
-		SELECT * FROM trainer
-		WHERE status = '수락' AND num > (#{pageNo}-1)*#{amount}
-		LIMIT #{amount};
+		<choose>
+			<when test="orderBy != null">
+				SELECT row_number() over(order by ${orderBy}) as rownum,
+				</when>
+			<when test="orderBy == null">
+				SELECT row_number() over(order by num desc) as rownum,
+				</when>
+		</choose>
+		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, num FROM trainer	
+		WHERE status = '수락'
+		LIMIT #{offset}, #{amount}
 	</select>
 <!-- select: 등록된 major -->
 	<select id="selectmajor" resultType="majorVO">

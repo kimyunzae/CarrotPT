@@ -45,7 +45,7 @@ public class UserController {
 			// 1) 아이디 존재하지 않음
 			if(tner == null && tnee == null) {
 				result = "redirect:/login";
-				// trainer ID 존재
+				// 2) trainer ID 존재
 			}else if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tner);
@@ -55,14 +55,14 @@ public class UserController {
 					// trainer ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
-				// 2) trainee ID 존재
+				// 3) trainee ID 존재
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);
 					result = "index";
 				}else {
-					// 3) trainee ID 비밀번호 불일치
+					// trainee ID 비밀번호 불일치
 					result = "redirect:/login";
 				}
 			}
@@ -135,19 +135,7 @@ public class UserController {
 //		return "index";
 //	}
 //	
-	@RequestMapping("/mypage")
-	public String mypage(Model m, String id) {
-		try {
-			TraineeVO vo = traineebiz.get(id);
-			m.addAttribute("vo", vo);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/mypage");
-		return "index";
-	}
-
+	
 //
 //	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
 //	@ResponseBody  //AJAX후 값을 리턴하기위해 작성
@@ -201,70 +189,8 @@ public class UserController {
 //	        return key;
 //		}	
 
-	//트레이너 마이페이지: 메인
-	@RequestMapping("/trmypage")
-	public String trmypage(Model m, String id) {
-		try {
-			TrainerVO trainer = trainerbiz.get(id);
-			m.addAttribute("trainer", trainer);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/trmypage");
-		m.addAttribute("trainercenter","user/trprofile");
-		return "index";
-	}
-	
-	//트레이너 마이페이지: 경력 및 수상
-	@RequestMapping("/trcareer")
-	public String trcareer(Model m, String id) {
-		try {
-			TrainerVO trainer = trainerbiz.get(id);
-			m.addAttribute("trainer", trainer);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/trmypage");
-		m.addAttribute("trainercenter","user/trcareer");
-		return "index";
-	}
-	
-	//트레이너 마이페이지: 이용내역 
-		@RequestMapping("/trhistory")
-		public String trhistory(Model m) {
-			m.addAttribute("center", "user/trmypage");
-			m.addAttribute("trainercenter","user/trhistory");
-			return "index";
-		}
 
 	
-	// 관리자: 메인
-	@RequestMapping("/admin")
-	public String admin(Model m, String id) {
-		try {
-			List<TraineeVO> list = traineebiz.gettrainees();
-			m.addAttribute("tneelist", list);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/admin");
-		m.addAttribute("admincenter", "user/admintrainee");
-		return "index";
-	}
-	
-	// 관리자: 일반회원 상세
-	@RequestMapping("/admin/trainees")
-	public String traineedetail(Model m, String id) {
-		try {
-			TraineeVO obj = traineebiz.get(id);
-			m.addAttribute("vo", obj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "user/mypage");
-		return "index";
-	}
 
 }
