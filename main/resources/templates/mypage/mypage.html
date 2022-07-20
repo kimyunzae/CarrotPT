@@ -75,6 +75,16 @@ window.Kakao.init("1246eaf5aa2f74f55a55378bd15623c5")
 					}
 				}).open();
 	}
+	
+$(document).ready(function(){
+	$('#updatebtn').click(function(){
+		$('.user').attr({
+			'method':'post',
+			'action':'update'
+		});				
+		$('.user').submit();
+	});
+});	
 </script>
 
 <section class="contact-section mt-4" id="contact-section">
@@ -157,8 +167,8 @@ window.Kakao.init("1246eaf5aa2f74f55a55378bd15623c5")
 									</div>
 								</div>
 								<div class="mt-5 text-center">
-									<input type="submit" value="업데이트"
-										class="btn btn-primary py-3 px-5"> 
+									<a id="updatebtn" href="#"
+										class="btn btn-primary py-3 px-5">업데이트</a> 
 									
 									<span
 										id="btn_findid"><a href="#">*회원 탈퇴</a></span>
