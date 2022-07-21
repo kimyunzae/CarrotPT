@@ -52,6 +52,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectmajor" resultType="majorVO">
 		SELECT DISTINCT major FROM trainer;
 	</select>
+<!-- select: status 목록 -->
+	<select id="selectstatus" resultType="statusVO">
+		SELECT DISTINCT status FROM trainer;
+	</select>
+
+
 <!-- 검색 -->
 	<select id="search" resultType="trainerVO">
 		SELECT * FROM trainer

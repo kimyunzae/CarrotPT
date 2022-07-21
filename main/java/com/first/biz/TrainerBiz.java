@@ -9,6 +9,7 @@ import com.first.frame.Biz;
 import com.first.mapper.ReviewMapper;
 import com.first.mapper.TrainerMapper;
 import com.first.vo.MajorVO;
+import com.first.vo.StatusVO;
 import com.first.vo.TrainerVO;
 
 @Service("trainerbiz")
@@ -116,6 +117,12 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		List<MajorVO> list = dao.selectmajor();
 		return list;
 	};
+	
+	// 등록된 status 선택
+	public List<StatusVO> getstatus() throws Exception{
+		List<StatusVO> list = dao.selectstatus();
+		return list;
+	}
 	
 	
 
