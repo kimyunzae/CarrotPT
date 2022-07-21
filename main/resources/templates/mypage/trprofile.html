@@ -6,6 +6,13 @@
 					
 					<div class="row">
 						<div class="col mb-3">
+						<label>프로필</label>
+							<div class="form-group">
+								
+								<img class="mr-2" th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}" style="height: 240px; width: 220px">
+								<img class="mr-2" th:src="@{'/images/CRUD/pf2/'+${trainer.profile2}}" style="height: 230px; width: 210px">
+								<img th:src="@{'/images/CRUD/pf3/'+${trainer.profile3}}" style="height: 220px; width: 200px">
+							</div>
 							<div class="form-group">
 								<label>자기소개글</label>
 								<textarea class="form-control" rows="4" th:text="${trainer.intro}"></textarea>

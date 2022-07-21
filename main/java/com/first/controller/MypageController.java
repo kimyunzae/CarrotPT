@@ -1,10 +1,9 @@
 package com.first.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
+import com.first.frame.Util;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
@@ -27,6 +27,10 @@ public class MypageController {
 
 	@Autowired
 	TrainerBiz trainerbiz;
+	
+	@Value("${dir1}")
+	String dir1;
+
 	
 	//일반회원 마이페이지: 메인
 	@RequestMapping("/mypage")
@@ -62,8 +66,13 @@ public class MypageController {
 	//트레이너 대표프로필 변경
 		@RequestMapping("/updateprofile1")
 		public RedirectView updateprofile1(Model m, TrainerVO trainer) {
+			String profile1 = trainer.getPf1().getOriginalFilename();
+			if(!(profile1.equals(""))) {
+				trainer.setProfile1(profile1);
+				Util.saveFile(trainer.getPf1(),dir1);
+				}
 			try {
-				trainerbiz.modify(trainer);
+				trainerbiz.modifyProfile1(trainer);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -100,11 +109,38 @@ public class MypageController {
 		return "index";
 	}
 	
+	//트레이너 마이페이지: 매칭신청
+			@RequestMapping("/trmatching")
+			public String trmatching(Model m, HttpSession session) {
+				try {
+					TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
+					m.addAttribute("center", "mypage/trmypage");
+					m.addAttribute("trainercenter","mypage/trmatching");
+					m.addAttribute("trainer", trainer);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			
+				
+				return "index";
+			}
+			
+	
 	//트레이너 마이페이지: 이용내역 
 		@RequestMapping("/trhistory")
-		public String trhistory(Model m) {
-			m.addAttribute("center", "mypage/trmypage");
-			m.addAttribute("trainercenter","mypage/trhistory");
+		public String trhistory(Model m, HttpSession session) {
+			try {
+				TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
+				m.addAttribute("center", "mypage/trmypage");
+				m.addAttribute("trainercenter","mypage/trhistory");
+				m.addAttribute("trainer", trainer);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			
 			return "index";
 		}
 

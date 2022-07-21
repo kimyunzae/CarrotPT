@@ -27,7 +27,7 @@
           </div>
         </td>
         <td class="text-nowrap align-middle" width="150px">
-        	<a  th:text="${t.id}" th:href="@{/admin/trainees/detail(id=${t.id})}"></a>
+        	<a  th:text="${t.id}" th:href="@{/admin/trainers/detail(id=${t.id})}"></a>
         </td>
         <td class="text-nowrap align-middle" width="150px" th:text="${t.name}"></td>
         <td class="text-nowrap align-middle" width="70px" th:text="${t.gender}"></td>
@@ -35,7 +35,14 @@
         <td class="text-nowrap align-middle" width="140px" th:text="${t.gym_name}"></td>
         <td class="text-nowrap align-middle" width="140px" th:text="${t.addrshort}"></td>
         <td class="text-nowrap align-middle" width="120px" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
-        <td class="text-nowrap align-middle" width="60px" th:text="${t.status}"></td>
+        <td class="text-nowrap align-middle" width="60px">
+        	<form id="form_selectstatus">
+	        	<select th:id="'selectstatus'+${t.id}" th:onchange="UpdateStatus([[${t.id}]])">
+	        		<option th:each="s : ${statuslist}" th:text="${s.status}" th:value="${s.status}"
+	        		th:selected="${t.status} == ${s.status}"></option>
+	        	</select>
+        	</form>
+        </td>
       </tr>
     </tbody>
   </table>
