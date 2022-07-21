@@ -80,7 +80,7 @@
 			status: status
 		}, // state
 		null, // title
-		'/admin/trainers/list?pageNo=' + j + '&orderBy=' + orderBy + '&status=' + status); // url	
+		'/admin/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&status=' + status); // url	
 	}
 	
 	$(window).on('popstate', function(event){
@@ -139,6 +139,41 @@
 	
 	}
 	
+	/* 개별 status 변경*/
+	function UpdateStatus(id){
+		var newStatus = $('#'+'selectstatus'+id).val();
+		
+		// Modal로 확인
+		$('#modal_updatestatus').modal();
+		$('.modal-body').empty();
+		$('.modal-body').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
+		
+		$('#btn_status').click(function(){
+
+			$.ajax({
+				url:'/admin/updatestatus',
+				data:{
+					'id':id,
+					'newstatus':newStatus
+				},
+				success: function(result){
+					$('.modal-body').empty();
+					$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
+					$('.modal-footer').empty();
+					$('.modal-footer').append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>');
+					
+				}
+			});
+			
+		});
+		
+		$('#btn_closemodal').click(function(){
+			location.reload();
+		});
+	}
+	
+	
+	
 	$(function(){
 		paging();
 		
@@ -160,6 +195,7 @@
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
 		});
+		
 	});
 </script>
 <ul class="nav nav-tabs" id="ul_status">
@@ -192,7 +228,26 @@
               th:replace="${trainer_info} ? ${trainer_info} : trainer_info">
               </div>
               <!-- Table End-->
-              
+              <!-- Modal -->
+              <div class="modal" id="modal_updatestatus" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">트레이너 status 변경</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-primary" id="btn_status">변경</button>
+				        <button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+               <!-- Modal End -->
               <div class="d-flex justify-content-center">
                 <ul class="pagination mt-3 mb-0" id="pages">
                 </ul>

@@ -155,6 +155,24 @@ public class TrainerVO {
 		this.profile1 = profile1;
 	}
 
+	// 마이페이지 프로필: 프로필, 커리어 이미지 변경
+	public TrainerVO(String id, String license1, String license2, String license3, String profile1, String profile2,
+			String profile3) {
+		super();
+		this.id = id;
+		this.license1 = license1;
+		this.license2 = license2;
+		this.license3 = license3;
+//		this.profile1 = profile1;
+		this.profile2 = profile2;
+		this.profile3 = profile3;
+	}
+
+	
+	
+	
+	
+	
 	
 	
 
