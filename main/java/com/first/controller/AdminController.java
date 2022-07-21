@@ -165,7 +165,12 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/updatestatus")
 	public void updateStatus(String id, String newstatus) {
-		TrainerVO obj = new TrainerVO
+		TrainerVO obj = new TrainerVO(id, newstatus);
+		try {
+			trainerbiz.modifystatus(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 
