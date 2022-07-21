@@ -26,7 +26,7 @@ public class UserController {
 
 	@Autowired
 	TrainerBiz trainerbiz;
-
+	
 	@RequestMapping("/login")
 	public String login(Model m) {
 		m.addAttribute("center", "user/login");
@@ -102,6 +102,13 @@ public class UserController {
 //		}
 //		return "index";
 //	}
+	
+	@RequestMapping("/findidpwd")
+	public String findidpwd(Model m) {
+		m.addAttribute("center", "user/findidpwd");
+		return "index";
+	}
+
 
 	@RequestMapping("/logout")
 	public String logout(Model m, HttpSession session) {
