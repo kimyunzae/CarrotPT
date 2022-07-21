@@ -2,16 +2,16 @@
 
 </style>
 <script>
-	/* $(document).ready(function() {
+	 $(document).ready(function() {
 		$('#updateprofile1').click(function() {
 			$('.trainerpf1').attr({
 				'enctype' : 'multipart/form-data',
 				'method' : 'post',
-				'action' : 'update'
+				'action' : 'updateprofile1'
 			});
 			$('.trainerpf1').submit();
 		});
-	}); */
+	}); 
 </script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -29,12 +29,12 @@
 							</span></a></li>
 							
 						<li class="nav-item"><a class="nav-link px-2"
-							href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-							target="__blank"><i class="fab fa-maxcdn mr-1"></i><span>매칭신청</span></a></li>
+							href="/trmatching"
+							><i class="fab fa-maxcdn mr-1"></i><span>매칭신청</span></a></li>
 							
 						<li class="nav-item"><a class="nav-link px-2"
-							href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-							target="__blank"><i class="fa fa-fw fa-history mr-1"></i><span>이용내역</span></a></li>
+							href="/trhistory"
+							><i class="fa fa-fw fa-history mr-1"></i><span>이용내역</span></a></li>
 					
 					
 					</ul>
@@ -81,17 +81,17 @@
 											<!-- The Modal -->
 											<div class="modal" id="myModal">
 												<div class="modal-dialog">
-													<div class="modal-content trainerpf1">
+													<form class="modal-content trainerpf1">
 
 														<!-- Modal Header -->
 														<div class="modal-header">
-															<h4 class="modal-title">대표 프로필</h4>
+															<p class="modal-title">대표 프로필을 선택하세요</p>
 															<button type="button" class="close" data-dismiss="modal">&times;</button>
 														</div>
 
 														<!-- Modal body -->
-														<div class="modal-body"><input type="file" name="profile1"
-														 th:value="${trainer.profile1}"></div>
+														<div class="modal-body "><input type="file" name="pf1" 
+														></div>
 
 														<!-- Modal footer -->
 														<div class="modal-footer ">
@@ -101,7 +101,7 @@
 																id="updateprofile1">변경하기</button>
 														</div>
 
-													</div>
+													</form>
 												</div>
 											</div>
 

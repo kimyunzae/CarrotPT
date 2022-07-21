@@ -30,5 +30,5 @@ public interface TrainerMapper{
 	
 	public void updatestatus(TrainerVO obj) throws Exception;
 	
-
+	public void updateProfile1(TrainerVO obj) throws Exception;
 }

@@ -127,6 +127,11 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	public void modifystatus(TrainerVO v) throws Exception{
 		dao.updatestatus(v);
 	}
+
+	// 트레이너 mypage 대표프로필 수정
+	public void modifyProfile1(TrainerVO v) throws Exception {
+		dao.updateProfile1(v);
+	}
 	
 	
 
