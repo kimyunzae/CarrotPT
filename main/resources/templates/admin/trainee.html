@@ -28,7 +28,8 @@
 				if(last > totalPages){
 					last = totalPages;
 				}
-				
+				var veryFirst = 1;
+				var veryLast = totalPages;
 				var first = last - (pageSize - 1);
 				const next = last + 1;
 				var prev = first - 1;
@@ -39,6 +40,10 @@
 				
 				var pages = $('#pages');
 				pages.empty();
+				
+				if(totalPages > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+				}
 				
 				if(first > 1){
 					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')">prev</a></li>');
@@ -56,6 +61,10 @@
 				if(next > pageSize && next <= totalPages){
 					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">next</a></li>');
 				};
+				
+				if(totalPages > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
+				}
 				
 			}
 			
@@ -91,7 +100,8 @@
 		if(last > totalPages){
 			last = totalPages;
 		}
-		
+		var veryFirst = 1;
+		var veryLast = totalPages;
 		var first = last - (pageSize - 1);
 		const next = last + 1;
 		var prev = first - 1;
@@ -102,6 +112,11 @@
 		
 		var pages = $('#pages');
 		pages.empty();
+		
+		// 1페이지로
+		if(totalPages > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+		}
 		
 		// prev 버튼
 		if(first > 1){
@@ -122,6 +137,11 @@
 		if(next > pageSize && next <= totalPages){
 			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
 		};
+		
+		// 마지막 페이지로
+		if(totalPages > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
+		}
 	
 	}
 	
