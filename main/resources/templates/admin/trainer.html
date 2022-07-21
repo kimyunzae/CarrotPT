@@ -243,12 +243,14 @@
 		
 	});
 </script>
+
 <ul class="nav nav-tabs" id="ul_status">
 	<li class="nav-item"><a class="nav-link a_status active" data-value="all">ALL</a></li>
 	<li class="nav-item"><a class="nav-link a_status" data-value="대기중">대기중</a></li>
 	<li class="nav-item"><a class="nav-link a_status" data-value="수락">수락</a></li>
 	<li class="nav-item"><a class="nav-link a_status" data-value="거절">거절</a></li>
 </ul>
+
 <div class="tab-content pt-3">
 	<div class="tab-pane active">
 		
@@ -268,11 +270,11 @@
             <div class="e-table">
             
               <!-- Table Start -->
-            
               <div id="div_trainee_row"
               th:replace="${trainer_info} ? ${trainer_info} : trainer_info">
               </div>
               <!-- Table End-->
+              
               <!-- Modal -->
               <div class="modal" id="modal_updatestatus" tabindex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
@@ -283,12 +285,12 @@
 				      <div class="modal-body">
 				      </div>
 				      <div class="modal-footer">
-				  
 				      </div>
 				    </div>
 				  </div>
 				</div>
                <!-- Modal End -->
+               
               <div class="d-flex justify-content-center">
                 <ul class="pagination mt-3 mb-0" id="pages">
                 </ul>
