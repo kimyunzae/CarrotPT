@@ -16,7 +16,7 @@ import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
 @Controller
-public class CrudController {
+public class RegisterController {
 
 	@Autowired
 	TrainerBiz trainerbiz;

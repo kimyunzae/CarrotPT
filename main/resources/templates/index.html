@@ -50,10 +50,8 @@
 				<span class="oi oi-menu"></span> Menu
 			</button>
 
-			<li th:unless="${session.logincust == null}">
-			<span th:text="${session.logincust.name}"></span>
+		
 			
-			</li>
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
 					<li class="nav-item"><a href="/" class="nav-link"><span>Home</span></a></li>
@@ -61,7 +59,10 @@
 								찾기</span></a></li>
 					<li class="nav-item">
 						<a href="/map" class="nav-link"><span>지도로찾기</span></a></li>
-					<li class="nav-item dropdown"><a
+					
+					<li class="nav-item dropdown">
+					
+					<a th:if="${session.logincust == null}"
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19"
@@ -71,13 +72,15 @@
 									d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
 		  				</svg>
 					</a>
-
+					
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false" 
+						th:unless="${session.logincust == null}" th:text="${session.logincust.name} + ' 님'"></a>
 					
 						<div class="dropdown-menu">
 							
 							<a th:if="${session.logincust == null}" class="dropdown-item" href="/login">로그인</a>
 							<a th:if="${session.logincust == null}" class="dropdown-item" href="/join">회원가입</a>
-							
 							
 							<a th:if="${session.logincust != null}" class="dropdown-item" href="/logout">로그아웃</a>
 							<a th:if="${session.logincust != null} and ${session.logincust.level == '일반회원'}" class="dropdown-item" th:href="@{/mypage(id=${session.logincust.id})}">마이페이지</a>

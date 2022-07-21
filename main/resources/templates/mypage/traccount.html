@@ -1,0 +1,186 @@
+<style>
+
+
+
+
+</style>
+
+
+<script	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+//주소지 API
+window.Kakao.init("1246eaf5aa2f74f55a55378bd15623c5")
+
+function sample6_execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+
+						var addr = '';
+						var extraAddr = '';
+						if (data.userSelectedType === 'R') {
+							addr = data.roadAddress;
+						} else {
+							addr = data.jibunAddress;
+						}
+
+						if (data.userSelectedType === 'R') {
+							if (data.bname !== ''
+									&& /[동|로|가]$/g.test(data.bname)) {
+								extraAddr += data.bname;
+							}
+							if (data.buildingName !== ''
+									&& data.apartment === 'Y') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							if (extraAddr !== '') {
+								extraAddr = ' (' + extraAddr + ')';
+							}
+						//	document.getElementById("sample6_extraAddress").value = extraAddr;
+
+						} else {
+						//	document.getElementById("sample6_extraAddress").value = '';
+						}
+
+						document.getElementById('sample6_postcode').value = data.zonecode;
+						document.getElementById("sample6_address").value = addr + extraAddr;
+						document.getElementById("sample6_detailAddress").focus();
+								
+					}
+				}).open();
+	}
+	
+
+</script>
+
+<div class="tab-content pt-3">
+	<div class="tab-pane active">
+		<form class="form" novalidate="">
+			<div class="row">
+				<div class="col">
+					<div class="row user">
+						<div class="col">
+							<div class="form-group">
+								<label>이름</label> <input class="form-control" type="text"
+									name="name" th:value="${trainer.name}" >
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label>휴대폰번호</label> <input class="form-control" type="text"
+									name="phone" th:value="${trainer.phone}">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>Email</label> <input class="form-control" type="text"
+									th:value="${trainer.email}" placeholder="user@example.com">
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-sm-6 mt-3 border">
+					<div class="mb-2">
+						<b>비밀번호 변경</b>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>현재 비밀번호</label> <input class="form-control"
+									type="password" >
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>새 비밀번호</label> <input class="form-control"
+									type="password" name="pwd">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>새 비밀번호 확인 <span class="d-none d-xl-inline"></span></label>
+								<input class="form-control" type="password" >
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col d-flex justify-content-start">
+						<button class="btn btn-primary" type="submit">비밀번호 변경하기</button>
+					</div>
+			</div>
+				</div>
+				<div class="col-12 col-sm-5 offset-sm-1 mb-3">
+					
+					<div class="row">
+						<div class="col">
+							<div class="form-group mt-3">
+								<label>헬스장 이름 <span class="d-none d-xl-inline"></span></label>
+								<input class="form-control" type="text" name="gym_name" th:value="${trainer.gym_name}">
+							</div>		
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>우편번호 <span class="d-none d-xl-inline"><button class="btn btn-warning"
+								onclick="sample6_execDaumPostcode()">우편번호 찾기</button></span></label>
+								<input class="form-control" type="text" id="sample6_postcode" name="gym_zip" th:value="${trainer.gym_zip}">
+								
+							</div>		
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>주소 <span class="d-none d-xl-inline"></span></label>
+								<input class="form-control" type="text" id="sample6_address" th:value="${trainer.gym_addr1}" name="gym_addr1">
+							</div>		
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>상세주소 <span class="d-none d-xl-inline"></span></label>
+								<input class="form-control" type="text" id="sample6_detailAddress" name="gym_addr2" th:value="${trainer.gym_addr2}">
+							</div>		
+						</div>
+					</div>
+					
+					<!-- <label class="fieldlabels">헬스장 이름: *</label> <input type="text"
+								name="gym_name" placeholder="Name" /> <label
+								class="fieldlabels">우편번호: *</label>
+
+							<button class="btn btn-primary"
+								onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+
+							<input type="text" id="sample6_postcode" name="gym_zip"
+								placeholder="우편번호"> <label class="fieldlabels">주소:
+								*</label> <input type="text" id="sample6_address" name="gym_addr1"
+								placeholder="Address"> <label class="fieldlabels">상세주소: *
+							</label> <input type="text" id="sample6_detailAddress" name="gym_addr2"
+								placeholder="Address detail (ex: 상호빌딩)">
+					 -->
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col d-flex justify-content-end">
+					<button class="btn btn-primary" id="updatebtn" type="submit">Save Changes</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>
+

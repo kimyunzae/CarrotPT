@@ -81,6 +81,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		profile1=#{profile1},profile2=#{profile2},profile3=#{profile3},level=#{level} WHERE id=#{id}
 	</update>
 	
+	<!-- <update id="updateProfile1" parameterType="String">
+		UPDATE trainer SET profile1=#{profile1} where id=#{id}
+	</update> -->
+	
 	<delete id="delete" parameterType="String">
 		DELETE FROM trainer WHERE id=#{id}
 	</delete>
