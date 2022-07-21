@@ -48,7 +48,6 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(cnt);
 		return cnt;
 	}
 	
@@ -150,13 +149,8 @@ public class AdminController {
 		int amount = 5;
 		int offset = 0;
 		try {
-//			int total = trainerbiz.getcnt(status);
-//			m.addAttribute("TrainerTotal", total);
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("tnerlist", list);
-
-//			System.out.println("status" + status);
-//			System.out.println("total" + total);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -170,8 +164,6 @@ public class AdminController {
 		int amount = 5;
 		int offset = 0;
 		try {
-//			int total = trainerbiz.getcnt(status);
-//			m.addAttribute("TrainerTotal", total);
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("tnerlist", list);
 		} catch (Exception e) {
