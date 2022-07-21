@@ -8,7 +8,6 @@ public class Util {
 			MultipartFile pf3, MultipartFile lc1, MultipartFile lc2,
 			MultipartFile lc3, String dir1, String dir2,
 			String dir3, String dir4, String dir5, String dir6) {
-			
 	
 		byte [] data1;
 		byte [] data2;
@@ -59,6 +58,20 @@ public class Util {
 			
 		}
 		
+	}
+	
+	//for updating pf1
+	public static void saveFile(MultipartFile pf1, String dir1) {
+		byte [] data1;
+		String profile1 = pf1.getOriginalFilename();
+		try {
+			data1 = pf1.getBytes();
+			FileOutputStream fo1 = new FileOutputStream(dir1+profile1);
+			fo1.write(data1);
+			fo1.close();
+		}catch(Exception e) {
+			
+		}
 	}
 	
 }

@@ -149,23 +149,10 @@ public class TrainerVO {
 	}
 
 	// 마이페이지 계정: 대표 프로필 사진 변경 
-	public TrainerVO(String id, MultipartFile pf1) {
+	public TrainerVO(String id, String profile1) {
 		super();
 		this.id = id;
-		this.pf1 = pf1;
-	}
-
-	// 마이페이지 프로필: 프로필, 커리어 이미지 변경
-	public TrainerVO(String id, String license1, String license2, String license3, String profile1, String profile2,
-			String profile3) {
-		super();
-		this.id = id;
-		this.license1 = license1;
-		this.license2 = license2;
-		this.license3 = license3;
-//		this.profile1 = profile1;
-		this.profile2 = profile2;
-		this.profile3 = profile3;
+		this.profile1 = profile1;
 	}
 
 	// for UPDATE: 상태 UPDATE
@@ -174,10 +161,6 @@ public class TrainerVO {
 		this.id = id;
 		this.status = status;
 	}
-
-	
-	
-	
 
 	
 	
