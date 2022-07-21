@@ -15,7 +15,7 @@ class TrainerUpdateStatusTest {
 
 	@Test
 	void contextLoads() {
-		TrainerVO obj = new TrainerVO("tid36", "수락");
+		TrainerVO obj = new TrainerVO("tid37", "거절", "내맘이야!");
 		try {
 			biz.modifystatus(obj);
 			System.out.println("Updated" + obj);

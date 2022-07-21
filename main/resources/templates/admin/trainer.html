@@ -1,6 +1,7 @@
 <style>
  #ul_status .nav-item:hover{
  	color:#769BCD;
+ 	cursor:pointer;
  }
  #ul_status .active{
  	color:#769BCD;
@@ -145,32 +146,48 @@
 		
 		// Modal로 확인
 		$('#modal_updatestatus').modal();
+		
 		$('.modal-body').empty();
 		$('.modal-body').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
 		
+		$('.modal-footer').empty();
+		$('.modal-footer').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
+		$('.modal-footer').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
+       
+		
+		if(newStatus == "거절"){
+			$('.modal-body').append('<input type="text" id="input_refusal" name="status_detail" placeholder="거절 사유를 입력하세요.">');
+		};
+		
 		$('#btn_status').click(function(){
-
+			var statusDetail = $('input[id="input_refusal"]').val();
 			$.ajax({
 				url:'/admin/updatestatus',
 				data:{
 					'id':id,
-					'newstatus':newStatus
+					'newstatus':newStatus,
+					'statusdetail':statusDetail
 				},
 				success: function(result){
 					$('.modal-body').empty();
 					$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
 					$('.modal-footer').empty();
-					$('.modal-footer').append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>');
+					$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
 					
 				}
 			});
 			
 		});
 		
+		closeModal();
+		
+	}
+	
+	function closeModal(){
 		$('#btn_closemodal').click(function(){
 			location.reload();
 		});
-	}
+	};
 	
 	
 	
@@ -195,6 +212,8 @@
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
 		});
+		
+		
 		
 	});
 </script>
@@ -234,15 +253,11 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <h5 class="modal-title">트레이너 status 변경</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
 				      </div>
 				      <div class="modal-body">
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-primary" id="btn_status">변경</button>
-				        <button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button>
+				  
 				      </div>
 				    </div>
 				  </div>
