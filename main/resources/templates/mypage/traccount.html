@@ -52,6 +52,31 @@ function sample6_execDaumPostcode() {
 				}).open();
 	}
 	
+		$(document).ready(function() {
+			$("#btn_editprofile").click(function() {
+				$(this).hide();
+				$("#btn_saveprofile").show();
+				$(".profile-input-text").attr({
+					"disabled" : false
+				});
+				$(".profile-input-text").removeClass("form-control-plaintext");
+				$(".profile-input-text").addClass("form-control");
+				$(".profile-input-select").attr({
+					"disabled" : false
+				});
+				$(".profile-input-select").removeClass("form-control-plaintext");
+				$(".profile-input-select").addClass("form-select");
+			});
+		
+			$("#btn_saveprofile").click(function() {
+				$("#form_editprofile").attr({
+					"method" : "post",
+					"action" : "/profile_update"
+				});
+				$("#form_editprofile").submit();
+			});
+		});
+			
 
 </script>
 
@@ -176,7 +201,7 @@ function sample6_execDaumPostcode() {
 			</div>
 			<div class="row">
 				<div class="col d-flex justify-content-end">
-					<button class="btn btn-primary" id="updatebtn" type="submit">Save Changes</button>
+					<button class="btn btn-primary" id="updatebtn" type="submit">변경내용 저장</button>
 				</div>
 			</div>
 		</form>

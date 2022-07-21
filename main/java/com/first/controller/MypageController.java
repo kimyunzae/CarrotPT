@@ -70,6 +70,18 @@ public class MypageController {
 			}
 			return new RedirectView("/trmypage");
 		}
+		
+	// 트레이너 프로필 수정
+	@RequestMapping("/profile_update")
+	public RedirectView profile_update(Model m, TrainerVO vo) {
+		try {
+			trainerbiz.modify(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new RedirectView("/trmypage");
+	}
+	
 	
 	//트레이너 마이페이지: 경력 및 수상
 	@RequestMapping("/trprofile")
