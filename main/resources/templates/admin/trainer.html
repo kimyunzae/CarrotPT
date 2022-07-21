@@ -1,6 +1,7 @@
 <style>
  #ul_status .nav-item:hover{
  	color:#769BCD;
+ 	cursor:pointer;
  }
  #ul_status .active{
  	color:#769BCD;
@@ -44,7 +45,8 @@
 				if(last > totalPages){
 					last = totalPages;
 				}
-				
+				var veryFirst = 1;
+				var veryLast = totalPages;
 				var first = last - (pageSize - 1);
 				const next = last + 1;
 				var prev = first - 1;
@@ -53,8 +55,14 @@
 					first = last;
 				}
 				
+				// 1페이지로
+				if(totalPages > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+				}
+				
+				// prev 버튼
 				if(first > 1){
-					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')">prev</a></li>');
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')"><</a></li>');
 				}
 				
 				for (var k = first; k <= last; k++) {
@@ -67,8 +75,12 @@
 					}
 				
 				if(next > pageSize && next <= totalPages){
-					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">next</a></li>');
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
 				};
+				
+				if(totalPages > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
+				}
 				
 			}
 
@@ -105,7 +117,8 @@
 		if(last > totalPages){
 			last = totalPages;
 		}
-		
+		var veryFirst = 1;
+		var veryLast = totalPages;
 		var first = last - (pageSize - 1);
 		const next = last + 1;
 		var prev = first - 1;
@@ -116,6 +129,15 @@
 		
 		var pages = $('#pages');
 		pages.empty();
+		
+		if(totalPages < 1){
+			first = last;
+		}
+		
+		// 1페이지로
+		if(totalPages > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+		}
 		
 		// prev 버튼
 		if(first > 1){
@@ -136,6 +158,11 @@
 		if(next > pageSize && next <= totalPages){
 			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
 		};
+		
+		// 마지막 페이지로
+		if(totalPages > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
+		}
 	
 	}
 	
@@ -145,32 +172,48 @@
 		
 		// Modal로 확인
 		$('#modal_updatestatus').modal();
+		
 		$('.modal-body').empty();
 		$('.modal-body').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
 		
+		$('.modal-footer').empty();
+		$('.modal-footer').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
+		$('.modal-footer').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
+       
+		
+		if(newStatus == "거절"){
+			$('.modal-body').append('<input type="text" id="input_refusal" name="status_detail" placeholder="거절 사유를 입력하세요.">');
+		};
+		
 		$('#btn_status').click(function(){
-
+			var statusDetail = $('input[id="input_refusal"]').val();
 			$.ajax({
 				url:'/admin/updatestatus',
 				data:{
 					'id':id,
-					'newstatus':newStatus
+					'newstatus':newStatus,
+					'statusdetail':statusDetail
 				},
 				success: function(result){
 					$('.modal-body').empty();
 					$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
 					$('.modal-footer').empty();
-					$('.modal-footer').append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>');
+					$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
 					
 				}
 			});
 			
 		});
 		
+		closeModal();
+		
+	}
+	
+	function closeModal(){
 		$('#btn_closemodal').click(function(){
 			location.reload();
 		});
-	}
+	};
 	
 	
 	
@@ -196,14 +239,18 @@
 			GetTarget(parseInt(searchPage));
 		});
 		
+		
+		
 	});
 </script>
+
 <ul class="nav nav-tabs" id="ul_status">
 	<li class="nav-item"><a class="nav-link a_status active" data-value="all">ALL</a></li>
 	<li class="nav-item"><a class="nav-link a_status" data-value="대기중">대기중</a></li>
 	<li class="nav-item"><a class="nav-link a_status" data-value="수락">수락</a></li>
 	<li class="nav-item"><a class="nav-link a_status" data-value="거절">거절</a></li>
 </ul>
+
 <div class="tab-content pt-3">
 	<div class="tab-pane active">
 		
@@ -223,31 +270,27 @@
             <div class="e-table">
             
               <!-- Table Start -->
-            
               <div id="div_trainee_row"
               th:replace="${trainer_info} ? ${trainer_info} : trainer_info">
               </div>
               <!-- Table End-->
+              
               <!-- Modal -->
               <div class="modal" id="modal_updatestatus" tabindex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <h5 class="modal-title">트레이너 status 변경</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
 				      </div>
 				      <div class="modal-body">
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-primary" id="btn_status">변경</button>
-				        <button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button>
 				      </div>
 				    </div>
 				  </div>
 				</div>
                <!-- Modal End -->
+               
               <div class="d-flex justify-content-center">
                 <ul class="pagination mt-3 mb-0" id="pages">
                 </ul>

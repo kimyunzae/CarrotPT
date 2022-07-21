@@ -168,7 +168,13 @@ public class TrainerVO {
 		this.profile3 = profile3;
 	}
 
-	
+	// for UPDATE: status, status_detail 개별 수정
+	public TrainerVO(String id, String status, String status_detail) {
+		super();
+		this.id = id;
+		this.status = status;
+		this.status_detail = status_detail;
+	}
 	
 	
 	

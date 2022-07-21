@@ -84,7 +84,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <!-- update: 개별 상태 update-->
 	<update id="updatestatus" parameterType="trainerVO">
 		UPDATE trainer SET
-		status=#{status} WHERE id=#{id};
+		status=#{status}
+		<if test="status_detail != null">
+		, status_detail=#{status_detail}
+		</if>
+		WHERE id=#{id};
 	</update>
 	<update id="update" parameterType="trainerVO">
 		UPDATE trainer SET
