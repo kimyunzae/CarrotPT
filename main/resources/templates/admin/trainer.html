@@ -142,9 +142,27 @@
 	/* 개별 status 변경*/
 	function UpdateStatus(id){
 		var newStatus = $('#'+'selectstatus'+id).val();
+		
+		// Modal로 확인
 		$('#modal_updatestatus').modal();
 		$('.modal-body').empty();
 		$('.modal-body').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
+		
+		$('#btn_status').click(function(){
+			
+
+			$.ajax({
+				url:'/admin/updatestatus',
+				data:{
+					'id':id,
+					'newstatus':newStatus
+				},
+				success: function(result){
+					alert('updated!');
+				}
+			});
+			
+		});
 	}
 	
 	$(function(){
@@ -214,7 +232,7 @@
 				      <div class="modal-body">
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-primary">변경</button>
+				        <button type="button" class="btn btn-primary" id="btn_status">변경</button>
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 				      </div>
 				    </div>

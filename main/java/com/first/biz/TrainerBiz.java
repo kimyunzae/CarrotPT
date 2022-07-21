@@ -30,7 +30,6 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	@Override
 	public void modify(TrainerVO v) throws Exception {
 		dao.update(v);
-		
 	}
 
 	@Override
@@ -122,6 +121,11 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	public List<StatusVO> getstatus() throws Exception{
 		List<StatusVO> list = dao.selectstatus();
 		return list;
+	}
+	
+	// 개별 status UPDATE
+	public void modifystatus(TrainerVO v) throws Exception{
+		dao.updatestatus(v);
 	}
 	
 	

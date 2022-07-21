@@ -28,5 +28,7 @@ public interface TrainerMapper{
 	public List<MajorVO> selectmajor() throws Exception;
 	public List<StatusVO> selectstatus() throws Exception;
 	
+	public void updatestatus(TrainerVO obj) throws Exception;
+	
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
@@ -158,6 +159,13 @@ public class AdminController {
 		m.addAttribute("center", "mypage/trmypage");
 		m.addAttribute("trainercenter","mypage/trprofile");
 		return "index";
+	}
+	
+	// 2-4 트레이너 status 업데이트
+	@ResponseBody
+	@RequestMapping("/updatestatus")
+	public void updateStatus(String id, String newstatus) {
+		TrainerVO obj = new TrainerVO
 	}
 
 

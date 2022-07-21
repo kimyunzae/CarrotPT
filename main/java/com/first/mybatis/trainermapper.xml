@@ -57,7 +57,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT DISTINCT status FROM trainer;
 	</select>
 
-
 <!-- 검색 -->
 	<select id="search" resultType="trainerVO">
 		SELECT * FROM trainer
@@ -82,7 +81,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		#{license1},#{license2},#{license3},default,NULL,
 		#{profile1},#{profile2},#{profile3},NOW(),default, NULL)
 	</insert>
-	
+<!-- update: 개별 상태 update-->
+	<update id="updatestatus" parameterType="trainerVO">
+		UPDATE trainer SET
+		status=#{status} WHERE id=#{id};
+	</update>
 	<update id="update" parameterType="trainerVO">
 		UPDATE trainer SET
 		pwd=#{pwd},phone=#{phone},email=#{email},gender=#{gender},major=#{major},
