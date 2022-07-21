@@ -33,11 +33,88 @@
 .btn btn-primary py-2 px-4:hover {
 	background-color: white;
 }
+
+/* Modal */
+body {
+	color: #000;
+	overflow-x: hidden;
+	height: 100%;
+	background-color: #D1C4E9;
+	background-repeat: no-repeat;
+}
+
+.container {
+	margin: 200px auto;
+}
+
+fieldset {
+	display: none;
+}
+
+fieldset.show {
+	display: block;
+}
+
+select:focus, input:focus {
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	border: 1px solid #2196F3 !important;
+	outline-width: 0 !important;
+	font-weight: 400;
+}
+
+button:focus {
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	outline-width: 0;
+}
+
+.tabs {
+	margin: 2px 5px 0px 5px;
+	padding-bottom: 10px;
+	cursor: pointer;
+}
+
+.tabs:hover, .tabs.active {
+	border-bottom: 1px solid #2196F3;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #1565C0;
+}
+
+.box {
+	margin-bottom: 10px;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.modal-backdrop {
+	background-color: #64B5F6;
+}
+
+.line {
+	background-color: #CFD8DC;
+	height: 1px;
+	width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+	.tabs h6 {
+		font-size: 12px;
+	}
+}
 </style>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script th:inline="javascript">
 
 function GetTarget(j){
@@ -243,8 +320,10 @@ cnt[13] = new Array('전체','광양시','나주시','목포시','순천시','�
 cnt[14] = new Array('전체','경산시','경주시','구미시','김천시','문겅시','상주시','안동시','영주시','영천시','포항시','고령군','군위군','봉화군','성주군','영덕군','영양군','예천군','울릉군','울진군','의성군','청도군','청송군','칠곡군');
 cnt[15] = new Array('전체','거제시','김해시','마산시','밀양시','사천시','울산시','진주시','진해시','창원시','통영시','거창군','고성군','남해군','산청군','양산시','의령군','창녕군','하동군','함안군','함양군','합천군');
 cnt[16] = new Array('전체','서귀포시','제주시','남제주군','북제주군');
+
 function change(add) {
 sel=document.form.county
+/* sel=document.form1.county1 */
   /* 옵션메뉴삭제 */
   for (i=sel.length-1; i>=0; i--){
     sel.options[i] = null
@@ -254,6 +333,72 @@ sel=document.form.county
                     sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
     }         
 }
+
+
+/* /* 사이드바에서 지역별 검색
+function change1(add) {
+sel1=document.form1.county1
+  /* 옵션메뉴삭제 
+  for (i=sel.length-1; i>=0; i--){
+    sel.options[i] = null
+    }
+  /* 옵션박스추가 
+  for (i=0; i < cnt[add].length;i++){                     
+                    sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
+    }         
+} */
+
+
+/* 모달에서 직접입력시 텍스트창 활성화*/
+	$('.radio-value').on('click', function() {
+
+		var valueCheck = $('.radio-value:checked').val();
+
+		if (valueCheck == 'etc') {
+			$('.radio-value-detail').attr('disabled', false); 
+			$('.radio-value-detail').focus(); 
+		} else {
+			$('.radio-value-detail').val(''); 
+			$('.radio-value-detail').attr('disabled', true); 
+		}
+	});
+	
+	/* 모달 jquery */
+	$(document).ready(function(){
+
+$(".tabs").click(function(){
+    
+    $(".tabs").removeClass("active");
+    $(".tabs h6").removeClass("font-weight-bold");    
+    $(".tabs h6").addClass("text-muted");    
+    $(this).children("h6").removeClass("text-muted");
+    $(this).children("h6").addClass("font-weight-bold");
+    $(this).addClass("active");
+
+    current_fs = $(".active");
+
+    next_fs = $(this).attr('id');
+    next_fs = "#" + next_fs + "1";
+
+    $("fieldset").removeClass("show");
+    $(next_fs).addClass("show");
+
+    current_fs.animate({}, {
+        step: function() {
+            current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+            });
+            next_fs.css({
+                'display': 'block'
+            });
+        }
+    });
+});
+
+});
+	
+	
 </script>
 <section class="ftco-section">
 
@@ -265,16 +410,16 @@ sel=document.form.county
 			<!-- 	<a href="#" id="btn_findmytrainer" class="btn btn-primary py-2 px-4">맞춤트레이너찾기(Click!)</a> -->
 
 			<!-- Trigger the modal with a button -->
-			<button type="button" class="btn btn-primary py-2 px-4"
-				data-toggle="modal" data-target="#myModal">맞춤트레이너찾기(Click!)</button>
+			<!-- <button type="button" class="btn btn-primary py-2 px-4"
+				data-toggle="modal" data-target="#myModal">맞춤트레이너찾기(Click!)</button> -->
 		</div>
 	</div>
 
-	<!-- Modal -->
+	<!-- 	<!-- Modal 
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog w3-container w3-center w3-animate-zoom">
 
-			<!-- Modal content-->
+			Modal content
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">맞춤 트레이너를 찾아드려요!</h4>
@@ -321,15 +466,23 @@ sel=document.form.county
 					<div class="modal-body-que">
 						4. 하고 싶은 운동을 말씀해주세요
 						<div>
-						<form>
-							<label class="radio-inline"><input type="radio" name="optradio" class="radio-value" value="필라테스">필라테스</label><br> 
-							<label class="radio-inline"><input type="radio" name="optradio" class="radio-value" value="웨이트">웨이트 트레이닝</label><br> 
-							<label class="radio-inline"><input type="radio" name="optradio" class="radio-value" value="요가">요가</label><br> 
-							<label class="radio-inline"><input type="radio" name="optradio" class="radio-value" value="크로스핏">크로스핏</label><br> 
-							<label class="radio-inline"><input type="radio" name="optradio" class="radio-value" value="etc" >직접 입력:</label>
-							<input type="text" class="radio-value-detail" placeholder="배우고 싶은 운동을 입력해주세요" value="" />
+							<form name="selex" action="./example.html">
+								<label class="radio-value"><input type="radio"
+									name="optradio" class="radio-value" value="보디빌딩">보디빌딩</label><br>
+								<label class="radio-value"><input type="radio"
+									name="optradio" class="radio-value" value="파워리프팅">파워리프팅</label><br>
+								<label class="radio-value"><input type="radio"
+									name="optradio" class="radio-value" value="필라테스">필라테스</label><br>
+								<label class="radio-value"><input type="radio"
+									name="optradio" class="radio-value" value="크로스핏">크로스핏</label><br>
+								<label class="radio-value"><input type="radio"
+									name="optradio" class="radio-value" value="요가">요가</label><br>
+								<label class="radio-value"><input type="radio"
+									name="optradio" class="radio-value" value="etc">직접 입력:</label>
+								<input type="text" class="radio-value-detail"
+									placeholder="배우고 싶은 운동을 입력해주세요" value="" />
+							</form>
 						</div>
-						</form>
 					</div>
 					<div class="modal-body-que">
 						5. 평소에 운동을 얼마나 하시나요?
@@ -378,14 +531,249 @@ sel=document.form.county
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">트레이너 찾기</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">트레이너
+						찾기</button>
 				</div>
 			</div>
 
 		</div>
+	</div> -->
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<button type="button" data-toggle="modal" data-target="#myModal"
+				class="btn btn-primary py-2 px-4">맞춤트레이너찾기(Click!)</button>
+			<!-- Modal-->
+			<div id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"
+				class="modal fade text-left">
+				<div role="document" class="modal-dialog">
+					<div class="modal-content">
+						<div
+							class="modal-header row d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
+							<div class="tabs" id="tab01">
+								<h6 class="text-muted">1</h6>
+							</div>
+							<div class="tabs active" id="tab02">
+								<h6 class="font-weight-bold">2</h6>
+							</div>
+							<div class="tabs" id="tab03">
+								<h6 class="text-muted">3</h6>
+							</div>
+							<div class="tabs" id="tab04">
+								<h6 class="text-muted">Education</h6>
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="modal-body p-0">
+							<fieldset id="tab011">
+								<div class="bg-light">
+									<!-- <h5 class="text-center mb-4 mt-0 pt-4">My Apps</h5> -->
+									<h6 class="px-3">1-1.고객님의 성별이 어떻게 되나요?</h6>
+									<div>
+										<span><label class="radio-inline"><input
+												type="radio" id="f" name="optradio">여자</label></span> <span><label
+											class="radio-inline"><input type="radio" id="m"
+												name="optradio">남자</label></span> <span><labe
+												class="radio-inline"> <input type="radio" id="n"
+												name="optradio">응답 거절</label></span>
+									</div>
+								</div>
+								<div class="px-3">
+									<h6 class="pt-3 pb-3 mb-4 border-bottom">1-2. 고객님의 연령대는
+										어떻게 되나요?</h6>
+									<!-- <h6 class="text-primary pb-2">
+										<a href="#">Opera Browser</a> <span class="text-secondary">-
+											One of the best browsers</span>
+									</h6>
+									<h6 class="text-primary pb-2">
+										<a href="#">Camscanner</a> <span class="text-secondary">-
+											Easily scan your documents</span>
+									</h6>
+									<h6 class="text-primary pb-4">
+										<a href="#">Coursera</a> <span class="text-secondary">-
+											Learn online, lecturers from top universities</span>
+									</h6> -->
+									<div>
+										<label class="radio-inline"><input type="radio"
+											id="10대" name="optradio">10대</label><br> <label
+											class="radio-inline"><input type="radio" id="20대"
+											name="optradio">20대</label><br> <label
+											class="radio-inline"><input type="radio" id="30대"
+											name="optradio">30대</label><br> <label
+											class="radio-inline"><input type="radio" id="40대"
+											name="optradio">40대</label><br> <label
+											class="radio-inline"><input type="radio" id="50대"
+											name="optradio">50대</label><br> <label
+											class="radio-inline"><input type="radio" id="60대"
+											name="optradio">60대 이상</label>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset class="show" id="tab021">
+								<div class="bg-light">
+									<!-- <h5 class="text-center mb-4 mt-0 pt-4">Knowledge Center</h5> -->
+									<form>
+										<div class="modal-body-que">
+											2-1. 운동하시려는 목적을 말씀해주세요(중복체크 가능)
+											<div>
+												<label class="checkbox-inline"><input
+													type="checkbox" value="">다이어트</label> <label
+													class="checkbox-inline"><input type="checkbox"
+													value="">체력증진</label> <label class="checkbox-inline"><input
+													type="checkbox" value="">자세교정</label> <label
+													class="checkbox-inline"><input type="checkbox"
+													value="">자격증 또는 대회</label>
+											</div>
+										</div>
+									</form>
+								</div>
+						<!-- 		<div class="px-3"> -->
+									<!-- <h6 class="pt-3 pb-3 mb-4 border-bottom">
+										<span class="fa fa-star"></span> Popular Topics
+									</h6>
+									<h6 class="text-primary pb-2">
+										<a href="#">Getting started with Blazemeter</a>
+									</h6>
+									<h6 class="text-primary pb-2">
+										<a href="#">Creating tests</a>
+									</h6>
+									<h6 class="text-primary pb-4">
+										<a href="#">Running tests</a>
+									</h6> -->
+									<div class="modal-body-que">
+										2-2. 하고 싶은 운동을 말씀해주세요
+										<div>
+											<form name="selex" action="./example.html">
+												<label class="radio-value"><input type="radio"
+													name="optradio" class="radio-value" value="보디빌딩">보디빌딩</label><br>
+												<label class="radio-value"><input type="radio"
+													name="optradio" class="radio-value" value="파워리프팅">파워리프팅</label><br>
+												<label class="radio-value"><input type="radio"
+													name="optradio" class="radio-value" value="필라테스">필라테스</label><br>
+												<label class="radio-value"><input type="radio"
+													name="optradio" class="radio-value" value="크로스핏">크로스핏</label><br>
+												<label class="radio-value"><input type="radio"
+													name="optradio" class="radio-value" value="요가">요가</label><br>
+												<label class="radio-value"><input type="radio"
+													name="optradio" class="radio-value" value="etc">직접
+													입력:</label> <input type="text" class="radio-value-detail"
+													placeholder="배우고 싶은 운동을 입력해주세요" value="" />
+											</form>
+										</div>
+									</div>
+								<!-- </div> -->
+							</fieldset>
+							<fieldset id="tab031">
+								<div class="bg-light">
+									<h5 class="text-center mb-4 mt-0 pt-4">Communities</h5>
+									<form>
+										<div class="form-group pb-5 px-3 row justify-content-center">
+											<button type="button" class="btn btn-primary">New
+												Community +</button>
+										</div>
+									</form>
+								</div>
+								<div class="px-3">
+									<div class="border border-1 box">
+										<h5>Community 1</h5>
+										<p class="text-muted mb-1">
+											Members : <strong>27</strong>
+										</p>
+									</div>
+									<div class="border border-1 box">
+										<h5>Community 2</h5>
+										<p class="text-muted mb-1">
+											Members : <strong>16</strong>
+										</p>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset id="tab041">
+								<div class="bg-light">
+									<h5 class="text-center mb-4 mt-0 pt-4">Education</h5>
+									<form>
+										<div class="form-group pb-2 px-3">
+											<input type="text" placeholder="Enter College Name"
+												class="form-control">
+										</div>
+										<div class="form-group row pb-2 px-3">
+											<div class="col-6">
+												<input type="text" placeholder="Percentage"
+													class="form-control">
+											</div>
+											<div class="col-6">
+												<input type="text" placeholder="Grade" class="form-control">
+											</div>
+										</div>
+										<div class="form-group px-3 pb-2">
+											<label class="form-control-label"><h6>What are
+													you good at ?</h6></label>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option1"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option1">Web
+													Development</label>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option2"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option2">Data
+													Structures & Algorithms</label>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option3"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option3">Android
+													Development</label>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option4"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option4">Blockchain</label>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option5"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option5">Machine
+													Learning Algorithms</label>
+											</div>
+										</div>
+										<div class="form-group pb-5 row justify-content-center">
+											<button type="button" class="btn btn-primary px-3">Submit</button>
+										</div>
+									</form>
+								</div>
+								<div class="px-3">
+									<h6 class="pt-3 pb-3 mb-4 border-bottom">
+										<span class="fa fa-rocket"></span> Trending Technologies
+									</h6>
+									<h6 class="text-primary pb-2">
+										<a href="#">Augmented Reality and Virtual Reality</a>
+									</h6>
+									<h6 class="text-primary pb-2">
+										<a href="#">Angular and React</a>
+									</h6>
+									<h6 class="text-primary pb-2">
+										<a href="#">Big Data and Hadoop</a>
+									</h6>
+									<h6 class="text-primary pb-4">
+										<a href="#">Internet of Things (IoT)</a>
+									</h6>
+								</div>
+							</fieldset>
+						</div>
+						<div class="line"></div>
+						<div
+							class="modal-footer d-flex flex-column justify-content-center border-0">
+							<p class="text-muted">고객님께 딱 맞는 트레이너가 있어요</p>
+							<button type="button" class="btn btn-primary">찾기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-
 
 
 	<div class="container">
@@ -433,23 +821,7 @@ sel=document.form.county
 												<option value="num desc">최신 등록순</option>
 												<option>리뷰 많은순</option>
 												<option value="name">이름순</option>
-											</select>
-											<input type="hidden" name="pageNo">
-										</form>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-lg-12 align-items-end mb-3">
-								<div class="form-group">
-									<label for="#">지역별 검색</label>
-									<div class="form-field">
-										<div class="icon">
-											<span class="ion-ios-search"></span>
-										</div>
-										<form>
-											<input type="text" class="form-control"
-												placeholder="Search place">
+											</select> <input type="hidden" name="pageNo">
 										</form>
 									</div>
 								</div>
@@ -457,8 +829,59 @@ sel=document.form.county
 
 							<div class="col-lg-12 align-items-end mb-3">
 								<div class="form-group">
-									<label for="#">운동별 검색</label>
+									<label for="#">지역별 검색</label>
 									<div class="form-field">
+										<div class="icon">
+											<span class="ion-ios-search"></span>
+										</div>
+										<!-- <form>
+											<input type="text" class="form-control"
+												placeholder="Search place">
+										</form> -->
+
+										<form name=form1 method=post action=$PHP_SELF>
+											시/도: <select name='city'
+												onchange="change(this.selectedIndex);" class="form-control">
+												<option value='전체'>전체</option>
+												<option value='서울'>서울특별시</option>
+												<option value='부산'>부산광역시</option>
+												<option value='대구'>대구광역시</option>
+												<option value='인천'>인천광역시</option>
+												<option value='광주'>광주광역시</option>
+												<option value='대전'>대전광역시</option>
+												<option value='울산'>울산광역시</option>
+												<option value='경기'>경기도</option>
+												<option value='강원'>강원도</option>
+												<option value='충북'>충청북도</option>
+												<option value='충남'>충청남도</option>
+												<option value='전북'>전라북도</option>
+												<option value='전남'>전라남도</option>
+												<option value='경북'>경상북도</option>
+												<option value='경남'>경상남도</option>
+												<option value='제주'>제주도</option>
+											</select> 구/군: <select name='county1' class="form-control">
+												<option value=''>전체</option>
+											</select>
+										</form>
+
+
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-12 align-items-end mb-3">
+								<div class="form-group">
+									<label for="#">운동별 검색</label>
+									<!-- <div class="form-field">
+										<select class="form-control" name="major">
+											<option>보디빌딩</option>
+											<option>파워리프팅</option>
+											<option>피지크</option>
+											<option>필라테스</option>
+											<option>크로스핏</option>
+											<option>요가</option>
+											<option>그 외</option>
+										</select>
 										<div class="select-wrap">
 											<div class="icon">
 												<span class="ion-ios-arrow-down"></span>
@@ -467,6 +890,23 @@ sel=document.form.county
 												<option th:each="m : ${majors}" th:value="${m.major}"></option>
 											</select>
 										</div>
+									</div> -->
+									<label for="#">운동별 검색</label>
+									<div class="form-field">
+										<div class="icon">
+											<span class="ion-ios-search"></span>
+										</div>
+										<form id="form_order">
+											<select name="orderBy" id="select_order" class="form-control">
+												<option>보디빌딩</option>
+												<option>파워리프팅</option>
+												<option>피지크</option>
+												<option>필라테스</option>
+												<option>크로스핏</option>
+												<option>요가</option>
+												<option>그외</option>
+											</select> <input type="hidden" name="pageNo">
+										</form>
 									</div>
 								</div>
 							</div>
@@ -486,5 +926,4 @@ sel=document.form.county
 		</div>
 	</div>
 </section>
-
 
