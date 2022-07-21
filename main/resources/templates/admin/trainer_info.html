@@ -36,10 +36,12 @@
         <td class="text-nowrap align-middle" width="140px" th:text="${t.addrshort}"></td>
         <td class="text-nowrap align-middle" width="120px" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
         <td class="text-nowrap align-middle" width="60px">
-        	<select>
-        		<option th:each="s : ${statuslist}" th:text="${s.status}" th:value="${s.status}"
-        		th:selected="${t.status} == ${s.status}"></option>
-        	</select>
+        	<form id="form_selectstatus">
+	        	<select th:id="'selectstatus'+${t.id}" th:onchange="UpdateStatus([[${t.id}]])">
+	        		<option th:each="s : ${statuslist}" th:text="${s.status}" th:value="${s.status}"
+	        		th:selected="${t.status} == ${s.status}"></option>
+	        	</select>
+        	</form>
         </td>
       </tr>
     </tbody>
