@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			</when>
 		</choose>
 		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, status FROM trainer	
-			<if test="status != null">
+			<if test='status != null and status != ""'>
 				WHERE status = #{status}
 			</if>
 		LIMIT #{offset}, #{amount}

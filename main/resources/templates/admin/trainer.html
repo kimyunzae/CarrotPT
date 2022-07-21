@@ -1,21 +1,24 @@
 <script th:inline="javascript">
 
-	function GetTarget(j){
+	function GetTarget(j, status){
 		var orderBy = $('#select_order').val();
 		
 		$.ajax({
 			url:'/admin/findtpage',
 			data:{
 				'pageNo':j,
-				'orderBy':orderBy
+				'orderBy':orderBy,
+				'status':status
 			},
 			method:'GET',
 			success: function(result){
+				
 				$('#div_trainee_row').empty();
 				$('#div_trainee_row').append(result);
 				
 				var currentPage = j;
 				var totalData = [[${TrainerTotal}]];
+				
 				var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 				var pageSize = 5; // 화면에 표시될 페이지 수
 				var totalPages = Math.ceil(totalData / limitPerPage);
@@ -36,7 +39,7 @@
 				if(totalPages < 1){
 					first = last;
 				}
-				
+// 문제: 뒤로 가기 하면 status가 유지 안 됨
 				var pages = $('#pages');
 				pages.empty();
 				
@@ -58,15 +61,17 @@
 				};
 				
 			}
-			
+
 		});
 		
 		history.pushState({
 			data:'/admin/findtpage',
-			pageNo: j
+			pageNo: j,
+			orderBy: orderBy,
+			status: status
 		}, // state
 		null, // title
-		'/admin/trainers?pageNo=' + j + '&orderBy=' + orderBy); // url	
+		'/admin/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&status=' + status); // url	
 	}
 	
 	$(window).on('popstate', function(event){
@@ -132,13 +137,19 @@
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
 		});
+		
+		$('.nav-link').click(function(){
+			var status = $(this).data("value");
+			var searchPage = 1;
+			GetTarget(parseInt(searchPage), status);
+		});
 	});
 </script>
-<ul class="nav nav-tabs">
-	<li class="nav-item"><a href="" class="active nav-link">ALL</a></li>
-	<li class="nav-item"><a href="" class="active nav-link">대기중</a></li>
-	<li class="nav-item"><a href="" class="active nav-link">수락</a></li>
-	<li class="nav-item"><a href="" class="active nav-link">거절</a></li>
+<ul class="nav nav-tabs" id="ul_status">
+	<li class="nav-item"><a href="#" class="active nav-link" data-value="">ALL</a></li>
+	<li class="nav-item"><a href="#" class="nav-link" data-value="대기중">대기중</a></li>
+	<li class="nav-item"><a href="#" class="nav-link" data-value="수락">수락</a></li>
+	<li class="nav-item"><a href="#" class="nav-link" data-value="거절">거절</a></li>
 </ul>
 <div class="tab-content pt-3">
 	<div class="tab-pane active">
