@@ -25,4 +25,6 @@ public interface TrainerMapper{
 	public List<TrainerVO> search(String loc, String major) throws Exception;
 	
 	public List<MajorVO> selectmajor() throws Exception;
+	
+
 }

@@ -122,7 +122,7 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		List<MajorVO> list = dao.selectmajor();
 		return list;
 	};
-
+	
 	
 
 }

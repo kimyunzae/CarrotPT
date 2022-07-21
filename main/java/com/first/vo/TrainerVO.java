@@ -88,7 +88,6 @@ public class TrainerVO {
 	}
 
 	// for insert default null과 default 값 존재하는 column 제외
-
 	public TrainerVO(String id, String pwd, String name, String phone, String email, String gender, String major,
 			String gym_name, String gym_zip, String gym_addr1, String career) {
 		super();
@@ -132,6 +131,7 @@ public class TrainerVO {
 	}
 	
 	
+	
 	// 주소 두 번째 단어까지
 	public void shortenaddr() {
 		String[] addr = this.gym_addr1.split(" ");
@@ -148,6 +148,27 @@ public class TrainerVO {
 		this.rvcnt = rvcnt;
 	}
 
+	// 마이페이지 계정: 대표 프로필 사진 변경 
+	public TrainerVO(String id, MultipartFile pf1) {
+		super();
+		this.id = id;
+		this.pf1 = pf1;
+	}
+
+	// 마이페이지 프로필: 프로필, 커리어 이미지 변경
+	public TrainerVO(String id, String license1, String license2, String license3, String profile1, String profile2,
+			String profile3) {
+		super();
+		this.id = id;
+		this.license1 = license1;
+		this.license2 = license2;
+		this.license3 = license3;
+//		this.profile1 = profile1;
+		this.profile2 = profile2;
+		this.profile3 = profile3;
+	}
+
+	
 
 	
 	

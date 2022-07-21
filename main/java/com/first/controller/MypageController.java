@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
@@ -57,6 +58,18 @@ public class MypageController {
 		m.addAttribute("trainercenter","mypage/traccount");
 		return "index";
 	}
+	
+	//트레이너 대표프로필 변경
+		@RequestMapping("/updateprofile1")
+		public RedirectView updateprofile1(Model m, TrainerVO trainer) {
+			try {
+				trainerbiz.modify(trainer);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return new RedirectView("/trmypage");
+		}
 	
 	//트레이너 마이페이지: 경력 및 수상
 	@RequestMapping("/trprofile")
