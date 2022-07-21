@@ -53,9 +53,6 @@
     margin-right: auto;
 }
 
-modal-title-text {
-	color: orange;
-}
 
 .modal-header{
     border-bottom: none;
@@ -196,6 +193,14 @@ input {
   .modal-btn:focus{
     box-shadow: none;
     outline: none;
+}
+
+.carrot {
+	color: #769BCD;
+}
+
+.modal-title-text {
+	color: black;
 }
 </style>
 
@@ -344,7 +349,10 @@ input {
 				<!-- Modal Header -->
 				<div class="modal-header">
 					<div class="modal-title">
-							<a class="navbar-brand modal-title-text">당근PT</a>
+					
+							<p class="navbar-brand modal-title-text">
+							<span class="carrot"><i class="fas fa-carrot"></i></span>
+							당근PT</p>
 					</div>
 				</div>
 
@@ -367,7 +375,7 @@ input {
 						</div>
 						
 						<div class="extra">
-							<a href="#" class="mr-2"><u>로그인이 안되세요?</u></a>
+							<a href="/findidpwd" class="mr-2"><u>로그인이 안되세요?</u></a>
 							<a href="/join" class="ml-2"><u>회원가입 하러가기</u></a>
 						</div>
 						
@@ -375,23 +383,31 @@ input {
 						<div class="row">
 							<div class="col">
 								<div class="p-t-10">
-									<button class="modal-btn btn--pill btn--green" type="submit">
+									<!-- <button class="modal-btn btn--pill btn--green" type="submit">
 										SIGN IN WITH GOOGLE <img
 											src="https://img.icons8.com/color/48/000000/google-logo.png" />
-									</button>
+									</button> -->
+										<a href="javascript:kakaoLogin();"> <input type="image"
+									src="/images/kakao_login.png"
+									style="height: 46px; widows: 10px;">
+								</a>
 								</div>
 							</div>
 							<div class="col">
 								<div class="p-t-10">
-									<button class="modal-btn btn--pill btn--green" type="submit">
+									<!-- <button class="modal-btn btn--pill btn--green" type="submit">
 										SIGN IN WITH PODIO <img
 											src="https://img.icons8.com/color/48/000000/podio.png" />
-									</button>
+									</button> -->
+									<a href=""> <input type="image"
+									src="/images/naver_login.png"
+									style="height: 50px; widows: 8px;">
+								</a>
 								</div>
 							</div>
 						</div>
 						<p class="extra new">
-							New to teamdeck? <a href="#"><u>Sign up</u></a>
+							Dangguen Personal Trainers Matching Platform
 						</p>
 					</form>
 				</div>
