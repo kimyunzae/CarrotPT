@@ -1,3 +1,12 @@
+<style>
+ #ul_status .nav-item:hover{
+ 	color:#769BCD;
+ }
+ #ul_status .active{
+ 	color:#769BCD;
+ 	font-weight:bold;
+ }
+</style>
 <script th:inline="javascript">
 
 	function GetTarget(j){
@@ -22,7 +31,7 @@
 				
 				var currentPage = j;
 				var totalData = [[${TrainerTotal}]];
-				
+				alert(totalData);
 				var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 				var pageSize = 5; // 화면에 표시될 페이지 수
 				var totalPages = Math.ceil(totalData / limitPerPage);
@@ -43,10 +52,6 @@
 				if(totalPages < 1){
 					first = last;
 				}
-// 문제: 뒤로 가기 하면 status가 유지 안 됨
-// 랜딩페이지 제대로 안됨
-// value가 status와 같은 list 찾아서 class에 active 붙이기
-				
 				
 				if(first > 1){
 					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')">prev</a></li>');
@@ -158,10 +163,10 @@
 	});
 </script>
 <ul class="nav nav-tabs" id="ul_status">
-	<li class="nav-item"><a href="#" class="nav-link a_status active" data-value="all">ALL</a></li>
-	<li class="nav-item"><a href="#" class="nav-link a_status" data-value="대기중">대기중</a></li>
-	<li class="nav-item"><a href="#" class="nav-link a_status" data-value="수락">수락</a></li>
-	<li class="nav-item"><a href="#" class="nav-link a_status" data-value="거절">거절</a></li>
+	<li class="nav-item"><a class="nav-link a_status active" data-value="all">ALL</a></li>
+	<li class="nav-item"><a class="nav-link a_status" data-value="대기중">대기중</a></li>
+	<li class="nav-item"><a class="nav-link a_status" data-value="수락">수락</a></li>
+	<li class="nav-item"><a class="nav-link a_status" data-value="거절">거절</a></li>
 </ul>
 <div class="tab-content pt-3">
 	<div class="tab-pane active">

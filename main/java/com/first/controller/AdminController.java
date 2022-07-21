@@ -40,6 +40,18 @@ public class AdminController {
 		return amount;
 	}
 	
+	@ModelAttribute("TrainerTotal")
+	public int trainertotal(String status) {
+		int cnt = 0;
+		try {
+			cnt = trainerbiz.getcnt(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(cnt);
+		return cnt;
+	}
+	
 	// 1-1 메인: 일반회원 조회
 	@RequestMapping("")
 	public String admin(Model m, String orderBy) {
@@ -110,14 +122,15 @@ public class AdminController {
 	
 	// 2-1 트레이너 조회
 	@RequestMapping("/trainers")
-	public String directPage(Model m, String status) {
+	public String directPage(Model m) {
 		int amount = 5;
 		int pageNo = 1;
 		int offset = 0;
 		String orderBy = null;
+		String status = null;
 		try { 
-			int total = trainerbiz.getcnt(status);
-			m.addAttribute("TrainerTotal", total);
+//			int total = trainerbiz.getcnt(status);
+//			m.addAttribute("TrainerTotal", total);
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("tnerlist", list);
 		} catch (Exception e) {
@@ -137,10 +150,13 @@ public class AdminController {
 		int amount = 5;
 		int offset = 0;
 		try {
-			int total = trainerbiz.getcnt(status);
-			m.addAttribute("TrainerStatusTotal", total);
+//			int total = trainerbiz.getcnt(status);
+//			m.addAttribute("TrainerTotal", total);
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("tnerlist", list);
+
+//			System.out.println("status" + status);
+//			System.out.println("total" + total);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -154,13 +170,10 @@ public class AdminController {
 		int amount = 5;
 		int offset = 0;
 		try {
-			int total = trainerbiz.getcnt(status);
-			System.out.println("status" + status);
-			System.out.println("total" + total);
-			m.addAttribute("TrainerTotal", total);
+//			int total = trainerbiz.getcnt(status);
+//			m.addAttribute("TrainerTotal", total);
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("tnerlist", list);
-			System.out.println("page" + list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
