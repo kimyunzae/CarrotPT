@@ -61,5 +61,19 @@ public class Util {
 		
 	}
 	
+	//for updating pf1
+	public static void saveFile(MultipartFile pf1, String dir1) {
+		byte [] data1;
+		String profile1 = pf1.getOriginalFilename();
+		try {
+			data1 = pf1.getBytes();
+			FileOutputStream fo1 = new FileOutputStream(dir1+profile1);
+			fo1.write(data1);
+			fo1.close();
+		}catch(Exception e) {
+			
+		}
+	}
+	
 }
 
