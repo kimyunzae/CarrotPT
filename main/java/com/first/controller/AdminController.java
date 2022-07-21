@@ -132,7 +132,7 @@ public class AdminController {
 	
 	// 2-2 트레이너 pagination
 	@RequestMapping("/findtpage")
-	public String findtPage(Integer pageNo, Model m, String orderBy, String status) {
+	public String findtPage(int pageNo, String orderBy, String status, Model m) {
 		
 		int amount = 5;
 		int offset = 0;
@@ -144,31 +144,32 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(status);
 		m.addAttribute("currentPage", pageNo);
 		return "admin/trainer_info";
 	}
 	
-//	// 2-3 트레이너 조회
-//	@RequestMapping("/trainers/list")
-//	public String tdirectPage(Integer pageNo, String orderBy, String status, Model m) {
-//		int amount = 5;
-//		int offset = 0;
-//		try {
-//			int total = trainerbiz.getcnt(status);
-//			m.addAttribute("TrainerStatusTotal", total);
-//			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
-//			m.addAttribute("tnerlist", list);
-//			System.out.println("page" + list);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		m.addAttribute("center", "admin/admin");
-//		m.addAttribute("admincenter", "admin/trainer");
-//		m.addAttribute("trainee_info", "admin/trainer_info");
-//		m.addAttribute("currentPage", pageNo);
-//		return "index";
-//	}
+	// 2-3 트레이너 조회
+	@RequestMapping("/trainers/list")
+	public String tdirectPage(int pageNo, String orderBy, String status, Model m) {
+		int amount = 5;
+		int offset = 0;
+		try {
+			int total = trainerbiz.getcnt(status);
+			System.out.println("status" + status);
+			System.out.println("total" + total);
+			m.addAttribute("TrainerTotal", total);
+			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
+			m.addAttribute("tnerlist", list);
+			System.out.println("page" + list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "admin/admin");
+		m.addAttribute("admincenter", "admin/trainer");
+		m.addAttribute("trainer_info", "admin/trainer_info");
+		m.addAttribute("currentPage", pageNo);
+		return "index";
+	}
 	
 	
 

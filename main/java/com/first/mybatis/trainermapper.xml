@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <!-- select: status별 트레이너 데이터 개수-->
 	<select id="selectcnt" resultType="int">
 		SELECT COUNT(*) FROM trainer
-			<if test="status != null">
+			<if test="(status != null) and (status != 'all')">
 				WHERE status = #{status}
 			</if>
 	</select>
@@ -39,10 +39,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			</when>
 		</choose>
 		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, status FROM trainer	
-			<if test='status != null and status != ""'>
+			<if test='(status != null) and (status != "") and (status != "all")'>
 				WHERE status = #{status}
+				LIMIT #{offset}, #{amount}
 			</if>
-		LIMIT #{offset}, #{amount}
+			<if test="(status == 'all') or (status == null) or (status == '')">
+				LIMIT #{offset}, #{amount}
+			</if>
+		
 	</select>
 <!-- select: 등록된 major -->
 	<select id="selectmajor" resultType="majorVO">
