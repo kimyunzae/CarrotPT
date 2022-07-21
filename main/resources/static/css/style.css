@@ -9930,3 +9930,15 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+    
+#div_trainee_row table {
+	word-wrap: break-word;
+	word-break: break-all;
+	font-size:15px;
+}
+
+#div_trainee_row table tbody tr td{
+	word-wrap: break-word;
+	word-break: break-all;
+	font-size:15px;
+}

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.first.biz.TrainerBiz;
 import com.first.vo.MajorVO;
@@ -25,7 +24,7 @@ public class FTController {
 	public int totalData() {
 		int cnt = 0;
 		try {
-			cnt = biz.getcnt();
+			cnt = biz.getcnt("수락");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -83,7 +82,6 @@ public class FTController {
 			e.printStackTrace();
 		}
 
-		System.out.println("fp" + orderBy);
 		m.addAttribute("currentPage", pageNo);
 		m.addAttribute("trlist", list);
 		return "trainers/trcenter_info";
@@ -100,7 +98,6 @@ public class FTController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("list" + orderBy);
 		m.addAttribute("center", "trainers/trcenter");
 		m.addAttribute("trcenter_info", "trainers/trcenter_info");
 		m.addAttribute("currentPage", pageNo);

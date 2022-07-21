@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.TraineeVO;
+import com.first.vo.TrainerVO;
 
 @RequestMapping("/admin")
 @Controller
@@ -39,7 +40,7 @@ public class AdminController {
 		return amount;
 	}
 	
-	// 관리자: 메인
+	// 1-1 메인: 일반회원 조회
 	@RequestMapping("")
 	public String admin(Model m, String orderBy) {
 		int amount = 5;
@@ -58,6 +59,7 @@ public class AdminController {
 		return "index";
 	}
 	
+	// 1-2 일반회원 pagination
 	@RequestMapping("/findpage")
 	public String findPage(Integer pageNo, Model m, String orderBy) {
 		
@@ -74,6 +76,7 @@ public class AdminController {
 		return "admin/trainee_info";
 	}
 	
+	// 1-3 일반회원 목록
 	@RequestMapping("/trainees")
 	public String directPage(Integer pageNo, String orderBy, Model m) {
 		int amount = 5;
@@ -92,7 +95,7 @@ public class AdminController {
 		return "index";
 	}
 	
-	// 관리자: 일반회원 상세
+	// 1-4 일반회원 상세
 	@RequestMapping("/trainees/detail")
 	public String traineedetail(Model m, String id) {
 		try {
@@ -105,14 +108,67 @@ public class AdminController {
 		return "index";
 	}
 	
-	// 관리자: 트레이너 조회
+	// 2-1 트레이너 조회
 	@RequestMapping("/trainers")
-	public String directPage(Model m) {
+	public String directPage(Model m, String status) {
+		int amount = 5;
+		int pageNo = 1;
+		int offset = 0;
+		String orderBy = null;
+		try { 
+			int total = trainerbiz.getcnt(status);
+			m.addAttribute("TrainerTotal", total);
+			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
+			m.addAttribute("tnerlist", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("center", "admin/admin");
 		m.addAttribute("admincenter", "admin/trainer");
 		m.addAttribute("trainer_info", "admin/trainer_info");
+		m.addAttribute("currentPage", pageNo);
 		return "index";
 	}
+	
+	// 2-2 트레이너 pagination
+	@RequestMapping("/findtpage")
+	public String findtPage(Integer pageNo, Model m, String orderBy, String status) {
+		
+		int amount = 5;
+		int offset = 0;
+		try {
+			int total = trainerbiz.getcnt(status);
+			m.addAttribute("TrainerStatusTotal", total);
+			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
+			m.addAttribute("tnerlist", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(status);
+		m.addAttribute("currentPage", pageNo);
+		return "admin/trainer_info";
+	}
+	
+//	// 2-3 트레이너 조회
+//	@RequestMapping("/trainers/list")
+//	public String tdirectPage(Integer pageNo, String orderBy, String status, Model m) {
+//		int amount = 5;
+//		int offset = 0;
+//		try {
+//			int total = trainerbiz.getcnt(status);
+//			m.addAttribute("TrainerStatusTotal", total);
+//			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
+//			m.addAttribute("tnerlist", list);
+//			System.out.println("page" + list);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		m.addAttribute("center", "admin/admin");
+//		m.addAttribute("admincenter", "admin/trainer");
+//		m.addAttribute("trainee_info", "admin/trainer_info");
+//		m.addAttribute("currentPage", pageNo);
+//		return "index";
+//	}
 	
 	
 

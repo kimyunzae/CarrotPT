@@ -15,8 +15,9 @@ class TrainerSelectCntTest {
 
 	@Test
 	void contextLoads() {
+		String status = "거절";
 		try {
-			int cnt = biz.getcnt();
+			int cnt = biz.getcnt(status);
 			System.out.println(cnt);
 		} catch (Exception e) {
 			e.printStackTrace();

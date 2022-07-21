@@ -2,30 +2,40 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="sortable" width="182.39px">
+        <th class="sortable" width="70px">
           <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
             <input type="checkbox" class="custom-control-input" id="all-items">
             <label class="custom-control-label" for="all-items"></label>
           </div>
         </th>
-        <th class="sortable" width="250px">아이디</th>
-        <th class="sortable" width="250px">이름</th>
-        <th class="sortable" width="300.73px">가입일</th>
+        <th class="sortable" width="150px">아이디</th>
+        <th class="sortable" width="150px">이름</th>
+        <th class="sortable" width="70px">성별</th>
+        <th class="sortable" width="120px">전공</th>
+        <th class="sortable" width="140px">직장</th>
+        <th class="sortable" width="140px">지역</th>
+        <th class="sortable" width="120px">가입일</th>
+        <th class="sortable" width="60px">상태</th>
       </tr>
     </thead>
-    <tbody th:each="t : ${tneelist}">
+    <tbody th:each="t : ${tnerlist}">
       <tr class="trainee_info">
-        <td class="text-nowrap align-middle">
+        <td class="text-nowrap align-middle" width="70px">
           <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
             <input type="checkbox" class="custom-control-input" id="item-1">
             <label class="custom-control-label" for="item-1"></label>
           </div>
         </td>
-        <td class="text-nowrap align-middle">
+        <td class="text-nowrap align-middle" width="150px">
         	<a  th:text="${t.id}" th:href="@{/admin/trainees/detail(id=${t.id})}"></a>
         </td>
-        <td class="text-nowrap align-middle" th:text="${t.name}"></td>
-        <td class="text-nowrap align-middle" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
+        <td class="text-nowrap align-middle" width="150px" th:text="${t.name}"></td>
+        <td class="text-nowrap align-middle" width="70px" th:text="${t.gender}"></td>
+        <td class="text-nowrap align-middle" width="120px"th:text="${t.major}"></td>
+        <td class="text-nowrap align-middle" width="140px" th:text="${t.gym_name}"></td>
+        <td class="text-nowrap align-middle" width="140px" th:text="${t.addrshort}"></td>
+        <td class="text-nowrap align-middle" width="120px" th:text="${#dates.format(t.regdate, 'yyyy-MM-dd')}"></td>
+        <td class="text-nowrap align-middle" width="60px" th:text="${t.status}"></td>
       </tr>
     </tbody>
   </table>

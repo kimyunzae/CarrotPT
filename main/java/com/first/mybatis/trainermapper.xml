@@ -21,10 +21,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM trainer
 		WHERE status='수락';
 	</select>
-<!-- select: status가 '수락'인 트레이너 데이터 개수-->
+<!-- select: status별 트레이너 데이터 개수-->
 	<select id="selectcnt" resultType="int">
 		SELECT COUNT(*) FROM trainer
-		WHERE status = '수락';
+			<if test="status != null">
+				WHERE status = #{status}
+			</if>
 	</select>
 <!-- select: 페이지별 select-->
 	<select id="selectbypage" resultType="trainerVO">
@@ -36,8 +38,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				SELECT row_number() over(order by num desc) as rownum,
 			</when>
 		</choose>
-		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, num FROM trainer	
-			<if test="status != null">
+		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, status FROM trainer	
+			<if test='status != null and status != ""'>
 				WHERE status = #{status}
 			</if>
 		LIMIT #{offset}, #{amount}
