@@ -15,7 +15,7 @@
 				$('#div_trainee_row').append(result);
 				
 				var currentPage = j;
-				var totalData = [[${totalData}]];
+				var totalData = [[${TrainerTotal}]];
 				var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 				var pageSize = 5; // 화면에 표시될 페이지 수
 				var totalPages = Math.ceil(totalData / limitPerPage);
@@ -77,7 +77,7 @@
 	function paging(totalData, currentPage){
 		
 		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
-		var totalData = [[${totalData}]];
+		var totalData = [[${TrainerTotal}]];
 		var currentPage = [[${currentPage}]];
 		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 		var pageSize = 5; // 화면에 표시될 페이지 수
@@ -152,7 +152,7 @@
 				<select name="orderBy" id="select_order">
 					<option value="id">아이디순</option>
 					<option value="name">이름순</option>
-					<option value="regdate desc">최근 가입 순</option>
+					<option value="num desc" selected>최근 가입 순</option>
 				</select>
 			</form>
           </div>

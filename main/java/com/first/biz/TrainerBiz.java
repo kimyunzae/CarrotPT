@@ -85,16 +85,14 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return list;
 	}
 	
-	// status가 '수락'인 trainer 데이터 개수
+	// status별 trainer 데이터 개수
 	public int getcnt(String status) throws Exception{
 		return dao.selectcnt(status);
 	}
 	
 	// 페이지, 정렬
 	public List<TrainerVO> getbypage(int pageNo, int amount, String orderBy, int offset, String status) throws Exception{
-		if(orderBy == null) {
-			orderBy = "num desc";
-		}
+		
 		
 		int offset2 = (pageNo - 1) * amount;
 		List<TrainerVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2, status);

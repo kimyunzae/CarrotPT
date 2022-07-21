@@ -117,6 +117,8 @@ public class AdminController {
 		String orderBy = null;
 		String status = null;
 		try {
+			int total = trainerbiz.getcnt(status);
+			m.addAttribute("TrainerTotal", total);
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("tnerlist", list);
 		} catch (Exception e) {
@@ -125,6 +127,7 @@ public class AdminController {
 		m.addAttribute("center", "admin/admin");
 		m.addAttribute("admincenter", "admin/trainer");
 		m.addAttribute("trainer_info", "admin/trainer_info");
+		m.addAttribute("currentPage", pageNo);
 		return "index";
 	}
 	
@@ -135,13 +138,15 @@ public class AdminController {
 		int amount = 5;
 		int offset = 0;
 		try {
+			
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
 			m.addAttribute("tnerlist", list);
+			System.out.println(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		m.addAttribute("currentPage", pageNo);
-		return "admin/trainee_info";
+		return "admin/trainer_info";
 	}
 	
 	// 2-3 트레이너 조회
