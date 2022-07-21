@@ -20,7 +20,7 @@ class TrainerSelectByPageTest {
 		int pageNo = 1;
 		int amount = 6;
 		String orderBy = null;
-		String status = null;
+		String status = "all";
 		try {
 			int offset = 0;
 			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset, status);
