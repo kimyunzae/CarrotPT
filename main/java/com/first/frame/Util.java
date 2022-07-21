@@ -8,7 +8,6 @@ public class Util {
 			MultipartFile pf3, MultipartFile lc1, MultipartFile lc2,
 			MultipartFile lc3, String dir1, String dir2,
 			String dir3, String dir4, String dir5, String dir6) {
-			
 	
 		byte [] data1;
 		byte [] data2;
