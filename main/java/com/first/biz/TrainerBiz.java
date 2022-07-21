@@ -9,6 +9,7 @@ import com.first.frame.Biz;
 import com.first.mapper.ReviewMapper;
 import com.first.mapper.TrainerMapper;
 import com.first.vo.MajorVO;
+import com.first.vo.StatusVO;
 import com.first.vo.TrainerVO;
 
 @Service("trainerbiz")
@@ -29,7 +30,6 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	@Override
 	public void modify(TrainerVO v) throws Exception {
 		dao.update(v);
-		
 	}
 
 	@Override
@@ -117,6 +117,16 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return list;
 	};
 	
+	// 등록된 status 선택
+	public List<StatusVO> getstatus() throws Exception{
+		List<StatusVO> list = dao.selectstatus();
+		return list;
+	}
+	
+	// 개별 status UPDATE
+	public void modifystatus(TrainerVO v) throws Exception{
+		dao.updatestatus(v);
+    
 	// 트레이너 mypage 대표프로필 수정
 	public void modifyProfile1(TrainerVO v) throws Exception {
 		dao.updateProfile1(v);

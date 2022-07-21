@@ -155,6 +155,15 @@ public class TrainerVO {
 		this.profile1 = profile1;
 	}
 
+	// for UPDATE: 상태 UPDATE
+	public TrainerVO(String id, String status) {
+		super();
+		this.id = id;
+		this.status = status;
+	}
+
+	
+	
 	
 	
 

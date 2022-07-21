@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.first.vo.MajorVO;
+import com.first.vo.StatusVO;
 import com.first.vo.TrainerVO;
 
 @Mapper
@@ -25,6 +26,9 @@ public interface TrainerMapper{
 	public List<TrainerVO> search(String loc, String major) throws Exception;
 	
 	public List<MajorVO> selectmajor() throws Exception;
+	public List<StatusVO> selectstatus() throws Exception;
+	
+	public void updatestatus(TrainerVO obj) throws Exception;
 	
 	public void updateProfile1(TrainerVO obj) throws Exception;
 }
