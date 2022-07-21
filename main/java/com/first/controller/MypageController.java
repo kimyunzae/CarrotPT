@@ -72,7 +72,7 @@ public class MypageController {
 		}
 		
 	// 트레이너 프로필 수정
-	@RequestMapping("/profile_update")
+	@RequestMapping("/account_update")
 	public RedirectView profile_update(Model m, TrainerVO vo) {
 		try {
 			trainerbiz.modify(vo);
