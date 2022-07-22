@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.first.biz.ReportBiz;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
+import com.first.vo.NewAlarmVO;
 import com.first.vo.StatusVO;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
@@ -24,6 +26,9 @@ public class AdminController {
 
 	@Autowired
 	TrainerBiz trainerbiz;
+	
+	@Autowired
+	ReportBiz reportbiz;
 	
 	@ModelAttribute("totalData")
 	public int totalData() {
@@ -52,6 +57,19 @@ public class AdminController {
 		}
 		return cnt;
 	}
+	
+	@ModelAttribute("newAlarmCnt")
+	public NewAlarmVO newalarms(String tstatus, String rstatus) {
+		tstatus = "대기중";
+		rstatus = "대기중";
+		NewAlarmVO obj = null;
+		try {
+			obj = reportbiz.selectalarms(tstatus, rstatus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return obj;
+	};
 	
 	// 1-1 메인: 일반회원 조회
 	@RequestMapping("")

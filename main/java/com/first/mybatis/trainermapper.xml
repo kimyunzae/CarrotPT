@@ -38,15 +38,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				SELECT row_number() over(order by num desc) as rownum,
 			</when>
 		</choose>
-		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, status FROM trainer	
+		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, status FROM trainer
+			<if test="status == 'all'">
+				ORDER BY status = '탈퇴' ASC, rownum
+			</if>
 			<if test='(status != null) and (status != "") and (status != "all")'>
 				WHERE status = #{status}
-				LIMIT #{offset}, #{amount}
+				ORDER BY rownum
 			</if>
-			<if test="(status == 'all') or (status == null) or (status == '')">
-				LIMIT #{offset}, #{amount}
-			</if>
-		
+			LIMIT #{offset}, #{amount}
 	</select>
 <!-- select: 등록된 major -->
 	<select id="selectmajor" resultType="majorVO">
