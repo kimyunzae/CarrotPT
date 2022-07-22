@@ -26,7 +26,7 @@
 	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
 		<div class="row justify-content-center mb-5 pb-3">		         
 			<div class="col-md-7 heading-section text-center ftco-animate">
-				 <span class="subheading" th:text="${dtrainer.major}"></span>
+				 <span class="subheading" th:text="'전공:' +${dtrainer.major}"></span>
 				 <h2 class="trainer_name" th:text="${dtrainer.name}+' 트레이너'"></h2>
 				 <div id="addrshort">
 				 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#769BCD" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -48,9 +48,10 @@
     					</div>
     					<div class="col-md-6 ftco-animate">
     						<div class="text py-5">
-    							<h3><a href="#">Discover Greece</a></h3>
+    							<h2 class="trainer_intro" th:text="'Intro: '+${dtrainer.intro}"></h2>
+    							<p th:text="'Phone number: '+${dtrainer.phone}"></p>
     							<p class="pos">from <span class="price">$400.00</span>5 days</p>
-    							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+    							 
     							<p><a href="#" class="btn btn-secondary">Details</a> <a href="#" class="btn btn-primary">Book now</a></p>
     						</div>
     					</div>
