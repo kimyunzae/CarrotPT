@@ -7,11 +7,6 @@
  	color:#769BCD;
  	font-weight:bold;
  }
- 
- #input_refusal:focus{
- 	background-color:black;
- 	color:white;
- }
 </style>
 <script th:inline="javascript">
 
@@ -230,7 +225,7 @@
 			closeModal();
 		};
 		
-		if(newStatus != "거절"){
+		if(newStatus != '거절' & newStatus != '정지'){
 			$('#btn_status').click(function(){
 				statusDetail = '';
 				updateimpl(id, newStatus, statusDetail);
@@ -297,13 +292,6 @@
 	<li class="nav-item" th:each="s : ${statuslist}">
 		<a class="nav-link a_status" th:attr="data-value=${s.status}" th:text="${s.status}"></a>
 	</li>
-	
-	
-	<!--  
-	<li class="nav-item"><a class="nav-link a_status" data-value="대기중">대기중</a></li>
-	<li class="nav-item"><a class="nav-link a_status" data-value="수락">수락</a></li>
-	<li class="nav-item"><a class="nav-link a_status" data-value="거절">거절</a></li>
-	-->
 </ul>
 
 <div class="tab-content pt-3">
