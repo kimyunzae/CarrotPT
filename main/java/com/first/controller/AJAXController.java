@@ -24,7 +24,7 @@ public class AJAXController {
 		String result = "";
 		TraineeVO ie = null;
 		
-		if (id.equals("") || id == null) {
+		if (id.equals("")) {
 			return "1";
 		}
 
@@ -47,7 +47,7 @@ public class AJAXController {
 		String result = "";
 		TraineeVO ie = null;
 		
-		if (email.equals("") || email == null) {
+		if (email.equals("")) {
 			return "1";
 		}
 

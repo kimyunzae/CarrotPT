@@ -242,8 +242,8 @@
 		
 		// ajax 이용해서 아이디 존재여부
 		$('.loginform input[name=id],[name=pwd]').keyup(function() {
-			var id = $('input[name=id]').val();
-			var pwd = $('input[name=pwd]').val();
+			var id = $('.loginform input[name=id]').val();
+			var pwd = $('.loginform input[name=pwd]').val();
 			
 			$.ajax({
 				url : '/checklogin',

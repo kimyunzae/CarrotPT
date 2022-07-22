@@ -78,6 +78,12 @@ transform: translateY(-20px);}
 	cursor: pointer;
 }
 
+.btnRegister:disabled {
+	background-color: gray;
+	cursor: auto;
+	border: 1px solid gray; 
+}
+
 .register .nav-tabs {
 	margin-top: 3%;
 	border: none;
@@ -116,8 +122,9 @@ transform: translateY(-20px);}
 }
 
 #joinbtn:disabled {
-	background-color: grey;
+	background-color: gray;
 	cursor: auto;
+	border: 1px solid gray;
 }
 </style>
 
@@ -183,9 +190,6 @@ function kakaoLogin() {
 					}
 				}).open();
 	}
-</script>
-
-<script>
 	
 	$(document).ready(function() {
 		$('#joinbtn').attr('disabled', 'disabled');
@@ -234,11 +238,12 @@ function kakaoLogin() {
 		});
 
 		//비밀번호 확인
-		$('input[name="pwd2"]').keyup(function() {
-			var pwd = $('input[name="pwd"]').val();
-			var pwd2 = $('input[name="pwd2"]').val();
+		$('.register-form input[name=pwd2]').keyup(function() {
+			var pwd = $('.register-form input[name="pwd"]').val();
+			var pwd2 = $('.register-form input[name="pwd2"]').val();
+			
 			if (pwd == pwd2) {
-				$('#iepwd').text('');
+				$('#iepwd').text('비밀번호가 일치합니다');
 			} else {
 				$('#iepwd').text('비밀번호를 다시 확인해주세요');
 			}
@@ -331,11 +336,11 @@ function kakaoLogin() {
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="email" class="form-control" name="email"
-									placeholder="이메일 *" value="" />
+								<input type="email" class="form-control" name="email" id="email"
+									placeholder="이메일 *" value="" /> <span id="ieemail"></span>
 							</div>
 							<div class="form-group">
-								<input type="text" minlength="10" maxlength="10"
+								<input type="text" minlength="10" maxlength="11"
 									class="form-control" name="phone" placeholder="휴대폰 번호 *"
 									value="" />
 							</div>
@@ -356,7 +361,7 @@ function kakaoLogin() {
 							</div>
 							<div class="form-group">
 								<button type="submit" id="joinbtn" value="회원가입"
-									class="btn btn-primary py-3 px-5">회원가입</button>
+									class="btn btn-primary py-2 px-4 ml-5">회원가입</button>
 							</div>
 						</div>
 					</form>
@@ -392,113 +397,3 @@ function kakaoLogin() {
 </div>
 
 
-<!-- <section class="ftco-section contact-section ftco-no-pb"
-	id="contact-section">
-	<div class="container">
-		<div class="row justify-content-center mb-5 pb-3">
-			<div class="col-md-7 heading-section text-center ftco-animate">
-				<span class="subheading">Sign up</span>
-				<h2 class="mb-4">회원가입</h2>
-				<p>* 표시된 항목은 필수 입력 사항입니다.</p>
-			</div>
-
-			<div class="bg-light p-4 p-md-5contact-form col-md-7">
-				<form id="joinform" action="" class="user">
-
-					<div class="form-group">
-						<label>아이디 *: </label> <span id="ieid"></span> <input type="text"
-							id="id" name="id" class="form-control">
-					</div>
-
-
-					<div class="form-group">
-						<label>비밀번호 *: </label> <input type="password" id="pwd" name="pwd"
-							placeholder="영문과 숫자를 포함해 4~20자리를 입력해 주세요" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>비밀번호 확인 *: </label> <span id="iepwd"></span> <input
-							type="password" name="pwd2" placeholder="비밀번호를 다시 입력해주세요"
-							class="form-control"> <br>
-					</div>
-					비밀번호가 일치합니다 ajax로 구현
-					<div class="form-group">
-						<label>이름 *: </label> <input type="text" id="name" name="name"
-							class="form-control">
-					</div>
-					<div class="form-group">
-						<label>휴대폰 번호 *: </label> <input type="text" id="phone"
-							name="phone" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>이메일 *: </label> <span id="ieemail"></span> <input
-							type="text" id="email" name="email" class="form-control" value=""
-							placeholder="이메일" maxlength="20"> <input type="text"
-							id="email_domain" class="form-control col-sm-6" value=""
-							title="이메일 도메인" placeholder="이메일 도메인" maxlength="20"> <select
-							class="select" title="email domain adress">
-							<option value="">-선택-</option>
-							<option value="@naver.com">@naver.com</option>
-							<option value="@gmail.com">@gmail.com</option>
-							<option value="@hanmail.net">@hanmail.net</option>
-							<option value="@hotmail.com">@hotmail.com</option>
-							<option value="@korea.com">@korea.com</option>
-							<option value="@nate.com">@nate.com</option>
-							<option value="@yahoo.com">@yahoo.com</option>
-							<option value="직접 입력">직접 입력</option>
-						</select>
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#emailModal">이메일인증</button>
-						The Modal
-						<div class="modal" id="emailModal">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									Modal body
-									<div class="modal-body">이메일로 인증코드를 발송했습니다.</div>
-									<div class="modal-body">
-										<input class="form-control mail-check-input"
-											placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled"
-											maxlength="6">
-									</div>
-									Modal footer
-									<div class="modal-footer">
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">Close</button>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="mail-check-box">
-						<input class="form-control mail-check-input"
-							placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-					</div>
-					<span id="mail-check-warn"></span>
-			</div>
-
-			<div>
-				<label>주소 *: </label>
-			</div>
-			<div class="form-group">
-				<input type="text" id="sample6_postcode" placeholder="우편번호"
-					name="zip"> <input type="button"
-					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" class="form-control" id="sample6_address"
-					placeholder="주소" name="addr1"><br> <input type="text"
-					class="form-control" id="sample6_detailAddress" placeholder="상세주소">
-				<input type="text" class="form-control" id="sample6_extraAddress"
-					placeholder="건물명" name="addr2">
-			</div>
-			<div class="form-group">
-				<button type="submit" id="joinbtn" value="회원가입"
-					class="btn btn-primary py-3 px-5">회원가입</button>
-			</div>
-			</form>
-
-		</div>
-	</div>
-</div>
-</section>
- -->
