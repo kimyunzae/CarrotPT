@@ -38,54 +38,45 @@
 
 <style>
 @media(width:1024px){
-    .modal-dialog{
+    .login-modal-dialog{
         max-width: 70%;
     }
 }
-.modal-content{
+.login-modal-content{
     border-radius: 0.7rem;
 }
-.modal-header img{
-    width: 100px;
-}
-.modal-title{
+
+.login-modal-title{
     margin-left:auto;
     margin-right: auto;
 }
 
 
-.modal-header{
+.login-modal-header{
     border-bottom: none;
     padding-bottom: 0;
     padding-top: 4vh;
 }
-.modal-footer{
-    border-top: none;
-}
-button:active{
-    outline: none;
-}
-button:focus{
-   outline: none;
-}
-.modal-body{
+
+
+.login-modal-body{
     text-align: center;
 }
-.title{
+.login-title{
     font-size: 17px;
     color: grey;
 }
 @media(min-height:768px)and(min-width:411px){
-    .title{
+    .login-title{
         font-size: 20px;
         color: grey;
     }  
 }
 
-form{
+.login-form{
     padding: 3vh;
 }
-input {
+.login-input {
     outline: none;
     margin: 0;
     border: none;
@@ -97,7 +88,7 @@ input {
     font-family: inherit;
   }
     
-  .input-group {
+  .login-input-group {
     position: relative;
     margin-bottom: 6vh;
     border-bottom: 1px solid rgba(204, 204, 204, 0.459);
@@ -127,7 +118,7 @@ input {
     color: #ccc;
   }
 
-  .modal-btn {
+  .login-modal-btn {
     display: inline-block;
     line-height: 42px;
     padding: 0 33px;
@@ -161,16 +152,13 @@ input {
         font-size: 8px;
       }    
   }
-  .btn--green img{
-    height: 15px;
-    width: 15px;
-  }
+
 
   .btn--signin {
-    background: #ccc;
-    color: rgb(109, 107, 107);
+    background:transparent;
+    color: #769BCD;
     font-size: 13px;
-    border-color: #ccc;
+    border-color: #769BCD;
     margin-bottom: 3vh;
   }
   
@@ -179,21 +167,16 @@ input {
       color: rgb(143, 141, 141);
      font-size:13px;
   }
-  .extra a{
-    color: rgb(143, 141, 141);
-    font-size:13px;
+  
+  .extra a {
+  	color: gray;
   }
-  .col{
-      padding: 2vh 10px 4vh;
-  }
+
+ 
   .new{
       padding-bottom: 0;
   }
 
-  .modal-btn:focus{
-    box-shadow: none;
-    outline: none;
-}
 
 .carrot {
 	color: #769BCD;
@@ -280,6 +263,83 @@ input {
 		</div>
 	</nav>
 	<!-- NavBar End -->
+	
+		<!-- 로그인 modal -->
+	<div class="modal fade" id="loginModal">
+		<div class="modal-dialog login-modal-dialog modal-dialog-centered">
+			<div class="modal-content login-modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header login-modal-header">
+					<div class="modal-title login-modal-title">
+					
+							<p class="navbar-brand modal-title-text">
+							<span class="carrot"><i class="fas fa-carrot"></i></span>
+							당근PT</p>
+					</div>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body login-modal-body">
+					<p class="login-title">아이디와 비밀번호를 입력하세요</p>
+					<form class="login-form">
+						<div class="login-input-group">
+							<input class="input--style-3 login-input" type="text"
+								placeholder="아이디" name="id">
+						</div>
+						<div class="login-input-group">
+							<input class="input--style-3 login-input" type="password"
+								placeholder="비밀번호" name="pwd">
+						</div>
+						
+						<div class="p-t-10">
+							<button class="login-modal-btn btn--pill btn--signin" type="submit"
+								 id="login_bt" data-target="#">로그인</button>
+						</div>
+						
+						<div class="extra">
+							<a href="/findidpwd" class="mr-3"><u>로그인이 안되세요?</u></a>
+							<a href="/join" class="ml-3"><u>회원가입 하러가기</u></a>
+						</div>
+						
+						
+						<div class="row">
+							<div class="col">
+								<div class="p-t-10">
+									<!-- <button class="modal-btn btn--pill btn--green" type="submit">
+										SIGN IN WITH GOOGLE <img
+											src="https://img.icons8.com/color/48/000000/google-logo.png" />
+									</button> -->
+										<a href="javascript:kakaoLogin();"> <input type="image"
+									src="/images/kakao_login.png"
+									style="height: 46px; widows: 10px;">
+								</a>
+								</div>
+							</div>
+							<div class="col">
+								<div class="p-t-10">
+									<!-- <button class="modal-btn btn--pill btn--green" type="submit">
+										SIGN IN WITH PODIO <img
+											src="https://img.icons8.com/color/48/000000/podio.png" />
+									</button> -->
+									<a href=""> <input type="image"
+									src="/images/naver_login.png"
+									style="height: 50px; widows: 8px;">
+								</a>
+								</div>
+							</div>
+						</div>
+						<p class="extra new mt-3">
+							Dangguen Personal Trainers Matching Platform
+						</p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End modal -->
+
+	
 
 	<!-- Center Start -->
 
@@ -340,81 +400,6 @@ input {
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
 
-
-	<!-- 로그인 modal -->
-	<div class="modal fade" id="loginModal">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<div class="modal-title">
-					
-							<p class="navbar-brand modal-title-text">
-							<span class="carrot"><i class="fas fa-carrot"></i></span>
-							당근PT</p>
-					</div>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<p class="title"></p>
-					<form id="loginform">
-						<div class="input-group">
-							<input class="input--style-3" type="text"
-								placeholder="아이디" name="id">
-						</div>
-						<div class="input-group">
-							<input class="input--style-3" type="password"
-								placeholder="비밀번호" name="pwd">
-						</div>
-						
-						<div class="p-t-10">
-							<button class="modal-btn btn--pill btn--signin" type="submit"
-								 id="login_bt" data-target="#">로그인</button>
-						</div>
-						
-						<div class="extra">
-							<a href="/findidpwd" class="mr-2"><u>로그인이 안되세요?</u></a>
-							<a href="/join" class="ml-2"><u>회원가입 하러가기</u></a>
-						</div>
-						
-						
-						<div class="row">
-							<div class="col">
-								<div class="p-t-10">
-									<!-- <button class="modal-btn btn--pill btn--green" type="submit">
-										SIGN IN WITH GOOGLE <img
-											src="https://img.icons8.com/color/48/000000/google-logo.png" />
-									</button> -->
-										<a href="javascript:kakaoLogin();"> <input type="image"
-									src="/images/kakao_login.png"
-									style="height: 46px; widows: 10px;">
-								</a>
-								</div>
-							</div>
-							<div class="col">
-								<div class="p-t-10">
-									<!-- <button class="modal-btn btn--pill btn--green" type="submit">
-										SIGN IN WITH PODIO <img
-											src="https://img.icons8.com/color/48/000000/podio.png" />
-									</button> -->
-									<a href=""> <input type="image"
-									src="/images/naver_login.png"
-									style="height: 50px; widows: 8px;">
-								</a>
-								</div>
-							</div>
-						</div>
-						<p class="extra new">
-							Dangguen Personal Trainers Matching Platform
-						</p>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End modal -->
 
 
 	<script src="/js/jquery.min.js"></script>
