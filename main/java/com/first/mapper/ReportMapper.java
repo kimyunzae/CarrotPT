@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.first.vo.NewAlarmVO;
 import com.first.vo.ReportVO;
 
 @Repository
@@ -15,4 +16,5 @@ public interface ReportMapper {
 	public void update(ReportVO obj) throws Exception;	
 	public ReportVO select(int id) throws Exception;
 	public List<ReportVO> selectall() throws Exception;
+	public int selectcnt(String status) throws Exception;
 }

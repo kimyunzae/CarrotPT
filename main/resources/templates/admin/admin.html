@@ -1,21 +1,41 @@
-
+<style>
+	.span-alarm{
+		background-color:#769BCD;
+		color:white;
+		display:inline-block;
+		width:20px;
+		border-radius:5px;
+		text-align:center;
+		margin-left:5px;
+	}
+</style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	
 <div class="container mt-5">
 	<div class="row flex-lg-nowrap">
 	<!-- Left Start -->
 		<div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-			<div class="card mt-5 p-3">
+			<div class="card mt-5 p-3" id="div_admintrainer">
 				<div class="e-navlist e-navlist--active-bg">
 					<ul class="nav">
 						<li class="nav-item"><a class="nav-link px-2 active" th:href="@{/admin}"><i
 								class="fa fa-fw fa-user mr-1"></i><span>일반회원</span></a></li>
-						<li class="nav-item"><a class="nav-link px-2"
-							th:href="@{/admin/trainers}"
-							target="__blank"><i class="fa fa-fw fa-id-card mr-1"></i><span>트레이너</span></a></li>
-						<li class="nav-item"><a class="nav-link px-2"
-							href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-							target="__blank"><i class="fa-fw far fa-angry mr-1"></i><span>신고내역</span></a></li>
+						<li class="nav-item">
+							<a class="nav-link px-2" th:href="@{/admin/trainers}"
+								target="__blank">
+									<i class="fa fa-fw fa-id-card mr-1"></i>
+									<span>트레이너</span>
+									<span class="span-alarm" th:text="${newAlarmCnt.newtrainer}"></span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link px-2"
+								href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
+								target="__blank"><i class="fa-fw far fa-angry mr-1"></i>
+								<span>신고내역</span>
+								<span class="span-alarm" th:text="${newAlarmCnt.newreport}">14</span>	
+							</a>
+						</li>
 						<li class="nav-item"><a class="nav-link px-2"
 							href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
 							target="__blank"><i class="fa-fw fas fa-assistive-listening-systems mr-1"></i><span>상담신청</span></a></li>
