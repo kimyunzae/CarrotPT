@@ -262,6 +262,7 @@
 	
 	
 	$(function(){
+		
 		paging();
 		
 		// 정렬
@@ -272,26 +273,26 @@
 		
 		// status별 조회
 		$('.nav-link.a_status').click(function(){
-			// 선택 tab에 active 붙이기
-			$(this).addClass("active");
 			
 			// 다른 tab에서 active 제거
 			$('.nav-link.a_status').not(this).removeClass("active");
+			
+			// 선택 tab에 active 붙이기
+			$(this).addClass("active");
 			
 			var status = $('.active.nav-link.a_status').data("value");
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
 		});
 		
-		
-		
 	});
 </script>
 
 <ul class="nav nav-tabs" id="ul_status" >
-	<li class="nav-item"><a class="nav-link a_status active" data-value="all">ALL</a></li>
+	<li class="nav-item"><a class="nav-link a_status" th:classappend="${statusforpage} == 'all'? active" id="statustab_all" data-value="all">ALL</a></li>
 	<li class="nav-item" th:each="s : ${statuslist}">
-		<a class="nav-link a_status" th:attr="data-value=${s.status}" th:text="${s.status}"></a>
+		<a class="nav-link a_status" th:attr="data-value=${s.status}"
+		th:classappend="${s.status} == ${statusforpage}? active" th:text="${s.status}"></a>
 	</li>
 </ul>
 

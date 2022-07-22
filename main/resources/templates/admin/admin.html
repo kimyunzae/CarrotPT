@@ -8,7 +8,36 @@
 		text-align:center;
 		margin-left:5px;
 	}
+	
+	.span-alarm:hover{
+		background-color:#2C4E80;
+	}
+	
+	.adminlist{
+ 		--s: 0.1em;   /* the thickness of the line */
+  		--c: #769BCD; /* the color */
+  
+		  color: #0000;
+		  padding-bottom: var(--s);
+		  background: 
+		    linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+		    linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+		 -webkit-background-clip: text,padding-box;
+          background-clip: text,padding-box;
+		  transition: 0.5s;
+	}
+	
+	.adminlist:hover{
+		--_p: 100%
+	}
 </style>
+<script>
+	$(function(){
+		$('#trainerAlarm').click(function(){
+			$('#a_trainers').attr('href', "/admin/trainers?pageNo=1&orderBy=num%20desc&status=대기중");
+		});
+	});
+</script>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	
 <div class="container mt-5">
@@ -18,27 +47,32 @@
 			<div class="card mt-5 p-3" id="div_admintrainer">
 				<div class="e-navlist e-navlist--active-bg">
 					<ul class="nav">
-						<li class="nav-item"><a class="nav-link px-2 active" th:href="@{/admin}"><i
-								class="fa fa-fw fa-user mr-1"></i><span>일반회원</span></a></li>
 						<li class="nav-item">
-							<a class="nav-link px-2" th:href="@{/admin/trainers}"
-								target="__blank">
-									<i class="fa fa-fw fa-id-card mr-1"></i>
-									<span>트레이너</span>
-									<span class="span-alarm" th:if="${newAlarmCnt.newtrainer > 0}" th:text="${newAlarmCnt.newtrainer}"></span>
+							<a class="nav-link px-2 active" th:href="@{/admin}">
+								<i class="fa fa-fw fa-user mr-1"></i>
+								<span class="adminlist">일반회원</span>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link px-2"
+							<a class="nav-link px-2" id="a_trainers" th:href="@{/admin/trainers}"
+								target="__blank">
+									<i class="fa fa-fw fa-id-card mr-1"></i>
+									<span class="adminlist">트레이너</span>
+									<span class="span-alarm" id="trainerAlarm" th:if="${newAlarmCnt.newtrainer > 0}" th:text="${newAlarmCnt.newtrainer}"></span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link px-2" id="a_reports"
 								href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
 								target="__blank"><i class="fa-fw far fa-angry mr-1"></i>
-								<span>신고내역</span>
-								<span class="span-alarm" th:if="${newAlarmCnt.newreport > 0}" th:text="${newAlarmCnt.newreport}">14</span>	
+								<span class="adminlist">신고내역</span>
+								<span class="span-alarm" id="reportAlarm" th:if="${newAlarmCnt.newreport > 0}" th:text="${newAlarmCnt.newreport}"></span>
 							</a>
+							
 						</li>
 						<li class="nav-item"><a class="nav-link px-2"
 							href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-							target="__blank"><i class="fa-fw fas fa-assistive-listening-systems mr-1"></i><span>상담신청</span></a></li>
+							target="__blank"><i class="fa-fw fas fa-assistive-listening-systems mr-1"></i><span class="adminlist">상담신청</span></a></li>
 					</ul>
 				</div>
 			</div>

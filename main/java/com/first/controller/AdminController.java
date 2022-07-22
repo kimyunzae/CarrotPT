@@ -130,6 +130,10 @@ public class AdminController {
 		if(pageNo == null) {
 			pageNo = 1;
 		}
+		
+		if(status == null) {
+			status = "all";
+		}
 		int amount = 5;
 		int offset = 0;
 		try {
@@ -140,6 +144,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		m.addAttribute("statusforpage", status);
 		m.addAttribute("center", "admin/admin");
 		m.addAttribute("admincenter", "admin/trainer");
 		m.addAttribute("trainer_info", "admin/trainer_info");
@@ -161,6 +166,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		m.addAttribute("statusforpage", status);
 		m.addAttribute("currentPage", pageNo);
 		return "admin/trainer_info";
 	}
