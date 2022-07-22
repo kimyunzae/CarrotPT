@@ -400,9 +400,9 @@ p {
 			});
 			
 			// 비밀번호 확인
-			$('input[name="cpwd"]').keyup(function() {
-				var pwd = $('input[name="pwd"]').val();
-				var pwd2 = $('input[name="cpwd"]').val();
+			$('.field-1 input[name="cpwd"]').keyup(function() {
+				var pwd = $('.field-1 input[name="pwd"]').val();
+				var pwd2 = $('.field-1 input[name="cpwd"]').val();
 				if (pwd == pwd2) {
 					$('#scpwd').text('일치 합니다.');				
 				}
@@ -414,8 +414,8 @@ p {
 			//1번 필수입력창 확인
 				$('.field-1 input').on('keyup', function() {	
 					
-					var pwd = $('input[name="pwd"]').val();
-					var pwd2 = $('input[name="cpwd"]').val();
+					var pwd = $('.field-1 input[name="pwd"]').val();
+					var pwd2 = $('.field-1 input[name="cpwd"]').val();
 					
 				    $('.field-1 input').each(function() {
 				      if(!$(this).val()){
@@ -448,17 +448,18 @@ p {
 			//3번 필수입력창 확인
 			 	$('.field-3 input').on('keyup', function() {		
 				    $('.field-3 input').each(function() {
-				   		
-				      if(!$(this).val()){
+				    	if(!$('.field-3 input[name=gym_name]').val() 
+				    		  || !$('.field-3 input[name=gym_zip]').val() 
+				    		  || !$('.field-3 input[name=gym_addr1]').val()){
 				    		$('#next-btn-3').attr('disabled', 'disabled');
 				           return false;
 				        }
-				     
+				        				     
 				      else {
 				    		$('#next-btn-3').removeAttr('disabled');
 				      }
 				    });   
-				}); 
+				}); 		
 			
 			//4번 필수입력창 확인
 				$('.field-4 textarea[name=intro],[name=career]').on('keyup', function() {		
