@@ -39,12 +39,12 @@ body {
 	color: #000;
 	overflow-x: hidden;
 	height: 100%;
-	background-color: #D1C4E9;
+	/* 	background-color: #D1C4E9; */
 	background-repeat: no-repeat;
 }
 
 .container {
-	margin: 200px auto;
+	margin: 100px auto;
 }
 
 fieldset {
@@ -72,13 +72,15 @@ button:focus {
 }
 
 .tabs {
-	margin: 2px 5px 0px 5px;
-	padding-bottom: 10px;
-	cursor: pointer;
+	/* margin: 2px 5px 0px 5px; */
+/* 	padding-bottom: 10px; */
+	cursor: pointer;	
+	
 }
 
 .tabs:hover, .tabs.active {
-	border-bottom: 1px solid #2196F3;
+	 border-bottom: 5px solid #2196F3; 
+	
 }
 
 a:hover {
@@ -109,6 +111,7 @@ a:hover {
 }
 </style>
 
+<!-- BootStrap  -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -395,8 +398,8 @@ $(".tabs").click(function(){
         }
     });
 });
-
 });
+
 	
 	
 </script>
@@ -551,37 +554,36 @@ $(".tabs").click(function(){
 					<div class="modal-content">
 						<div
 							class="modal-header row d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
-							<div class="tabs" id="tab01">
-								<h6 class="text-muted">1</h6>
+							<div class="tabs active" id="tab01">
+								<h6 class="font-weight-bold">1</h6>
 							</div>
-							<div class="tabs active" id="tab02">
-								<h6 class="font-weight-bold">2</h6>
+							<div class="tabs" id="tab02">
+								<h6 class="text-muted">2</h6>
 							</div>
 							<div class="tabs" id="tab03">
 								<h6 class="text-muted">3</h6>
 							</div>
 							<div class="tabs" id="tab04">
-								<h6 class="text-muted">Education</h6>
+								<h6 class="text-muted">4</h6>
 							</div>
 						</div>
 						<div class="line"></div>
 						<div class="modal-body p-0">
-							<fieldset id="tab011">
+							<fieldset class="show" id="tab011">
 								<div class="bg-light">
-									<!-- <h5 class="text-center mb-4 mt-0 pt-4">My Apps</h5> -->
-									<h6 class="px-3">1-1.고객님의 성별이 어떻게 되나요?</h6>
+									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
+									<h5 class="px-3">1-1.고객님의 성별이 어떻게 되나요?</h5>
 									<div>
+										<span><label class="radio-inline"> 
+										<input type="radio" id="f" name="optradio">여자</label></span> 
 										<span><label class="radio-inline"><input
-												type="radio" id="f" name="optradio">여자</label></span> <span><label
-											class="radio-inline"><input type="radio" id="m"
-												name="optradio">남자</label></span> <span><labe
-												class="radio-inline"> <input type="radio" id="n"
+												type="radio" id="m" name="optradio">남자</label></span> 
+										<span><label class="radio-inline"> <input type="radio" id="n"
 												name="optradio">응답 거절</label></span>
 									</div>
 								</div>
 								<div class="px-3">
-									<h6 class="pt-3 pb-3 mb-4 border-bottom">1-2. 고객님의 연령대는
-										어떻게 되나요?</h6>
+
 									<!-- <h6 class="text-primary pb-2">
 										<a href="#">Opera Browser</a> <span class="text-secondary">-
 											One of the best browsers</span>
@@ -595,27 +597,38 @@ $(".tabs").click(function(){
 											Learn online, lecturers from top universities</span>
 									</h6> -->
 									<div>
-										<label class="radio-inline"><input type="radio"
-											id="10대" name="optradio">10대</label><br> <label
+										<h5 class="pt-3 pb-3 mb-4 border-top">1-2. 고객님의 연령대는 어떻게
+											되나요?</h5>
+										<label class="radio-inline2"><input type="radio"
+											id="10대" name="optradio2">10대</label><br> 
+											<label
 											class="radio-inline"><input type="radio" id="20대"
-											name="optradio">20대</label><br> <label
+											name="optradio2">20대</label><br> 
+											<label
 											class="radio-inline"><input type="radio" id="30대"
-											name="optradio">30대</label><br> <label
+											name="optradio2">30대</label><br> 
+											<label
 											class="radio-inline"><input type="radio" id="40대"
-											name="optradio">40대</label><br> <label
+											name="optradio2">40대</label><br> 
+											<label
 											class="radio-inline"><input type="radio" id="50대"
-											name="optradio">50대</label><br> <label
+											name="optradio2">50대</label><br> 
+											<label
 											class="radio-inline"><input type="radio" id="60대"
-											name="optradio">60대 이상</label>
+											name="optradio2">60대 이상</label>
 									</div>
 								</div>
+								<div class="modal-footer">
+									<button type="button" id="tab2_btn" class="btn btn-default">->2</button>
+								</div>
 							</fieldset>
-							<fieldset class="show" id="tab021">
+							<fieldset id="tab021">
 								<div class="bg-light">
-									<!-- <h5 class="text-center mb-4 mt-0 pt-4">Knowledge Center</h5> -->
+									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
 									<form>
 										<div class="modal-body-que">
-											2-1. 운동하시려는 목적을 말씀해주세요(중복체크 가능)
+											<h5 class="pt-3 pb-3 mb-4">2-1. 운동하시려는 목적을 말씀해주세요(중복체크
+												가능)</h5>
 											<div>
 												<label class="checkbox-inline"><input
 													type="checkbox" value="">다이어트</label> <label
@@ -628,7 +641,7 @@ $(".tabs").click(function(){
 										</div>
 									</form>
 								</div>
-						<!-- 		<div class="px-3"> -->
+								<div class="px-3">
 									<!-- <h6 class="pt-3 pb-3 mb-4 border-bottom">
 										<span class="fa fa-star"></span> Popular Topics
 									</h6>
@@ -642,59 +655,111 @@ $(".tabs").click(function(){
 										<a href="#">Running tests</a>
 									</h6> -->
 									<div class="modal-body-que">
-										2-2. 하고 싶은 운동을 말씀해주세요
-										<div>
-											<form name="selex" action="./example.html">
-												<label class="radio-value"><input type="radio"
-													name="optradio" class="radio-value" value="보디빌딩">보디빌딩</label><br>
-												<label class="radio-value"><input type="radio"
-													name="optradio" class="radio-value" value="파워리프팅">파워리프팅</label><br>
-												<label class="radio-value"><input type="radio"
-													name="optradio" class="radio-value" value="필라테스">필라테스</label><br>
-												<label class="radio-value"><input type="radio"
-													name="optradio" class="radio-value" value="크로스핏">크로스핏</label><br>
-												<label class="radio-value"><input type="radio"
-													name="optradio" class="radio-value" value="요가">요가</label><br>
-												<label class="radio-value"><input type="radio"
-													name="optradio" class="radio-value" value="etc">직접
-													입력:</label> <input type="text" class="radio-value-detail"
-													placeholder="배우고 싶은 운동을 입력해주세요" value="" />
-											</form>
-										</div>
+										<h5 class="pt-3 pb-3 mb-4 border-top">2-2. 하고 싶은 운동을
+											말씀해주세요</h5>
+										<form name="selex" action="./example.html">
+											<label class="radio-value"><input type="radio"
+												name="optradio" class="radio-value" value="보디빌딩">보디빌딩</label><br>
+											<label class="radio-value"><input type="radio"
+												name="optradio" class="radio-value" value="파워리프팅">파워리프팅</label><br>
+											<label class="radio-value"><input type="radio"
+												name="optradio" class="radio-value" value="필라테스">필라테스</label><br>
+											<label class="radio-value"><input type="radio"
+												name="optradio" class="radio-value" value="크로스핏">크로스핏</label><br>
+											<label class="radio-value"><input type="radio"
+												name="optradio" class="radio-value" value="요가">요가</label><br>
+											<label class="radio-value"> <input type="radio"
+												name="optradio" class="radio-value" value="etc">직접입력:
+											</label> <input type="text" class="radio-value-detail"
+												placeholder="배우고 싶은 운동을 입력해주세요" value="" /><br>
+										</form>
+
 									</div>
-								<!-- </div> -->
+									<!-- </div> -->
+									<div class="modal-footer">
+										<button type="button" id="tab3_btn" class="btn btn-default">->3</button>
+									</div>
 							</fieldset>
 							<fieldset id="tab031">
 								<div class="bg-light">
-									<h5 class="text-center mb-4 mt-0 pt-4">Communities</h5>
-									<form>
+									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
+									<!-- <form>
 										<div class="form-group pb-5 px-3 row justify-content-center">
 											<button type="button" class="btn btn-primary">New
 												Community +</button>
 										</div>
-									</form>
+									</form> -->
+									<div class="modal-body-que">
+										<h5 class="pt-3 pb-3 mb-4">3-1. 평소에 운동을 얼마나 하시나요?</h5>
+
+										<div>
+											<label class="radio-inline"><input type="radio"
+												id="none" name="optradio">거의 하지 않음</label><br> <label
+												class="radio-inline"><input type="radio"
+												id="onemonth" name="optradio">한 달에 1-2번</label><br> <label
+												class="radio-inline"><input type="radio"
+												id="oneweek" name="optradio">일주일에 1번</label><br> <label
+												class="radio-inline"><input type="radio" id="twice"
+												name="optradio">일주일에 2-3번</label><br> <label
+												class="radio-inline"><input type="radio" id="four"
+												name="optradio">일주일에 4번 이상</label>
+										</div>
+									</div>
 								</div>
 								<div class="px-3">
-									<div class="border border-1 box">
-										<h5>Community 1</h5>
+									<div class="modal-body-que">
+										<h5 class="pt-3 pb-3 mb-4 border-top">3-2. 지역이 어디신가요?</h5>
+										<div>
+											<form name=form method=post action=$PHP_SELF>
+												시/도: <select name='city'
+													onchange="change(this.selectedIndex);" class=input>
+													<option value='전체'>전체</option>
+													<option value='서울'>서울특별시</option>
+													<option value='부산'>부산광역시</option>
+													<option value='대구'>대구광역시</option>
+													<option value='인천'>인천광역시</option>
+													<option value='광주'>광주광역시</option>
+													<option value='대전'>대전광역시</option>
+													<option value='울산'>울산광역시</option>
+													<option value='경기'>경기도</option>
+													<option value='강원'>강원도</option>
+													<option value='충북'>충청북도</option>
+													<option value='충남'>충청남도</option>
+													<option value='전북'>전라북도</option>
+													<option value='전남'>전라남도</option>
+													<option value='경북'>경상북도</option>
+													<option value='경남'>경상남도</option>
+													<option value='제주'>제주도</option>
+												</select> 구/군: <select name='county' class=select>
+													<option value=''>전체</option>
+												</select>
+											</form>
+										</div>
+									</div>
+									<!--<div class="border border-1 box">
+										 <h5>Community 1</h5>
 										<p class="text-muted mb-1">
 											Members : <strong>27</strong>
-										</p>
-									</div>
-									<div class="border border-1 box">
+										</p> 
+
+									</div>-->
+									<!-- <div class="border border-1 box">
 										<h5>Community 2</h5>
 										<p class="text-muted mb-1">
 											Members : <strong>16</strong>
 										</p>
+									</div> -->
+									<div class="modal-footer">
+										<button type="button" id="tab3_btn" class="btn btn-default">->4</button>
 									</div>
 								</div>
 							</fieldset>
 							<fieldset id="tab041">
 								<div class="bg-light">
-									<h5 class="text-center mb-4 mt-0 pt-4">Education</h5>
+									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
 									<form>
 										<div class="form-group pb-2 px-3">
-											<input type="text" placeholder="Enter College Name"
+											<!-- 	<input type="text" placeholder="Enter College Name"
 												class="form-control">
 										</div>
 										<div class="form-group row pb-2 px-3">
@@ -704,9 +769,37 @@ $(".tabs").click(function(){
 											</div>
 											<div class="col-6">
 												<input type="text" placeholder="Grade" class="form-control">
+											</div> -->
+											<h5 class="px-3">4-1.원하는 트레이너의 성별이 있나요?</h5>
+											<div>
+												<span><label class="radio-inline"> <input
+														type="radio" id="f" name="optradio">여자
+												</label></span> <span><label class="radio-inline"><input
+														type="radio" id="m" name="optradio">남자</label></span> <span><labe
+														class="radio-inline"> <input type="radio" id="n"
+														name="optradio">상관없음</label></span>
 											</div>
 										</div>
 										<div class="form-group px-3 pb-2">
+											<label class="form-control-label">
+												<h4>4-2.원하는 트레이닝 스타일이 있나요?</h4>
+											</label>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option1"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option1">호랑이</label>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option2"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option2">토끼</label>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" id="option3"
+													type="checkbox" value=""> <label
+													class="custom-control-label" for="option3">상관 없음</label>
+											</div>
+											<!-- <div class="form-group px-3 pb-2">
 											<label class="form-control-label"><h6>What are
 													you good at ?</h6></label>
 											<div class="custom-control custom-checkbox">
@@ -739,17 +832,18 @@ $(".tabs").click(function(){
 													Learning Algorithms</label>
 											</div>
 										</div>
-										<div class="form-group pb-5 row justify-content-center">
-											<button type="button" class="btn btn-primary px-3">Submit</button>
-										</div>
+ -->
+											<div class="form-group pb-5 row justify-content-center">
+												<button type="button" class="btn btn-primary px-3">찾기</button>
+											</div>
 									</form>
 								</div>
 								<div class="px-3">
 									<h6 class="pt-3 pb-3 mb-4 border-bottom">
-										<span class="fa fa-rocket"></span> Trending Technologies
+										<span class="fa fa-rocket"></span> 당신 근처의 PersonalTrainer
 									</h6>
 									<h6 class="text-primary pb-2">
-										<a href="#">Augmented Reality and Virtual Reality</a>
+										<a href="http://127.0.0.1/">Home</a>
 									</h6>
 									<h6 class="text-primary pb-2">
 										<a href="#">Angular and React</a>
@@ -766,8 +860,34 @@ $(".tabs").click(function(){
 						<div class="line"></div>
 						<div
 							class="modal-footer d-flex flex-column justify-content-center border-0">
-							<p class="text-muted">고객님께 딱 맞는 트레이너가 있어요</p>
-							<button type="button" class="btn btn-primary">찾기</button>
+							<!-- 	<p class="text-muted">고객님께 딱 맞는 트레이너가 있어요</p>
+							<button type="button" class="btn btn-primary"
+								data-toggle="modal2" data-target="#myModal2">찾기</button> -->
+
+							<!-- myModal2 -->
+							<div class="modal fade" id="myModal2">
+								<div class="modal-dialog">
+									<div class="modal-content">
+
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Modal Heading</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<!-- Modal body -->
+										<div class="modal-body">Modal body..</div>
+
+										<!-- Modal footer -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Close</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -872,26 +992,6 @@ $(".tabs").click(function(){
 							<div class="col-lg-12 align-items-end mb-3">
 								<div class="form-group">
 									<label for="#">운동별 검색</label>
-									<!-- <div class="form-field">
-										<select class="form-control" name="major">
-											<option>보디빌딩</option>
-											<option>파워리프팅</option>
-											<option>피지크</option>
-											<option>필라테스</option>
-											<option>크로스핏</option>
-											<option>요가</option>
-											<option>그 외</option>
-										</select>
-										<div class="select-wrap">
-											<div class="icon">
-												<span class="ion-ios-arrow-down"></span>
-											</div>
-											<select name="" id="" class="form-control">
-												<option th:each="m : ${majors}" th:value="${m.major}"></option>
-											</select>
-										</div>
-									</div> -->
-									<label for="#">운동별 검색</label>
 									<div class="form-field">
 										<div class="icon">
 											<span class="ion-ios-search"></span>
@@ -910,6 +1010,8 @@ $(".tabs").click(function(){
 									</div>
 								</div>
 							</div>
+
+
 							<div class="col-lg-12 align-self-end">
 								<div class="form-group">
 									<div class="form-field">
