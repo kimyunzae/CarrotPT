@@ -3,7 +3,6 @@ package com.first.vo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
@@ -11,5 +10,6 @@ import lombok.ToString;
 @ToString
 @Getter
 public class StatusVO {
+	private int id;
 	private String status;
 }
