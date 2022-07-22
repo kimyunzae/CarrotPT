@@ -11,8 +11,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="reportVO">
 		SELECT * FROM report
 	</select>
+<!-- select: rp_status별 select-->
+	<select id="selectcnt" resultType="int">
+		SELECT COUNT(*) FROM report
+		<if test="status != null">
+		WHERE rp_status = #{rp_status}
+		</if>
+	</select>
 	<insert id="insert" parameterType="reportVO">
-		INSERT INTO report VALUES(NULL, #{uid}, #{tid}, #{rp_reason}, #{rp_detail}, #{rp_imgname}, DEFAULT, CURDATE())
+		INSERT INTO report VALUES(NULL, #{uid}, #{tid}, #{rp_reason}, #{rp_detail}, #{rp_imgname}, DEFAULT, NOW())
 	</insert>
 	<update id="update" parameterType="reportVO">
 		UPDATE report SET rp_status=#{rp_status}

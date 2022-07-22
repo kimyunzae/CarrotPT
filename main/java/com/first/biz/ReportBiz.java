@@ -39,6 +39,10 @@ public class ReportBiz implements Biz<Integer, ReportVO> {
 	public List<ReportVO> get() throws Exception {
 		return dao.selectall();
 	}
+	
+	public int getcnt(String status) throws Exception{
+		return dao.selectcnt(status);
+	}
 
 	
 	
