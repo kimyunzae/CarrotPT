@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 <!-- select: status 목록 -->
 	<select id="selectstatus" resultType="statusVO">
-		SELECT DISTINCT status FROM trainer;
+		SELECT DISTINCT status FROM trainer_status;
 	</select>
 
 <!-- 검색 -->
@@ -85,7 +85,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="updatestatus" parameterType="trainerVO">
 		UPDATE trainer SET
 		status=#{status}
-		<if test="status_detail != null">
+		<if test="(status_detail != null) and (status_detail != '')">
 		, status_detail=#{status_detail}
 		</if>
 		WHERE id=#{id};

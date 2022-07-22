@@ -7,6 +7,11 @@
  	color:#769BCD;
  	font-weight:bold;
  }
+ 
+ #input_refusal:focus{
+ 	background-color:black;
+ 	color:white;
+ }
 </style>
 <script th:inline="javascript">
 
@@ -173,40 +178,121 @@
 		// Modal로 확인
 		$('#modal_updatestatus').modal();
 		
-		$('.modal-body').empty();
-		$('.modal-body').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
+		$('.modal-body.updatestatus').empty();
+		$('.modal-body.updatestatus').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
 		
-		$('.modal-footer').empty();
-		$('.modal-footer').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
-		$('.modal-footer').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
+		$('.modal-footer.updatestatus').empty();
+		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
+		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
        
+		// 거절하기: 사유 입력해야 함
+		if(newStatus == "거절"){
+			var refuse = '<label for="select_statusdetail">거절 사유</label>'
+				+ '<select name="status_detail" id="select_statusdetail">'
+				+ '<option>자격 및 경력 증명 서류 미비</option>'
+				+ '<option>근무 여부 확인 불가</option>'
+				+ '<option>프로필 사진 부적합</option>'
+				+ '<option>기타</option>'
+				+ '</select>'
+				
+			$('.modal-body.updatestatus').append(refuse);
+				
+			$('#select_statusdetail').change(function(){
+				$('#input_refuseEtc').remove();
+				
+				if($('#select_statusdetail option:selected').val() == '기타'){
+					$('.modal-body.updatestatus').append('<input type="text" id="input_refuseEtc">');
+				}
+			});
 		
+			$('#btn_status').click(function(){
+				var refuseReason = $('#select_statusdetail option:selected').val();
+				var statusDetail = '';
+				if(refuseReason == '기타'){
+					statusDetail = refuseReason + ': ' + $.trim($('#input_refuseEtc').val());
+				}else{
+					statusDetail = refuseReason;
+				}
+				updateimpl(id, newStatus, statusDetail);
+				/*
+				$.ajax({
+					url:'/admin/checkrefusal',
+					async:false,
+					data: {
+						'statusdetail':statusDetail
+					},
+					suceess: function(data){
+
+						console.log(data);
+						$('.modal-body.updatestatus').append('<p>ajax실행완료</p>');
+						
+						if(data == "0"){
+							//$('input[id="input_refusal"]').focus();
+							//$('input[id="input_refusal"]').val("거절사유써야해");
+							//return;
+						};
+					},
+					failure: function(){
+						console.log("error");
+					}
+				});
+				*/
+			});
+		};
+	};
+		
+		/*
 		if(newStatus == "거절"){
 			$('.modal-body').append('<input type="text" id="input_refusal" name="status_detail" placeholder="거절 사유를 입력하세요.">');
 		};
 		
 		$('#btn_status').click(function(){
-			var statusDetail = $('input[id="input_refusal"]').val();
-			$.ajax({
-				url:'/admin/updatestatus',
-				data:{
-					'id':id,
-					'newstatus':newStatus,
-					'statusdetail':statusDetail
-				},
-				success: function(result){
-					$('.modal-body').empty();
-					$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
-					$('.modal-footer').empty();
-					$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
-					
-				}
-			});
+			
+			var statusDetail = $.trim($('input[id="input_refusal"]').val());
+			console.log(statusDetail); // statusDetail
+			console.log(newStatus); // newStatus
+			
+			if(newStatus == "거절"){
+				$.ajax({
+					url:'admin/checkrefusal',
+					data: {
+						'statusdetail':statusDetail
+					},
+					suceess: function(result){
+						if(result == "1"){
+							updateimpl(id, newStatus, statusDetail);
+						}else{
+							return;
+						};
+					}
+				});
+				
+			}else{
+				updateimpl(id, newStatus);
+			}
 			
 		});
 		
 		closeModal();
-		
+		*/
+	//}
+	
+	function updateimpl(id, newStatus, statusDetail){
+		$.ajax({
+			url:'/admin/updatestatus',
+			data:{
+				'id':id,
+				'newstatus':newStatus,
+				'statusdetail':statusDetail
+			},
+			success: function(result){
+				$('.modal-body').empty();
+				$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
+				$('.modal-footer').empty();
+				$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
+				
+			}
+		});
 	}
 	
 	function closeModal(){
@@ -279,12 +365,12 @@
               <div class="modal" id="modal_updatestatus" tabindex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
-				      <div class="modal-header">
+				      <div class="modal-header updatestatus">
 				        <h5 class="modal-title">트레이너 status 변경</h5>
 				      </div>
-				      <div class="modal-body">
+				      <div class="modal-body updatestatus">
 				      </div>
-				      <div class="modal-footer">
+				      <div class="modal-footer updatestatus">
 				      </div>
 				    </div>
 				  </div>
