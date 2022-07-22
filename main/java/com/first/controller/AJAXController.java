@@ -1,9 +1,6 @@
 package com.first.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +15,9 @@ public class AJAXController {
 
 	@Autowired
 	TraineeBiz traineebiz;
-	
+
 	@Autowired
-	TrainerBiz tbiz;
+	TrainerBiz trainerbiz;
 
 	@RequestMapping("checkid")
 	public String checkid(String id) {
@@ -112,7 +109,7 @@ public class AJAXController {
 		}
 
 		try {
-			i = tbiz.get(id);
+			i = trainerbiz.get(id);
 			if (i == null) {
 				result = "0";
 			} else {
@@ -122,6 +119,43 @@ public class AJAXController {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@RequestMapping("checklogin")
+	public String checklogin(String id, String pwd) {
+		String result = "";
+		TrainerVO tner = null;
+		TraineeVO tnee = null;
+		try {
+			tner = trainerbiz.get(id);
+			tnee = traineebiz.get(id);
+			
+			// 1) 아이디 존재하지 않음
+			if(tner == null && tnee == null) {
+				result = "none";
+				// 2) trainer ID 존재
+			}else if(tner != null && tnee == null) {
+				if(tner.getPwd().equals(pwd)) {
+					result = "success";			
+				}else {
+					// trainer ID 비밀번호 불일치
+					result = "fail";
+				}
+				// 3) trainee ID 존재
+			}else if(tner == null && tnee != null) {
+				if(tnee.getPwd().equals(pwd)) {
+					result = "success";
+		
+				}else {
+					// trainee ID 비밀번호 불일치
+					result = "fail";
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(result);
+		return result;	
 	}
 	
 	@RequestMapping("checktemail")
@@ -134,7 +168,7 @@ public class AJAXController {
 		}
 
 		try {
-			i = tbiz.getbyemail(email);
+			i = trainerbiz.getbyemail(email);
 			if (i == null) {
 				result = "0";
 			} else {
