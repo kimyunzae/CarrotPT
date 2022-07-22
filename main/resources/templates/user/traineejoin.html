@@ -252,7 +252,10 @@ function kakaoLogin() {
 		
 		$('.user input').on('keyup', function() {		
 		    $('.user input').each(function() {
-		      if(!$(this).val()){
+		      if(!$('.user input[name=name]').val() || !$('.user input[name=id]').val() 
+		    		  || !$('.user input[name=pwd]').val() || !$('.user input[name=pwd2]').val() 
+		    		  || !$('.user input[name=email]').val() || !$('.user input[name=phone]').val() 
+		    		  || !$('.user input[name=zip]').val() || !$('.user input[name=addr1]').val()){
 		    		$('#joinbtn').attr('disabled', 'disabled');
 		           return false;
 		        }
