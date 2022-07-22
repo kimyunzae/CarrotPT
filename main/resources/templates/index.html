@@ -154,9 +154,18 @@
   }
 
 
-  .btn--signin {
+  .btn--signin:disabled {
     background:transparent;
     color: #769BCD;
+    font-size: 13px;
+    border-color: #769BCD;
+    margin-bottom: 3vh;
+    cursor: auto;
+  }
+  
+  .btn--signin {
+    background:  #769BCD;
+    color: white;
     font-size: 13px;
     border-color: #769BCD;
     margin-bottom: 3vh;
@@ -185,24 +194,90 @@
 .modal-title-text {
 	color: black;
 }
+
 </style>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c4b0ad65affd6cc37ad679d341d2eab0&libraries=services"></script>
-
+		
 <script>
 	$(document).ready(function(){
-		$('#login_bt').click(function(){
+		// Ajax로 로그인 처리 - 실패
+		/*  $('#login_bt').click(function() {
+			var id = $('input[name="lid"]').val();
+			var pwd = $('input[name="lpwd"]').val();
 			
-			$('#loginform').attr({
+			$.ajax({
+				type : "post",
+				url : 'loginimpl',
+				data : {
+					'id' : id,
+					'pwd' : pwd
+				},
+				success : function(result) {
+					alert(result);	
+					
+					if (result == "success") {
+						location.href("/");
+					}
+					
+					if (result == 'none') {
+						$('#login-check-msg').text('아이디가 존재하지 않습니다');	
+					}
+					
+					if (result == 'tner_pwd_fail') {
+						$('#login-check-msg').text('비밀번호를 확인해주세요');
+					}
+					
+					if (result == 'tnee_pwd_fail') {
+						$('#login-check-msg').text('비밀번호를 확인해주세요');
+					}			
+				}
+			});
+		});    */
+		
+		$('#login_bt').attr('disabled', 'disabled');
+		
+		// ajax 이용해서 아이디 존재여부
+		$('.loginform input[name=id],[name=pwd]').keyup(function() {
+			var id = $('input[name=id]').val();
+			var pwd = $('input[name=pwd]').val();
+			
+			$.ajax({
+				url : '/checklogin',
+				data : {
+					'id' : id,
+					'pwd' : pwd
+				},
+				success : function(data) {
+					if (data == 'none') {
+						$('#login-check-msg').text('아이디가 존재하지 않습니다');
+						$('#login_bt').attr('disabled', 'disabled');
+					}
+					if (data == 'success') {
+						$('#login_bt').removeAttr('disabled');
+						$('#login-check-msg').text('Welcome :>');
+					}
+					if (data == 'fail') {
+						$('#login-check-msg').text('비밀번호를 확인해주세요');
+						$('#login_bt').attr('disabled', 'disabled');
+					}	
+					
+				}
+			});
+		});
+		
+		  $('#login_bt').click(function(){
+			$('.loginform').attr({
 				'method':'post',
 				'action':'/loginimpl' 
 			});
-			$('#loginform').submit();
-		});
-	});
+			$('.loginform').submit();
+			 
+		}); 
+	}); 
 </script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target"
@@ -225,7 +300,7 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="/" class="nav-link"><span>Home</span></a></li>
+					<li class="nav-item"><a href="/" class="nav-link index-nav-link"><span>Home</span></a></li>
 					<li class="nav-item"><a href="/trainers/" class="nav-link"><span>트레이너
 								찾기</span></a></li>
 					<li class="nav-item"><a href="/map" class="nav-link"><span>지도로찾기</span></a></li>
@@ -281,21 +356,26 @@
 
 				<!-- Modal body -->
 				<div class="modal-body login-modal-body">
-					<p class="login-title">아이디와 비밀번호를 입력하세요</p>
-					<form class="login-form">
-						<div class="login-input-group">
-							<input class="input--style-3 login-input" type="text"
-								placeholder="아이디" name="id">
-						</div>
-						<div class="login-input-group">
-							<input class="input--style-3 login-input" type="password"
-								placeholder="비밀번호" name="pwd">
-						</div>
-						
-						<div class="p-t-10">
-							<button class="login-modal-btn btn--pill btn--signin" type="submit"
-								 id="login_bt" data-target="#">로그인</button>
-						</div>
+					<p id="login-check-msg" class="login-title">아이디와 비밀번호를 입력하세요</p>
+					
+					<!-- <span id="login-check-msg" class="text-dark">gd</span> -->
+					
+					<div class="login-form">
+						<form class="loginform">
+							<div class="login-input-group">
+								<input class="input--style-3 login-input" type="text"
+									placeholder="아이디" name="id">
+							</div>
+							<div class="login-input-group">
+								<input class="input--style-3 login-input" type="password"
+									placeholder="비밀번호" name="pwd">
+							</div>
+							
+							<div class="p-t-10">
+								<button class="login-modal-btn btn--pill btn--signin" 
+									 id="login_bt">로그인</button>
+							</div>
+						</form>
 						
 						<div class="extra">
 							<a href="/findidpwd" class="mr-3"><u>로그인이 안되세요?</u></a>
@@ -332,7 +412,7 @@
 						<p class="extra new mt-3">
 							Dangguen Personal Trainers Matching Platform
 						</p>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -414,11 +494,12 @@
 	<script src="/js/aos.js"></script>
 	<script src="/js/jquery.animateNumber.min.js"></script>
 	<script src="/js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="/js/google-map.js"></script>
-
 	<script src="/js/main.js"></script>
+	
+
+
 
 </body>
 </html>
