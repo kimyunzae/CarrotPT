@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.first.frame.Biz;
 import com.first.mapper.ReportMapper;
+import com.first.mapper.TrainerMapper;
+import com.first.vo.NewAlarmVO;
 import com.first.vo.ReportVO;
 
 @Service("reportbiz")
@@ -14,7 +16,10 @@ public class ReportBiz implements Biz<Integer, ReportVO> {
 	
 	@Autowired
 	ReportMapper dao;
-
+	
+	@Autowired
+	TrainerMapper tdao;
+	
 	@Override
 	public void register(ReportVO v) throws Exception {
 		dao.insert(v);
@@ -42,6 +47,13 @@ public class ReportBiz implements Biz<Integer, ReportVO> {
 	
 	public int getcnt(String status) throws Exception{
 		return dao.selectcnt(status);
+	}
+	
+	public NewAlarmVO selectalarms(String tstatus, String rstatus) throws Exception{
+		int newtrainercnt = tdao.selectcnt(tstatus);
+		int newreportcnt = dao.selectcnt(rstatus);
+		NewAlarmVO obj = new NewAlarmVO(newtrainercnt, newreportcnt);
+		return obj;
 	}
 
 	
