@@ -172,6 +172,21 @@ public class AdminController {
 			e.printStackTrace();
 		}
 	}
+	
+	// 2-5 트레이너 status 업데이트 시 거절 사유 입력 여부 검증
+	@ResponseBody
+	@RequestMapping("/checkrefusal")
+	public String checkrefusal(String statusdetail) {
+		String result = "1";
+		if(statusdetail.equals("")) {
+			result = "0";
+		}
+		System.out.println(result);
+		System.out.println(statusdetail);
+		return result;
+	}
+
+
 
 
 }

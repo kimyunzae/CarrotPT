@@ -11,5 +11,6 @@ import lombok.ToString;
 @ToString
 @Getter
 public class StatusVO {
+	private int id;
 	private String status;
 }
