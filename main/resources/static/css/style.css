@@ -3375,6 +3375,7 @@ input[type="button"].btn-block {
   flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
+ 
   list-style: none; }
 
 .nav-link {
@@ -3441,6 +3442,7 @@ input[type="button"].btn-block {
 
 .navbar {
   font-family: "Poppins", Arial, sans-serif;
+    
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3477,6 +3479,7 @@ input[type="button"].btn-block {
   line-height: inherit;
   white-space: nowrap; 
   font-family: 'Black Han Sans', sans-serif; 
+  
  
   }
  
@@ -3493,6 +3496,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
+  
   list-style: none; }
   .navbar-nav .nav-link {
     padding-right: 0;
