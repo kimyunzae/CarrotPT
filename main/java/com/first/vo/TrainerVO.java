@@ -149,8 +149,7 @@ public class TrainerVO {
 	}
 
 	// 마이페이지 계정: 트레이너 프로필 업데이트
-	public TrainerVO(String id, String intro, String career, String profile1, String profile2, String profile3,
-			MultipartFile pf1, MultipartFile pf2, MultipartFile pf3) {
+	public TrainerVO(String id, String intro, String career, String profile1, String profile2, String profile3) {
 		super();
 		this.id = id;
 		this.intro = intro;
@@ -158,9 +157,7 @@ public class TrainerVO {
 		this.profile1 = profile1;
 		this.profile2 = profile2;
 		this.profile3 = profile3;
-		this.pf1 = pf1;
-		this.pf2 = pf2;
-		this.pf3 = pf3;
+		
 	}
 	
 	// 마이페이지 계정: 트레이너 계정정보 업데이트

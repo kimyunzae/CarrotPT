@@ -30,6 +30,12 @@ public class MypageController {
 
 	@Value("${dir1}")
 	String dir1;
+	
+	@Value("${dir2}")
+	String dir2;
+	
+	@Value("${dir3}")
+	String dir3;
 
 	// 일반회원 마이페이지: 메인
 	@RequestMapping("/mypage")
@@ -93,6 +99,19 @@ public class MypageController {
 	// 트레이너 프로필 업데이트
 	@RequestMapping("/trprofile_update")
 	public RedirectView trprofile_update(Model m, TrainerVO vo) {
+		String profile1 = vo.getPf1().getOriginalFilename();
+		String profile2 = vo.getPf2().getOriginalFilename();
+		String profile3 = vo.getPf3().getOriginalFilename();
+	
+			vo.setProfile1(profile1);
+			Util.saveFile1(vo.getPf1(),dir1);
+			
+			vo.setProfile2(profile2);
+			Util.saveFile2(vo.getPf2(),dir2);
+			
+			vo.setProfile3(profile3);
+			Util.saveFile3(vo.getPf3(),dir3);
+			
 		try {
 			trainerbiz.modifyProfile(vo);
 		} catch (Exception e) {
