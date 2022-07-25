@@ -49,6 +49,7 @@ public class ReportBiz implements Biz<Integer, ReportVO> {
 		return dao.selectcnt(status);
 	}
 	
+	// status='대기중'인 트레이너, 신고 개수 구하기
 	public NewAlarmVO selectalarms(String tstatus, String rstatus) throws Exception{
 		int newtrainercnt = tdao.selectcnt(tstatus);
 		int newreportcnt = dao.selectcnt(rstatus);
