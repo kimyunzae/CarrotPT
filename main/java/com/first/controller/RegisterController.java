@@ -54,18 +54,7 @@ public class RegisterController {
 		return "index";
 	}
 	
-	//일반회원 마이페이지 업데이트
-	@RequestMapping("/updateimpl")
-	public RedirectView updateimpl(Model m, TraineeVO trainee) {
-		try {
-			traineebiz.modify(trainee);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new RedirectView("/mypage");
-	}
-
+	
 	//트레이너 회원가입
 	@RequestMapping("tregisterimpl")
 	public String tregisterimpl(Model m, TrainerVO t) {
