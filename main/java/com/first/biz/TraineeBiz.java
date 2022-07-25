@@ -7,14 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.first.frame.Biz;
 import com.first.mapper.TraineeMapper;
+import com.first.mapper.TrainerMapper;
 import com.first.vo.TraineeVO;
-import com.first.vo.TrainerVO;
 
 @Service("traineebiz")
 public class TraineeBiz implements Biz<String, TraineeVO> {
 
 	@Autowired
 	TraineeMapper dao;
+	
+	@Autowired
+	TrainerMapper trainerdao;
 
 	@Override
 	public void register(TraineeVO v) throws Exception {
@@ -78,6 +81,18 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 	// 이름, phone으로 선택
 	public String getbynamephone(String name, String phone) throws Exception{
 		return dao.selectbynamephone(name, phone);
+	}
+	
+	// trainee, trainer 통합 아이디찾기
+	public String findid(String name, String phone) throws Exception{
+		String id = dao.selectbynamephone(name, phone);
+		if(id == null) {
+			id = trainerdao.selectbynamephone(name, phone);
+		}
+		if(id == null) {
+			id = "0";
+		}
+		return id;
 	}
 
 }

@@ -15,9 +15,9 @@ class TraineeSelectByNamePhoneTest {
 	@Test
 	void contextLoads() {
 		String name = "진만리";
-		String phone = "0101212121";
+		String phone = "0101212100";
 		try {
-			String obj = biz.getbynamephone(name, phone);
+			String obj = biz.findid(name, phone);
 			System.out.println(obj);
 		} catch (Exception e) {
 			e.printStackTrace();
