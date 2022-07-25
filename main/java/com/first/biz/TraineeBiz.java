@@ -74,5 +74,10 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 
 		return list;
 	}
+	
+	// 이름, phone으로 선택
+	public String getbynamephone(String name, String phone) throws Exception{
+		return dao.selectbynamephone(name, phone);
+	}
 
 }

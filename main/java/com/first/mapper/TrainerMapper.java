@@ -24,11 +24,11 @@ public interface TrainerMapper{
 	public int selectcnt(String status) throws Exception;
 	public List<TrainerVO> selectbypage(@Param("pageNo")int pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset, @Param("status")String status) throws Exception;
 	public List<TrainerVO> search(String loc, String major) throws Exception;
+	public String selectbynamephone(String name, String phone) throws Exception;
 	
 	public List<MajorVO> selectmajor() throws Exception;
 	public List<StatusVO> selectstatus() throws Exception;
 	
 	public void updatestatus(TrainerVO obj) throws Exception;
-	
 	public void updateProfile1(TrainerVO obj) throws Exception;
 }

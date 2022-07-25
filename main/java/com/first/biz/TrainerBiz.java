@@ -132,6 +132,12 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	public void modifyProfile1(TrainerVO v) throws Exception {
 		dao.updateProfile1(v);
 	}
+	
+	// 이름, phone으로 선택
+	public String getbynamephone(String name, String phone) throws Exception{
+		return dao.selectbynamephone(name, phone);
+	}
+
 
 	
 	

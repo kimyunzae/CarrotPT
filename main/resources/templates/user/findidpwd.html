@@ -73,32 +73,26 @@
 			$('.nav-link.a_find').not(this).removeClass("active");
 		});
 		
-		// 보이기
-		/*
-		// 숨기기
-		$('.maindiv').not('div[id="'+toshow+'"]').hide();
-		
-		
-		$('.nav-link.a_find').click(function(){
-			var tochange = $(this).data("value");
-			alert(tochange);
-			$('.maindiv').not('div[id="'+tochange+'"]').hide();
-			$('div[id="'+tochange+'"]').show();
-		});
-		
-	
-		$('.nav-link.a_find').click(function(){
-			$('#div_tobereplaced').empty();
-			$(this).addClass("active");
-			$('.nav-link.a_find').not(this).removeClass("active");
-			var findwhat = $(this).data("value");
-			alert(findwhat);
-			$('#div_tobereplaced').replaceWith($('#div_'+findwhat));
-			
-		});
-		*/
 		$('#btn_findid').click(function(){
-			alert('clicked');
+			
+			var custName = $('input[name="name"]').val();
+			
+			var custTel1 = $('select[name="mobile1"]').val();
+			var custTel2 = $('input[name="mobile2"]').val();
+			var custTel3 = $('input[name="mobile3"]').val();
+			var custTel = custTel1.concat("",custTel2,custTel3);
+			
+			$.ajax({
+				url:'/findidimpl',
+				data:{
+					'name':custName,
+					'phone':custTel
+				},
+				success: function(result){
+					
+				}
+			});
+			
 			$('#div_findid').slideToggle(100);
 		});
 		
@@ -149,9 +143,9 @@
 												</select>
 										</span>
 										<span class="span_mobile dash">-</span>
-										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="mobile2"></span>
+										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="mobile2" maxlength="4" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')"></span>
 										<span class="span_mobile dash">-</span>
-										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="mobile3"></span>
+										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="mobile3" maxlength="4" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')"></span>
 								    </div>
 						</div>
 			              
@@ -176,14 +170,14 @@
 		           
 			              <div class="form-group">
 								<label>아이디: </label>
-								<input type="text" class="form-control" name="name">
+								<input type="text" class="form-control" name="id">
 			              </div>
 			              
 			              <div class="form-group">
 								<label>휴대폰번호: </label>
 								    <div class="row div mobile">
 								    	<span class="col-sm-3 span_mobile">
-												<select name="mobile1">
+												<select name="pwdmobile1">
 													<option value="010">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
@@ -193,9 +187,9 @@
 												</select>
 										</span>
 										<span class="span_mobile dash">-</span>
-										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="mobile2"></span>
+										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="pwdmobile2"></span>
 										<span class="span_mobile dash">-</span>
-										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="mobile3"></span>
+										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="pwdmobile3"></span>
 								    </div>
 						</div>
 			              
