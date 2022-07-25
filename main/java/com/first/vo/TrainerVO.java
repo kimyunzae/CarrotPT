@@ -148,25 +148,38 @@ public class TrainerVO {
 		this.rvcnt = rvcnt;
 	}
 
-	// 마이페이지 계정: 대표 프로필 사진 변경 
-	public TrainerVO(String id, String profile1) {
+	// 마이페이지 계정: 트레이너 프로필 업데이트
+	public TrainerVO(String id, String intro, String career, String profile1, String profile2, String profile3,
+			MultipartFile pf1, MultipartFile pf2, MultipartFile pf3) {
 		super();
 		this.id = id;
+		this.intro = intro;
+		this.career = career;
 		this.profile1 = profile1;
-	}
-
-	// 마이페이지 프로필: 프로필, 커리어 이미지 변경
-	public TrainerVO(String id, String license1, String license2, String license3, String profile1, String profile2,
-			String profile3) {
-		super();
-		this.id = id;
-		this.license1 = license1;
-		this.license2 = license2;
-		this.license3 = license3;
-//		this.profile1 = profile1;
 		this.profile2 = profile2;
 		this.profile3 = profile3;
+		this.pf1 = pf1;
+		this.pf2 = pf2;
+		this.pf3 = pf3;
 	}
+	
+	// 마이페이지 계정: 트레이너 계정정보 업데이트
+	public TrainerVO(String id, String pwd, String name, String phone, String email, String major,
+			String gym_name, String gym_zip, String gym_addr1, String gym_addr2) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.major = major;
+		this.gym_name = gym_name;
+		this.gym_zip = gym_zip;
+		this.gym_addr1 = gym_addr1;
+		this.gym_addr2 = gym_addr2;
+	}
+	
+	
 
 	// for UPDATE: status, status_detail 개별 수정
 	public TrainerVO(String id, String status, String status_detail) {
@@ -176,8 +189,7 @@ public class TrainerVO {
 		this.status_detail = status_detail;
 	}
 	
-	
-	
+
 	
 	
 	

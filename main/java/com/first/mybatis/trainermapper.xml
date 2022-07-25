@@ -98,8 +98,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		profile1=#{profile1},profile2=#{profile2},profile3=#{profile3},level=#{level} WHERE id=#{id}
 	</update>
 	
-	<update id="updateProfile1" parameterType="trainerVO">
-		UPDATE trainer SET profile1=#{profile1} where id=#{id}
+	<!-- 트레이너 profile -->
+	<update id="updateProfile" parameterType="trainerVO">
+		UPDATE trainer SET
+		intro=#{intro},career=#{career},profile1=#{profile1},profile2=#{profile2},
+		profile3=#{profile3} WHERE id=#{id}
+	</update>
+	
+	<!-- 트레이너 account -->
+	<update id="updateAccount" parameterType="trainerVO">
+		UPDATE trainer SET name=#{name},
+		pwd=#{pwd},phone=#{phone},email=#{email},major=#{major},
+		gym_name=#{gym_name},gym_zip=#{gym_zip},gym_addr1=#{gym_addr1},gym_addr2=#{gym_addr2}
+		WHERE id=#{id}
 	</update>
 	
 	<delete id="delete" parameterType="String">

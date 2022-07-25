@@ -27,12 +27,11 @@ public class MypageController {
 
 	@Autowired
 	TrainerBiz trainerbiz;
-	
+
 	@Value("${dir1}")
 	String dir1;
 
-	
-	//일반회원 마이페이지: 메인
+	// 일반회원 마이페이지: 메인
 	@RequestMapping("/mypage")
 	public String mypage(Model m, String id) {
 		try {
@@ -45,24 +44,22 @@ public class MypageController {
 		m.addAttribute("center", "mypage/mypage");
 		return "index";
 	}
-	
-	//일반회원 마이페이지 업데이트
-		@RequestMapping("/updateimpl")
-		public RedirectView updateimpl(Model m, TraineeVO trainee) {
-			try {
-				traineebiz.modify(trainee);
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return new RedirectView("/mypage");
+	// 일반회원 마이페이지 업데이트
+	@RequestMapping("/updateimpl")
+	public RedirectView updateimpl(Model m, TraineeVO trainee) {
+		try {
+			traineebiz.modify(trainee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return new RedirectView("/mypage");
+	}
 
-
-	
-	//트레이너 마이페이지: 메인
+	// 트레이너 마이페이지: 메인
 	@RequestMapping("/trmypage")
-	public String trmypage(Model m, HttpSession session) {	
+	public String trmypage(Model m, HttpSession session) {
 		try {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/trmypage");
@@ -71,12 +68,12 @@ public class MypageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		m.addAttribute("trainercenter","mypage/trprofile");
+
+		m.addAttribute("trainercenter", "mypage/trprofile");
 		return "index";
 	}
-	
-	//트레이너 대표프로필 변경
+
+	// 트레이너 대표프로필 변경
 //		@RequestMapping("/updateprofile1")
 //		public RedirectView updateprofile1(Model m, TrainerVO trainer) {
 //			String profile1 = trainer.getPf1().getOriginalFilename();
@@ -92,69 +89,76 @@ public class MypageController {
 //			}
 //			return new RedirectView("/trmypage");
 //		}
-		
-	// 트레이너 계정정보 업데이트
+
+	// 트레이너 프로필 업데이트
 	@RequestMapping("/trprofile_update")
 	public RedirectView trprofile_update(Model m, TrainerVO vo) {
 		try {
-			trainerbiz.modify(vo);
+			trainerbiz.modifyProfile(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new RedirectView("/trmypage");
 	}
-	
-	
-	//트레이너 마이페이지: 경력 및 수상
+
+	// 트레이너 마이페이지: 경력 및 수상
 	@RequestMapping("/traccount")
 	public String trprofile(Model m, HttpSession session) {
 		try {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/trmypage");
-			m.addAttribute("trainercenter","mypage/traccount");
+			m.addAttribute("trainercenter", "mypage/traccount");
 			m.addAttribute("trainer", trainer);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-		
+
 		return "index";
 	}
-	
-	//트레이너 마이페이지: 매칭신청
+
+	// 트레이너 계정정보 업데이트
+	@RequestMapping("/traccount_update")
+	public RedirectView traccount_update(Model m, TrainerVO vo) {
+		try {
+			trainerbiz.modifyAccount(vo);
+			System.out.println("성공" + vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new RedirectView("/traccount");
+	}
+
+	// 트레이너 마이페이지: 매칭신청
 	@RequestMapping("/trmatching")
 	public String trmatching(Model m, HttpSession session) {
 		try {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/trmypage");
-			m.addAttribute("trainercenter","mypage/trmatching");
+			m.addAttribute("trainercenter", "mypage/trmatching");
 			m.addAttribute("trainer", trainer);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-		
+
 		return "index";
 	}
-			
-	
-	//트레이너 마이페이지: 이용내역 
-		@RequestMapping("/trhistory")
-		public String trhistory(Model m, HttpSession session) {
-			try {
-				TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
-				m.addAttribute("center", "mypage/trmypage");
-				m.addAttribute("trainercenter","mypage/trhistory");
-				m.addAttribute("trainer", trainer);
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		
-			
-			return "index";
+	// 트레이너 마이페이지: 이용내역
+	@RequestMapping("/trhistory")
+	public String trhistory(Model m, HttpSession session) {
+		try {
+			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
+			m.addAttribute("center", "mypage/trmypage");
+			m.addAttribute("trainercenter", "mypage/trhistory");
+			m.addAttribute("trainer", trainer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		return "index";
+	}
 
 }
