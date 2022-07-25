@@ -1,10 +1,106 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Find Id,Password</title>
-</head>
-<body>
+<style>
+	.ul_find{
+		text-align:center;
+		padding-right:0;
+		padding-left:0;
+		
+	}
+	
+	.li_find{
+		text-align:center;
+		padding-right:0;
+		padding-left:0;
+	}
+	
 
-</body>
-</html>
+	
+	#ul_find .li_find .nav-link.active{
+		border-color:#769BCD #769BCD #fff;
+		color:black;
+	}
+	
+		#ul_find .li_find .nav-link:hover{
+		border-color:#769BCD #769BCD #fff;
+		font-weight:bold;
+		color:black;
+	}
+	
+	#div_find{
+		padding-right:7.5px;
+		padding-left:7.5px;
+	}
+	
+	.span_mobile.tel3{
+		padding-right:0;
+	}
+	
+	#div_formbtn{
+		margin-top:2rem;
+	}
+
+	
+	.row.div.mobile .span_mobile{
+		vertical-align:middle;
+	}
+	
+</style>
+<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<span class="subheading">FIND ID / PASSWORD</span>
+				<h2 class="mb-4">아이디/비밀번호 찾기</h2>
+			</div>
+			
+
+			<div class="container-fluid d-flex justify-content-center">
+	            <ul class="nav nav-tabs col-md-6 justify-content-center ul_find" id="ul_find">
+					<li class="nav-item col-sm li_find"><a class="nav-link a_find active">아이디 찾기</a></li>
+					<li class="nav-item col-sm li_find"><a class="nav-link a_find">비밀번호 찾기</a></li>
+				</ul>
+			</div>
+		
+			<div id="div_find" class="col-md-6 order-md-last d-flex">
+		       
+		           <form class="bg-light p-4 p-md-5 contact-form" id="loginform">
+		           
+			              <div class="form-group">
+								<label>이름: </label>
+								<input type="text" class="form-control" name="name">
+			              </div>
+			              
+			              <div class="form-group">
+								<label>휴대폰번호: </label>
+								    <div class="row div mobile">
+								    	<span class="col-sm-3 span_mobile">
+												<select name="mobile1">
+													<option value="010">010</option>
+													<option value="011">011</option>
+													<option value="016">016</option>
+													<option value="017">017</option>
+													<option value="018">018</option>
+													<option value="019">019</option>																																																				
+												</select>
+										</span>
+										<span class="span_mobile dash">-</span>
+										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="mobile2"></span>
+										<span class="span_mobile dash">-</span>
+										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="mobile3"></span>
+								    </div>
+								
+						</div>
+			              
+						<div class="form-group" id="div_formbtn">
+							<div class="row">
+								<div class="col">
+									<button id="btn_login" class="btn btn-primary col">확인</button>
+								</div>
+							</div>
+						</div>
+			              
+					</form>
+			           
+			</div>
+		</div>
+	</div>
+</section>
