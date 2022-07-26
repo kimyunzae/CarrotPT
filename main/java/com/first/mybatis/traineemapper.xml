@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 <!-- id, email로 찾기 -->
 	<select id="selectbyidemail" resultType="String">
-		SELECT name from trainee
+		SELECT email from trainee
 		WHERE id=#{id} AND email=#{email}
 	</select>
 </mapper>
