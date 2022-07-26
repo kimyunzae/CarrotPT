@@ -441,12 +441,20 @@ function myModalClose() {
 		<div class="row justify-content-center">
 			<button type="button" data-toggle="modal" data-target="#myModal"
 				class="btn btn-primary py-2 px-4">맞춤트레이너찾기(Click!)</button>
-			<!-- Modal-->
 			<div id="myModal" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLabel" aria-hidden="true"
 				class="modal fade text-left">
 				<div role="document" class="modal-dialog">
 					<div class="modal-content">
+						<div class="modal-header login-modal-header">
+							<div class="modal-title login-modal-title">
+
+								<p class="navbar-brand modal-title-text">
+									<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
+								</p>
+
+							</div>
+						</div>
 						<div
 							class="modal-header row d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
 							<div class="tabs active" id="tab01">
@@ -458,15 +466,19 @@ function myModalClose() {
 							<div class="tabs" id="tab03">
 								<h6 class="text-muted">3</h6>
 							</div>
-							<div class="tabs" id="tab04">
+							<!-- <div class="tabs" id="tab04">
 								<h6 class="text-muted">4</h6>
-							</div>
+							</div> -->
 						</div>
+						<div class="modal-body login-modal-body">
+							<p id="login-check-msg" class="login-title">질문에 답해주세요</p>
+						</div>
+
 						<div class="line"></div>
 						<div class="modal-body p-0">
 							<fieldset class="show" id="tab011" name="tab011">
 								<div class="bg-light">
-									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
+									<!-- <h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3> -->
 									<div class="form-group pb-2 px-3">
 										<h5>1-1.고객님의 성별이 어떻게 되나요?</h5>
 										<div class="custom-control custom-radio">
@@ -518,18 +530,9 @@ function myModalClose() {
 												class="custom-control-label" for="option116">60대 이상</label>
 										</div>
 									</div>
-								</div>
-								<a href="#tab021" class="next round">&#8250;</a>
-							</fieldset>
-
-
-							<fieldset id="tab021" name="tab021">
-								<div class="bg-light">
-									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
-									<form>
-										<div class="form-group pb-2 px-3">
-											<h5>2-1. 운동하시려는 목적을 말씀해주세요(중복체크 가능)</h5>
-											<!-- <div> -->
+									<div class="form-group pb-2 px-3">
+										<h5>1-3. 운동하시려는 목적을 말씀해주세요(중복체크 가능)</h5>
+										<div>
 											<div class="custom-control custom-checkbox">
 												<input class="custom-control-input" id="option211"
 													type="checkbox" value=""><label
@@ -552,10 +555,14 @@ function myModalClose() {
 													대회</label>
 											</div>
 										</div>
-									</form>
-								</div>
+									</div>
+									<a href="#tab021" class="next round">&#8250;</a>
+							</fieldset>
+
+
+							<fieldset id="tab021" name="tab021">
 								<div class="form-group pb-2 px-3">
-									<h5>2-2. 하고 싶은 운동을 말씀해주세요</h5>
+									<h5>2-1. 하고 싶은 운동을 말씀해주세요</h5>
 									<form name="selex" action="./example.html">
 										<div class="custom-control custom-radio">
 											<input class="custom-control-input" id="option221"
@@ -593,49 +600,42 @@ function myModalClose() {
 										</div>
 									</form>
 								</div>
-								<a href="#tab011" class="previous round">&#8249;</a> <a
-									href="#tab031" class="next round">&#8250;</a>
-							</fieldset>
-							<fieldset id="tab031" name="tab031">
-								<div class="bg-light">
-									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
-									<div class="form-group pb-2 px-3">
-										<h5>3-1. 평소에 운동을 얼마나 하시나요?</h5>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option311"
-												type="radio" value="" name="optradio31"> <label
-												class="custom-control-label" for="option311"> 거의 하지
-												않음 </label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option312"
-												type="radio" value="" name="optradio31"><label
-												class="custom-control-label" for="option312">한 달에
-												1-2번 </label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option313"
-												type="radio" value="" name="optradio31"><label
-												class="custom-control-label" for="option313">일주일에 1번
-											</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option314"
-												type="radio" value="" name="optradio31"><label
-												class="custom-control-label" for="option314">일주일에
-												2-3번 </label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option315"
-												type="radio" value="" name="optradio31"><label
-												class="custom-control-label" for="option315">일주일에 4번
-												이상 </label>
-										</div>
+								<div class="form-group pb-2 px-3">
+									<h5>2-2. 평소에 운동을 얼마나 하시나요?</h5>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option311"
+											type="radio" value="" name="optradio31"> <label
+											class="custom-control-label" for="option311"> 거의 하지
+											않음 </label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option312"
+											type="radio" value="" name="optradio31"><label
+											class="custom-control-label" for="option312">한 달에
+											1-2번 </label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option313"
+											type="radio" value="" name="optradio31"><label
+											class="custom-control-label" for="option313">일주일에 1번
+										</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option314"
+											type="radio" value="" name="optradio31"><label
+											class="custom-control-label" for="option314">일주일에
+											2-3번 </label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option315"
+											type="radio" value="" name="optradio31"><label
+											class="custom-control-label" for="option315">일주일에 4번
+											이상 </label>
 									</div>
 								</div>
-								<!-- <div class="px-3"> -->
+								<!-- 	<div class="px-3"> -->
 								<div class="form-group pb-2 px-3">
-									<h5>3-2. 지역이 어디신가요?</h5>
+									<h5>2-3. 지역이 어디신가요?</h5>
 									<div class="custom-control custom-input">
 										<form name=form method=post action=$PHP_SELF>
 											시/도: <select name='city'
@@ -663,65 +663,65 @@ function myModalClose() {
 										</form>
 									</div>
 								</div>
-								<a href="#tab021" class="previous round">&#8249;</a> <a
-									href="#tab041" class="next round">&#8250;</a>
-								<!-- </div> -->
-							</fieldset>
-							<fieldset id="tab041" name="tab041">
-								<div class="bg-light">
-									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
-									<form>
-										<div class="form-group pb-2 px-3">
+								<a href="#tab011" class="previous round">&#8249;</a> <a
+									href="#tab031" class="next round">&#8250;</a>
+						</div>
 
-											<h5>4-1.원하는 트레이너의 성별이 있나요?</h5>
+						<!-- 		<a href="#tab011" class="previous round">&#8249;</a> <a
+									href="#tab031" class="next round">&#8250;</a> -->
+						</fieldset>
 
-											<div class="custom-control custom-radio">
-												<input class="custom-control-input" id="option411"
-													type="radio" value="" name="optradio41"> <label
-													class="custom-control-label" for="option411">상관없음</label>
-											</div>
-											<div class="custom-control custom-radio">
-												<input id="option412" class="custom-control-input"
-													type="radio" value="" name="optradio41"> <label
-													class="custom-control-label" for="option412">여자</label>
-											</div>
-											<div class="custom-control custom-radio">
-												<input class="custom-control-input" id="option413"
-													type="radio" value="" name="optradio41"> <label
-													class="custom-control-label" for="option413">남자</label>
-											</div>
-										</div>
-										<div class="form-group px-3 pb-2">
-											<label class="form-control-label">
-												<h5>4-2.원하는 트레이닝 스타일(강도)이 있나요?</h5>
-											</label>
-											<div class="custom-control custom-radio">
-												<input class="custom-control-input" id="option421"
-													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option421">저강도</label>
-											</div>
-											<div class="custom-control custom-radio">
-												<input class="custom-control-input" id="option422"
-													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option422">중저강도</label>
-											</div>
-											<div class="custom-control custom-radio">
-												<input class="custom-control-input" id="option423"
-													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option423">중강도</label>
-											</div>
-											<div class="custom-control custom-radio">
-												<input class="custom-control-input" id="option424"
-													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option424">중고강도</label>
-											</div>
-											<div class="custom-control custom-radio">
-												<input class="custom-control-input" id="option425"
-													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option425">고강도</label>
-											</div>
-										</div>
-									</form>
+						<fieldset id="tab031" name="tab031">
+							<form>
+								<div class="form-group pb-2 px-3">
+
+									<h5>3-1.원하는 트레이너의 성별이 있나요?</h5>
+
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option411"
+											type="radio" value="" name="optradio41"> <label
+											class="custom-control-label" for="option411">상관없음</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input id="option412" class="custom-control-input"
+											type="radio" value="" name="optradio41"> <label
+											class="custom-control-label" for="option412">여자</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option413"
+											type="radio" value="" name="optradio41"> <label
+											class="custom-control-label" for="option413">남자</label>
+									</div>
+								</div>
+								<div class="form-group px-3 pb-2">
+									<label class="form-control-label">
+										<h5>3-2.원하는 트레이닝 스타일(강도)이 있나요?</h5>
+									</label>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option421"
+											type="radio" value="" name="optradio42"> <label
+											class="custom-control-label" for="option421">저강도</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option422"
+											type="radio" value="" name="optradio42"> <label
+											class="custom-control-label" for="option422">중저강도</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option423"
+											type="radio" value="" name="optradio42"> <label
+											class="custom-control-label" for="option423">중강도</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option424"
+											type="radio" value="" name="optradio42"> <label
+											class="custom-control-label" for="option424">중고강도</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" id="option425"
+											type="radio" value="" name="optradio42"> <label
+											class="custom-control-label" for="option425">고강도</label>
+									</div>
 								</div>
 								<div class="px-3">
 									<div class="form-group pb-5 row justify-content-center">
@@ -729,183 +729,281 @@ function myModalClose() {
 											data-toggle="modal" href="#myModal2">찾기</button>
 									</div>
 								</div>
-								<a href="#tab031" class="previous round">&#8249;</a>
-							</fieldset>
-						</div>
+							</form>
+						</fieldset>
+						<fieldset id="tab041" name="tab041">
+							<div class="bg-light">
+								<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
+								<form>
+									<div class="form-group pb-2 px-3">
+
+										<h5>4-1.원하는 트레이너의 성별이 있나요?</h5>
+
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" id="option411"
+												type="radio" value="" name="optradio41"> <label
+												class="custom-control-label" for="option411">상관없음</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input id="option412" class="custom-control-input"
+												type="radio" value="" name="optradio41"> <label
+												class="custom-control-label" for="option412">여자</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" id="option413"
+												type="radio" value="" name="optradio41"> <label
+												class="custom-control-label" for="option413">남자</label>
+										</div>
+									</div>
+									<div class="form-group px-3 pb-2">
+										<label class="form-control-label">
+											<h5>4-2.원하는 트레이닝 스타일(강도)이 있나요?</h5>
+										</label>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" id="option421"
+												type="radio" value="" name="optradio42"> <label
+												class="custom-control-label" for="option421">저강도</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" id="option422"
+												type="radio" value="" name="optradio42"> <label
+												class="custom-control-label" for="option422">중저강도</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" id="option423"
+												type="radio" value="" name="optradio42"> <label
+												class="custom-control-label" for="option423">중강도</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" id="option424"
+												type="radio" value="" name="optradio42"> <label
+												class="custom-control-label" for="option424">중고강도</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" id="option425"
+												type="radio" value="" name="optradio42"> <label
+												class="custom-control-label" for="option425">고강도</label>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="px-3">
+								<div class="form-group pb-5 row justify-content-center">
+									<button type="button" class="btn btn-primary px-3"
+										data-toggle="modal" href="#myModal2">찾기</button>
+								</div>
+							</div>
+							<a href="#tab031" class="previous round">&#8249;</a>
+						</fieldset>
+
+
 						<div class="modal-footer">
 							<h6 class="pt-3 pb-3 mb-4 border-bottom">
 								<span class="fa fa-rocket"></span> 당신 근처의 PersonalTrainer
 							</h6>
 						</div>
+					</div>
 
-						<!--Second Modal  -->
-						<div class="modal" id="myModal2" aria-hidden="true"
-							style="display: none; z-index: 1060;">
-							<div class="w3-modal-content w3-animate-zoom">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title">이 트레이너는 어떠신가요?</h4>
+					<!-- Second Modal -->
+					<div class="modal fade" id="myModal2">
+						<div class="modal-dialog login-modal-dialog modal-dialog-centered">
+							<div class="modal-content login-modal-content">
+
+								<!-- 모달 헤더-->
+								<!-- <div class="modal-header"> -->
+								<!-- <h4 class="modal-title">이 트레이너는 어떠신가요?</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×</button> -->
+
+								<div class="modal-header login-modal-header">
+									<div class="modal-title login-modal-title">
+
+										<p class="navbar-brand modal-title-text">
+											<span class="carrot"><i class="fas fa-carrot"></i></span>
+											당근PT
+										</p>
 										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">×</button>
+											aria-hidden="true" style="float: right">×</button>
 									</div>
-									<div class="container">
-										<div class="modal-body">
-											<div class="col-6">
-												<img src="/images/about-us.jpg"
-													style="height: 500px; width: 400px;"> 잘가르치는 트레이너!
+
+								</div>
+								<!-- </div> -->
+
+								<!-- 모달 바디-->
+								<!-- <div class="container">
+									<div class="modal-body">
+										<div class="col-6">
+											<img src="/images/about-us.jpg"
+												style="height: 500px; width: 400px;"> 잘가르치는 트레이너!
+										</div>
+										<div class="col-6">김한빈</div>
+									</div> -->
+
+								<div class="modal-body login-modal-body">
+									<div class="login-form">
+										<form class="loginform">
+											<div class="login-input-group">
+												<input type="image" src="/images/about-us.jpg"
+													style="height: 500px; width: 400px;">
 											</div>
-											<div class="col-6">김한빈</div>
-										</div>
-										<div class="modal-footer">
-											<!-- <a href="#myModal2" class="btn">다시 찾기</a>  -->
-											<a href="javascript:myModalClose();" class="btn btn-primary">닫기</a>
-										<!-- 	<button type="button" class="close2" data-dismiss="modal" aria-hidden="true">닫기</button>
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">닫기</button> -->
-										</div>
+											<div class="login-input-group">
+												<p>세상에서 제일 잘 가르치는 트레이너 김한빈</p>
+											</div>
+										</form>
 									</div>
 								</div>
+
+
+
+								<!-- 모달 풋터  -->
+								<div class="modal-footer">
+									<!-- <a href="#myModal2" class="btn">다시 찾기</a>--> 
+									<a href="javascript:myModalClose();" class="btn btn-primary">닫기</a>
+											<!-- <button type="button" class="close2" data-dismiss="modal"
+												aria-hidden="true">닫기</button>  -->
+									<!-- <button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">닫기</button> -->
+								</div>
 							</div>
-							
-							
-							
 						</div>
 					</div>
 				</div>
+
 			</div>
+		</div>
+	</div>
 
+	<div class="container">
+		<div class="row">
+			<!-- Left Start -->
+			<div class="col-lg-9 pr-lg-4">
+				<div class="row" id="div_trainer_row">
+					<div id="div_trainer_replace"
+						th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
+					</div>
 
-			<div class="container">
-				<div class="row">
-					<!-- Left Start -->
-					<div class="col-lg-9 pr-lg-4">
-						<div class="row" id="div_trainer_row">
-							<div id="div_trainer_replace"
-								th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
-							</div>
+					<!-- Single Trainer Start -->
 
-							<!-- Single Trainer Start -->
-
-							<!-- Single Trainer End -->
+					<!-- Single Trainer End -->
+				</div>
+				<!-- Page Number Start -->
+				<div class="row mt-5">
+					<div class="col text-center">
+						<div class="block-27">
+							<ul id="pages">
+							</ul>
 						</div>
-						<!-- Page Number Start -->
-						<div class="row mt-5">
-							<div class="col text-center">
-								<div class="block-27">
-									<ul id="pages">
-									</ul>
+					</div>
+				</div>
+				<!-- Page Number End -->
+			</div>
+			<!-- Left End -->
+			<!-- Right Start -->
+
+			<div class="col-lg-3 p-4 bg-light">
+
+				<div class="search-wrap-1 ftco-animate">
+					<h2 class="mb-3">Find Places</h2>
+					<form action="#" class="search-property-1">
+						<div class="row">
+							<div class="col-lg-12 align-items-end mb-3">
+								<div class="form-group">
+									<label for="#">정렬</label>
+									<div class="form-field">
+										<div class="icon">
+											<span class="ion-ios-search"></span>
+										</div>
+										<form id="form_order">
+											<select name="orderBy" id="select_order" class="form-control">
+												<option value="num desc">최신 등록순</option>
+												<option>리뷰 많은순</option>
+												<option value="name">이름순</option>
+											</select> <input type="hidden" name="pageNo">
+										</form>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!-- Page Number End -->
-					</div>
-					<!-- Left End -->
-					<!-- Right Start -->
 
-					<div class="col-lg-3 p-4 bg-light">
-
-						<div class="search-wrap-1 ftco-animate">
-							<h2 class="mb-3">Find Places</h2>
-							<form action="#" class="search-property-1">
-								<div class="row">
-									<div class="col-lg-12 align-items-end mb-3">
-										<div class="form-group">
-											<label for="#">정렬</label>
-											<div class="form-field">
-												<div class="icon">
-													<span class="ion-ios-search"></span>
-												</div>
-												<form id="form_order">
-													<select name="orderBy" id="select_order"
-														class="form-control">
-														<option value="num desc">최신 등록순</option>
-														<option>리뷰 많은순</option>
-														<option value="name">이름순</option>
-													</select> <input type="hidden" name="pageNo">
-												</form>
-											</div>
+							<div class="col-lg-12 align-items-end mb-3">
+								<div class="form-group">
+									<label for="#">지역별 검색</label>
+									<div class="form-field">
+										<div class="icon">
+											<span class="ion-ios-search"></span>
 										</div>
-									</div>
-
-									<div class="col-lg-12 align-items-end mb-3">
-										<div class="form-group">
-											<label for="#">지역별 검색</label>
-											<div class="form-field">
-												<div class="icon">
-													<span class="ion-ios-search"></span>
-												</div>
-												<!-- <form>
+										<!-- <form>
 											<input type="text" class="form-control"
 												placeholder="Search place">
 										</form> -->
 
-												<form name=form1 method=post action=$PHP_SELF>
-													시/도: <select name='city'
-														onchange="change(this.selectedIndex);"
-														class="form-control">
-														<option value='전체'>전체</option>
-														<option value='서울'>서울특별시</option>
-														<option value='부산'>부산광역시</option>
-														<option value='대구'>대구광역시</option>
-														<option value='인천'>인천광역시</option>
-														<option value='광주'>광주광역시</option>
-														<option value='대전'>대전광역시</option>
-														<option value='울산'>울산광역시</option>
-														<option value='경기'>경기도</option>
-														<option value='강원'>강원도</option>
-														<option value='충북'>충청북도</option>
-														<option value='충남'>충청남도</option>
-														<option value='전북'>전라북도</option>
-														<option value='전남'>전라남도</option>
-														<option value='경북'>경상북도</option>
-														<option value='경남'>경상남도</option>
-														<option value='제주'>제주도</option>
-													</select> 구/군: <select name='county1' class="form-control">
-														<option value=''>전체</option>
-													</select>
-												</form>
+										<form name=form1 method=post action=$PHP_SELF>
+											시/도: <select name='city'
+												onchange="change(this.selectedIndex);" class="form-control">
+												<option value='전체'>전체</option>
+												<option value='서울'>서울특별시</option>
+												<option value='부산'>부산광역시</option>
+												<option value='대구'>대구광역시</option>
+												<option value='인천'>인천광역시</option>
+												<option value='광주'>광주광역시</option>
+												<option value='대전'>대전광역시</option>
+												<option value='울산'>울산광역시</option>
+												<option value='경기'>경기도</option>
+												<option value='강원'>강원도</option>
+												<option value='충북'>충청북도</option>
+												<option value='충남'>충청남도</option>
+												<option value='전북'>전라북도</option>
+												<option value='전남'>전라남도</option>
+												<option value='경북'>경상북도</option>
+												<option value='경남'>경상남도</option>
+												<option value='제주'>제주도</option>
+											</select> 구/군: <select name='county1' class="form-control">
+												<option value=''>전체</option>
+											</select>
+										</form>
 
 
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-12 align-items-end mb-3">
-										<div class="form-group">
-											<label for="#">운동별 검색</label>
-											<div class="form-field">
-												<div class="icon">
-													<span class="ion-ios-search"></span>
-												</div>
-												<form id="form_order">
-													<select name="orderBy" id="select_order"
-														class="form-control">
-														<option>보디빌딩</option>
-														<option>파워리프팅</option>
-														<option>피지크</option>
-														<option>필라테스</option>
-														<option>크로스핏</option>
-														<option>요가</option>
-														<option>그외</option>
-													</select> <input type="hidden" name="pageNo">
-												</form>
-											</div>
-										</div>
-									</div>
-
-
-									<div class="col-lg-12 align-self-end">
-										<div class="form-group">
-											<div class="form-field">
-												<input type="submit" value="Search"
-													class="form-control btn btn-primary">
-											</div>
-										</div>
 									</div>
 								</div>
-							</form>
+							</div>
+
+							<div class="col-lg-12 align-items-end mb-3">
+								<div class="form-group">
+									<label for="#">운동별 검색</label>
+									<div class="form-field">
+										<div class="icon">
+											<span class="ion-ios-search"></span>
+										</div>
+										<form id="form_order">
+											<select name="orderBy" id="select_order" class="form-control">
+												<option>보디빌딩</option>
+												<option>파워리프팅</option>
+												<option>피지크</option>
+												<option>필라테스</option>
+												<option>크로스핏</option>
+												<option>요가</option>
+												<option>그외</option>
+											</select> <input type="hidden" name="pageNo">
+										</form>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-lg-12 align-self-end">
+								<div class="form-group">
+									<div class="form-field">
+										<input type="submit" value="Search"
+											class="form-control btn btn-primary">
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-					<!-- Right End -->
+					</form>
 				</div>
 			</div>
+			<!-- Right End -->
+		</div>
+	</div>
+	</div>
+	</div>
 </section>
