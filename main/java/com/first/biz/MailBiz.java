@@ -29,15 +29,16 @@ public class MailBiz {
 		return randompwd;
 	}
 	
-	public void sendMail(String recipient) {
+	public void sendmail(String recipient) {
 		ArrayList<String> toUserList = new ArrayList<>();
+		recipient = "seolyeonmoon@gmail.com";
 		toUserList.add(recipient);
 		int toUserSize = toUserList.size();
 		SimpleMailMessage simpleMessage = new SimpleMailMessage();
 		simpleMessage.setTo((String[])toUserList.toArray(new String[toUserSize]));
 		simpleMessage.setSubject("당근PT 임시 비밀번호가 발급되었습니다.");
-		
-		
-		simpleMessage.setText("임시 비밀번호는");
+		int newpwd = randompwd();
+		simpleMessage.setText("임시 비밀번호는 " + newpwd + "입니다.");
+		javaMailSender.send(simpleMessage);
 	}
 }
