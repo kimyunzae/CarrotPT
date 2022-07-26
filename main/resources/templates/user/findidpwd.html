@@ -111,8 +111,9 @@
 					'phone':custTel
 				},
 				success: function(result){
-					
-					$('#div_findid').slideToggle(100);
+					if($('#div_findid').css("display") == "none"){
+						$('#div_findid').slideToggle(100);
+					}
 					if(result == "0"){
 						$('#div_findid').append('<p class="find_result id">입력하신 정보와 일치하는 회원 정보가 없습니다.</p><p class="find_result id">다시 입력해 주십시오.</p>');
 					}else{
@@ -130,6 +131,12 @@
 			var custId = $('input[name="findpwdid"]').val();
 			var custEmail = $('input[name="findpwdemail"]').val();
 			
+			if($('#div_findpwd').css("display") == "none"){
+				$('#div_findpwd').slideToggle(100);
+			}
+			$('#div_findpwd').append('<p class="find_result pwd">정보를 찾고 있습니다. 잠시만 기다려주세요.</p>');
+			
+			
 			$.ajax({
 				url:'/findpwdimpl',
 				data:{
@@ -137,7 +144,8 @@
 					'email':custEmail
 				},
 				success: function(result){
-					
+
+					$('#div_findpwd').empty();
 					if(result == "0"){
 						$('#div_findpwd').append('<p class="find_result pwd">입력하신 정보와 일치하는 회원 정보가 없습니다.</p><p class="find_result pwd">다시 입력해 주십시오.</p>');
 					}else{
@@ -147,7 +155,6 @@
 				}
 			});
 			
-			$('#div_findpwd').slideToggle(100);
 		});
 
 		
@@ -236,7 +243,8 @@
 								</div>
 							</div>
 						</div>
-						<div id="div_gologin"> 	
+						<div id="div_gologin">
+							<a class="nav-link " href="#" data-toggle="modal" data-target="#loginModal"><span>로그인</span></a>	
 						</div>
 					</form>
 				<!-- 비밀번호찾기 End -->

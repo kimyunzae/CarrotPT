@@ -25,8 +25,8 @@ public class MailBiz {
 	
 	public String randompwd() {
 		Random random = new Random();
-		int randompwd = random.nextInt(999999) + 100000;
-		String newpwd = String.valueOf(randompwd);
+		int randompwd = random.nextInt(900000) + 100000;
+		String newpwd = Integer.toString(randompwd);
 		return newpwd;
 	}
 	
