@@ -39,6 +39,14 @@ public class TraineeVO {
 		this.addr2 = addr2;
 	}
 
+	public TraineeVO(String pwd, String email) {
+		super();
+		this.pwd = pwd;
+		this.email = email;
+	}
+	
+	
+
 
 	
 

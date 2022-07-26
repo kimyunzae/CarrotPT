@@ -54,7 +54,7 @@
 		padding-left:7.5px;
 	}
 	
-	#div_findid{
+	.div.result{
 		background-color:white;
 		text-align:center;
 		border:1px dashed #769BCD;
@@ -64,12 +64,12 @@
 		padding-right:15px;
 	}
 	
-	.find_result.id{
+	.find_result{
 		color:black;
 		margin-bottom:0.2rem;
 	}
 	
-	.find_result.id.found{
+	.find_result.found{
 		color:black;
 		font-weight:bold;
 		color:#769BCD;
@@ -96,7 +96,7 @@
 		});
 		
 		$('#btn_findid').click(function(){
-			
+			$('#div_findid').empty();
 			var custName = $('input[name="findidname"]').val();
 			
 			var custTel1 = $('select[name="mobile1"]').val();
@@ -111,7 +111,7 @@
 					'phone':custTel
 				},
 				success: function(result){
-					$('#div_findid').empty();
+					
 					$('#div_findid').slideToggle(100);
 					if(result == "0"){
 						$('#div_findid').append('<p class="find_result id">입력하신 정보와 일치하는 회원 정보가 없습니다.</p><p class="find_result id">다시 입력해 주십시오.</p>');
@@ -126,7 +126,27 @@
 		});
 		
 		$('#btn_findpwd').click(function(){
-			alert('clicked');
+			$('#div_findpwd').empty();
+			var custId = $('input[name="findpwdid"]').val();
+			var custEmail = $('input[name="findpwdemail"]').val();
+			
+			$.ajax({
+				url:'/findpwdimpl',
+				data:{
+					'id':custId,
+					'email':custEmail
+				},
+				success: function(result){
+					
+					if(result == "0"){
+						$('#div_findpwd').append('<p class="find_result pwd">입력하신 정보와 일치하는 회원 정보가 없습니다.</p><p class="find_result pwd">다시 입력해 주십시오.</p>');
+					}else{
+						$('#div_findpwd').append('<p class="find_result pwd">아래의 주소로 임시 비밀번호를 발송하였습니다.</p>'
+								+ '<p class="find_result pwd found">' + result + '</p>');
+					}
+				}
+			});
+			
 			$('#div_findpwd').slideToggle(100);
 		});
 
@@ -183,7 +203,7 @@
 							<div class="row">
 								<div class="col">
 									<button type="button" id="btn_findid" class="btn btn-primary col">확인</button>
-									<div id="div_findid" style="display:none;">
+									<div id="div_findid" class="div result" style="display:none;">
 									</div>
 								</div>
 							</div>
@@ -204,15 +224,14 @@
 			              
 			              <div class="form-group">
 								<label>이메일: </label>
-								<input type="email" class="form-control" name="findpwdid" placeholder="이메일을 입력하세요">
+								<input type="email" class="form-control" name="findpwdemail" placeholder="이메일을 입력하세요">
 			              </div>
 			              
 						<div class="form-group" id="div_formbtn">
 							<div class="row">
 								<div class="col">
 									<button type="button" id="btn_findpwd" class="btn btn-primary col">확인</button>
-									<div id="div_findpwd" style="display:none;">
-										<p>hihi</p>
+									<div id="div_findpwd" class="div result" style="display:none;">
 									</div>
 								</div>
 							</div>
