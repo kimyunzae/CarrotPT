@@ -48,7 +48,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectbynamephone" resultType="String">
 		SELECT id FROM trainee WHERE name=#{name} AND phone=#{phone}
 	</select>
-	
+<!-- id, email로 찾기 -->
+	<select id="selectbyidemail" resultType="String">
+		SELECT name from trainee
+		WHERE id=#{id} AND email=#{email}
+	</select>
 </mapper>
 
 

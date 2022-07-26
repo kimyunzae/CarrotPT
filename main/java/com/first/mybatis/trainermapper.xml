@@ -60,6 +60,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectbynamephone" resultType="String">
 		SELECT id FROM trainer WHERE name=#{name} AND phone=#{phone}
 	</select>
+<!-- id, email로 name 찾기 -->
+	<select id="selectbyidemail" resultType="String">
+		SELECT name FROM trainer
+		WHERE id=#{id} AND email=#{email}
+	</select>
 
 <!-- 검색 -->
 	<select id="search" resultType="trainerVO">

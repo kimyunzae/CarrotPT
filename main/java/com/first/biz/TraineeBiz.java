@@ -94,5 +94,17 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 		}
 		return id;
 	}
+	
+	// trainee, trainer 통합 비밀번호찾기
+	public String findpwd(String id, String email) throws Exception{
+		String result = dao.selectbyidemail(id, email);
+		if(result == null) {
+			result = trainerdao.selectbyidemail(id, email);
+		}
+		if(result == null) {
+			result = "0";
+		}
+		return result;
+	}
 
 }
