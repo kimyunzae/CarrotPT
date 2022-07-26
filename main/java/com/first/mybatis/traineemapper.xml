@@ -20,17 +20,17 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="TraineeVO">
 		SELECT * FROM trainee
 	</select>
-<!-- select: level='일반회원'만 선택-->
+<!-- level='일반회원'만 선택-->
 	<select id="selecttrainees" resultType="TraineeVO">
 		SELECT * FROM trainee
 		WHERE level='일반회원';
 	</select>
-<!-- select: level='일반회원' 데이터 개수 선택-->
+<!-- level='일반회원' 데이터 개수 선택-->
 	<select id="selectcnt" resultType="int">
 		SELECT COUNT(*) FROM trainee
 		WHERE level = '일반회원';
 	</select>
-<!-- select: 페이지, 정렬 select -->
+<!-- 페이지, 정렬 select -->
 	<select id="selectbypage" resultType="traineeVO">
 		<choose>
 			<when test="orderBy != null">
@@ -43,6 +43,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		 id, name, regdate FROM trainee
 		WHERE level = '일반회원'
 		LIMIT #{offset}, #{amount}
+	</select>
+<!-- name, phone으로 id 찾기-->
+	<select id="selectbynamephone" resultType="String">
+		SELECT id FROM trainee WHERE name=#{name} AND phone=#{phone}
 	</select>
 	
 </mapper>

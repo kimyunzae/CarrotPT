@@ -1,10 +1,239 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Find Id,Password</title>
-</head>
-<body>
+<style>
+	.ul_find{
+		text-align:center;
+		padding-right:0;
+		padding-left:0;
+		
+	}
+	
+	.li_find{
+		text-align:center;
+		padding-right:0;
+		padding-left:0;
+	}
+	
+	#ul_find .li_find .nav-link.active{
+		border-color:#769BCD #769BCD #fff;
+		color:black;
+	}
+	
+	#ul_find .li_find .nav-link:hover{
+		border-color:#769BCD #769BCD #fff;
+		font-weight:bold;
+		color:black;
+		cursor:pointer;
+	}
 
-</body>
-</html>
+	
+	.span_mobile.tel3{
+		padding-right:0;
+	}
+	
+	#div_formbtn{
+		margin-top:2rem;
+	}
+
+	#div_findresult{
+		background-color:white;
+	}
+	
+	.row.div.mobile .span_mobile{
+		vertical-align:middle;
+	}
+	
+	#div_gologin{
+		text-align:right;
+	}
+	
+	#h2_findid.mb-4{
+		margin-bottom:2rem !important;
+	}
+	
+	#maindiv{
+		padding-right:7.5px;
+		padding-left:7.5px;
+	}
+	
+	#div_findid{
+		background-color:white;
+		text-align:center;
+		border:1px dashed #769BCD;
+		padding-top:15px;
+		padding-bottom:10px;
+		padding-left:15px;
+		padding-right:15px;
+	}
+	
+	.find_result.id{
+		color:black;
+		margin-bottom:0.2rem;
+	}
+	
+	.find_result.id.found{
+		color:black;
+		font-weight:bold;
+		color:#769BCD;
+	}
+	
+	
+</style>
+<script>
+	$(function(){
+		var toshow = $('.nav-link.a_find.active').data("value");
+		$('#' + toshow).show();
+		$('form').not($('form[id="'+toshow+'"]')).hide();
+		
+		$('.nav-link.a_find').click(function(){
+			var tochange = $(this).data("value");
+			$('form').not($('form[id="'+tochange+'"]')).hide();
+			$('#' + tochange).show();
+			$(this).addClass("active");
+			$('.nav-link.a_find').not(this).removeClass("active");
+		});
+		
+		$('#btn_findid').click(function(){
+			
+			var custName = $('input[name="findidname"]').val();
+			
+			var custTel1 = $('select[name="mobile1"]').val();
+			var custTel2 = $('input[name="mobile2"]').val();
+			var custTel3 = $('input[name="mobile3"]').val();
+			var custTel = custTel1.concat("",custTel2,custTel3);
+			
+			$.ajax({
+				url:'/findidimpl',
+				data:{
+					'name':custName,
+					'phone':custTel
+				},
+				success: function(result){
+					$('#div_findid').empty();
+					$('#div_findid').slideToggle(100);
+					if(result == "0"){
+						$('#div_findid').append('<p class="find_result id">입력하신 정보와 일치하는 회원 정보가 없습니다.</p><p class="find_result id">다시 입력해 주십시오.</p>');
+					}else{
+						$('#div_findid').append('<p class="find_result id">입력하신 정보와 일치하는 아이디는 아래와 같습니다.</p>'
+								+ '<p class="find_result id found">' + result + '</p>');
+					}
+				}
+			});
+			
+			
+		});
+		
+		$('#btn_findpwd').click(function(){
+			alert('clicked');
+			$('#div_findpwd').slideToggle(100);
+		});
+
+		
+	});
+</script>
+<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<span class="subheading">FIND ID / PASSWORD</span>
+				<h2 class="mb-4" id="h2_findid">아이디/비밀번호 찾기</h2>
+			</div>
+			
+
+			<div class="container-fluid d-flex justify-content-center">
+	            <ul class="nav nav-tabs col-md-6 justify-content-center ul_find" id="ul_find">
+					<li class="nav-item col-sm li_find"><a class="nav-link a_find id active" data-value="findid">아이디 찾기</a></li>
+					<li class="nav-item col-sm li_find"><a class="nav-link a_find pwd" data-value="findpwd">비밀번호 찾기</a></li>
+				</ul>
+			</div>
+		
+		
+			<div class="col-md-6 order-md-last d-flex" id="maindiv">
+		       <!-- 아이디찾기 Start -->
+		           <form class="bg-light p-4 p-md-5 contact-form" id="findid">
+		           
+			              <div class="form-group">
+								<label>이름: </label>
+								<input type="text" class="form-control" name="findidname">
+			              </div>
+			              
+			              <div class="form-group">
+								<label>휴대폰번호: </label>
+								    <div class="row div mobile">
+								    	<span class="col-sm-3 span_mobile">
+												<select name="mobile1">
+													<option value="010">010</option>
+													<option value="011">011</option>
+													<option value="016">016</option>
+													<option value="017">017</option>
+													<option value="018">018</option>
+													<option value="019">019</option>																																																				
+												</select>
+										</span>
+										<span class="span_mobile dash">-</span>
+										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="mobile2" maxlength="4" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')"></span>
+										<span class="span_mobile dash">-</span>
+										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="mobile3" maxlength="4" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')"></span>
+								    </div>
+						</div>
+			              
+						<div class="form-group" id="div_formbtn">
+							<div class="row">
+								<div class="col">
+									<button type="button" id="btn_findid" class="btn btn-primary col">확인</button>
+									<div id="div_findid" style="display:none;">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="div_gologin">
+							<a class="nav-link " href="#" data-toggle="modal" data-target="#loginModal"><span>로그인</span></a>	
+						</div>
+					</form>
+			
+			<!-- 아이디찾기 End -->
+			<!-- 비밀번호찾기 Start -->
+		           <form class="bg-light p-4 p-md-5 contact-form" id="findpwd">
+		           
+			              <div class="form-group">
+								<label>아이디: </label>
+								<input type="text" class="form-control" name="findpwdid">
+			              </div>
+			              
+			              <div class="form-group">
+								<label>휴대폰번호: </label>
+								    <div class="row div mobile">
+								    	<span class="col-sm-3 span_mobile">
+												<select name="pwdmobile1">
+													<option value="010">010</option>
+													<option value="011">011</option>
+													<option value="016">016</option>
+													<option value="017">017</option>
+													<option value="018">018</option>
+													<option value="019">019</option>																																																				
+												</select>
+										</span>
+										<span class="span_mobile dash">-</span>
+										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="pwdmobile2"></span>
+										<span class="span_mobile dash">-</span>
+										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="pwdmobile3"></span>
+								    </div>
+						</div>
+			              
+						<div class="form-group" id="div_formbtn">
+							<div class="row">
+								<div class="col">
+									<button type="button" id="btn_findpwd" class="btn btn-primary col">확인</button>
+									<div id="div_findpwd" style="display:none;">
+										<p>hihi</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="div_gologin">
+							<a class="nav-link " href="#" data-toggle="modal" data-target="#loginModal"><span>로그인</span></a>  	
+						</div>
+					</form>
+				<!-- 비밀번호찾기 End -->
+			</div>
+		</div>
+	</div>
+</section>

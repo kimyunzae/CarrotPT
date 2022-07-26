@@ -34,7 +34,7 @@
 <script>
 	$(function(){
 		$('#trainerAlarm').click(function(){
-			$('#a_trainers').attr('href', "/admin/trainers?pageNo=1&orderBy=num%20desc&status=대기중");
+			$('#a_trainers').attr('href', "/admin/trainers?status=대기중");
 		});
 	});
 </script>
@@ -54,8 +54,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link px-2" id="a_trainers" th:href="@{/admin/trainers}"
-								target="__blank">
+							<a class="nav-link px-2" id="a_trainers" th:href="@{/admin/trainers}">
 									<i class="fa fa-fw fa-id-card mr-1"></i>
 									<span class="adminlist">트레이너</span>
 									<span class="span-alarm" id="trainerAlarm" th:if="${newAlarmCnt.newtrainer > 0}" th:text="${newAlarmCnt.newtrainer}"></span>
@@ -64,15 +63,21 @@
 						<li class="nav-item">
 							<a class="nav-link px-2" id="a_reports"
 								href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-								target="__blank"><i class="fa-fw far fa-angry mr-1"></i>
-								<span class="adminlist">신고내역</span>
-								<span class="span-alarm" id="reportAlarm" th:if="${newAlarmCnt.newreport > 0}" th:text="${newAlarmCnt.newreport}"></span>
+								target="__blank">
+									<i class="fa-fw far fa-angry mr-1"></i>
+									<span class="adminlist">신고내역</span>
+									<span class="span-alarm" id="reportAlarm" th:if="${newAlarmCnt.newreport > 0}" th:text="${newAlarmCnt.newreport}"></span>
 							</a>
 							
 						</li>
-						<li class="nav-item"><a class="nav-link px-2"
-							href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-							target="__blank"><i class="fa-fw fas fa-assistive-listening-systems mr-1"></i><span class="adminlist">상담신청</span></a></li>
+						<li class="nav-item">
+							<a class="nav-link px-2"
+								href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
+								target="__blank">
+									<i class="fa fa-fw fa-assistive-listening-systems mr-1"></i>
+									<span class="adminlist">상담신청</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>
