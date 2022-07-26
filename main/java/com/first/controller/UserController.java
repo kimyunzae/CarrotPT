@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.first.biz.MailBiz;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.TraineeVO;
@@ -25,6 +26,9 @@ public class UserController {
 
 	@Autowired
 	TrainerBiz trainerbiz;
+	
+	@Autowired
+	MailBiz mailbiz;
 	
 	@RequestMapping("/login")
 	public String login(Model m, String msg) {
@@ -131,6 +135,23 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return id;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findpwdimpl")
+	public String findpwdimpl(String id, String email) {
+		String recipient = null;
+		try {
+			recipient = traineebiz.findpwd(id, email);
+			if(recipient != "0") {
+				String newpwd = mailbiz.randompwd();
+				mailbiz.sendmail(recipient, newpwd);
+				traineebiz.updatepwd(email, newpwd);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipient;
 	}
 
 //	@RequestMapping("join/trianeejoin")

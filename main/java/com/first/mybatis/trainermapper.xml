@@ -15,6 +15,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectbyemail" resultType="trainerVO">
 		SELECT * FROM trainer WHERE email=#{email}
 	</select>
+<!-- email로 email 선택-->
+	<select id="selectemailbyemail" resultType="String">
+		SELECT email FROM trainer WHERE email=#{email}
+	</select>
 
 <!-- status가 '수락'인 트레이너 목록-->
 	<select id="selectauthorized" resultType="trainerVO">
@@ -121,10 +125,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE id=#{id}
 	</update>
 	
-	<!-- 트레이너 password -->
-	<update id="updatePassword" parameterType="trainerVO">
-		UPDATE trainer SET pwd=#{pwd} WHERE id=#{id}
-		
+
+	
+	<!-- 비밀번호 -->
+	<update id="updatepwd" parameterType="trainerVO">
+		UPDATE trainer SET PWD=#{pwd} WHERE email=#{id};
+
 	</update>
 	
 	<delete id="delete" parameterType="String">

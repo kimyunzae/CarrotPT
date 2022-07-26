@@ -14,7 +14,8 @@ class MailSendMailTest {
 	
 	@Test
 	void contextLoads() {
-		String recipient = null;
-		biz.sendmail(recipient);
+		String pwd = biz.randompwd();
+		String recipient = "teamcarrotpt@gmail.com";
+		biz.sendmail(recipient, pwd);
 	}
 }

@@ -175,12 +175,6 @@ public class TrainerVO {
 		this.gym_addr2 = gym_addr2;
 	}
 	
-	// 마이페이지 계정: 트레이너 패스워드 업데이트
-	public TrainerVO(String id, String pwd) {
-		super();
-		this.id = id;
-		this.pwd = pwd;
-	}
 	
 	
 	// for UPDATE: status, status_detail 개별 수정
@@ -191,9 +185,15 @@ public class TrainerVO {
 		this.status_detail = status_detail;
 	}
 
-
-
 	
+	// for UPDATE
+	public TrainerVO(String pwd, String id) {
+		super();
+		this.pwd = pwd;
+		this.id = id;
+	}
+	
+
 	
 	
 

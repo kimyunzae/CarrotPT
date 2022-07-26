@@ -26,6 +26,7 @@ public interface TrainerMapper{
 	public List<TrainerVO> search(String loc, String major) throws Exception;
 	public String selectbynamephone(String name, String phone) throws Exception;
 	public String selectbyidemail(String id, String email) throws Exception;
+	public String selectemailbyemail(String email) throws Exception;
 	
 	public List<MajorVO> selectmajor() throws Exception;
 	public List<StatusVO> selectstatus() throws Exception;
@@ -35,5 +36,7 @@ public interface TrainerMapper{
 	public void updateProfile(TrainerVO obj) throws Exception;
 	public void updateAccount(TrainerVO obj) throws Exception;
 	
-	public void updatePassword(TrainerVO obj) throws Exception;
+
+	public void updatepwd(TrainerVO obj) throws Exception;
+
 }
