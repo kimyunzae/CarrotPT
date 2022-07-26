@@ -35,5 +35,5 @@ public interface TrainerMapper{
 	public void updateProfile(TrainerVO obj) throws Exception;
 	public void updateAccount(TrainerVO obj) throws Exception;
 	
-	public void updateProfile1(TrainerVO obj) throws Exception;
+	public void updatePassword(TrainerVO obj) throws Exception;
 }

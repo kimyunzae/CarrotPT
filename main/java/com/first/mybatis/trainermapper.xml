@@ -116,10 +116,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 트레이너 account -->
 	<update id="updateAccount" parameterType="trainerVO">
-		UPDATE trainer SET name=#{name},
-		pwd=#{pwd},phone=#{phone},email=#{email},major=#{major},
+		UPDATE trainer SET name=#{name},phone=#{phone},email=#{email},major=#{major},
 		gym_name=#{gym_name},gym_zip=#{gym_zip},gym_addr1=#{gym_addr1},gym_addr2=#{gym_addr2}
 		WHERE id=#{id}
+	</update>
+	
+	<!-- 트레이너 password -->
+	<update id="updatePassword" parameterType="trainerVO">
+		UPDATE trainer SET pwd=#{pwd} WHERE id=#{id}
+		
 	</update>
 	
 	<delete id="delete" parameterType="String">

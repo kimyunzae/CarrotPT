@@ -161,11 +161,10 @@ public class TrainerVO {
 	}
 	
 	// 마이페이지 계정: 트레이너 계정정보 업데이트
-	public TrainerVO(String id, String pwd, String name, String phone, String email, String major,
+	public TrainerVO(String id, String name, String phone, String email, String major,
 			String gym_name, String gym_zip, String gym_addr1, String gym_addr2) {
 		super();
 		this.id = id;
-		this.pwd = pwd;
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
@@ -176,8 +175,14 @@ public class TrainerVO {
 		this.gym_addr2 = gym_addr2;
 	}
 	
+	// 마이페이지 계정: 트레이너 패스워드 업데이트
+	public TrainerVO(String id, String pwd) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+	}
 	
-
+	
 	// for UPDATE: status, status_detail 개별 수정
 	public TrainerVO(String id, String status, String status_detail) {
 		super();
@@ -185,7 +190,8 @@ public class TrainerVO {
 		this.status = status;
 		this.status_detail = status_detail;
 	}
-	
+
+
 
 	
 	

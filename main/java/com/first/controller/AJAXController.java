@@ -1,5 +1,7 @@
 package com.first.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,48 +25,48 @@ public class AJAXController {
 	public String checkid(String id) {
 		String result = "";
 		TraineeVO ie = null;
-		
+
 		if (id.equals("")) {
 			return "1";
 		}
 
 		try {
 			ie = traineebiz.get(id);
-			if(ie == null) {
+			if (ie == null) {
 				result = "0";
-			}else {
+			} else {
 				result = "1";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
-	
+
 	@RequestMapping("checkemail")
 	public String checkemail(String email) {
 		String result = "";
 		TraineeVO ie = null;
-		
+
 		if (email.equals("")) {
 			return "1";
 		}
 
 		try {
 			ie = traineebiz.get(email);
-			if(ie == null) {
+			if (ie == null) {
 				result = "0";
-			}else {
+			} else {
 				result = "1";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
-	
+
 //	@RequestMapping("checkpwd")
 //	public String checkpwd(String pwd) {
 //		String result = "";
@@ -87,7 +89,7 @@ public class AJAXController {
 //		
 //		return result;
 //	}
-	
+
 //	회원가입 성공 시 joinok page 띄우기
 //	@RequestMapping("/join_formimpl")
 //	public String join_formimpl(Model m,String id, String pwd) {
@@ -97,7 +99,6 @@ public class AJAXController {
 //		return "main";	
 //	}
 
-	
 // ====================================== 트레이너 회원가입 ===========================================
 	@RequestMapping("checktid")
 	public String checktid(String id) {
@@ -120,7 +121,7 @@ public class AJAXController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping("checklogin")
 	public String checklogin(String id, String pwd) {
 		String result = "";
@@ -129,24 +130,24 @@ public class AJAXController {
 		try {
 			tner = trainerbiz.get(id);
 			tnee = traineebiz.get(id);
-			
+
 			// 1) 아이디 존재하지 않음
-			if(tner == null && tnee == null) {
+			if (tner == null && tnee == null) {
 				result = "none";
 				// 2) trainer ID 존재
-			}else if(tner != null && tnee == null) {
-				if(tner.getPwd().equals(pwd)) {
-					result = "success";			
-				}else {
+			} else if (tner != null && tnee == null) {
+				if (tner.getPwd().equals(pwd)) {
+					result = "success";
+				} else {
 					// trainer ID 비밀번호 불일치
 					result = "fail";
 				}
 				// 3) trainee ID 존재
-			}else if(tner == null && tnee != null) {
-				if(tnee.getPwd().equals(pwd)) {
+			} else if (tner == null && tnee != null) {
+				if (tnee.getPwd().equals(pwd)) {
 					result = "success";
-		
-				}else {
+
+				} else {
 					// trainee ID 비밀번호 불일치
 					result = "fail";
 				}
@@ -154,10 +155,10 @@ public class AJAXController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
-		return result;	
+
+		return result;
 	}
-	
+
 	@RequestMapping("checktemail")
 	public String checktemail(String email) {
 		String result = "";
@@ -180,6 +181,39 @@ public class AJAXController {
 		return result;
 	}
 
+	// 트레이너 마이페이지: 비밀번호 변경
+//	@RequestMapping("checkpwdchange")
+//	public String checkpwdchange(String dpwd, String pwd, String cpwd, HttpSession session) {
+//		String result = "";
+//
+//		try {
+//			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
+//			trainer.getPwd();
+//
+//			// 1) dpwd를 입력하지않은 경우
+//			if (dpwd == null) {
+//				result = "none";
+//			}
+//			// 2) dpwd가 맞는 경우
+//			else if (dpwd == trainer.getPwd()) {
+//				if (pwd == dpwd) {
+//					result = "same";
+//				} else if (pwd != dpwd && pwd == cpwd) {
+//					result = "success";
+//				} else {
+//					result = "fail";
+//				}
+//			} 
+//			
+//			else {
+//				result = "fail";
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(result);
+//		return result;
+//	}
 
 }
-

@@ -1,4 +1,7 @@
 <style>
+#btn_saveaccount:disabled:hover {
+	cursor: auto;
+}
 </style>
 
 
@@ -50,6 +53,28 @@
 	}
 
 	$(document).ready(function() {
+		$('#form_account input').attr('disabled', 'disabled');
+		$('#btn_saveaccount').attr('disabled', 'disabled');
+
+		$('#edit_activate').click(function() {
+			$('#edit_activate').attr('disabled', 'disabled');
+			$('#form_account input').removeAttr('disabled', 'disabled');
+			$('#btn_saveaccount').removeAttr('disabled', 'disabled');
+
+		});
+
+		/* $('.pwd-change-form input[name="pwd"]').keyup(function() {
+			var dpwd = $('.pwd-change-form input[name="dpwd"]').val();
+			var cpwd = $('.pwd-change-form input[name="cpwd"]').val();
+			
+			if (dpwd == pwd) {
+				$('#scpwd').text('일치 합니다.');				
+			}
+			else {
+				$('#scpwd').text('일치하지 않습니다.');		
+				$('#btn_saveaccount').removeAttr('disabled');
+			}
+		}); */
 
 		$("#btn_saveaccount").click(function() {
 			$("#form_account").attr({
@@ -58,7 +83,7 @@
 			});
 			$("#form_account").submit();
 			alert('재로그인 후 업데이트가 완료됩니다.');
-		
+
 		});
 	});
 </script>
@@ -93,7 +118,6 @@
 									placeholder="user@example.com">
 							</div>
 						</div>
-
 						<div class="col">
 							<div class="form-group">
 								<label>운동종목</label> <select class="form-control" name="major"
@@ -107,8 +131,8 @@
 								</select>
 							</div>
 						</div>
-
 					</div>
+			
 				</div>
 			</div>
 		</div>
@@ -160,40 +184,22 @@
 				<div class="row">
 					<div class="col">
 						<div class="form-group">
-							<label>아이디</label> <input class="form-control" readonly
-								type="ID" th:value="${trainer.id}" name="id">
+							<label>아이디</label> <input class="form-control" readonly type="ID"
+								th:value="${trainer.id}" name="id">
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
 						<div class="form-group">
-							<label>현재 비밀번호</label> <input class="form-control"
-								type="password" th:value="${trainer.pwd}">
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="form-group">
-							<label>새 비밀번호</label> <input class="form-control" type="password"
-								name="pwd">
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="form-group">
-							<label>새 비밀번호 확인 <span class="d-none d-xl-inline"></span></label>
-							<input class="form-control" type="password" name="cpwd">
+							<a href="changepwd">비밀번호 변경</a>
 						</div>
 					</div>
 				</div>
 
+
 				<div class="col d-flex justify-content-end mt-5">
-				<button class="btn btn-primary mr-3" id="" type="submit">계정정보 편집</button>
+					<button class="btn btn-primary mr-3" id="edit_activate">계정정보
+						편집</button>
 					<button class="btn btn-primary" id="btn_saveaccount">변경내용
 						저장</button>
+				
 				</div>
 			</div>
 
