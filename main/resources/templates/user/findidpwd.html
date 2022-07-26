@@ -75,17 +75,21 @@
 		color:#769BCD;
 	}
 	
+	#loginModal .login-form .loginform{
+		display:block;
+	}
+	
 	
 </style>
 <script>
 	$(function(){
 		var toshow = $('.nav-link.a_find.active').data("value");
 		$('#' + toshow).show();
-		$('form').not($('form[id="'+toshow+'"]')).hide();
+		$('.choose').not($('form[id="'+toshow+'"]')).hide();
 		
 		$('.nav-link.a_find').click(function(){
 			var tochange = $(this).data("value");
-			$('form').not($('form[id="'+tochange+'"]')).hide();
+			$('.choose').not($('form[id="'+tochange+'"]')).hide();
 			$('#' + tochange).show();
 			$(this).addClass("active");
 			$('.nav-link.a_find').not(this).removeClass("active");
@@ -148,7 +152,7 @@
 		
 			<div class="col-md-6 order-md-last d-flex" id="maindiv">
 		       <!-- 아이디찾기 Start -->
-		           <form class="bg-light p-4 p-md-5 contact-form" id="findid">
+		           <form class="bg-light p-4 p-md-5 contact-form choose" id="findid">
 		           
 			              <div class="form-group">
 								<label>이름: </label>
@@ -191,32 +195,17 @@
 			
 			<!-- 아이디찾기 End -->
 			<!-- 비밀번호찾기 Start -->
-		           <form class="bg-light p-4 p-md-5 contact-form" id="findpwd">
+		           <form class="bg-light p-4 p-md-5 contact-form choose" id="findpwd">
 		           
 			              <div class="form-group">
 								<label>아이디: </label>
-								<input type="text" class="form-control" name="findpwdid">
+								<input type="text" class="form-control" name="findpwdid" placeholder="아이디를 입력하세요">
 			              </div>
 			              
 			              <div class="form-group">
-								<label>휴대폰번호: </label>
-								    <div class="row div mobile">
-								    	<span class="col-sm-3 span_mobile">
-												<select name="pwdmobile1">
-													<option value="010">010</option>
-													<option value="011">011</option>
-													<option value="016">016</option>
-													<option value="017">017</option>
-													<option value="018">018</option>
-													<option value="019">019</option>																																																				
-												</select>
-										</span>
-										<span class="span_mobile dash">-</span>
-										<span class="col-sm-4 span_mobile"><input type="tel" class="form-control" name="pwdmobile2"></span>
-										<span class="span_mobile dash">-</span>
-										<span class="col-sm-4 span_mobile tel3"><input type="tel" class="form-control" name="pwdmobile3"></span>
-								    </div>
-						</div>
+								<label>이메일: </label>
+								<input type="email" class="form-control" name="findpwdid" placeholder="이메일을 입력하세요">
+			              </div>
 			              
 						<div class="form-group" id="div_formbtn">
 							<div class="row">
@@ -228,8 +217,7 @@
 								</div>
 							</div>
 						</div>
-						<div id="div_gologin">
-							<a class="nav-link " href="#" data-toggle="modal" data-target="#loginModal"><span>로그인</span></a>  	
+						<div id="div_gologin"> 	
 						</div>
 					</form>
 				<!-- 비밀번호찾기 End -->

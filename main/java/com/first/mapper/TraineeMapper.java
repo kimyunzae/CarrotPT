@@ -19,6 +19,7 @@ public interface TraineeMapper {
 	
 	public TraineeVO selectbyemail(String k);
 	public String selectbynamephone(String name, String phone) throws Exception;
+	public String selectbyidemail(String id, String email) throws Exception;
 
 	public List<TraineeVO> selecttrainees() throws Exception;
 	public int selectcnt() throws Exception;
