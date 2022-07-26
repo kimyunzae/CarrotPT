@@ -92,10 +92,6 @@ a:hover {
 	padding: 10px;
 }
 
-.modal-backdrop {
-	background-color: #64B5F6;
-}
-
 .line {
 	background-color: #CFD8DC;
 	height: 1px;
@@ -108,83 +104,31 @@ a:hover {
 	}
 }
 
-/* 멀티스텝 Style */
-* {
-	box-sizing: border-box;
-}
-
-body {
-	background-color: #f1f1f1;
-}
-
-#regForm {
-	background-color: #ffffff;
-	margin: 100px auto;
-	font-family: Raleway;
-	padding: 40px;
-	width: 70%;
-	min-width: 300px;
-}
-
-h1 {
-	text-align: center;
-}
-
-input {
-	padding: 10px;
-	width: 100%;
-	font-size: 17px;
-	font-family: Raleway;
-	border: 1px solid #aaaaaa;
-}
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-	background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
-.tab {
-	display: none;
-}
-
-button {
-	background-color: #769BCD;
-	color: #ffffff;
-	border: none;
-	padding: 10px 20px;
-	font-size: 17px;
-	font-family: Raleway;
-	cursor: pointer;
-}
-
-button:hover {
-	opacity: 0.8;
-}
-
-#prevBtn {
-	background-color: #bbbbbb;
-}
-
-/* Make circles that indicate the steps of the form: */
-.step {
-	height: 15px;
-	width: 15px;
-	margin: 0 2px;
-	background-color: #bbbbbb;
-	border: none;
-	border-radius: 50%;
+/* next previous button Style */
+a {
+	text-decoration: none;
 	display: inline-block;
-	opacity: 0.5;
+	padding: 8px 16px;
 }
 
-.step.active {
-	opacity: 1;
+a:hover {
+	background-color: #ddd;
+	color: black;
 }
 
-/* Mark the steps that are finished and valid: */
-.step.finish {
-	background-color: #04AA6D;
+.previous {
+	background-color: #f1f1f1;
+	color: black;
+}
+
+.next {
+	background-color: #769BCD;
+	color: white;
+	float: right;
+}
+
+.round {
+	border-radius: 50%;
 }
 </style>
 
@@ -430,18 +374,17 @@ sel1=document.form1.county1
 
 
 /* 모달에서 직접입력시 텍스트창 활성화*/
-	$('.radio-value').on('click', function() {
-
-		var valueCheck = $('.radio-value:checked').val();
-
-		if (valueCheck == 'etc') {
-			$('.radio-value-detail').attr('disabled', false); 
-			$('.radio-value-detail').focus(); 
-		} else {
-			$('.radio-value-detail').val(''); 
-			$('.radio-value-detail').attr('disabled', true); 
-		}
+	$(document).ready(function() {
+		$("input:radio[name=optradio22]").click(function() {
+			if ($("input[name=optradio22]:checked").val() == "etc") {
+				$("input:text[name=optradio228]").attr("disabled", false);
+			} else if ($("input[name=optradio22]:checked").val() == "0") {
+				$("input:text[name=optradio228]").attr("disabled", true);
+			}
+		});
 	});
+
+	
 	
 	/* 모달 jquery */
 	$(document).ready(function(){
@@ -482,79 +425,6 @@ function myModalClose() {
 	$('#myModal2').modal('hide');
 }	
 
-/* 모달 내 멀티 스텝 */
-var currentTab = 0; 
-showTab(currentTab); 
-
-function showTab(n) {
-
-  var x = document.getElementsByClassName("tab");
-  x[n].style.display = "block";
-
-  if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-  } else {
-    document.getElementById("prevBtn").style.display = "inline";
-  }
-  if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
-  } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
-  }
-  
-  fixStepIndicator(n)
-}
-
-function nextPrev(n) {
-
-  var x = document.getElementsByClassName("tab");
-  
-  if (n == 1 && !validateForm()) return false;
- 
-  x[currentTab].style.display = "none";
- 
-  currentTab = currentTab + n;
-
-  if (currentTab >= x.length) {
-   
-    document.getElementById("regForm").submit();
-    return false;
-  }
-
-  showTab(currentTab);
-}
-
-function validateForm() {
- 
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
-
-  for (i = 0; i < y.length; i++) {
-    
-    if (y[i].value == "") {
-    
-      y[i].className += " invalid";
-      
-      valid = false;
-    }
-  }
- 
-  if (valid) {
-    document.getElementsByClassName("step")[currentTab].className += " finish";
-  }
-  return valid; 
-}
-
-function fixStepIndicator(n) {
- 
-  var i, x = document.getElementsByClassName("step");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" active", "");
-  }
-
-  x[n].className += " active";
-}
 </script>
 <section class="ftco-section">
 
@@ -591,11 +461,10 @@ function fixStepIndicator(n) {
 							<div class="tabs" id="tab04">
 								<h6 class="text-muted">4</h6>
 							</div>
-
 						</div>
 						<div class="line"></div>
 						<div class="modal-body p-0">
-							<fieldset class="show" id="tab011">
+							<fieldset class="show" id="tab011" name="tab011">
 								<div class="bg-light">
 									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
 									<div class="form-group pb-2 px-3">
@@ -616,7 +485,6 @@ function fixStepIndicator(n) {
 												class="custom-control-label" for="option123">응답하기 싫음</label>
 										</div>
 									</div>
-									<!-- <div class="px-3"> -->
 									<div class="form-group pb-2 px-3">
 										<h5>1-2. 고객님의 연령대는 어떻게 되나요?</h5>
 										<div class="custom-control custom-radio">
@@ -650,21 +518,12 @@ function fixStepIndicator(n) {
 												class="custom-control-label" for="option116">60대 이상</label>
 										</div>
 									</div>
-									<!-- </div> -->
-									<div class="modal-footer">
-										<!-- <button type="button" id="tab2_btn" class="btn btn-default">->2</button> -->
-										<div style="overflow: auto;">
-											<div style="float: right;">
-												<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-												<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-											</div>
-										</div>
-									</div>
 								</div>
+								<a href="#tab021" class="next round">&#8250;</a>
 							</fieldset>
-							
 
-							<fieldset id="tab021">
+
+							<fieldset id="tab021" name="tab021">
 								<div class="bg-light">
 									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
 									<form>
@@ -692,92 +551,54 @@ function fixStepIndicator(n) {
 													class="custom-control-label" for="option214">자격증 또는
 													대회</label>
 											</div>
-											<!-- </div> -->
 										</div>
 									</form>
 								</div>
-								<!-- <div class="px-3"> -->
-
 								<div class="form-group pb-2 px-3">
 									<h5>2-2. 하고 싶은 운동을 말씀해주세요</h5>
 									<form name="selex" action="./example.html">
 										<div class="custom-control custom-radio">
 											<input class="custom-control-input" id="option221"
-												type="radio" value="보디빌딩" name="optradio22"> <label
+												type="radio" value="0" name="optradio22"> <label
 												class="custom-control-label" for="option221">보디빌딩</label>
 										</div>
 										<div class="custom-control custom-radio">
 											<input class="custom-control-input" id="option222"
-												type="radio" value="파워리프팅" name="optradio22"> <label
+												type="radio" value="0" name="optradio22"> <label
 												class="custom-control-label" for="option222">파워리프팅</label>
 										</div>
 										<div class="custom-control custom-radio">
 											<input class="custom-control-input" id="option223"
-												type="radio" value="필라테스" name="optradio22"> <label
+												type="radio" value="0" name="optradio22"> <label
 												class="custom-control-label" for="option223">필라테스</label>
 										</div>
 										<div class="custom-control custom-radio">
 											<input class="custom-control-input" id="option224"
-												type="radio" value="크로스핏" name="optradio22"> <label
+												type="radio" value="0" name="optradio22"> <label
 												class="custom-control-label" for="option224">크로스핏</label>
 										</div>
 										<div class="custom-control custom-radio">
 											<input class="custom-control-input" id="option225"
-												type="radio" value="요가" name="optradio22"> <label
+												type="radio" value="0" name="optradio22"> <label
 												class="custom-control-label" for="option225">요가</label>
 										</div>
 										<div class="custom-control custom-radio">
 											<input class="custom-control-input" id="option226"
 												type="radio" value="etc" name="optradio22"> <label
-												class="custom-control-label" for="option226">직접입력:</label>
-											<input  type="text" class="form-control"
-													id="option226" placeholder="배우고 싶은 운동을 입력해주세요" value="" />	
-										
-										<!-- <span class="form-control pb-5 px-3 row justify-content-center"> 
-												<input class="form-control" type="text"
-													id="option226" placeholder="배우고 싶은 운동을 입력해주세요" value="" />
-										</span> -->
-										</div>
-										<!-- <label class="radio-value"><input type="radio"
-												name="optradio" class="radio-value" value="파워리프팅">파워리프팅</label><br>
-											<label class="radio-value"><input type="radio"
-												name="optradio" class="radio-value" value="필라테스">필라테스</label><br>
-											<label class="radio-value"><input type="radio"
-												name="optradio" class="radio-value" value="크로스핏">크로스핏</label><br>
-											<label class="radio-value"><input type="radio"
-												name="optradio" class="radio-value" value="요가">요가</label><br>
-											<label class="radio-value"> <input type="radio"
-												name="optradio" class="radio-value" value="etc">직접입력:
-											</label> <input type="text" class="radio-value-detail"
-												placeholder="배우고 싶은 운동을 입력해주세요" value="" /><br> -->
-									</form>
+												class="custom-control-label" for="option226">직접입력:</label> <input
+												type="text" class="form-control" id="option228"
+												style="width: 300px;" placeholder="배우고 싶은 운동을 입력해주세요"
+												name="optradio228" value="" />
 
-								</div>
-								<!-- </div> -->
-								<div class="modal-footer">
-									<!-- <button type="button" id="tab3_btn" class="btn btn-default">->3</button> -->
-									<div style="overflow: auto;">
-										<div style="float: right;">
-											<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-											<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
 										</div>
-									</div>
+									</form>
 								</div>
-								
+								<a href="#tab011" class="previous round">&#8249;</a> <a
+									href="#tab031" class="next round">&#8250;</a>
 							</fieldset>
-							<fieldset id="tab031">
+							<fieldset id="tab031" name="tab031">
 								<div class="bg-light">
 									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
-
-									<!-- 	<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
-									<form>
-										<div class="form-group pb-2 px-3">
-
-											<h4 class="px-3">4-1.원하는 트레이너의 성별이 있나요?</h4> -->
-
-
-
-
 									<div class="form-group pb-2 px-3">
 										<h5>3-1. 평소에 운동을 얼마나 하시나요?</h5>
 										<div class="custom-control custom-radio">
@@ -842,19 +663,11 @@ function fixStepIndicator(n) {
 										</form>
 									</div>
 								</div>
-
-								<div class="modal-footer">
-									<!-- <button type="button" id="tab3_btn" class="btn btn-default">->4</button> -->
-									<div style="overflow: auto;">
-										<div style="float: right;">
-											<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-											<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-										</div>
-									</div>
-								</div>
+								<a href="#tab021" class="previous round">&#8249;</a> <a
+									href="#tab041" class="next round">&#8250;</a>
 								<!-- </div> -->
 							</fieldset>
-							<fieldset id="tab041">
+							<fieldset id="tab041" name="tab041">
 								<div class="bg-light">
 									<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
 									<form>
@@ -880,23 +693,34 @@ function fixStepIndicator(n) {
 										</div>
 										<div class="form-group px-3 pb-2">
 											<label class="form-control-label">
-												<h5>4-2.원하는 트레이닝 스타일이 있나요?</h5>
+												<h5>4-2.원하는 트레이닝 스타일(강도)이 있나요?</h5>
 											</label>
 											<div class="custom-control custom-radio">
 												<input class="custom-control-input" id="option421"
 													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option421">호랑이</label>
+													class="custom-control-label" for="option421">저강도</label>
 											</div>
 											<div class="custom-control custom-radio">
 												<input class="custom-control-input" id="option422"
 													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option422">토끼</label>
+													class="custom-control-label" for="option422">중저강도</label>
 											</div>
 											<div class="custom-control custom-radio">
 												<input class="custom-control-input" id="option423"
 													type="radio" value="" name="optradio42"> <label
-													class="custom-control-label" for="option423">상관 없음</label>
+													class="custom-control-label" for="option423">중강도</label>
 											</div>
+											<div class="custom-control custom-radio">
+												<input class="custom-control-input" id="option424"
+													type="radio" value="" name="optradio42"> <label
+													class="custom-control-label" for="option424">중고강도</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input class="custom-control-input" id="option425"
+													type="radio" value="" name="optradio42"> <label
+													class="custom-control-label" for="option425">고강도</label>
+											</div>
+										</div>
 									</form>
 								</div>
 								<div class="px-3">
@@ -904,191 +728,184 @@ function fixStepIndicator(n) {
 										<button type="button" class="btn btn-primary px-3"
 											data-toggle="modal" href="#myModal2">찾기</button>
 									</div>
-									<h6 class="pt-3 pb-3 mb-4 border-bottom">
-										<span class="fa fa-rocket"></span> 당신 근처의 PersonalTrainer
-									</h6>
 								</div>
+								<a href="#tab031" class="previous round">&#8249;</a>
 							</fieldset>
 						</div>
 						<div class="modal-footer">
-							<!-- <div style="overflow: auto;">
-								<div style="float: right;">
-									<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-									<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-								</div>
-							</div> -->
-							<!-- Circles which indicates the steps of the form: -->
-							<!-- <div style="text-align: center; margin-top: 40px;">
-								<span class="step"></span> <span class="step"></span> <span
-									class="step"></span> <span class="step"></span>
-							</div> -->
-
+							<h6 class="pt-3 pb-3 mb-4 border-bottom">
+								<span class="fa fa-rocket"></span> 당신 근처의 PersonalTrainer
+							</h6>
 						</div>
-						<div class="line"></div>
-						<div
-							class="modal-footer d-flex flex-column justify-content-center border-0">
 
-							<!--Second Modal  -->
-							<div class="modal" id="myModal2" aria-hidden="true"
-								style="display: none; z-index: 1060;">
-								<div class="modal-dialog modal-lg">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title">이 트레이너는 어떠신가요?</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">×</button>
-										</div>
-										<div class="container"></div>
+						<!--Second Modal  -->
+						<div class="modal" id="myModal2" aria-hidden="true"
+							style="display: none; z-index: 1060;">
+							<div class="w3-modal-content w3-animate-zoom">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">이 트레이너는 어떠신가요?</h4>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">×</button>
+									</div>
+									<div class="container">
 										<div class="modal-body">
-											잘가르치는 트레이너!
-											<!--           <a data-toggle="modal" href="#myModal3" class="btn btn-primary">Launch modal</a> -->
+											<div class="col-6">
+												<img src="/images/about-us.jpg"
+													style="height: 500px; width: 400px;"> 잘가르치는 트레이너!
+											</div>
+											<div class="col-6">김한빈</div>
 										</div>
 										<div class="modal-footer">
-											<a href="#" data-dismiss="modal" class="btn">다시 찾기</a> <a
-												href="javascript:myModalClose();" class="btn btn-primary">닫기</a>
+											<!-- <a href="#myModal2" class="btn">다시 찾기</a>  -->
+											<a href="javascript:myModalClose();" class="btn btn-primary">닫기</a>
+										<!-- 	<button type="button" class="close2" data-dismiss="modal" aria-hidden="true">닫기</button>
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">닫기</button> -->
 										</div>
 									</div>
 								</div>
 							</div>
-
-
+							
+							
+							
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
 
-	<div class="container">
-		<div class="row">
-			<!-- Left Start -->
-			<div class="col-lg-9 pr-lg-4">
-				<div class="row" id="div_trainer_row">
-					<div id="div_trainer_replace"
-						th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
-					</div>
-
-					<!-- Single Trainer Start -->
-
-					<!-- Single Trainer End -->
-				</div>
-				<!-- Page Number Start -->
-				<div class="row mt-5">
-					<div class="col text-center">
-						<div class="block-27">
-							<ul id="pages">
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- Page Number End -->
-			</div>
-			<!-- Left End -->
-			<!-- Right Start -->
-
-			<div class="col-lg-3 p-4 bg-light">
-
-				<div class="search-wrap-1 ftco-animate">
-					<h2 class="mb-3">Find Places</h2>
-					<form action="#" class="search-property-1">
-						<div class="row">
-							<div class="col-lg-12 align-items-end mb-3">
-								<div class="form-group">
-									<label for="#">정렬</label>
-									<div class="form-field">
-										<div class="icon">
-											<span class="ion-ios-search"></span>
-										</div>
-										<form id="form_order">
-											<select name="orderBy" id="select_order" class="form-control">
-												<option value="num desc">최신 등록순</option>
-												<option>리뷰 많은순</option>
-												<option value="name">이름순</option>
-											</select> <input type="hidden" name="pageNo">
-										</form>
-									</div>
-								</div>
+			<div class="container">
+				<div class="row">
+					<!-- Left Start -->
+					<div class="col-lg-9 pr-lg-4">
+						<div class="row" id="div_trainer_row">
+							<div id="div_trainer_replace"
+								th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
 							</div>
 
-							<div class="col-lg-12 align-items-end mb-3">
-								<div class="form-group">
-									<label for="#">지역별 검색</label>
-									<div class="form-field">
-										<div class="icon">
-											<span class="ion-ios-search"></span>
+							<!-- Single Trainer Start -->
+
+							<!-- Single Trainer End -->
+						</div>
+						<!-- Page Number Start -->
+						<div class="row mt-5">
+							<div class="col text-center">
+								<div class="block-27">
+									<ul id="pages">
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- Page Number End -->
+					</div>
+					<!-- Left End -->
+					<!-- Right Start -->
+
+					<div class="col-lg-3 p-4 bg-light">
+
+						<div class="search-wrap-1 ftco-animate">
+							<h2 class="mb-3">Find Places</h2>
+							<form action="#" class="search-property-1">
+								<div class="row">
+									<div class="col-lg-12 align-items-end mb-3">
+										<div class="form-group">
+											<label for="#">정렬</label>
+											<div class="form-field">
+												<div class="icon">
+													<span class="ion-ios-search"></span>
+												</div>
+												<form id="form_order">
+													<select name="orderBy" id="select_order"
+														class="form-control">
+														<option value="num desc">최신 등록순</option>
+														<option>리뷰 많은순</option>
+														<option value="name">이름순</option>
+													</select> <input type="hidden" name="pageNo">
+												</form>
+											</div>
 										</div>
-										<!-- <form>
+									</div>
+
+									<div class="col-lg-12 align-items-end mb-3">
+										<div class="form-group">
+											<label for="#">지역별 검색</label>
+											<div class="form-field">
+												<div class="icon">
+													<span class="ion-ios-search"></span>
+												</div>
+												<!-- <form>
 											<input type="text" class="form-control"
 												placeholder="Search place">
 										</form> -->
 
-										<form name=form1 method=post action=$PHP_SELF>
-											시/도: <select name='city'
-												onchange="change(this.selectedIndex);" class="form-control">
-												<option value='전체'>전체</option>
-												<option value='서울'>서울특별시</option>
-												<option value='부산'>부산광역시</option>
-												<option value='대구'>대구광역시</option>
-												<option value='인천'>인천광역시</option>
-												<option value='광주'>광주광역시</option>
-												<option value='대전'>대전광역시</option>
-												<option value='울산'>울산광역시</option>
-												<option value='경기'>경기도</option>
-												<option value='강원'>강원도</option>
-												<option value='충북'>충청북도</option>
-												<option value='충남'>충청남도</option>
-												<option value='전북'>전라북도</option>
-												<option value='전남'>전라남도</option>
-												<option value='경북'>경상북도</option>
-												<option value='경남'>경상남도</option>
-												<option value='제주'>제주도</option>
-											</select> 구/군: <select name='county1' class="form-control">
-												<option value=''>전체</option>
-											</select>
-										</form>
+												<form name=form1 method=post action=$PHP_SELF>
+													시/도: <select name='city'
+														onchange="change(this.selectedIndex);"
+														class="form-control">
+														<option value='전체'>전체</option>
+														<option value='서울'>서울특별시</option>
+														<option value='부산'>부산광역시</option>
+														<option value='대구'>대구광역시</option>
+														<option value='인천'>인천광역시</option>
+														<option value='광주'>광주광역시</option>
+														<option value='대전'>대전광역시</option>
+														<option value='울산'>울산광역시</option>
+														<option value='경기'>경기도</option>
+														<option value='강원'>강원도</option>
+														<option value='충북'>충청북도</option>
+														<option value='충남'>충청남도</option>
+														<option value='전북'>전라북도</option>
+														<option value='전남'>전라남도</option>
+														<option value='경북'>경상북도</option>
+														<option value='경남'>경상남도</option>
+														<option value='제주'>제주도</option>
+													</select> 구/군: <select name='county1' class="form-control">
+														<option value=''>전체</option>
+													</select>
+												</form>
 
 
-									</div>
-								</div>
-							</div>
-
-							<div class="col-lg-12 align-items-end mb-3">
-								<div class="form-group">
-									<label for="#">운동별 검색</label>
-									<div class="form-field">
-										<div class="icon">
-											<span class="ion-ios-search"></span>
+											</div>
 										</div>
-										<form id="form_order">
-											<select name="orderBy" id="select_order" class="form-control">
-												<option>보디빌딩</option>
-												<option>파워리프팅</option>
-												<option>피지크</option>
-												<option>필라테스</option>
-												<option>크로스핏</option>
-												<option>요가</option>
-												<option>그외</option>
-											</select> <input type="hidden" name="pageNo">
-										</form>
 									</div>
-								</div>
-							</div>
+
+									<div class="col-lg-12 align-items-end mb-3">
+										<div class="form-group">
+											<label for="#">운동별 검색</label>
+											<div class="form-field">
+												<div class="icon">
+													<span class="ion-ios-search"></span>
+												</div>
+												<form id="form_order">
+													<select name="orderBy" id="select_order"
+														class="form-control">
+														<option>보디빌딩</option>
+														<option>파워리프팅</option>
+														<option>피지크</option>
+														<option>필라테스</option>
+														<option>크로스핏</option>
+														<option>요가</option>
+														<option>그외</option>
+													</select> <input type="hidden" name="pageNo">
+												</form>
+											</div>
+										</div>
+									</div>
 
 
-							<div class="col-lg-12 align-self-end">
-								<div class="form-group">
-									<div class="form-field">
-										<input type="submit" value="Search"
-											class="form-control btn btn-primary">
+									<div class="col-lg-12 align-self-end">
+										<div class="form-group">
+											<div class="form-field">
+												<input type="submit" value="Search"
+													class="form-control btn btn-primary">
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
+							</form>
 						</div>
-					</form>
+					</div>
+					<!-- Right End -->
 				</div>
 			</div>
-			<!-- Right End -->
-		</div>
-	</div>
 </section>
