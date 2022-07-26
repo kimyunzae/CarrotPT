@@ -138,6 +138,10 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		dao.updateAccount(v);
 	}
 	
+	public void modifyPassword(TrainerVO v) throws Exception {
+		dao.updatepwd(v);
+	}
+	
 	// 이름, phone으로 선택
 	public String getbynamephone(String name, String phone) throws Exception{
 		return dao.selectbynamephone(name, phone);

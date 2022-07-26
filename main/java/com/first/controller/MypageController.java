@@ -163,7 +163,34 @@ public class MypageController {
 
 		return "index";
 	}
+	
+	// 비번 변경 페이지
+	@RequestMapping("/changepwd")
+	public String changepwd(Model m, HttpSession session) {
+		try {
+			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
+			m.addAttribute("center", "mypage/changepwd");
+			m.addAttribute("trainer", trainer);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "index";
+	}
+
+	// 트레이너 계정정보 업데이트
+	@RequestMapping("/trpassword_update")
+	public String trpassword_update(Model m, TrainerVO vo) {
+		try {
+			trainerbiz.modifyPassword(vo);
+			System.out.println("비밀번호 변경 성공" + vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "index";
+	}
+		
 	// 트레이너 마이페이지: 이용내역
 	@RequestMapping("/trhistory")
 	public String trhistory(Model m, HttpSession session) {

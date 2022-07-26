@@ -14,7 +14,7 @@ class MailRandompwdTest {
 	
 	@Test
 	void contextLoads() {
-		int pwd = biz.randompwd();
+		String pwd = biz.randompwd();
 		System.out.println(pwd);
 	}
 }
