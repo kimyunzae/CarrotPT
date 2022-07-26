@@ -186,6 +186,13 @@ public class TrainerVO {
 		this.status_detail = status_detail;
 	}
 	
+	// for UPDATE
+	public TrainerVO(String pwd, String email) {
+		super();
+		this.pwd = pwd;
+		this.email = email;
+	}
+	
 
 	
 	

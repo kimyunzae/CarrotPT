@@ -9,6 +9,7 @@ import com.first.frame.Biz;
 import com.first.mapper.TraineeMapper;
 import com.first.mapper.TrainerMapper;
 import com.first.vo.TraineeVO;
+import com.first.vo.TrainerVO;
 
 @Service("traineebiz")
 public class TraineeBiz implements Biz<String, TraineeVO> {
@@ -105,6 +106,24 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 			result = "0";
 		}
 		return result;
+	}
+	
+	// trainee, trainer 통합 비밀번호 업데이트
+	public void updatepwd(String email, String pwd) throws Exception{
+		String trainer = null;
+		String trainee = null;
+		
+		trainer = trainerdao.selectemailbyemail(email);
+		trainee = dao.selectemailbyemail(email);
+		
+		if(trainer != null && trainee == null) {
+			TrainerVO newTrainer = new TrainerVO(pwd, email);
+			trainerdao.updatepwd(newTrainer);
+			
+		}else if(trainer == null && trainee != null) {
+			TraineeVO newTrainee = new TraineeVO(pwd, email);
+			dao.updatepwd(newTrainee);
+		}
 	}
 
 }
