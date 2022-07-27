@@ -30,12 +30,12 @@ public class UserController {
 	@Autowired
 	MailBiz mailbiz;
 	
-	@RequestMapping("/login")
-	public String login(Model m, String msg) {
-		m.addAttribute("center", "user/login");
-		m.addAttribute("msg", msg);
-		return "redirect:/";
-	}
+//	@RequestMapping("/login")
+//	public String login(Model m, String msg) {
+//		m.addAttribute("center", "user/login");
+//		m.addAttribute("msg", msg);
+//		return "redirect:/";
+//	}
 
 	@RequestMapping("/loginimpl")
 	public String loginimpl(Model m, String id, String pwd, HttpSession session) {

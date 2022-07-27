@@ -15,7 +15,7 @@ class TrainerUpdatePasswordTest {
 
 	@Test
 	void contextLoads() {
-		TrainerVO obj = new TrainerVO("dsad", "dsa");
+		TrainerVO obj = new TrainerVO("pwd22", "tid22");
 			
 		try {
 			biz.modifyPassword(obj);

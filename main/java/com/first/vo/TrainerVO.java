@@ -189,11 +189,12 @@ public class TrainerVO {
 	}
 	
 	// for UPDATE
-	public TrainerVO(String pwd, String email) {
+	public TrainerVO(String pwd, String id) {
 		super();
 		this.pwd = pwd;
-		this.email = email;
+		this.id = id;
 	}
+	
 	
 
 	
