@@ -164,11 +164,10 @@ public class TrainerVO {
 	}
 	
 	// 마이페이지 계정: 트레이너 계정정보 업데이트
-	public TrainerVO(String id, String pwd, String name, String phone, String email, String major,
+	public TrainerVO(String id, String name, String phone, String email, String major,
 			String gym_name, String gym_zip, String gym_addr1, String gym_addr2) {
 		super();
 		this.id = id;
-		this.pwd = pwd;
 		this.name = name;
 		this.phone = phone;
 		this.email = email;

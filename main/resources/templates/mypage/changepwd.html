@@ -76,15 +76,23 @@
 .change-pwd-id-section {
 	display: none; 
 }
+
+#btn_pwdchange:disabled {
+	cursor: auto;
+	pointer-events: none;
+}
 </style>
 <script>
 	$(document).ready(function() {
+		
+		$('#btn_pwdchange').attr('disabled', 'disabled');
+		
 		// 비밀번호 변경 로직
 		// 1. dpwd: 현재 비밀번호를 입력하고 맞으면 새비밀번호 input 활성화, 틀리면 span msg
 		// 2. pwd: dpwd와 달라야하는 새 비밀번호를 입력하고 이 값이 업데이트에 반영됨 
 		// 3. cpwd: pwd와 비교하여 값이 같아야만 변경 기능 활성화 
-		/* $('.pwd-change-form input').keyup(function() {
-			var dpwd = $('.pwd-change-form input[name="dpwd"]').val();
+		$('.pwd-change-form input').keyup(function() {
+			var dpwd = $('.pwd-change-form input[name=dpwd]').val();
 			var pwd = $('.pwd-change-form input[name=pwd]').val();
 			var cpwd = $('.pwd-change-form input[name="cpwd"]').val();
 
@@ -96,10 +104,6 @@
 					'cpwd' : cpwd
 				},
 				success : function(data) {
-					if (data == 'none') {
-						$('#pwd-span').text('아이디가 존재하지 않습니다');
-					}
-
 					if (data == 'same') {
 						$('#pwd-span').text('다른 비밀번호를 입력하세요');
 					}
@@ -116,7 +120,7 @@
 
 				}
 			});
-		}); */
+		}); 
 
 		$("#btn_pwdchange").click(function() {
 			$("#pwd-change-form").attr({
@@ -176,6 +180,13 @@
 							<div class="form-group">
 								<label>새 비밀번호 확인 <span class="d-none d-xl-inline"></span></label>
 								<input class="form-control" type="password" name="cpwd">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<span class="text-dark" id="pwd-span"></span>
 							</div>
 						</div>
 					</div>

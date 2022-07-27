@@ -190,12 +190,8 @@ public class AJAXController {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
 			trainer.getPwd();
 
-			// 1) dpwd를 입력하지않은 경우
-			if (dpwd == null) {
-				result = "none";
-			}
-			// 2) dpwd가 맞는 경우
-			else if (dpwd == trainer.getPwd()) {
+			// dpwd가 맞는 경우
+			if (dpwd == trainer.getPwd()) {
 				if (pwd == dpwd) {
 					result = "same";
 				} else if (pwd != dpwd && pwd == cpwd) {
