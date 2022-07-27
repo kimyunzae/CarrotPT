@@ -12,10 +12,10 @@ class TraineeUpdateTest {
 	@Autowired
 	TraineeBiz biz;
 
-	//	UPDATE trainee SET PWD=#{pwd},NAME=#{name},PHONE=#{phone},EMAIL=#{email},ZIP=#{zip},ADDR1=#{addr1},ADDR2=#{addr2},LEVEL=#{level} WHERE UID=#{uid}
+	//	UPDATE trainee SET PWD=#{pwd},PHONE=#{phone},EMAIL=#{email},ZIP=#{zip},ADDR1=#{addr1},ADDR2=#{addr2},LEVEL=#{level} WHERE UID=#{uid}
 	@Test
 	void contextLoads() {
-		TraineeVO obj = new TraineeVO("id08", "pwd8","홍지훈","01012312412", "abc@naver.com", "29112","선릉로21", null);
+		TraineeVO obj = new TraineeVO("id01", "pwd01",null,"12341111", "abc@naver.com", "29112","선릉로21", null);
 		try {
 			biz.modify(obj);
 			System.out.println("Update OK " + obj);
