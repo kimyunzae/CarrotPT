@@ -34,7 +34,7 @@ public class UserController {
 	public String login(Model m, String msg) {
 		m.addAttribute("center", "user/login");
 		m.addAttribute("msg", msg);
-		return "index";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/loginimpl")
