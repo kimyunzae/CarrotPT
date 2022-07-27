@@ -34,7 +34,7 @@ public class UserController {
 	public String login(Model m, String msg) {
 		m.addAttribute("center", "user/login");
 		m.addAttribute("msg", msg);
-		return "index";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/loginimpl")
@@ -53,22 +53,22 @@ public class UserController {
 				// 2) trainer ID 존재
 			}else if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
-					result = "index";
+					result = "redirect:/";
 					m.addAttribute("logincust", tner);
 					session.setAttribute("logincust", tner);
 				}else {
 					// trainer ID 비밀번호 불일치
-					result = "redirect:/index";
+					result = "redirect:/";
 				}
 				// 3) trainee ID 존재
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
-					result = "index";
+					result = "redirect:/";
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);			
 				}else {
 					// trainee ID 비밀번호 불일치
-					result = "redirect:/index";
+					result = "redirect:/";
 				}
 			}
 			
@@ -91,7 +91,7 @@ public class UserController {
 		if (session != null) {
 			session.invalidate();
 		}
-		return "index";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/update")
