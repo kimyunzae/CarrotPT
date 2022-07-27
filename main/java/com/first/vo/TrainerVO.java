@@ -19,7 +19,10 @@ public class TrainerVO {
 
 	private String id;
 	private String pwd;
-	private String name;
+	
+	@Column(length = 300)
+	private String name; 
+	
 	private String phone;
 	private String email;
 	private String gender;

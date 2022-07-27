@@ -30,10 +30,10 @@ public class MypageController {
 
 	@Value("${dir1}")
 	String dir1;
-	
+
 	@Value("${dir2}")
 	String dir2;
-	
+
 	@Value("${dir3}")
 	String dir3;
 
@@ -102,16 +102,30 @@ public class MypageController {
 		String profile1 = vo.getPf1().getOriginalFilename();
 		String profile2 = vo.getPf2().getOriginalFilename();
 		String profile3 = vo.getPf3().getOriginalFilename();
-	
+
+		if (!(profile1.equals(""))) {
 			vo.setProfile1(profile1);
-			Util.saveFile1(vo.getPf1(),dir1);
-			
+			Util.saveFile1(vo.getPf1(), dir1);
+		}
+		if (!(profile2.equals(""))) {
 			vo.setProfile2(profile2);
-			Util.saveFile2(vo.getPf2(),dir2);
-			
+			Util.saveFile2(vo.getPf2(), dir2);
+
+		}
+		if (!(profile3.equals(""))) {
 			vo.setProfile3(profile3);
-			Util.saveFile3(vo.getPf3(),dir3);
-			
+			Util.saveFile3(vo.getPf3(), dir3);
+		}
+
+//		vo.setProfile1(profile1);
+//		Util.saveFile1(vo.getPf1(), dir1); 
+//
+//		vo.setProfile2(profile2);
+//		Util.saveFile2(vo.getPf2(), dir2);
+//
+//		vo.setProfile3(profile3);
+//		Util.saveFile3(vo.getPf3(), dir3);
+
 		try {
 			trainerbiz.modifyProfile(vo);
 		} catch (Exception e) {
@@ -163,7 +177,7 @@ public class MypageController {
 
 		return "index";
 	}
-	
+
 	// 비번 변경 페이지
 	@RequestMapping("/changepwd")
 	public String changepwd(Model m, HttpSession session) {
@@ -190,7 +204,7 @@ public class MypageController {
 		}
 		return "index";
 	}
-		
+
 	// 트레이너 마이페이지: 이용내역
 	@RequestMapping("/trhistory")
 	public String trhistory(Model m, HttpSession session) {
