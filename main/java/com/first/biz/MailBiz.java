@@ -8,20 +8,12 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.first.mapper.TraineeMapper;
-import com.first.mapper.TrainerMapper;
-
 @Service
 public class MailBiz {
 
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	@Autowired
-	TraineeMapper traineedao;
-	
-	@Autowired
-	TrainerMapper trainerdao;
 	
 	public String randompwd() {
 		Random random = new Random();
