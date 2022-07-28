@@ -142,13 +142,13 @@
 <script th:inline="javascript">
 
 function GetTarget(j){
-	var selected = $('#select_order option:selected').val();
+	var orderBy = $('#select_order').val();
 	
 	$.ajax({
 		url:'/trainers/findpage',
 		data:{
 			'pageNo':j,
-			'orderBy':selected
+			'orderBy':orderBy
 		},
 		method:'GET',
 		success: function(result){
@@ -218,7 +218,7 @@ function GetTarget(j){
 		pageNo: j
 	}, // state
 	null, // title
-	'/trainers?pageNo=' + j); // url
+	'/trainers?pageNo=' + j + '&orderBy=' + orderBy); // url
 }
 
 	$(window).on('popstate', function(event){
@@ -293,11 +293,8 @@ function paging(totalData, currentPage){
 	$(function(){
 		paging();
 		$('#select_order').change(function(){
-			var cp = [[${currentPage}]];
-			var ob = [[${orderBy}]];
-			$('input[name="pageNo"]').val(cp);
-			// $('#select_order').val(ob).prop('selected', true);
-			// $('#select_order option:selected').val(ob);
+			var searchPage = 1;
+			GetTarget(parseInt(searchPage));
 			$('#form_order').attr({
 				'method':'get',
 				'action':'/trainers/list'
@@ -935,8 +932,8 @@ function myModalClose() {
 										</div>
 										<form id="form_order">
 											<select name="orderBy" id="select_order" class="form-control">
-												<option value="num desc">최신 등록순</option>
-												<option>리뷰 많은순</option>
+												<option value="num">최신 등록순</option>
+												<option value="rvcnt">리뷰 많은순</option>
 												<option value="name">이름순</option>
 											</select> <input type="hidden" name="pageNo">
 										</form>
@@ -956,7 +953,7 @@ function myModalClose() {
 												placeholder="Search place">
 										</form> -->
 
-										<form name=form1 method=post action=$PHP_SELF>
+										<form name="form1" method="post" action="$PHP_SELF">
 											시/도: <select name='city'
 												onchange="change(this.selectedIndex);" class="form-control">
 												<option value='전체'>전체</option>
@@ -994,7 +991,7 @@ function myModalClose() {
 											<span class="ion-ios-search"></span>
 										</div>
 										<form id="form_order">
-											<select name="orderBy" id="select_order" class="form-control">
+											<select name="searchMajor" id="select_order" class="form-control">
 												<option>보디빌딩</option>
 												<option>파워리프팅</option>
 												<option>피지크</option>
