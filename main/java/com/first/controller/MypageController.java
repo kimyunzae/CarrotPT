@@ -52,15 +52,26 @@ public class MypageController {
 	}
 
 	// 일반회원 마이페이지 업데이트
+	/*
+	 * @RequestMapping("/updateimpl") public RedirectView updateimpl(Model m,
+	 * TraineeVO trainee) { try { traineebiz.modify(trainee);
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); } return new
+	 * RedirectView("/mypage"); }
+	 */
+	
 	@RequestMapping("/updateimpl")
-	public RedirectView updateimpl(Model m, TraineeVO trainee) {
-		try {
-			traineebiz.modify(trainee);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new RedirectView("/mypage");
+	public String updateimpl(Model m, TraineeVO trainee) {
+		
+			try {
+				traineebiz.modify(trainee);
+				System.out.println("업데이트 성공");
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			
+		return "index";
 	}
 
 	// 트레이너 마이페이지: 메인

@@ -12,8 +12,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="update" parameterType="TraineeVO">
-		UPDATE trainee SET PWD=#{pwd},NAME=#{name},PHONE=#{phone},EMAIL=#{email},ZIP=#{zip},ADDR1=#{addr1},ADDR2=#{addr2} WHERE ID=#{id}
+		UPDATE trainee SET PWD=#{pwd},PHONE=#{phone},EMAIL=#{email},ZIP=#{zip},ADDR1=#{addr1},ADDR2=#{addr2} WHERE ID=#{id}
 	</update>
+	
 <!-- 비밀번호 업데이트 -->
 	<update id="updatepwd" parameterType="TraineeVO">
 		UPDATE trainee SET pwd=#{pwd} WHERE email=#{email};

@@ -3,6 +3,7 @@ package com.first.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,15 @@ public class AdminController {
 	@Autowired
 	ReportBiz reportbiz;
 	
+
+	@Value("5")
+	private int amount;
+	
+	@ModelAttribute("amount")
+	public int addAmount() {
+		return amount;
+	}
+	
 	@ModelAttribute("totalData")
 	public int totalData() {
 		int cnt = 0;
@@ -39,12 +49,6 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		return cnt;
-	}
-	
-	@ModelAttribute("amount")
-	public int amount() {
-		int amount = 5;
-		return amount;
 	}
 	
 	@ModelAttribute("TrainerTotal")
@@ -77,7 +81,6 @@ public class AdminController {
 		if(pageNo == null) {
 			pageNo = 1;
 		}
-		int amount = 5;
 		int offset = 0;
 		try {
 			List<TraineeVO> list = traineebiz.getbypage(pageNo, amount, orderBy, offset);
@@ -96,7 +99,6 @@ public class AdminController {
 	@RequestMapping("/findpage")
 	public String findPage(Integer pageNo, Model m, String orderBy) {
 		
-		int amount = 5;
 		int offset = 0;
 		List<TraineeVO> list = null;
 		try {
@@ -134,7 +136,6 @@ public class AdminController {
 		if(status == null) {
 			status = "all";
 		}
-		int amount = 5;
 		int offset = 0;
 		try {
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
@@ -156,7 +157,6 @@ public class AdminController {
 	@RequestMapping("/findtpage")
 	public String findtPage(int pageNo, String orderBy, String status, Model m) {
 		
-		int amount = 5;
 		int offset = 0;
 		try {
 			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
