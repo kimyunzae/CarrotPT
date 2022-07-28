@@ -20,9 +20,13 @@
 	color: #769BCD;
 }
 
-#tname h3 {
+#tname h3{
 	margin-top: 0.5rem;
 	margin-bottom: 0;
+}
+
+#tname h3 a{
+	font-family:Pretendard;
 }
 
 #tgymname {
@@ -52,6 +56,7 @@
 	text-align:center;
 	border:1px solid #769BCD;
 	border-radius:20px;
+	font-family:Pretendard;
 }
 
 .nodata div{
@@ -65,6 +70,34 @@
 .nodata p span i{
 	margin-right:5px;
 	color:#769BCD;
+}
+
+/* Right */
+#div_searchbar{
+	font-family:Pretendard;
+}
+#div_searchbar h2{
+	text-align:center;
+	font-size:1.5rem;
+	color:#769BCD;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#div_searchbar h2 i{
+	margin-right:10px;
+}
+
+#div_searchbar label{
+	font-size:1.2rem;
+}
+
+#div_searchbar select{
+	background-color:white !important;
+	border-radius:20px;
+}
+
+#div_searchbar select option:hover{
+	background-color:black;
 }
 
 /* Modal */
@@ -83,6 +116,8 @@
 
 #p_heading{
 	margin-bottom:0;
+	font-family:Pretendard;
+	font-size:1.2rem;
 }
 
 #myModal fieldset {
@@ -172,6 +207,8 @@
 
 <!-- BootStrap  -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -486,7 +523,7 @@ function myModalClose() {
 		<div class="col-md-7 heading-section text-center ftco-animate">
 			<span class="subheading">Trainers</span>
 			<h2 class="mb-4">트레이너</h2>
-			<p id="p_heading">당근PT가 보증하는 현직 트레이너들!</p>
+			<p id="p_heading">당근PT 인증을 통과한 현직 트레이너들을 만나보세요!</p>
 		</div>
 	</div>
 
@@ -955,8 +992,8 @@ function myModalClose() {
 
 			<div class="col-lg-3 p-4 bg-light">
 
-				<div class="search-wrap-1 ftco-animate">
-					<h2 class="mb-3">Search</h2>
+				<div class="search-wrap-1 ftco-animate" id="div_searchbar">
+					<h2 class="mb-3"><i class="fa-solid fa-magnifying-glass"></i>Search</h2>
 					<form action="#" class="search-property-1">
 						<div class="row">
 							<div class="col-lg-12 align-items-end mb-3">
@@ -1022,15 +1059,6 @@ function myModalClose() {
 								</div>
 							</div>
 
-
-							<div class="col-lg-12 align-self-end">
-								<div class="form-group">
-									<div class="form-field">
-										<input type="submit" value="Search"
-											class="form-control btn btn-primary">
-									</div>
-								</div>
-							</div>
 						</div>
 					</form>
 				</div>
