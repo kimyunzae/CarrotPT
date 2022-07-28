@@ -99,7 +99,7 @@ public class FTController {
 	
 	
 	@RequestMapping("/findpage")
-	public String findPage(Model m, int pageNo, String orderBy) {
+	public String findPage(Model m, int pageNo, String orderBy, String loc, String major) {
 		
 		int startIndex = amount * (pageNo - 1);
 		int endIndex = 0;
@@ -107,7 +107,7 @@ public class FTController {
 		String status = "수락";
 		
 		try {
-			List<TrainerVO> list = biz.getauthorized();
+			List<TrainerVO> list = biz.getauthorized(loc, major);
 			
 			trainersort.sortTrainer(list, orderBy);
 			cnt = biz.getcnt(status);

@@ -22,9 +22,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <!-- status가 '수락'인 트레이너 목록-->
 	<select id="selectauthorized" resultType="trainerVO">
-		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, status FROM trainer
-		WHERE status='수락';
+		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate
+		FROM trainer
+		WHERE status='수락'
+		<if test="(loc != null) and (loc != '')">
+			AND gym_addr1 LIKE CONCAT('%',#{loc},'%')
+		</if>
+		<if test="(major != null) and (major != '')">
+			AND major = #{major}
+		</if>
 	</select>
+	
+	
 <!-- status별 트레이너 데이터 개수-->
 	<select id="selectcnt" resultType="int">
 		SELECT COUNT(*) FROM trainer
@@ -32,6 +41,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				WHERE status = #{status}
 			</if>
 	</select>
+	
 <!-- 페이지별 select-->
 	<select id="selectbypage" resultType="trainerVO">
 		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, status FROM trainer
@@ -70,23 +80,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE id=#{id} AND email=#{email}
 	</select>
 
-<!-- 검색 -->
-	<select id="search" resultType="trainerVO">
-		SELECT * FROM trainer
-		WHERE status = '수락'
-		<choose>
-			<when test = '(loc != null AND loc != "") AND (major != null AND major != "")'>
-				AND (gym_addr1 LIKE CONCAT('%',#{loc},'%') OR gym_addr2 LIKE CONCAT('%',#{loc},'%'))
-				AND major = #{major};
-			</when>
-			<when test = '(loc != null AND loc != "") AND (major == null OR major == "")'>
-				AND (gym_addr1 LIKE CONCAT('%',#{loc},'%') OR gym_addr2 LIKE CONCAT('%',#{loc},'%'))
-			</when>
-			<when test = '(loc == null OR loc == "") AND (major != null AND major != "")'>
-				AND major = #{major};
-			</when>
-		</choose>
-	</select>
 
 	<insert id="insert" parameterType="trainerVO">
 		INSERT INTO trainer VALUES(#{id},#{pwd},#{name},#{phone},#{email},#{gender},#{major},
@@ -154,6 +147,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="updatePassword" parameterType="trainerVO">
 		UPDATE trainer SET PWD=#{pwd} WHERE ID=#{id};
 	</update>
+	
 	
 	<delete id="delete" parameterType="String">
 		DELETE FROM trainer WHERE id=#{id}

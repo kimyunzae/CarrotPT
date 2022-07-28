@@ -299,11 +299,6 @@ function paging(totalData, currentPage){
 		$('.search').change(function(){
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
-			$('#form_order').attr({
-				'method':'get',
-				'action':'/trainers/list'
-			});
-			// $('#form_order').submit();
 		});
 	});
 
