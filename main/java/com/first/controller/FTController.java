@@ -3,6 +3,7 @@ package com.first.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,9 +32,12 @@ public class FTController {
 		return cnt;
 	}
 	
+	@Value("6")
+	private int amount;
+	
+	
 	@ModelAttribute("amount")
-	public int amount() {
-		int amount = 6;
+	public int addAmount() {
 		return amount;
 	}
 	
@@ -49,10 +53,11 @@ public class FTController {
 	}
 
 
-	@RequestMapping("/")
-	public String main(Model m, String orderBy) {
-		int amount = 6;
-		int pageNo = 1;
+	@RequestMapping("")
+	public String main(Model m, String orderBy, Integer pageNo) {
+		if(pageNo == null) {
+			pageNo = 1;
+		}
 		int offset = 0;
 		String status = "수락";
 		try {
@@ -72,7 +77,6 @@ public class FTController {
 	@RequestMapping("/findpage")
 	public String findPage(int pageNo, Model m, String orderBy) {
 		
-		int amount = 6;
 		int offset = 0;
 		String status = "수락";
 		List<TrainerVO> list = null;
@@ -87,23 +91,6 @@ public class FTController {
 		return "trainers/trcenter_info";
 	}
 	
-	@RequestMapping("/list")
-	public String directPage(int pageNo, String orderBy, Model m) {
-		int amount = 6;
-		int offset = 0;
-		String status = "수락";
-		try {
-			List<TrainerVO> list = biz.getbypage(pageNo, amount, orderBy, offset, status);
-			m.addAttribute("trlist", list);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "trainers/trcenter");
-		m.addAttribute("trcenter_info", "trainers/trcenter_info");
-		m.addAttribute("currentPage", pageNo);
-		m.addAttribute("orderBy", orderBy);
-		return "index";
-	}
 	
 	@RequestMapping("/detail")
 	public String detail(Model m, String id) {

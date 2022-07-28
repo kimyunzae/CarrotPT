@@ -163,6 +163,9 @@ function GetTarget(j){
 			var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
 			var last = pageGroup * pageSize;
 			
+			var veryFirst = 1;
+			var veryLast = totalPages;
+			
 			if(currentPage <= 0){
 				currentPage = 1;
 			}
@@ -181,6 +184,10 @@ function GetTarget(j){
 			var pages = $('#pages');
 			pages.empty();
 			
+			if(totalPages > 1){
+				pages.append('<li><a onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+			}
+			
 			if(first > 1){
 				pages.append('<li><a onclick="GetTarget('+ first +')">prev</a></li>');
 			}
@@ -198,6 +205,10 @@ function GetTarget(j){
 				pages.append('<li><a onclick="GetTarget(' + next + ')">next</a></li>');
 			};
 			
+			if(totalPages > 1){
+				pages.append('<li><a onclick="GetTarget('+ veryLast +')">>></a></li>');
+			}
+			
 		}
 		
 	});
@@ -207,7 +218,7 @@ function GetTarget(j){
 		pageNo: j
 	}, // state
 	null, // title
-	'/trainers/list?pageNo=' + j); // url
+	'/trainers?pageNo=' + j); // url
 }
 
 	$(window).on('popstate', function(event){
@@ -227,6 +238,8 @@ function paging(totalData, currentPage){
 		var totalPages = Math.ceil(totalData / limitPerPage);
 		var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
 		var last = pageGroup * pageSize;
+		var veryFirst = 1;
+		var veryLast = totalPages;
 		
 		if(currentPage <= 0){
 			currentPage = 1;
@@ -245,6 +258,10 @@ function paging(totalData, currentPage){
 		
 		var pages = $('#pages');
 		pages.empty();
+		
+		if(totalPages > 1){
+			pages.append('<li><a onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+		}
 		
 		// prev 버튼
 		if(first > 1){
@@ -265,11 +282,14 @@ function paging(totalData, currentPage){
 		if(next > pageSize && next <= totalPages){
 			pages.append('<li><a onclick="GetTarget(' + next + ')">next</a></li>');
 		};
+		
+		if(totalPages > 1){
+			pages.append('<li><a onclick="GetTarget('+ veryLast +')">>></a></li>');
+		}
 	
 	}
 	
 
-	
 	$(function(){
 		paging();
 		$('#select_order').change(function(){
@@ -903,7 +923,7 @@ function myModalClose() {
 			<div class="col-lg-3 p-4 bg-light">
 
 				<div class="search-wrap-1 ftco-animate">
-					<h2 class="mb-3">Find Places</h2>
+					<h2 class="mb-3">Search</h2>
 					<form action="#" class="search-property-1">
 						<div class="row">
 							<div class="col-lg-12 align-items-end mb-3">
