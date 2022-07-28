@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <!-- status가 '수락'인 트레이너 목록-->
 	<select id="selectauthorized" resultType="trainerVO">
-		SELECT * FROM trainer
+		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, status FROM trainer
 		WHERE status='수락';
 	</select>
 <!-- status별 트레이너 데이터 개수-->
@@ -34,22 +34,22 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 <!-- 페이지별 select-->
 	<select id="selectbypage" resultType="trainerVO">
-		<choose>
-			<when test="orderBy != null">
-				SELECT row_number() over(order by ${orderBy}) as rownum,
-			</when>
-			<when test="orderBy == null">
-				SELECT row_number() over(order by num desc) as rownum,
-			</when>
-		</choose>
-		id, pwd, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, level, status FROM trainer
+		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate, status FROM trainer
 			<if test="status == 'all'">
-				ORDER BY status = '탈퇴' ASC, rownum
+				ORDER BY status = '탈퇴' ASC,
 			</if>
 			<if test='(status != null) and (status != "") and (status != "all")'>
 				WHERE status = #{status}
-				ORDER BY rownum
+				ORDER BY
 			</if>
+			<choose>
+				<when test="orderBy != null">
+					 ${orderBy}
+				</when>
+				<when test="orderBy == null">
+					num DESC
+				</when>
+			</choose>
 			LIMIT #{offset}, #{amount}
 	</select>
 <!-- 등록된 major -->
