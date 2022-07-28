@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.first.biz.TrainerBiz;
-import com.first.frame.TrainerSort;
+import com.first.biz.TrainerSort;
 import com.first.vo.TrainerVO;
 
 @SpringBootTest
@@ -34,7 +34,7 @@ class TrainerSortTest {
 			System.out.println(trainerVO);
 		}
 		
-		TrainerSort.sortTrainer(trainerList, "num");
+		TrainerSort.sortTrainer(trainerList, "name");
 		System.out.println("-------After Sort--------");
 		for (TrainerVO trainerVO : trainerList) {
 			System.out.println(trainerVO);

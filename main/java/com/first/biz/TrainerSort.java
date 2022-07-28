@@ -1,4 +1,4 @@
-package com.first.frame;
+package com.first.biz;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,23 +46,13 @@ public class TrainerSort {
 					StringBuilder stringBuilder1 = new StringBuilder();
 					StringBuilder stringBuilder2 = new StringBuilder();
 					for (char c : o1.getName().toCharArray()) {
-						korfirst(stringBuilder1, c);
+						korFirst(stringBuilder1, c);
 					}
 					for (char c : o2.getName().toCharArray()) {
-						korfirst(stringBuilder2, c);
+						korFirst(stringBuilder2, c);
 					}
 					result = stringBuilder1.toString().compareTo(stringBuilder2.toString());
 					break;
-					
-//				case "regdate":
-//					if(o1.getRegdate().charAt(0) > o2.getRegdate().charAt(0)) {
-//						result = -1;
-//					}else if(o1.getRegdate().charAt(0) == o2.getRegdate().charAt(0)) {
-//						result = o1.getRegdate().compareTo(o2.getRegdate());
-//					}else {
-//						result = -1;
-//					}
-//					break;
 				}
 				
 				return result;
@@ -70,7 +60,7 @@ public class TrainerSort {
 		});
 	}
 	
-	public void korfirst(StringBuilder stringBuilder, char c) {
+	public void korFirst(StringBuilder stringBuilder, char c) {
 		if(Pattern.matches("[가-힣]", new StringBuilder(c))) {
 			stringBuilder.append((char)(c-44030));
 		}else {
