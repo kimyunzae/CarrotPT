@@ -34,6 +34,39 @@
 	background-color: white;
 }
 
+#pages:hover{
+	cursor:pointer;
+}
+
+#div_trainer_row{
+	justify-content:center;
+}
+
+.pb-3, .py-3{
+	padding-bottom:0 !important;
+}
+
+/* Data 없을 때*/
+.nodata{
+	justify-content:center;
+	text-align:center;
+	border:1px solid #769BCD;
+	border-radius:20px;
+}
+
+.nodata div{
+	padding:3rem;
+}
+
+.nodata p{
+	margin-bottom:0;
+}
+
+.nodata p span i{
+	margin-right:5px;
+	color:#769BCD;
+}
+
 /* Modal */
 #myModal body {
 	color: #000;
@@ -44,7 +77,12 @@
 }
 
 .container {
-	margin: 100px auto;
+	margin-top:4rem;
+	margin-bottom:5rem;
+}
+
+#p_heading{
+	margin-bottom:0;
 }
 
 #myModal fieldset {
@@ -235,7 +273,7 @@ function GetTarget(j){
 function paging(totalData, currentPage){
 	
 		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
-		var totalData = [[${totalData}]];
+		var totalData = $('#input_hiddencnt').val();
 		var currentPage = [[${currentPage}]];
 		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 		var pageSize = 5; // 화면에 표시될 페이지 수
@@ -448,8 +486,7 @@ function myModalClose() {
 		<div class="col-md-7 heading-section text-center ftco-animate">
 			<span class="subheading">Trainers</span>
 			<h2 class="mb-4">트레이너</h2>
-			<p>당근PT가 보증하는 현직 트레이너들!</p>
-
+			<p id="p_heading">당근PT가 보증하는 현직 트레이너들!</p>
 		</div>
 	</div>
 
@@ -958,12 +995,12 @@ function myModalClose() {
 												<option value='울산'>울산광역시</option>
 												<option value='경기'>경기도</option>
 												<option value='강원'>강원도</option>
-												<option value='충북'>충청북도</option>
-												<option value='충남'>충청남도</option>
-												<option value='전북'>전라북도</option>
-												<option value='전남'>전라남도</option>
-												<option value='경북'>경상북도</option>
-												<option value='경남'>경상남도</option>
+												<option value='충청북'>충청북도</option>
+												<option value='충청남'>충청남도</option>
+												<option value='전라북'>전라북도</option>
+												<option value='전라남'>전라남도</option>
+												<option value='경상북'>경상북도</option>
+												<option value='경상남'>경상남도</option>
 												<option value='제주'>제주도</option>
 											</select>
 									</div>
@@ -981,7 +1018,6 @@ function myModalClose() {
 												<option value="all">All</option>
 												<option th:each="m : ${majors}" th:text="${m.major}" th:value="${m.major}"></option>
 											</select>
-											
 									</div>
 								</div>
 							</div>

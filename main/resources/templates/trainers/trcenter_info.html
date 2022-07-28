@@ -1,4 +1,4 @@
-<div class="col-md-6 col-lg-4 fadeInUp ftco-animate ftco-animated" th:each="t : ${trlist}">
+<div th:if="${totalData > 0}" class="col-md-6 col-lg-4 fadeInUp ftco-animate ftco-animated" th:each="t : ${trlist}">
 	<div class="project">
 	<!-- 프로필 사진 -->
 		<div class="img">
@@ -35,7 +35,6 @@
 				</div>
 				<div class="float-right">
 					<span class="rate"><a th:text="'('+${t.rvcnt}+')'"></a></span>
-					<input type="hidden" th:value="${totalData}" id="input_hiddencnt">
 				</div>
 			</div>
 		</div>
@@ -43,3 +42,15 @@
 	</div>
 </div>
 			
+<div th:if="${totalData == 0}">
+	<div class="nodata">
+		<div>
+			<p>
+				<span><i class="fa-solid fa-circle-exclamation"></i></span>
+				검색 조건에 해당하는 데이터가 존재하지 않습니다.
+			</p>
+		</div>
+	</div>
+</div>
+
+<input type="hidden" th:value="${totalData}" id="input_hiddencnt">
