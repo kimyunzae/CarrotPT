@@ -26,6 +26,7 @@ class TrainerSelectAuthorizedTest {
 			for (TrainerVO obj : list) {
 				System.out.println(obj);
 			}
+			System.out.println(list.toArray().length);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

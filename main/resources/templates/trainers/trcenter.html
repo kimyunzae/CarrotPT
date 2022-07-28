@@ -160,7 +160,7 @@ function GetTarget(j){
 			$('#div_trainer_row').append(result);
 			
 			var currentPage = j;
-			var totalData = [[${totalData}]];
+			var totalData = $('#input_hiddencnt').val();
 			var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 			var pageSize = 5; // 화면에 표시될 페이지 수
 			var totalPages = Math.ceil(totalData / limitPerPage);
@@ -222,7 +222,7 @@ function GetTarget(j){
 		pageNo: j
 	}, // state
 	null, // title
-	'/trainers?pageNo=' + j + '&orderBy=' + orderBy); // url
+	'/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&loc=' + loc + '&major=' + major); // url
 }
 
 	$(window).on('popstate', function(event){
@@ -948,7 +948,7 @@ function myModalClose() {
 											<span class="ion-ios-search"></span>
 										</div>
 											<select name='loc' id="select_loc" class="form-control search">
-												<option value='전체'>전체</option>
+												<option value='all'>All</option>
 												<option value='서울'>서울특별시</option>
 												<option value='부산'>부산광역시</option>
 												<option value='대구'>대구광역시</option>
@@ -978,6 +978,7 @@ function myModalClose() {
 											<span class="ion-ios-search"></span>
 										</div>
 											<select name="major" id="select_major" class="form-control search">
+												<option value="all">All</option>
 												<option th:each="m : ${majors}" th:text="${m.major}" th:value="${m.major}"></option>
 											</select>
 											
