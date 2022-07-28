@@ -185,7 +185,7 @@ public class MypageController {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/changepwd");
 			m.addAttribute("trainer", trainer);
-
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

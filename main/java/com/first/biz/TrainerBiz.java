@@ -139,7 +139,7 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	}
 	
 	public void modifyPassword(TrainerVO v) throws Exception {
-		dao.updatepwd(v);
+		dao.updatePassword(v);
 	}
 	
 	// 이름, phone으로 선택
