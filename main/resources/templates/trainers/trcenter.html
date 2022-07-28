@@ -143,12 +143,16 @@
 
 function GetTarget(j){
 	var orderBy = $('#select_order').val();
+	var loc = $('#select_loc').val();
+	var major = $('#select_major').val();
 	
 	$.ajax({
 		url:'/trainers/findpage',
 		data:{
 			'pageNo':j,
-			'orderBy':orderBy
+			'orderBy':orderBy,
+			'loc':loc,
+			'major':major
 		},
 		method:'GET',
 		success: function(result){
@@ -292,7 +296,7 @@ function paging(totalData, currentPage){
 
 	$(function(){
 		paging();
-		$('#select_order').change(function(){
+		$('.search').change(function(){
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
 			$('#form_order').attr({
@@ -667,12 +671,12 @@ function myModalClose() {
 												<option value='울산'>울산광역시</option>
 												<option value='경기'>경기도</option>
 												<option value='강원'>강원도</option>
-												<option value='충북'>충청북도</option>
-												<option value='충남'>충청남도</option>
-												<option value='전북'>전라북도</option>
-												<option value='전남'>전라남도</option>
-												<option value='경북'>경상북도</option>
-												<option value='경남'>경상남도</option>
+												<option value='충청북'>충청북도</option>
+												<option value='충청남'>충청남도</option>
+												<option value='전라북'>전라북도</option>
+												<option value='전라남'>전라남도</option>
+												<option value='경상북'>경상북도</option>
+												<option value='경상남'>경상남도</option>
 												<option value='제주'>제주도</option>
 											</select> 구/군: <select name='county' class=select>
 												<option value=''>전체</option>
@@ -930,13 +934,13 @@ function myModalClose() {
 										<div class="icon">
 											<span class="ion-ios-search"></span>
 										</div>
-										<form id="form_order">
-											<select name="orderBy" id="select_order" class="form-control">
+										
+											<select name="orderBy" id="select_order" class="form-control search">
 												<option value="num">최신 등록순</option>
 												<option value="rvcnt">리뷰 많은순</option>
 												<option value="name">이름순</option>
 											</select> <input type="hidden" name="pageNo">
-										</form>
+										
 									</div>
 								</div>
 							</div>
@@ -948,14 +952,7 @@ function myModalClose() {
 										<div class="icon">
 											<span class="ion-ios-search"></span>
 										</div>
-										<!-- <form>
-											<input type="text" class="form-control"
-												placeholder="Search place">
-										</form> -->
-
-										<form name="form1" method="post" action="$PHP_SELF">
-											시/도: <select name='city'
-												onchange="change(this.selectedIndex);" class="form-control">
+											<select name='loc' id="select_loc" class="form-control search">
 												<option value='전체'>전체</option>
 												<option value='서울'>서울특별시</option>
 												<option value='부산'>부산광역시</option>
@@ -973,12 +970,7 @@ function myModalClose() {
 												<option value='경북'>경상북도</option>
 												<option value='경남'>경상남도</option>
 												<option value='제주'>제주도</option>
-											</select> 구/군: <select name='county1' class="form-control">
-												<option value=''>전체</option>
 											</select>
-										</form>
-
-
 									</div>
 								</div>
 							</div>
@@ -990,17 +982,10 @@ function myModalClose() {
 										<div class="icon">
 											<span class="ion-ios-search"></span>
 										</div>
-										<form id="form_order">
-											<select name="searchMajor" id="select_order" class="form-control">
-												<option>보디빌딩</option>
-												<option>파워리프팅</option>
-												<option>피지크</option>
-												<option>필라테스</option>
-												<option>크로스핏</option>
-												<option>요가</option>
-												<option>그외</option>
-											</select> <input type="hidden" name="pageNo">
-										</form>
+											<select name="major" id="select_major" class="form-control search">
+												<option th:each="m : ${majors}" th:text="${m.major}" th:value="${m.major}"></option>
+											</select>
+											
 									</div>
 								</div>
 							</div>
@@ -1020,7 +1005,5 @@ function myModalClose() {
 			</div>
 			<!-- Right End -->
 		</div>
-	</div>
-	</div>
 	</div>
 </section>

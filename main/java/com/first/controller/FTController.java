@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.first.biz.TrainerBiz;
 import com.first.biz.TrainerSort;
 import com.first.vo.MajorVO;
-import com.first.vo.StatusVO;
 import com.first.vo.TrainerVO;
 
 @Controller

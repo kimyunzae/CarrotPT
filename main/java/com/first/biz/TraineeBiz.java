@@ -108,7 +108,7 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 		return result;
 	}
 	
-	// trainee, trainer 통합 비밀번호 업데이트
+	// trainee, trainer 통합 이메일로 비밀번호 업데이트
 	public void updatepwd(String email, String pwd) throws Exception{
 		String trainer = null;
 		String trainee = null;

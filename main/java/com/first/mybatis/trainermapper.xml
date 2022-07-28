@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			</if>
 			<choose>
 				<when test="orderBy != null">
-					 ${orderBy}
+					 CONCAT('',#{orderBy},'')
 				</when>
 				<when test="orderBy == null">
 					num DESC
@@ -145,13 +145,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE id=#{id}
 	</update>
 	
-
-	
-	<!-- 비밀번호 -->
+	<!-- 이메일로 비밀번호 변경 -->
 	<update id="updatepwd" parameterType="trainerVO">
-		UPDATE trainer SET PWD=#{pwd} WHERE EMAIL=#{id};
+		UPDATE trainer SET PWD=#{pwd} WHERE email=#{id};
 	</update>
-	
+
 	<!-- 아이디로 비밀번호 변경 -->
 	<update id="updatePassword" parameterType="trainerVO">
 		UPDATE trainer SET PWD=#{pwd} WHERE ID=#{id};
