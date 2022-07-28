@@ -9,7 +9,7 @@ public class MatchingController {
 
 	@RequestMapping("/matching")
 	public String matching(Model m) {
-		m.addAttribute("center", "matching/matching");
-		return "index";
+//		m.addAttribute("center", "matching/matching");
+		return "matching/matching";
 	}
 }
