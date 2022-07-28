@@ -20,9 +20,13 @@
 	color: #769BCD;
 }
 
-#tname h3 {
+#tname h3{
 	margin-top: 0.5rem;
 	margin-bottom: 0;
+}
+
+#tname h3 a{
+	font-family:Pretendard;
 }
 
 #tgymname {
@@ -32,6 +36,68 @@
 
 .btn btn-primary py-2 px-4:hover {
 	background-color: white;
+}
+
+#pages:hover{
+	cursor:pointer;
+}
+
+#div_trainer_row{
+	justify-content:center;
+}
+
+.pb-3, .py-3{
+	padding-bottom:0 !important;
+}
+
+/* Data 없을 때*/
+.nodata{
+	justify-content:center;
+	text-align:center;
+	border:1px solid #769BCD;
+	border-radius:20px;
+	font-family:Pretendard;
+}
+
+.nodata div{
+	padding:3rem;
+}
+
+.nodata p{
+	margin-bottom:0;
+}
+
+.nodata p span i{
+	margin-right:5px;
+	color:#769BCD;
+}
+
+/* Right */
+#div_searchbar{
+	font-family:Pretendard;
+}
+#div_searchbar h2{
+	text-align:center;
+	font-size:1.5rem;
+	color:#769BCD;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#div_searchbar h2 i{
+	margin-right:10px;
+}
+
+#div_searchbar label{
+	font-size:1.2rem;
+}
+
+#div_searchbar select{
+	background-color:white !important;
+	border-radius:20px;
+}
+
+#div_searchbar select option:hover{
+	background-color:black;
 }
 
 /* Modal */
@@ -44,7 +110,14 @@
 }
 
 .container {
-	margin: 100px auto;
+	margin-top:4rem;
+	margin-bottom:5rem;
+}
+
+#p_heading{
+	margin-bottom:0;
+	font-family:Pretendard;
+	font-size:1.2rem;
 }
 
 #myModal fieldset {
@@ -134,6 +207,8 @@
 
 <!-- BootStrap  -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -143,12 +218,16 @@
 
 function GetTarget(j){
 	var orderBy = $('#select_order').val();
+	var loc = $('#select_loc').val();
+	var major = $('#select_major').val();
 	
 	$.ajax({
 		url:'/trainers/findpage',
 		data:{
 			'pageNo':j,
-			'orderBy':orderBy
+			'orderBy':orderBy,
+			'loc':loc,
+			'major':major
 		},
 		method:'GET',
 		success: function(result){
@@ -156,7 +235,7 @@ function GetTarget(j){
 			$('#div_trainer_row').append(result);
 			
 			var currentPage = j;
-			var totalData = [[${totalData}]];
+			var totalData = $('#input_hiddencnt').val();
 			var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 			var pageSize = 5; // 화면에 표시될 페이지 수
 			var totalPages = Math.ceil(totalData / limitPerPage);
@@ -218,7 +297,7 @@ function GetTarget(j){
 		pageNo: j
 	}, // state
 	null, // title
-	'/trainers?pageNo=' + j + '&orderBy=' + orderBy); // url
+	'/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&loc=' + loc + '&major=' + major); // url
 }
 
 	$(window).on('popstate', function(event){
@@ -231,7 +310,7 @@ function GetTarget(j){
 function paging(totalData, currentPage){
 	
 		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
-		var totalData = [[${totalData}]];
+		var totalData = $('#input_hiddencnt').val();
 		var currentPage = [[${currentPage}]];
 		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
 		var pageSize = 5; // 화면에 표시될 페이지 수
@@ -292,14 +371,9 @@ function paging(totalData, currentPage){
 
 	$(function(){
 		paging();
-		$('#select_order').change(function(){
+		$('.search').change(function(){
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
-			$('#form_order').attr({
-				'method':'get',
-				'action':'/trainers/list'
-			});
-			// $('#form_order').submit();
 		});
 	});
 
@@ -449,8 +523,7 @@ function myModalClose() {
 		<div class="col-md-7 heading-section text-center ftco-animate">
 			<span class="subheading">Trainers</span>
 			<h2 class="mb-4">트레이너</h2>
-			<p>당근PT가 보증하는 현직 트레이너들!</p>
-
+			<p id="p_heading">당근PT 인증을 통과한 현직 트레이너들을 만나보세요!</p>
 		</div>
 	</div>
 
@@ -667,12 +740,12 @@ function myModalClose() {
 												<option value='울산'>울산광역시</option>
 												<option value='경기'>경기도</option>
 												<option value='강원'>강원도</option>
-												<option value='충북'>충청북도</option>
-												<option value='충남'>충청남도</option>
-												<option value='전북'>전라북도</option>
-												<option value='전남'>전라남도</option>
-												<option value='경북'>경상북도</option>
-												<option value='경남'>경상남도</option>
+												<option value='충청북'>충청북도</option>
+												<option value='충청남'>충청남도</option>
+												<option value='전라북'>전라북도</option>
+												<option value='전라남'>전라남도</option>
+												<option value='경상북'>경상북도</option>
+												<option value='경상남'>경상남도</option>
 												<option value='제주'>제주도</option>
 											</select> 구/군: <select name='county' class=select>
 												<option value=''>전체</option>
@@ -919,8 +992,8 @@ function myModalClose() {
 
 			<div class="col-lg-3 p-4 bg-light">
 
-				<div class="search-wrap-1 ftco-animate">
-					<h2 class="mb-3">Search</h2>
+				<div class="search-wrap-1 ftco-animate" id="div_searchbar">
+					<h2 class="mb-3"><i class="fa-solid fa-magnifying-glass"></i>Search</h2>
 					<form action="#" class="search-property-1">
 						<div class="row">
 							<div class="col-lg-12 align-items-end mb-3">
@@ -930,13 +1003,13 @@ function myModalClose() {
 										<div class="icon">
 											<span class="ion-ios-search"></span>
 										</div>
-										<form id="form_order">
-											<select name="orderBy" id="select_order" class="form-control">
+										
+											<select name="orderBy" id="select_order" class="form-control search">
 												<option value="num">최신 등록순</option>
 												<option value="rvcnt">리뷰 많은순</option>
 												<option value="name">이름순</option>
 											</select> <input type="hidden" name="pageNo">
-										</form>
+										
 									</div>
 								</div>
 							</div>
@@ -948,15 +1021,8 @@ function myModalClose() {
 										<div class="icon">
 											<span class="ion-ios-search"></span>
 										</div>
-										<!-- <form>
-											<input type="text" class="form-control"
-												placeholder="Search place">
-										</form> -->
-
-										<form name="form1" method="post" action="$PHP_SELF">
-											시/도: <select name='city'
-												onchange="change(this.selectedIndex);" class="form-control">
-												<option value='전체'>전체</option>
+											<select name='loc' id="select_loc" class="form-control search">
+												<option value='all'>All</option>
 												<option value='서울'>서울특별시</option>
 												<option value='부산'>부산광역시</option>
 												<option value='대구'>대구광역시</option>
@@ -966,19 +1032,14 @@ function myModalClose() {
 												<option value='울산'>울산광역시</option>
 												<option value='경기'>경기도</option>
 												<option value='강원'>강원도</option>
-												<option value='충북'>충청북도</option>
-												<option value='충남'>충청남도</option>
-												<option value='전북'>전라북도</option>
-												<option value='전남'>전라남도</option>
-												<option value='경북'>경상북도</option>
-												<option value='경남'>경상남도</option>
+												<option value='충청북'>충청북도</option>
+												<option value='충청남'>충청남도</option>
+												<option value='전라북'>전라북도</option>
+												<option value='전라남'>전라남도</option>
+												<option value='경상북'>경상북도</option>
+												<option value='경상남'>경상남도</option>
 												<option value='제주'>제주도</option>
-											</select> 구/군: <select name='county1' class="form-control">
-												<option value=''>전체</option>
 											</select>
-										</form>
-
-
 									</div>
 								</div>
 							</div>
@@ -990,37 +1051,19 @@ function myModalClose() {
 										<div class="icon">
 											<span class="ion-ios-search"></span>
 										</div>
-										<form id="form_order">
-											<select name="searchMajor" id="select_order" class="form-control">
-												<option>보디빌딩</option>
-												<option>파워리프팅</option>
-												<option>피지크</option>
-												<option>필라테스</option>
-												<option>크로스핏</option>
-												<option>요가</option>
-												<option>그외</option>
-											</select> <input type="hidden" name="pageNo">
-										</form>
+											<select name="major" id="select_major" class="form-control search">
+												<option value="all">All</option>
+												<option th:each="m : ${majors}" th:text="${m.major}" th:value="${m.major}"></option>
+											</select>
 									</div>
 								</div>
 							</div>
 
-
-							<div class="col-lg-12 align-self-end">
-								<div class="form-group">
-									<div class="form-field">
-										<input type="submit" value="Search"
-											class="form-control btn btn-primary">
-									</div>
-								</div>
-							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 			<!-- Right End -->
 		</div>
-	</div>
-	</div>
 	</div>
 </section>

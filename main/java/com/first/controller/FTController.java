@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.first.biz.TrainerBiz;
 import com.first.biz.TrainerSort;
 import com.first.vo.MajorVO;
-import com.first.vo.StatusVO;
 import com.first.vo.TrainerVO;
 
 @Controller
@@ -25,18 +24,7 @@ public class FTController {
 	
 	@Autowired
 	TrainerSort trainersort;
-	
-	@ModelAttribute("totalData")
-	public int totalData() {
-		int cnt = 0;
-		try {
-			cnt = biz.getcnt("수락");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return cnt;
-	}
-	
+		
 	@Value("6")
 	private int amount;
 	
@@ -59,7 +47,7 @@ public class FTController {
 
 
 	@RequestMapping("")
-	public String main(Model m, Integer pageNo, String orderBy) {
+	public String main(Model m, Integer pageNo, String orderBy, String loc, String major) {
 		
 		if(pageNo == null) {
 			pageNo = 1;
@@ -75,10 +63,9 @@ public class FTController {
 		String status = "수락";
 		
 		try {
-			List<TrainerVO> list = biz.getauthorized();
-			
+			List<TrainerVO> list = biz.getauthorized(loc, major);
 			trainersort.sortTrainer(list, orderBy);
-			cnt = biz.getcnt(status);
+			cnt = list.toArray().length;
 			
 			if(cnt - startIndex < amount) {
 				endIndex = startIndex + (cnt % amount);
@@ -95,12 +82,13 @@ public class FTController {
 		m.addAttribute("trcenter_info", "trainers/trcenter_info");
 		m.addAttribute("currentPage", pageNo);
 		m.addAttribute("orderBy", orderBy);
+		m.addAttribute("totalData", cnt);
 		return "index";
 	}
 	
 	
 	@RequestMapping("/findpage")
-	public String findPage(Model m, int pageNo, String orderBy) {
+	public String findPage(Model m, int pageNo, String orderBy, String loc, String major) {
 		
 		int startIndex = amount * (pageNo - 1);
 		int endIndex = 0;
@@ -108,10 +96,10 @@ public class FTController {
 		String status = "수락";
 		
 		try {
-			List<TrainerVO> list = biz.getauthorized();
+			List<TrainerVO> list = biz.getauthorized(loc, major);
 			
 			trainersort.sortTrainer(list, orderBy);
-			cnt = biz.getcnt(status);
+			cnt = list.toArray().length;
 			
 			if(cnt - startIndex < amount) {
 				endIndex = startIndex + (cnt % amount);
@@ -126,6 +114,7 @@ public class FTController {
 		}
 
 		m.addAttribute("currentPage", pageNo);
+		m.addAttribute("totalData", cnt);
 		return "trainers/trcenter_info";
 	}
 	

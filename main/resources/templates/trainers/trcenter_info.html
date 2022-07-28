@@ -1,45 +1,57 @@
-
-					<div class="col-md-6 col-lg-4 fadeInUp ftco-animate ftco-animated" th:each="t : ${trlist}">
-						<div class="project">
-						<!-- 프로필 사진 -->
-							<div class="img">
-								<a th:href="'/trainers/detail?id='+${t.id}"><img
-									src="/images/team/team-1.jpg" class="img-fluid"
-									alt="Colorlib Template"></a>
-							</div>
-						<!-- 정보 Start-->
-							<div class="text">
-							<!-- 운동 종류, 위치 -->
-								<div id="info majoraddr">
-									<div id="addrshort">
-										 <span id="tmajor" th:text="${t.major}"></span>
-									</div>
-									<div id="addrshort">
-										 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#769BCD" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-											  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-										 </svg>
-										<span th:text="${t.addrshort}"></span>
-									</div>
-								</div>
-								
-							<!-- 이름 -->
-								<div id="tname">
-									<h3><a th:href="'/trainers/detail?id='+${t.id}" th:text="${t.name}"></a></h3>
-								</div>
-								
-								<span id="tgymname" th:text="${t.gym_name}"></span>
-								 
-								<div class="star d-flex clearfix">
-									<div class="mr-auto float-left">
-										<span class="ion-ios-star"></span>
-										<span th:text="${t.avgrate}"></span>
-									</div>
-									<div class="float-right">
-										<span class="rate"><a th:text="'('+${t.rvcnt}+')'"></a></span>
-									</div>
-								</div>
-							</div>
-						<!-- 정보 End -->
-						</div>
-					</div>
+<div th:if="${totalData > 0}" class="col-md-6 col-lg-4 fadeInUp ftco-animate ftco-animated" th:each="t : ${trlist}">
+	<div class="project">
+	<!-- 프로필 사진 -->
+		<div class="img">
+			<a th:href="'/trainers/detail?id='+${t.id}"><img
+				src="/images/team/team-1.jpg" class="img-fluid"
+				alt="Colorlib Template"></a>
+		</div>
+	<!-- 정보 Start-->
+		<div class="text">
+		<!-- 운동 종류, 위치 -->
+			<div id="info majoraddr">
+				<div id="addrshort">
+					 <span id="tmajor" th:text="${t.major}"></span>
+				</div>
+				<div id="addrshort">
+					 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#769BCD" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+						  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+					 </svg>
+					<span th:text="${t.addrshort}"></span>
+				</div>
+			</div>
 			
+		<!-- 이름 -->
+			<div id="tname">
+				<h3><a th:href="'/trainers/detail?id='+${t.id}" th:text="${t.name}"></a></h3>
+			</div>
+			
+			<span id="tgymname" th:text="${t.gym_name}"></span>
+			 
+			<div class="star d-flex clearfix">
+				<div class="mr-auto float-left">
+					<span class="ion-ios-star"></span>
+					<span th:text="${t.avgrate}"></span>
+				</div>
+				<div class="float-right">
+					<span class="rate"><a th:text="'('+${t.rvcnt}+')'"></a></span>
+				</div>
+			</div>
+		</div>
+	<!-- 정보 End -->
+	</div>
+</div>
+			
+<div th:if="${totalData == 0}">
+	<div class="nodata">
+		<div>
+			<p>
+				<span><i class="fa-solid fa-circle-exclamation"></i></span>
+				앗! 검색 조건과 일치하는 데이터가 존재하지 않습니다.
+			</p>
+			<p>조건을 변경해 볼까요?</p>
+		</div>
+	</div>
+</div>
+
+<input type="hidden" th:value="${totalData}" id="input_hiddencnt">
