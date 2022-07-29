@@ -1,0 +1,52 @@
+<style>
+body {
+	background: #F8F9FA;
+}
+</style>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<div class="container mt-5">
+	<div class="row flex-lg-nowrap">
+		<div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+			<div class="card mt-5 p-3">
+				<div class="e-navlist e-navlist--active-bg">
+					<ul class="nav">
+						<li class="nav-item"><a class="nav-link px-2"
+							href="/temypage"><i class="fa fa-fw fa-id-card mr-1"></i><span>프로필
+							</span></a></li>
+					
+
+						<li class="nav-item"><a class="nav-link px-2"
+							href="/tematching"><i class="fab fa-maxcdn mr-1"></i><span>매칭신청</span></a></li>
+
+						<li class="nav-item"><a class="nav-link px-2"
+							href="/tehistory"><i class="fa fa-fw fa-history mr-1"></i><span>이용내역</span></a></li>
+							
+						<li class="nav-item"><a class="nav-link px-2 active"
+							href="/teaccount"><i class="fa fa-gear mr-1"></i><span>계정</span></a></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col mypage-main">
+			<div class="row">
+				<div class="col mb-3">
+					<div class="card mt-5">
+						<div class="card-body">
+
+							<!-- 여기부터 -->
+							<div th:replace="${traineecenter} ? ${traineecenter} : teprofile"></div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
