@@ -37,43 +37,6 @@ public class MypageController {
 	@Value("${dir3}")
 	String dir3;
 
-	// 일반회원 마이페이지: 메인
-	@RequestMapping("/mypage")
-	public String mypage(Model m, String id) {
-		try {
-			TraineeVO vo = traineebiz.get(id);
-			m.addAttribute("vo", vo);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "mypage/mypage");
-		return "index";
-	}
-
-	// 일반회원 마이페이지 업데이트
-	/*
-	 * @RequestMapping("/updateimpl") public RedirectView updateimpl(Model m,
-	 * TraineeVO trainee) { try { traineebiz.modify(trainee);
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return new
-	 * RedirectView("/mypage"); }
-	 */
-	
-	@RequestMapping("/updateimpl")
-	public String updateimpl(Model m, TraineeVO trainee) {
-		
-			try {
-				traineebiz.modify(trainee);
-				System.out.println("업데이트 성공");
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-			}
-			
-		return "index";
-	}
-
 	// 트레이너 마이페이지: 메인
 	@RequestMapping("/trmypage")
 	public String trmypage(Model m, HttpSession session) {
@@ -189,7 +152,7 @@ public class MypageController {
 		return "index";
 	}
 
-	// 비번 변경 페이지
+	// 비번 변경 페이지로 이동
 	@RequestMapping("/changepwd")
 	public String changepwd(Model m, HttpSession session) {
 		try {
@@ -200,7 +163,6 @@ public class MypageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return "index";
 	}
 
@@ -231,5 +193,55 @@ public class MypageController {
 
 		return "index";
 	}
+	
+	// 일반회원 마이페이지: 메인
+		@RequestMapping("/mypage")
+		public String mypage(Model m, String id) {
+			try {
+				TraineeVO trainee = traineebiz.get(id);
+				m.addAttribute("trainee", trainee);
 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			m.addAttribute("center", "mypage/mypage");
+			return "index";
+		}
+
+		// 일반회원 마이페이지 업데이트
+		@RequestMapping("/updateimpl")
+		public String updateimpl(Model m, TraineeVO trainee) {
+			
+				try {
+					traineebiz.modify(trainee);
+					System.out.println("업데이트 성공");
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+				
+			return "index";
+		}
+
+		// 트레이니 비번 변경 페이지로 이동
+		@RequestMapping("/techangepwd")
+		public String techangepwd(Model m, HttpSession session) {
+			try {
+				TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
+				m.addAttribute("center", "mypage/techangepwd");
+				m.addAttribute("trainee", trainee);
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "index";
+		}
+		/*
+		 * // 트레이너 계정정보 업데이트
+		 * 
+		 * @RequestMapping("/tepassword_update") public String tepassword_update(Model
+		 * m, TrainerVO vo) { try { traineebiz.modifyPassword2(vo);
+		 * System.out.println("비밀번호 변경 성공" + vo); } catch (Exception e) {
+		 * e.printStackTrace(); } return "index"; }
+		 */
 }

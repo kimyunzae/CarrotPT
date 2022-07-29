@@ -89,10 +89,9 @@
 		// 2. pwd: dpwd와 달라야하는 새 비밀번호를 입력하고 이 값이 업데이트에 반영됨 
 		// 3. cpwd: pwd와 비교하여 값이 같아야만 변경 기능 활성화 
 
-
 		$("#btn_pwdchange").click(function() {
-			
-			var dpwd = $('#pwd-change-form input[name=dpwd]').val();	
+
+			var dpwd = $('#pwd-change-form input[name=dpwd]').val();
 			var pwd = $('#pwd-change-form input[name=pwd]').val();
 			var cpwd = $('#pwd-change-form input[name="cpwd"]').val();
 
@@ -116,23 +115,30 @@
 				alert("변경비밀번호가 일치하지 않습니다.");
 				$("#cpwd").focus();
 			}
-					
+
 			$.ajax({
 				url : "/checkpwdchange",
 				type : "POST",
 				data : {
 					'dpwd' : dpwd
 				},
+				success : function(data) {
 
+					if (data == 0) {
+						alert("패스워드가 틀렸습니다.");
+						return;
+					}
+
+					if (data == 1) {
 						if (confirm("변경하시겠습니까?")) {
 							$("#pwd-change-form").attr({
 								"method" : "post",
-								"action" : "trpassword_update"
+								"action" : "tepassword_update"
 							});
 							$("#pwd-change-form").submit();
 							alert('재로그인 후 업데이트가 완료됩니다.');
 						}
-
+					}
 				}
 			})
 
@@ -162,22 +168,26 @@
 				<form class="bg-light p-4 p-md-5 contact-form" id="pwd-change-form">
 
 					<input class="change-pwd-id-section" name="id"
-						th:value="${trainer.id}">
-
+						th:value="${trainee.id}">
 
 					<div class="row">
 						<div class="col">
 							<div class="form-group">
 								<label>현재 비밀번호</label> <input class="form-control" name="dpwd"
 									id="dpwd" type="password">
-
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<div class="form-group">
-
+								<span class="text-dark" id="dpwd-span"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
 								<label>새 비밀번호</label> <input class="form-control" id="pwd"
 									type="password" name="pwd">
 							</div>
