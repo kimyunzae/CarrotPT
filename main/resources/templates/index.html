@@ -261,7 +261,7 @@
 					}
 					if (data == 'success') {
 						$('#login_bt').removeAttr('disabled');
-						$('#login-check-msg').text('Welcome :>');
+						$('#login-check-msg').text('환영합니다! :>');
 					}
 					if (data == 'fail') {
 						$('#login-check-msg').text('비밀번호를 확인해주세요');
@@ -306,8 +306,13 @@
 					<li class="nav-item"><a href="/" class="nav-link index-nav-link"><span>Home</span></a></li>
 					<li class="nav-item"><a href="/trainers/" class="nav-link"><span>트레이너
 								찾기</span></a></li>
-					<li class="nav-item"><a href="/map" class="nav-link"><span>지도로찾기</span></a></li>
-
+					<li class="nav-item"><a href="/map" class="nav-link"><span>지도로 찾기</span></a></li>
+					
+					<li class="nav-item">
+					<span class="badge badge-pill badge-warning" style="float:right;margin-bottom:-5px;margin-right:0px;font-size:10px">123</span>
+					<a class="nav-link" href="/matching"><span><i class="fab fa-maxcdn mr-1"></i>매칭</span></a></li>
+					
+					
 					<li th:if="${session.logincust == null}" class="nav-item">
 					<a class="nav-link " href="#" data-toggle="modal"
 					data-target="#loginModal"><span>로그인</span></a> </li>

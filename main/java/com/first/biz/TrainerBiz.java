@@ -77,8 +77,8 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	}
 	
 	// status가 '수락'인 trainer 목록
-	public List<TrainerVO> getauthorized() throws Exception{
-		List<TrainerVO> list = dao.selectauthorized();
+	public List<TrainerVO> getauthorized(String loc, String major) throws Exception{
+		List<TrainerVO> list = dao.selectauthorized(loc, major);
 		for (TrainerVO v : list) {
 			trainerinfo(v);
 		}
@@ -96,15 +96,6 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		int offset2 = (pageNo - 1) * amount;
 		List<TrainerVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2, status);
 
-		for (TrainerVO v : list) {
-			trainerinfo(v);
-		}
-		return list;
-	}
-	
-	// 검색
-	public List<TrainerVO> search(String loc, String major) throws Exception{
-		List<TrainerVO> list = dao.search(loc, major);
 		for (TrainerVO v : list) {
 			trainerinfo(v);
 		}
@@ -139,7 +130,7 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	}
 	
 	public void modifyPassword(TrainerVO v) throws Exception {
-		dao.updatepwd(v);
+		dao.updatePassword(v);
 	}
 	
 	// 이름, phone으로 선택

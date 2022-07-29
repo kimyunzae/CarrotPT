@@ -183,30 +183,18 @@ public class AJAXController {
 
 	// 트레이너 마이페이지: 비밀번호 변경
 	@RequestMapping("checkpwdchange")
-	public String checkpwdchange(String dpwd, String pwd, String cpwd, HttpSession session) {
+	public String checkpwdchange(String dpwd, HttpSession session) {
 		String result = "";
 
 		try {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
-			trainer.getPwd();
-
-			// 1) dpwd를 입력하지않은 경우
-			if (dpwd == null) {
-				result = "none";
-			}
-			// 2) dpwd가 맞는 경우
-			else if (dpwd == trainer.getPwd()) {
-				if (pwd == dpwd) {
-					result = "same";
-				} else if (pwd != dpwd && pwd == cpwd) {
-					result = "success";
-				} else {
-					result = "fail";
-				}
+	
+			if (trainer.getPwd().equals(dpwd)) {
+				result = "1";
 			}
 
 			else {
-				result = "fail";
+				result = "0";
 			}
 
 		} catch (Exception e) {

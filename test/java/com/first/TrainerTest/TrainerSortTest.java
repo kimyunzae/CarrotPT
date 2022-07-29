@@ -23,8 +23,10 @@ class TrainerSortTest {
 	@Test
 	void contextLoads() {
 		List<TrainerVO> trainerList = new ArrayList<TrainerVO>();
+		String loc = null;
+		String major = null;
 		try {
-			trainerList = biz.getauthorized();
+			trainerList = biz.getauthorized(loc, major);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

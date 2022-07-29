@@ -1,0 +1,233 @@
+<style>
+.ul_find {
+	text-align: center;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.li_find {
+	text-align: center;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+#ul_find .li_find .nav-link.active {
+	border-color: #769BCD #769BCD #fff;
+	color: black;
+}
+
+#ul_find .li_find .nav-link:hover {
+	border-color: #769BCD #769BCD #fff;
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
+
+.span_mobile.tel3 {
+	padding-right: 0;
+}
+
+#div_formbtn {
+	margin-top: 2rem;
+}
+
+#div_findresult {
+	background-color: white;
+}
+
+.row.div.mobile .span_mobile {
+	vertical-align: middle;
+}
+
+#div_gologin {
+	text-align: right;
+}
+
+#h2_findid.mb-4 {
+	margin-bottom: 2rem !important;
+}
+
+#maindiv {
+	padding-right: 7.5px;
+	padding-left: 7.5px;
+}
+
+#div_findid {
+	background-color: white;
+	text-align: center;
+	border: 1px dashed #769BCD;
+	padding-top: 15px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.find_result.id {
+	color: black;
+	margin-bottom: 0.2rem;
+}
+
+.find_result.id.found {
+	color: black;
+	font-weight: bold;
+	color: #769BCD;
+}
+
+.change-pwd-id-section {
+	display: none;
+}
+
+#btn_pwdchange:disabled {
+	cursor: auto;
+	pointer-events: none;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		// 비밀번호 변경 로직
+		// 1. dpwd: 현재 비밀번호를 입력하고 맞으면 새비밀번호 input 활성화, 틀리면 span msg
+		// 2. pwd: dpwd와 달라야하는 새 비밀번호를 입력하고 이 값이 업데이트에 반영됨 
+		// 3. cpwd: pwd와 비교하여 값이 같아야만 변경 기능 활성화 
+
+		$("#btn_pwdchange").click(function() {
+
+			var dpwd = $('#pwd-change-form input[name=dpwd]').val();
+			var pwd = $('#pwd-change-form input[name=pwd]').val();
+			var cpwd = $('#pwd-change-form input[name="cpwd"]').val();
+
+			if (dpwd == "") {
+				alert("비밀번호를 입력해주세요");
+				$('#pwd-change-form input[name=dpwd]').focus();
+				return false
+			}
+
+			if (pwd == "") {
+				alert("새 비밀번호를 입력해주세요");
+				$('#pwd-change-form input[name=pwd]').focus();
+				return false
+			}
+			if (cpwd == "") {
+				alert("새 비밀번호를 한번 더 입력해주세요");
+				$('#pwd-change-form input[name=cpwd]').focus();
+				return false
+			}
+			if (pwd != cpwd) {
+				alert("변경비밀번호가 일치하지 않습니다.");
+				$("#cpwd").focus();
+			}
+
+			$.ajax({
+				url : "/checkpwdchange",
+				type : "POST",
+				data : {
+					'dpwd' : dpwd
+				},
+				success : function(data) {
+
+					if (data == 0) {
+						alert("패스워드가 틀렸습니다.");
+						return;
+					}
+
+					if (data == 1) {
+						if (confirm("변경하시겠습니까?")) {
+							$("#pwd-change-form").attr({
+								"method" : "post",
+								"action" : "tepassword_update"
+							});
+							$("#pwd-change-form").submit();
+							alert('재로그인 후 업데이트가 완료됩니다.');
+						}
+					}
+				}
+			})
+
+		});
+
+	});
+</script>
+<section class="ftco-section contact-section ftco-no-pb"
+	id="contact-section">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<span class="subheading">PASSWORD UPDATE</span>
+
+			</div>
+
+			<div class="container-fluid d-flex justify-content-center">
+				<ul class="nav nav-tabs col-md-6 justify-content-center ul_find"
+					id="ul_find">
+					<li class="nav-item col-sm li_find"><a
+						class="nav-link a_find id active" data-value="findid">비밀번호 변경</a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-6 order-md-last d-flex" id="maindiv">
+
+				<form class="bg-light p-4 p-md-5 contact-form" id="pwd-change-form">
+
+					<input class="change-pwd-id-section" name="id"
+						th:value="${trainee.id}">
+
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>현재 비밀번호</label> <input class="form-control" name="dpwd"
+									id="dpwd" type="password">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<span class="text-dark" id="dpwd-span"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>새 비밀번호</label> <input class="form-control" id="pwd"
+									type="password" name="pwd">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<span class="text-dark" id="pwd-span"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label>새 비밀번호 확인 <span class="d-none d-xl-inline"></span></label>
+								<input class="form-control" type="password" name="cpwd"
+									id="cpwd">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<span class="text-dark" id="cpwd-span"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<button type="button" id="btn_pwdchange"
+									class="btn btn-primary col">변경하기</button>
+
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

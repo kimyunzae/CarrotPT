@@ -114,7 +114,7 @@
 
 										<div class="name" name="name">
 											성함
-											<h3 class="name" th:text="${vo.name}">//</h3>
+											<h3 class="name" th:text="${trainee.name}">//</h3>
 
 										</div>
 									</div>
@@ -134,46 +134,48 @@
 										</div>
 
 										<div class="row">
-											<div class="col-md-6">
+											<div class="col-md-12">
 												<label class="labels">아이디</label><input type="text"
 													name="id" class="form-control" placeholder="아이디"
-													th:value="${vo.id}" readonly>
+													th:value="${trainee.id}" readonly>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-12">
 												<label class="labels">비밀번호</label><input type="text"
-													name="pwd" class="form-control" th:value="${vo.pwd}"
+													name="pwd" class="form-control" th:value="${trainee.pwd}"
 													placeholder="비밀번호">
+														<a href="/techangepwd">비밀번호 변경</a>
 											</div>
 										</div>
 										<div class="row mt-3">
 											<div class="col-md-12">
 												<label class="labels">휴대폰 번호</label><input type="text"
-													name="phone" class="form-control" th:value="${vo.phone}"
+													name="phone" class="form-control" th:value="${trainee.phone}"
 													placeholder="휴대폰 번호">
 											</div>
 											<div class="col-md-12">
 												<label class="labels">이메일</label><input type="text"
 													name="email" class="form-control" placeholder="Email"
-													th:value="${vo.email}">
+													th:value="${trainee.email}">
 											</div>
 
 										</div>
 										<div class="row mt-3">
 											<div class="col-md-12">
 												<label class="labels">주소</label><input type="text"
-													name="addr1" class="form-control" placeholder="주소" id="sample6_address"
-													th:value="${vo.addr1}">
+													name="addr1" class="form-control" placeholder="주소"
+													id="sample6_address" th:value="${trainee.addr1}">
 											</div>
 											<div class="col-md-6">
 												<label class="labels">상세주소 </label> <input type="text"
-													name="addr2" class="form-control" placeholder="상세정보" id="sample6_detailAddress"
-													th:value="${vo.addr2}">
+													name="addr2" class="form-control" placeholder="상세정보"
+													id="sample6_detailAddress" th:value="${trainee.addr2}">
 											</div>
 											<div class="col-md-6">
 												<label class="labels">우편번호</label> <input type="text"
-													class="form-control" th:value="${vo.zip}" name="zip" id="sample6_postcode"
-													placeholder="우편번호"> <input type="button" 
-													onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+													class="form-control" th:value="${trainee.zip}" name="zip"
+													id="sample6_postcode" placeholder="우편번호"> <input
+													type="button" onclick="sample6_execDaumPostcode()"
+													value="우편번호 찾기">
 											</div>
 										</div>
 										<div class="mt-5 text-center">
