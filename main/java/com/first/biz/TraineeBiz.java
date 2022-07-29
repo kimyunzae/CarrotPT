@@ -16,7 +16,7 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 
 	@Autowired
 	TraineeMapper dao;
-	
+
 	@Autowired
 	TrainerMapper trainerdao;
 
@@ -46,31 +46,30 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 		return dao.selectall();
 	}
 
-	
 	// 이메일로 선택
 	public TraineeVO getbyemail(String k) {
 		TraineeVO obj = dao.selectbyemail(k);
 		return obj;
 	}
-	
+
 	// level이 '일반회원'인 목록
-	public List<TraineeVO> gettrainees() throws Exception{
+	public List<TraineeVO> gettrainees() throws Exception {
 		List<TraineeVO> list = dao.selecttrainees();
 		return list;
 	}
-	
+
 	// level이 '일반회원'인 수
-	public int getcnt() throws Exception{
+	public int getcnt() throws Exception {
 		int cnt = dao.selectcnt();
 		return cnt;
 	}
-	
+
 	// 페이지, 정렬
-	public List<TraineeVO> getbypage(Integer pageNo, int amount, String orderBy, int offset) throws Exception{
-		if(orderBy == null) {
+	public List<TraineeVO> getbypage(Integer pageNo, int amount, String orderBy, int offset) throws Exception {
+		if (orderBy == null) {
 			orderBy = "regdate desc";
 		}
-		if(pageNo == null) {
+		if (pageNo == null) {
 			pageNo = 1;
 		}
 		int offset2 = (pageNo - 1) * amount;
@@ -78,52 +77,57 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 
 		return list;
 	}
-	
+
 	// 이름, phone으로 선택
-	public String getbynamephone(String name, String phone) throws Exception{
+	public String getbynamephone(String name, String phone) throws Exception {
 		return dao.selectbynamephone(name, phone);
 	}
-	
+
 	// trainee, trainer 통합 아이디찾기
-	public String findid(String name, String phone) throws Exception{
+	public String findid(String name, String phone) throws Exception {
 		String id = dao.selectbynamephone(name, phone);
-		if(id == null) {
+		if (id == null) {
 			id = trainerdao.selectbynamephone(name, phone);
 		}
-		if(id == null) {
+		if (id == null) {
 			id = "0";
 		}
 		return id;
 	}
-	
+
 	// trainee, trainer 통합 비밀번호찾기
-	public String findpwd(String id, String email) throws Exception{
+	public String findpwd(String id, String email) throws Exception {
 		String result = dao.selectbyidemail(id, email);
-		if(result == null) {
+		if (result == null) {
 			result = trainerdao.selectbyidemail(id, email);
 		}
-		if(result == null) {
+		if (result == null) {
 			result = "0";
 		}
 		return result;
 	}
-	
+
 	// trainee, trainer 통합 이메일로 비밀번호 업데이트
-	public void updatepwd(String email, String pwd) throws Exception{
+	public void updatepwd(String email, String pwd) throws Exception {
 		String trainer = null;
 		String trainee = null;
-		
+
 		trainer = trainerdao.selectemailbyemail(email);
 		trainee = dao.selectemailbyemail(email);
-		
-		if(trainer != null && trainee == null) {
+
+		if (trainer != null && trainee == null) {
 			TrainerVO newTrainer = new TrainerVO(pwd, email);
 			trainerdao.updatepwd(newTrainer);
-			
-		}else if(trainer == null && trainee != null) {
+
+		} else if (trainer == null && trainee != null) {
 			TraineeVO newTrainee = new TraineeVO(pwd, email);
 			dao.updatepwd(newTrainee);
 		}
+	}
+
+	//트레이너 마이페이지에서 비밀번호 변경하기
+	public void modifypassword(TraineeVO v) throws Exception {
+		dao.updatepassword(v);
 	}
 
 }

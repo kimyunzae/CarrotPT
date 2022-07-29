@@ -10,6 +10,7 @@ import com.first.mapper.ReviewMapper;
 import com.first.mapper.TrainerMapper;
 import com.first.vo.MajorVO;
 import com.first.vo.StatusVO;
+import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
 @Service("trainerbiz")
@@ -138,8 +139,5 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return dao.selectbynamephone(name, phone);
 	}
 
-
-	
-	
 
 }

@@ -27,4 +27,6 @@ public interface TraineeMapper {
 	public List<TraineeVO> selectbypage(@Param("pageNo")Integer pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset) throws Exception;
 	
 	public void updatepwd(TraineeVO v) throws Exception;
+	
+	public void updatepassword(TraineeVO v) throws Exception;
 }

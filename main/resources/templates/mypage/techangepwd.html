@@ -89,39 +89,41 @@
 		// 2. pwd: dpwd와 달라야하는 새 비밀번호를 입력하고 이 값이 업데이트에 반영됨 
 		// 3. cpwd: pwd와 비교하여 값이 같아야만 변경 기능 활성화 
 
+
 		$("#btn_pwdchange").click(function() {
+			
+			var tedpwd = $('#pwd-change-form input[name=tedpwd]').val();	
+			var tepwd = $('#pwd-change-form input[name=tepwd]').val();
+			var tecpwd = $('#pwd-change-form input[name="tecpwd"]').val();
 
-			var dpwd = $('#pwd-change-form input[name=dpwd]').val();
-			var pwd = $('#pwd-change-form input[name=pwd]').val();
-			var cpwd = $('#pwd-change-form input[name="cpwd"]').val();
-
-			if (dpwd == "") {
+			if (tedpwd == "") {
 				alert("비밀번호를 입력해주세요");
-				$('#pwd-change-form input[name=dpwd]').focus();
+				$('#pwd-change-form input[name=tedpwd]').focus();
 				return false
 			}
 
-			if (pwd == "") {
+			if (tepwd == "") {
 				alert("새 비밀번호를 입력해주세요");
-				$('#pwd-change-form input[name=pwd]').focus();
+				$('#pwd-change-form input[name=tepwd]').focus();
 				return false
 			}
-			if (cpwd == "") {
+			if (tecpwd == "") {
 				alert("새 비밀번호를 한번 더 입력해주세요");
-				$('#pwd-change-form input[name=cpwd]').focus();
+				$('#pwd-change-form input[name=tecpwd]').focus();
 				return false
 			}
-			if (pwd != cpwd) {
+			if (tepwd != tecpwd) {
 				alert("변경비밀번호가 일치하지 않습니다.");
-				$("#cpwd").focus();
+				$("#tecpwd").focus();
 			}
-
+					
 			$.ajax({
-				url : "/checkpwdchange",
+				url : "/techeckpwdchange",
 				type : "POST",
 				data : {
-					'dpwd' : dpwd
+					'tedpwd' : tedpwd
 				},
+
 				success : function(data) {
 
 					if (data == 0) {
@@ -170,26 +172,22 @@
 					<input class="change-pwd-id-section" name="id"
 						th:value="${trainee.id}">
 
+
 					<div class="row">
 						<div class="col">
 							<div class="form-group">
-								<label>현재 비밀번호</label> <input class="form-control" name="dpwd"
-									id="dpwd" type="password">
+								<label>현재 비밀번호</label> <input class="form-control" name="tedpwd"
+									id="tedpwd" type="password">
+
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<div class="form-group">
-								<span class="text-dark" id="dpwd-span"></span>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="form-group">
-								<label>새 비밀번호</label> <input class="form-control" id="pwd"
-									type="password" name="pwd">
+
+								<label>새 비밀번호</label> <input class="form-control" id="tepwd"
+									type="password" name="tepwd">
 							</div>
 						</div>
 					</div>
@@ -204,8 +202,8 @@
 						<div class="col">
 							<div class="form-group">
 								<label>새 비밀번호 확인 <span class="d-none d-xl-inline"></span></label>
-								<input class="form-control" type="password" name="cpwd"
-									id="cpwd">
+								<input class="form-control" type="password" name="tecpwd"
+									id="tecpwd">
 							</div>
 						</div>
 					</div>
