@@ -56,7 +56,7 @@
 	text-align:center;
 	border:1px solid #769BCD;
 	border-radius:20px;
-	font-family:Pretendard;
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 .nodata div{
@@ -74,7 +74,7 @@
 
 /* Right */
 #div_searchbar{
-	font-family:Pretendard;
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 #div_searchbar h2{
 	text-align:center;
@@ -96,10 +96,6 @@
 	border-radius:20px;
 }
 
-#div_searchbar select option:hover{
-	background-color:black;
-}
-
 /* Modal */
 #myModal body {
 	color: #000;
@@ -116,7 +112,7 @@
 
 #p_heading{
 	margin-bottom:0;
-	font-family:Pretendard;
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	font-size:1.2rem;
 }
 
@@ -205,15 +201,15 @@
 }
 </style>
 
-<!-- BootStrap  -->
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script th:inline="javascript">
 
 function GetTarget(j){
@@ -369,13 +365,7 @@ function paging(totalData, currentPage){
 	}
 	
 
-	$(function(){
-		paging();
-		$('.search').change(function(){
-			var searchPage = 1;
-			GetTarget(parseInt(searchPage));
-		});
-	});
+
 
 function sample6_execDaumPostcode() {
 	new daum.Postcode(
@@ -416,38 +406,7 @@ function sample6_execDaumPostcode() {
 				}
 			}).open();
 }
-/* 트레이너 찾기 모달에서 지역검색 */
-var cnt = new Array();
-cnt[0] = new Array('전체');
-cnt[1] = new Array('전체','강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구');
-cnt[2] = new Array('전체','강서구','금정구','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구','기장군');
-cnt[3] = new Array('전체','남구','달서구','동구','북구','서구','수성구','중구','달성군');
-cnt[4] = new Array('전체','계양구','남구','남동구','동구','부평구','서구','연수구','중구','강화군','옹진군');
-cnt[5] = new Array('전체','광산구','남구','동구','북구','서구');
-cnt[6] = new Array('전체','대덕구','동구','서구','유성구','중구');
-cnt[7] = new Array('전체','남구','동구','북구','중구','울주군');
-cnt[8] = new Array('전체','고양시','과천시','광명시','구리시','군포시','남양주시','동두천시','부천시','성남시','수원시','시흥시','안산시','안양시','오산시','의왕시','의정부시','평택시','하남시','가평군','광주시','김포시','안성시','양주군','양평군','여주군','연천군','용인시','이천군','파주시','포천시','화성시');
-cnt[9] = new Array('전체','강릉시','동해시','삼척시','속초시','원주시','춘천시','태백시','고성군','양구군','양양군','영월군','인제군','정선군','철원군','평창군','홍천군','화천군','황성군');
-cnt[10] = new Array('전체','제천시','청주시','충주시','괴산군','단양군','보은군','영동군','옥천군','음성군','진천군','청원군');
-cnt[11] = new Array('전체','공주시','보령시','서산시','아산시','천안시','금산군','논산군','당진군','부여군','서천군','연기군','예산군','청양군','태안군','홍성군');
-cnt[12] = new Array('전체','군산시','김제시','남원시','익산시','전주시','정읍시','고창군','무주군','부안군','순창군','완주군','임실군','장수군','진안군');
-cnt[13] = new Array('전체','광양시','나주시','목포시','순천시','여수시','여천시','강진군','고흥군','곡성군','구례군','담양군','무안군','보성군','신안군','여천군','영광군','영암군','완도군','장성군','장흥군','진도군','함평군','해남군','화순군');
-cnt[14] = new Array('전체','경산시','경주시','구미시','김천시','문겅시','상주시','안동시','영주시','영천시','포항시','고령군','군위군','봉화군','성주군','영덕군','영양군','예천군','울릉군','울진군','의성군','청도군','청송군','칠곡군');
-cnt[15] = new Array('전체','거제시','김해시','마산시','밀양시','사천시','울산시','진주시','진해시','창원시','통영시','거창군','고성군','남해군','산청군','양산시','의령군','창녕군','하동군','함안군','함양군','합천군');
-cnt[16] = new Array('전체','서귀포시','제주시','남제주군','북제주군');
 
-function change(add) {
-sel=document.form.county
-/* sel=document.form1.county1 */
-  /* 옵션메뉴삭제 */
-  for (i=sel.length-1; i>=0; i--){
-    sel.options[i] = null
-    }
-  /* 옵션박스추가 */
-  for (i=0; i < cnt[add].length;i++){                     
-                    sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
-    }         
-}
 
 
 /* /* 사이드바에서 지역별 검색
@@ -464,7 +423,7 @@ sel1=document.form1.county1
 } */
 
 
-/* 모달에서 직접입력시 텍스트창 활성화*/
+/* 모달에서 직접입력시 텍스트창 활성화
 	$(document).ready(function() {
 		$("input:radio[name=optradio22]").click(function() {
 			if ($("input[name=optradio22]:checked").val() == "etc") {
@@ -474,47 +433,52 @@ sel1=document.form1.county1
 			}
 		});
 	});
+*/
 
-	
-	
-	/* 모달 jquery */
-	$(document).ready(function(){
-
-$(".tabs").click(function(){
-    
-    $(".tabs").removeClass("active");
-    $(".tabs h6").removeClass("font-weight-bold");    
-    $(".tabs h6").addClass("text-muted");    
-    $(this).children("h6").removeClass("text-muted");
-    $(this).children("h6").addClass("font-weight-bold");
-    $(this).addClass("active");
-
-    current_fs = $(".active");
-
-    next_fs = $(this).attr('id');
-    next_fs = "#" + next_fs + "1";
-
-    $("fieldset").removeClass("show");
-    $(next_fs).addClass("show");
-
-    current_fs.animate({}, {
-        step: function() {
-            current_fs.css({
-                'display': 'none',
-                'position': 'relative'
-            });
-            next_fs.css({
-                'display': 'block'
-            });
-        }
-    });
-});
-});
 /* 모달 창 닫기 */
 function myModalClose() {
 	$('#myModal').modal('hide');
-	$('#myModal2').modal('hide');
 }	
+	
+$(function(){
+	paging();
+	$('.search').change(function(){
+		var searchPage = 1;
+		GetTarget(parseInt(searchPage));
+	});
+	
+	/* 모달 jquery */
+	$(".tabs").click(function(){
+	    
+	    $(".tabs").removeClass("active");
+	    $(".tabs h6").removeClass("font-weight-bold");    
+	    $(".tabs h6").addClass("text-muted");    
+	    $(this).children("h6").removeClass("text-muted");
+	    $(this).children("h6").addClass("font-weight-bold");
+	    $(this).addClass("active");
+
+	    current_fs = $(".active");
+
+	    next_fs = $(this).attr('id');
+	    next_fs = "#" + next_fs + "1";
+
+	    $("fieldset").removeClass("show");
+	    $(next_fs).addClass("show");
+
+	    current_fs.animate({}, {
+	        step: function() {
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            next_fs.css({
+	                'display': 'block'
+	            });
+	        }
+	    });
+	});
+});
+
 
 </script>
 <section class="ftco-section">
@@ -531,6 +495,10 @@ function myModalClose() {
 		<div class="row justify-content-center">
 			<button type="button" data-toggle="modal" data-target="#myModal"
 				class="btn btn-primary py-2 px-4">맞춤트레이너찾기(Click!)</button>
+		</div>
+	</div>	
+	
+		<!-- Modal Start -->		
 			<div id="myModal" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLabel" aria-hidden="true"
 				class="modal fade text-left">
@@ -538,15 +506,12 @@ function myModalClose() {
 					<div class="modal-content">
 						<div class="modal-header login-modal-header">
 							<div class="modal-title login-modal-title">
-
 								<p class="navbar-brand modal-title-text">
 									<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
 								</p>
-
 							</div>
 						</div>
-						<div
-							class="modal-header row d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
+						<div class="modal-header row d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
 							<div class="tabs active" id="tab01">
 								<h6 class="font-weight-bold">1</h6>
 							</div>
@@ -556,326 +521,107 @@ function myModalClose() {
 							<div class="tabs" id="tab03">
 								<h6 class="text-muted">3</h6>
 							</div>
-							<!-- <div class="tabs" id="tab04">
+							<div class="tabs" id="tab04">
 								<h6 class="text-muted">4</h6>
-							</div> -->
+							</div>
 						</div>
+					<!-- Modal Body Start -->
 						<div class="modal-body login-modal-body">
 							<p id="login-check-msg" class="login-title">질문에 답해주세요</p>
 						</div>
-
 						<div class="line"></div>
 						<div class="modal-body p-0">
 							<fieldset class="show" id="tab011" name="tab011">
-								<div class="bg-light">
+								
 									<!-- <h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3> -->
+									
 									<div class="form-group pb-2 px-3">
-										<h5>1-1.고객님의 성별이 어떻게 되나요?</h5>
+										<h5> 어떤 성별의 트레이너를 선호하시나요? </h5>
 										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option121"
-												type="radio" value="" name="optradio12"><label
-												class="custom-control-label" for="option121">여성</label>
+											<input class="custom-control-input" type="radio" id="gender_all" name="tgender">
+											<label class="custom-control-label" for="gender_all">상관없어요</label>
 										</div>
 										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option122"
-												type="radio" value="" name="optradio12"><label
-												class="custom-control-label" for="option122">남성</label>
+											<input class="custom-control-input" type="radio" value="여" id="gender_f" name="tgender">
+											<label class="custom-control-label" for="gender_f">여성</label>
 										</div>
+											
 										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option123"
-												type="radio" value="" name="optradio12"><label
-												class="custom-control-label" for="option123">응답하기 싫음</label>
+											<input class="custom-control-input" type="radio" value="남" id="gender_m" name="tgender">
+											<label class="custom-control-label" for="gender_m">남성</label>
 										</div>
 									</div>
-									<div class="form-group pb-2 px-3">
-										<h5>1-2. 고객님의 연령대는 어떻게 되나요?</h5>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option111"
-												type="radio" value="" name="optradio11"> <label
-												class="custom-control-label" for="option111">10대</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option112"
-												type="radio" value="" name="optradio11"><label
-												class="custom-control-label" for="option112">20대</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option113"
-												type="radio" value="" name="optradio11"><label
-												class="custom-control-label" for="option113">30대</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option114"
-												type="radio" value="" name="optradio11"><label
-												class="custom-control-label" for="option114">40대</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option115"
-												type="radio" value="" name="optradio11"><label
-												class="custom-control-label" for="option115">50대</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option116"
-												type="radio" value="" name="optradio11"><label
-												class="custom-control-label" for="option116">60대 이상</label>
-										</div>
-									</div>
-									<div class="form-group pb-2 px-3">
-										<h5>1-3. 운동하시려는 목적을 말씀해주세요(중복체크 가능)</h5>
-										<div>
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="option211"
-													type="checkbox" value=""><label
-													class="custom-control-label" for="option211">다이어트</label>
-											</div>
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="option212"
-													type="checkbox" value=""><label
-													class="custom-control-label" for="option212">체력증진</label>
-											</div>
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="option213"
-													type="checkbox" value=""><label
-													class="custom-control-label" for="option213">자세교정</label>
-											</div>
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="option214"
-													type="checkbox" value=""><label
-													class="custom-control-label" for="option214">자격증 또는
-													대회</label>
-											</div>
-										</div>
-									</div>
+											
 									<a href="#tab021" class="next round">&#8250;</a>
 							</fieldset>
 
 
 							<fieldset id="tab021" name="tab021">
 								<div class="form-group pb-2 px-3">
-									<h5>2-1. 하고 싶은 운동을 말씀해주세요</h5>
-									<form name="selex" action="./example.html">
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option221"
-												type="radio" value="0" name="optradio22"> <label
-												class="custom-control-label" for="option221">보디빌딩</label>
+									<h5>어떤 운동에 관심이 있으신가요? 모두 골라 주세요.</h5>
+									<div>
+										<div class="custom-control custom-checkbox" th:each="m: ${majors}">
+											<input class="custom-control-input" name="tmajor" type="checkbox" th:id="'major_'+${m.major}" th:value="${m.major}">
+											<label class="custom-control-label" th:text="${m.major}" th:for="'major_'+${m.major}"></label>
 										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option222"
-												type="radio" value="0" name="optradio22"> <label
-												class="custom-control-label" for="option222">파워리프팅</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option223"
-												type="radio" value="0" name="optradio22"> <label
-												class="custom-control-label" for="option223">필라테스</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option224"
-												type="radio" value="0" name="optradio22"> <label
-												class="custom-control-label" for="option224">크로스핏</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option225"
-												type="radio" value="0" name="optradio22"> <label
-												class="custom-control-label" for="option225">요가</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option226"
-												type="radio" value="etc" name="optradio22"> <label
-												class="custom-control-label" for="option226">직접입력:</label> <input
-												type="text" class="form-control" id="option228"
-												style="width: 300px;" placeholder="배우고 싶은 운동을 입력해주세요"
-												name="optradio228" value="" />
-
-										</div>
-									</form>
+									</div>
 								</div>
+									<a href="#tab011" class="previous round">&#8249;</a>
+									<a href="#tab031" class="next round">&#8250;</a>
+							</fieldset>
+							
+								
+							<fieldset id="tab031" name="tab031">
 								<div class="form-group pb-2 px-3">
-									<h5>2-2. 평소에 운동을 얼마나 하시나요?</h5>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option311"
-											type="radio" value="" name="optradio31"> <label
-											class="custom-control-label" for="option311"> 거의 하지
-											않음 </label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option312"
-											type="radio" value="" name="optradio31"><label
-											class="custom-control-label" for="option312">한 달에
-											1-2번 </label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option313"
-											type="radio" value="" name="optradio31"><label
-											class="custom-control-label" for="option313">일주일에 1번
-										</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option314"
-											type="radio" value="" name="optradio31"><label
-											class="custom-control-label" for="option314">일주일에
-											2-3번 </label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option315"
-											type="radio" value="" name="optradio31"><label
-											class="custom-control-label" for="option315">일주일에 4번
-											이상 </label>
-									</div>
-								</div>
-								<!-- 	<div class="px-3"> -->
-								<div class="form-group pb-2 px-3">
-									<h5>2-3. 지역이 어디신가요?</h5>
-									<div class="custom-control custom-input">
-										<form name=form method=post action=$PHP_SELF>
-											시/도: <select name='city'
-												onchange="change(this.selectedIndex);" class=input>
-												<option value='전체'>전체</option>
-												<option value='서울'>서울특별시</option>
-												<option value='부산'>부산광역시</option>
-												<option value='대구'>대구광역시</option>
-												<option value='인천'>인천광역시</option>
-												<option value='광주'>광주광역시</option>
-												<option value='대전'>대전광역시</option>
-												<option value='울산'>울산광역시</option>
-												<option value='경기'>경기도</option>
-												<option value='강원'>강원도</option>
-												<option value='충청북'>충청북도</option>
-												<option value='충청남'>충청남도</option>
-												<option value='전라북'>전라북도</option>
-												<option value='전라남'>전라남도</option>
-												<option value='경상북'>경상북도</option>
-												<option value='경상남'>경상남도</option>
-												<option value='제주'>제주도</option>
-											</select> 구/군: <select name='county' class=select>
-												<option value=''>전체</option>
-											</select>
-										</form>
-									</div>
-								</div>
-								<a href="#tab011" class="previous round">&#8249;</a> <a
-									href="#tab031" class="next round">&#8250;</a>
-						</div>
+									<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
 
-						<!-- 		<a href="#tab011" class="previous round">&#8249;</a> <a
-									href="#tab031" class="next round">&#8250;</a> -->
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" name="tworkday" id="workday_mon" type="checkbox">
+										<label class="custom-control-label" for="workday_mon">월</label>
+									</div>
+									
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" name="tworkday" id="workday_tue" type="checkbox">
+										<label class="custom-control-label" for="workday_tue">화</label>
+									</div>
+									
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" name="tworkday" id="workday_wed" type="checkbox">
+										<label class="custom-control-label" for="workday_wed">수</label>
+									</div>
+									
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" name="tworkday" id="workday_thu" type="checkbox">
+										<label class="custom-control-label" for="workday_thu">목</label>
+									</div>
+									
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" name="tworkday" id="workday_fri" type="checkbox">
+										<label class="custom-control-label" for="workday_fri">금</label>
+									</div>
+									
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" name="tworkday" id="workday_sat" type="checkbox">
+										<label class="custom-control-label" for="workday_sat">토</label>
+									</div>
+									
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" name="tworkday" id="workday_sun" type="checkbox">
+										<label class="custom-control-label" for="workday_sun">일</label>
+									</div>
+								</div>
+								
+									<a href="#tab021" class="previous round">&#8249;</a>
+									<a href="#tab041" class="next round">&#8250;</a>
 						</fieldset>
-
-						<fieldset id="tab031" name="tab031">
-							<form>
-								<div class="form-group pb-2 px-3">
-
-									<h5>3-1.원하는 트레이너의 성별이 있나요?</h5>
-
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option411"
-											type="radio" value="" name="optradio41"> <label
-											class="custom-control-label" for="option411">상관없음</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input id="option412" class="custom-control-input"
-											type="radio" value="" name="optradio41"> <label
-											class="custom-control-label" for="option412">여자</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option413"
-											type="radio" value="" name="optradio41"> <label
-											class="custom-control-label" for="option413">남자</label>
-									</div>
-								</div>
-								<div class="form-group px-3 pb-2">
-									<label class="form-control-label">
-										<h5>3-2.원하는 트레이닝 스타일(강도)이 있나요?</h5>
-									</label>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option421"
-											type="radio" value="" name="optradio42"> <label
-											class="custom-control-label" for="option421">저강도</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option422"
-											type="radio" value="" name="optradio42"> <label
-											class="custom-control-label" for="option422">중저강도</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option423"
-											type="radio" value="" name="optradio42"> <label
-											class="custom-control-label" for="option423">중강도</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option424"
-											type="radio" value="" name="optradio42"> <label
-											class="custom-control-label" for="option424">중고강도</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input class="custom-control-input" id="option425"
-											type="radio" value="" name="optradio42"> <label
-											class="custom-control-label" for="option425">고강도</label>
-									</div>
-								</div>
-								<div class="px-3">
-									<div class="form-group pb-5 row justify-content-center">
-										<button type="button" class="btn btn-primary px-3"
-											data-toggle="modal" href="#myModal2">찾기</button>
-									</div>
-								</div>
-							</form>
-						</fieldset>
+						
 						<fieldset id="tab041" name="tab041">
 							<div class="bg-light">
-								<h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3>
-								<form>
 									<div class="form-group pb-2 px-3">
-
-										<h5>4-1.원하는 트레이너의 성별이 있나요?</h5>
-
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option411"
-												type="radio" value="" name="optradio41"> <label
-												class="custom-control-label" for="option411">상관없음</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input id="option412" class="custom-control-input"
-												type="radio" value="" name="optradio41"> <label
-												class="custom-control-label" for="option412">여자</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option413"
-												type="radio" value="" name="optradio41"> <label
-												class="custom-control-label" for="option413">남자</label>
-										</div>
+										<h5>어떤 지역에서 운동하고 싶으세요?</h5>
+											<input type="text" placeholder="우편번호">
+											<button class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 									</div>
-									<div class="form-group px-3 pb-2">
-										<label class="form-control-label">
-											<h5>4-2.원하는 트레이닝 스타일(강도)이 있나요?</h5>
-										</label>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option421"
-												type="radio" value="" name="optradio42"> <label
-												class="custom-control-label" for="option421">저강도</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option422"
-												type="radio" value="" name="optradio42"> <label
-												class="custom-control-label" for="option422">중저강도</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option423"
-												type="radio" value="" name="optradio42"> <label
-												class="custom-control-label" for="option423">중강도</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option424"
-												type="radio" value="" name="optradio42"> <label
-												class="custom-control-label" for="option424">중고강도</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" id="option425"
-												type="radio" value="" name="optradio42"> <label
-												class="custom-control-label" for="option425">고강도</label>
-										</div>
-									</div>
-								</form>
 							</div>
 							<div class="px-3">
 								<div class="form-group pb-5 row justify-content-center">
@@ -886,96 +632,34 @@ function myModalClose() {
 							<a href="#tab031" class="previous round">&#8249;</a>
 						</fieldset>
 
-
-						<div class="modal-footer">
-							<h6 class="pt-3 pb-3 mb-4 border-bottom">
-								<span class="fa fa-rocket"></span> 당신 근처의 PersonalTrainer
-							</h6>
-						</div>
 					</div>
-
-					<!-- Second Modal -->
-					<div class="modal fade" id="myModal2">
-						<div class="modal-dialog login-modal-dialog modal-dialog-centered">
-							<div class="modal-content login-modal-content">
-
-								<!-- 모달 헤더-->
-								<!-- <div class="modal-header"> -->
-								<!-- <h4 class="modal-title">이 트레이너는 어떠신가요?</h4>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true">×</button> -->
-
-								<div class="modal-header login-modal-header">
-									<div class="modal-title login-modal-title">
-
-										<p class="navbar-brand modal-title-text">
-											<span class="carrot"><i class="fas fa-carrot"></i></span>
-											당근PT
-										</p>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true" style="float: right">×</button>
-									</div>
-
-								</div>
-								<!-- </div> -->
-
-								<!-- 모달 바디-->
-								<!-- <div class="container">
-									<div class="modal-body">
-										<div class="col-6">
-											<img src="/images/about-us.jpg"
-												style="height: 500px; width: 400px;"> 잘가르치는 트레이너!
-										</div>
-										<div class="col-6">김한빈</div>
-									</div> -->
-
-								<div class="modal-body login-modal-body">
-									<div class="login-form">
-										<form class="loginform">
-											<div class="login-input-group">
-												<input type="image" src="/images/about-us.jpg"
-													style="height: 500px; width: 400px;">
-											</div>
-											<div class="login-input-group">
-												<p>세상에서 제일 잘 가르치는 트레이너 김한빈</p>
-											</div>
-										</form>
-									</div>
-								</div>
-
-
-
-								<!-- 모달 풋터  -->
-								<div class="modal-footer">
-									<!-- <a href="#myModal2" class="btn">다시 찾기</a>--> 
-									<a href="javascript:myModalClose();" class="btn btn-primary">닫기</a>
-											<!-- <button type="button" class="close2" data-dismiss="modal"
-												aria-hidden="true">닫기</button>  -->
-									<!-- <button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true">닫기</button> -->
-								</div>
-							</div>
-						</div>
+				<!-- Modal Body End -->
+				
+				<!-- Modal Footer Start -->
+					<div class="modal-footer">
+						<h6 class="pt-3 pb-3 mb-4 border-bottom">
+							<span class="fa fa-rocket"></span> 당신 근처의 PersonalTrainer
+						</h6>
 					</div>
+				<!-- Modal Footer End -->
+					
 				</div>
-
 			</div>
 		</div>
-	</div>
+		<!-- Modal End -->		
+
 
 	<div class="container">
 		<div class="row">
 			<!-- Left Start -->
 			<div class="col-lg-9 pr-lg-4">
+				<!-- Trainer List Start -->
 				<div class="row" id="div_trainer_row">
 					<div id="div_trainer_replace"
 						th:replace="${trcenter_info} ? ${trcenter_info} : trcenter_info">
 					</div>
-
-					<!-- Single Trainer Start -->
-
-					<!-- Single Trainer End -->
 				</div>
+				<!-- Trainer List End -->
 				<!-- Page Number Start -->
 				<div class="row mt-5">
 					<div class="col text-center">
@@ -988,6 +672,7 @@ function myModalClose() {
 				<!-- Page Number End -->
 			</div>
 			<!-- Left End -->
+			
 			<!-- Right Start -->
 
 			<div class="col-lg-3 p-4 bg-light">

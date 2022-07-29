@@ -60,7 +60,6 @@ public class FTController {
 		int startIndex = amount * (pageNo - 1);
 		int endIndex = 0;
 		int cnt = 0;
-		String status = "수락";
 		
 		try {
 			List<TrainerVO> list = biz.getauthorized(loc, major);
@@ -93,7 +92,6 @@ public class FTController {
 		int startIndex = amount * (pageNo - 1);
 		int endIndex = 0;
 		int cnt = 0;
-		String status = "수락";
 		
 		try {
 			List<TrainerVO> list = biz.getauthorized(loc, major);

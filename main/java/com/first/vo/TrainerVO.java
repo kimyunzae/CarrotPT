@@ -59,8 +59,7 @@ public class TrainerVO {
 	private MultipartFile pf3;
 	private int num;
 	
-	private String locKeyword;
-	private String majorKeyword;
+	private int preference;
 
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
 
