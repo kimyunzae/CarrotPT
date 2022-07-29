@@ -89,7 +89,6 @@
 		// 2. pwd: dpwd와 달라야하는 새 비밀번호를 입력하고 이 값이 업데이트에 반영됨 
 		// 3. cpwd: pwd와 비교하여 값이 같아야만 변경 기능 활성화 
 
-
 		$("#btn_pwdchange").click(function() {
 			
 			var dpwd = $('#pwd-change-form input[name=dpwd]').val();	
@@ -123,9 +122,7 @@
 				data : {
 					'dpwd' : dpwd
 				},
-
 				success : function(data) {
-
 					if (data == 0) {
 						alert("패스워드가 틀렸습니다.");
 						return;
@@ -135,7 +132,7 @@
 						if (confirm("변경하시겠습니까?")) {
 							$("#pwd-change-form").attr({
 								"method" : "post",
-								"action" : "trpassword_update"
+								"action" : "tepassword_update"
 							});
 							$("#pwd-change-form").submit();
 							alert('재로그인 후 업데이트가 완료됩니다.');
@@ -147,6 +144,8 @@
 		});
 
 	});
+
+	
 </script>
 <section class="ftco-section contact-section ftco-no-pb"
 	id="contact-section">
