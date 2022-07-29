@@ -393,7 +393,7 @@ $(function(){
 		GetTarget(parseInt(searchPage));
 	});
 	
-	/* 모달 jquery */
+	// Modal Tab으로 이동
 	$(".tabs").click(function(){
 	    
 	    $(".tabs").removeClass("active");
@@ -423,14 +423,17 @@ $(function(){
 	    });
 	});
 	
+	// Modal 뒤로 가기
 	$('.previous.round').click(function(){
-		// display block인 fieldset 찾기
-		
-		// prev 찾기
 	    current_fs = $('fieldset.show');
-		var currentId = $()	    
-	    prev_fs = 
+		var currentFsClass = $('fieldset.show').attr('class');
+	    var prevFsClass = parseInt(currentFsClass) - 1;
+	    prev_fs = $('fieldset.' + prevFsClass);
 	    
+	    $('fieldset.show').removeClass("show");
+	    $('fieldset.' + prevFsClass).addClass("show");
+	    
+	    // fieldset
 	    current_fs.animate({}, {
 	        step: function() {
 	            current_fs.css({
@@ -442,6 +445,16 @@ $(function(){
 	            });
 	        }
 	    });
+	    
+	    // tab
+	    $(".tabs").removeClass("active");
+	    $(".tabs h6").removeClass("font-weight-bold");    
+	    $(".tabs h6").addClass("text-muted");
+	    
+	    $('#' + prevFsClass).children("h6").removeClass("text-muted");
+	    $('#' + prevFsClass).children("h6").addClass("font-weight-bold");
+	    $('#' + prevFsClass).addClass("active");
+	    
 	});
 	
 });
