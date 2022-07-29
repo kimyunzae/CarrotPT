@@ -365,75 +365,21 @@ function paging(totalData, currentPage){
 	}
 	
 
-
-
 function sample6_execDaumPostcode() {
-	new daum.Postcode(
-			{
-				oncomplete : function(data) {
-
-					var addr = '';
-					var extraAddr = '';
-					if (data.userSelectedType === 'R') {
-						addr = data.roadAddress;
-					} else {
-						addr = data.jibunAddress;
-					}
-
-					if (data.userSelectedType === 'R') {
-						if (data.bname !== ''
-								&& /[동|로|가]$/g.test(data.bname)) {
-							extraAddr += data.bname;
-						}
-						if (data.buildingName !== ''
-								&& data.apartment === 'Y') {
-							extraAddr += (extraAddr !== '' ? ', '
-									+ data.buildingName : data.buildingName);
-						}
-						if (extraAddr !== '') {
-							extraAddr = ' (' + extraAddr + ')';
-						}
-					//	document.getElementById("sample6_extraAddress").value = extraAddr;
-
-					} else {
-					//	document.getElementById("sample6_extraAddress").value = '';
-					}
-
-					document.getElementById('sample6_postcode').value = data.zonecode;
-					document.getElementById("sample6_address").value = addr + extraAddr;
-					document.getElementById("sample6_detailAddress").focus();
-							
-				}
-			}).open();
+	new daum.Postcode({
+		oncomplete : function(data) {
+			var addr = '';
+			var extraAddr = '';
+			if (data.userSelectedType === 'R') {
+				addr = data.roadAddress;
+			} else {
+				addr = data.jibunAddress;
+			}
+			$('input[name="tzip"]').val(data.zonecode);
+		}
+	}).open();
 }
 
-
-
-/* /* 사이드바에서 지역별 검색
-function change1(add) {
-sel1=document.form1.county1
-  /* 옵션메뉴삭제 
-  for (i=sel.length-1; i>=0; i--){
-    sel.options[i] = null
-    }
-  /* 옵션박스추가 
-  for (i=0; i < cnt[add].length;i++){                     
-                    sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
-    }         
-} */
-
-
-/* 모달에서 직접입력시 텍스트창 활성화
-	$(document).ready(function() {
-		$("input:radio[name=optradio22]").click(function() {
-			if ($("input[name=optradio22]:checked").val() == "etc") {
-				$("input:text[name=optradio228]").attr("disabled", false);
-			} else if ($("input[name=optradio22]:checked").val() == "0") {
-				$("input:text[name=optradio228]").attr("disabled", true);
-			}
-		});
-	});
-*/
 
 /* 모달 창 닫기 */
 function myModalClose() {
@@ -456,11 +402,10 @@ $(function(){
 	    $(this).children("h6").removeClass("text-muted");
 	    $(this).children("h6").addClass("font-weight-bold");
 	    $(this).addClass("active");
-
-	    current_fs = $(".active");
-
-	    next_fs = $(this).attr('id');
-	    next_fs = "#" + next_fs + "1";
+	    
+	    var nextNum = $(this).attr('id');
+	    current_fs = $('fieldset.show');
+	    next_fs= $('fieldset.' + nextNum);
 
 	    $("fieldset").removeClass("show");
 	    $(next_fs).addClass("show");
@@ -477,6 +422,28 @@ $(function(){
 	        }
 	    });
 	});
+	
+	$('.previous.round').click(function(){
+		// display block인 fieldset 찾기
+		
+		// prev 찾기
+	    current_fs = $('fieldset.show');
+		var currentId = $()	    
+	    prev_fs = 
+	    
+	    current_fs.animate({}, {
+	        step: function() {
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            prev_fs.css({
+	                'display': 'block'
+	            });
+	        }
+	    });
+	});
+	
 });
 
 
@@ -512,26 +479,23 @@ $(function(){
 							</div>
 						</div>
 						<div class="modal-header row d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
-							<div class="tabs active" id="tab01">
+							<div class="tabs active first" id="1">
 								<h6 class="font-weight-bold">1</h6>
 							</div>
-							<div class="tabs" id="tab02">
+							<div class="tabs second" id="2">
 								<h6 class="text-muted">2</h6>
 							</div>
-							<div class="tabs" id="tab03">
+							<div class="tabs third" id="3">
 								<h6 class="text-muted">3</h6>
 							</div>
-							<div class="tabs" id="tab04">
+							<div class="tabs fourth" id="4">
 								<h6 class="text-muted">4</h6>
 							</div>
 						</div>
 					<!-- Modal Body Start -->
-						<div class="modal-body login-modal-body">
-							<p id="login-check-msg" class="login-title">질문에 답해주세요</p>
-						</div>
-						<div class="line"></div>
+						
 						<div class="modal-body p-0">
-							<fieldset class="show" id="tab011" name="tab011">
+							<fieldset class="show 1" id="tab011">
 								
 									<!-- <h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3> -->
 									
@@ -556,7 +520,7 @@ $(function(){
 							</fieldset>
 
 
-							<fieldset id="tab021" name="tab021">
+							<fieldset class="2" id="tab021">
 								<div class="form-group pb-2 px-3">
 									<h5>어떤 운동에 관심이 있으신가요? 모두 골라 주세요.</h5>
 									<div>
@@ -571,7 +535,7 @@ $(function(){
 							</fieldset>
 							
 								
-							<fieldset id="tab031" name="tab031">
+							<fieldset class="3" id="tab031">
 								<div class="form-group pb-2 px-3">
 									<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
 
@@ -615,11 +579,11 @@ $(function(){
 									<a href="#tab041" class="next round">&#8250;</a>
 						</fieldset>
 						
-						<fieldset id="tab041" name="tab041">
+						<fieldset class="4" id="tab041">
 							<div class="bg-light">
 									<div class="form-group pb-2 px-3">
 										<h5>어떤 지역에서 운동하고 싶으세요?</h5>
-											<input type="text" placeholder="우편번호">
+											<input type="text" placeholder="우편번호" name="tzip">
 											<button class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 									</div>
 							</div>
