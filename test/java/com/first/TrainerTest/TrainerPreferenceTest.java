@@ -22,10 +22,11 @@ class TrainerPreferenceTest {
 	@Test
 	void contextLoads() {
 		String gender = "여";
-		String zip = "04000";
+		String zip = "00000";
 		String[] workday = new String[] {"mon", "sat"};
+		String[] major = new String[] {"파워리프팅", "필라테스"};
 		try {
-			List<TrainerVO> list = biz.getforpreference(gender, zip, workday);
+			List<TrainerVO> list = biz.getforpreference(gender, zip, workday, major);
 			
 			TrainerSort.sortTrainer(list, "preference");
 			for (TrainerVO trainerVO : list) {

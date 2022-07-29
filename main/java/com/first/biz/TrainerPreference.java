@@ -1,5 +1,7 @@
 package com.first.biz;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,16 @@ public class TrainerPreference {
 	WorkdayBiz workdaybiz; //biz가 biz를 상속하는 게 맞는지..? mapper 상속해야하는지
 
 	public static final int genderScore = 1000;
+	public static final int majorScore = 3000;
 	public static final int workdayScore = 100;
 	
-	public void getPreference(TrainerVO trainer, String gender, String zip, String[] workdays) {
+	public void getPreference(TrainerVO trainer, String gender, String zip, String[] workdays, String[] majors) {
 		if(trainer.getGender().equals(gender)) {
 			trainer.addPreference(genderScore);
+		}
+		
+		if(Arrays.asList(majors).contains(trainer.getMajor())) {
+			trainer.addPreference(majorScore);
 		}
 		
 		int custZip = Integer.parseInt(zip);

@@ -38,6 +38,7 @@ public interface TrainerMapper{
 	public void updateAccount(TrainerVO obj) throws Exception;
 	public void updatePassword(TrainerVO obj) throws Exception;
 
+	// 아이디, 비밀번호 찾기에서 사용
 	public void updatepwd(TrainerVO obj) throws Exception;
 
 }

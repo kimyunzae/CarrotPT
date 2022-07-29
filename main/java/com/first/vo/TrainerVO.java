@@ -198,10 +198,4 @@ public class TrainerVO {
 		this.preference += score;
 	}
 	
-	
-
-	
-	
-	
-
 }

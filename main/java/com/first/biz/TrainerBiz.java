@@ -10,7 +10,6 @@ import com.first.mapper.ReviewMapper;
 import com.first.mapper.TrainerMapper;
 import com.first.vo.MajorVO;
 import com.first.vo.StatusVO;
-import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
 @Service("trainerbiz")
@@ -143,10 +142,10 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	}
 	
 	// 선호도 세팅: String[] majors 추가 필요
-	public List<TrainerVO> getforpreference(String gender, String zip, String[] workdays) throws Exception{
+	public List<TrainerVO> getforpreference(String gender, String zip, String[] workdays, String[] majors) throws Exception{
 		List<TrainerVO> list = dao.selectforpreference();
 		for (TrainerVO v : list) {
-			preference.getPreference(v, gender, zip, workdays);
+			preference.getPreference(v, gender, zip, workdays, majors);
 			trainerinfo(v);
 		}
 		return list;
