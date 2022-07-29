@@ -5,9 +5,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.first.vo.TrainerVO;
+import com.first.vo.WorkdayVO;
 
 @Service
 public class TrainerSort {
@@ -53,6 +55,12 @@ public class TrainerSort {
 					}
 					result = stringBuilder1.toString().compareTo(stringBuilder2.toString());
 					break;
+					
+				case "preference":
+					if(o1.getPreference() >= o2.getPreference()) {
+						result = -1;
+					}
+					break;
 				}
 				
 				return result;
@@ -68,21 +76,5 @@ public class TrainerSort {
 		}
 	}
 	
-	public void getPreference(TrainerVO trainer, String gender, String zip, String[] workdays) {
-		if(trainer.getGender().equals(gender)) {
-			trainer.addPreference(5000);
-		}
-		
-		int custZip = Integer.parseInt(zip);
-		int trainerZip = Integer.parseInt(trainer.getGym_zip());
-		int absoluteZip = Math.abs(custZip - trainerZip);
-		trainer.addPreference(absoluteZip);
-		
-		for (String day : workdays) {
-			// workday에서 tid, day별로 select하기
-			// workdayㅇ
-		}
-		
-		
-	}
+
 }

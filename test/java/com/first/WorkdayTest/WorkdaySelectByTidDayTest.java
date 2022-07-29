@@ -16,7 +16,7 @@ class WorkdaySelectByTidDayTest {
 	@Test
 	void contextLoads() {
 		try {
-			WorkdayVO obj = biz.getbytidday("thu", "tid01");
+			WorkdayVO obj = biz.getbytidday("wed", "tid01");
 			System.out.println(obj);
 		} catch (Exception e) {
 			e.printStackTrace();

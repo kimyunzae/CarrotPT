@@ -20,6 +20,9 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	
 	@Autowired
 	ReviewMapper rdao;
+	
+	@Autowired
+	TrainerPreference preference;
 
 	
 	@Override
@@ -136,6 +139,15 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	// 이름, phone으로 선택
 	public String getbynamephone(String name, String phone) throws Exception{
 		return dao.selectbynamephone(name, phone);
+	}
+	
+	public List<TrainerVO> getforpreference(String gender, String zip, String[] workdays) throws Exception{
+		List<TrainerVO> list = dao.selectforpreference();
+		for (TrainerVO v : list) {
+			preference.getPreference(v, gender, zip, workdays);
+			trainerinfo(v);
+		}
+		return list;
 	}
 
 
