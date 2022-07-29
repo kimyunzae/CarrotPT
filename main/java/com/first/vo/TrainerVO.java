@@ -179,8 +179,6 @@ public class TrainerVO {
 		this.gym_addr2 = gym_addr2;
 	}
 	
-	
-
 	// for UPDATE: status, status_detail 개별 수정
 	public TrainerVO(String id, String status, String status_detail) {
 		super();

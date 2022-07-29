@@ -22,8 +22,8 @@ class TrainerPreferenceTest {
 	@Test
 	void contextLoads() {
 		String gender = "여";
-		String zip = "50000";
-		String[] workday = new String[] {"mon", "tue", "wed"};
+		String zip = "04000";
+		String[] workday = new String[] {"mon", "sat"};
 		try {
 			List<TrainerVO> list = biz.getforpreference(gender, zip, workday);
 			
