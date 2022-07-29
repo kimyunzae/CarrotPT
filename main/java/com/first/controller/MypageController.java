@@ -159,7 +159,7 @@ public class MypageController {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/changepwd");
 			m.addAttribute("trainer", trainer);
-				
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -193,55 +193,104 @@ public class MypageController {
 
 		return "index";
 	}
-	
+
 	// 일반회원 마이페이지: 메인
-		@RequestMapping("/mypage")
-		public String mypage(Model m, String id) {
-			try {
-				TraineeVO trainee = traineebiz.get(id);
-				m.addAttribute("trainee", trainee);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	/*
+	 * @RequestMapping("/mypage") public String mypage(Model m, String id) { try {
+	 * TraineeVO trainee = traineebiz.get(id); m.addAttribute("trainee", trainee);
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); } m.addAttribute("center",
+	 * "mypage/mypage"); return "index"; }
+	 */
+	// 트레이니 마이페이지: 메인(프로필)
+	@RequestMapping("/mypage")
+	public String mypage(Model m, HttpSession session) {
+		try {
+			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/mypage");
-			return "index";
+			/* m.addAttribute("trainercenter", "mypage/trmatching"); */
+			m.addAttribute("trainee", trainee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		// 일반회원 마이페이지 업데이트
-		@RequestMapping("/updateimpl")
-		public String updateimpl(Model m, TraineeVO trainee) {
-			
-				try {
-					traineebiz.modify(trainee);
-					System.out.println("업데이트 성공");
-				} catch (Exception e) {
-					
-					e.printStackTrace();
-				}
-				
-			return "index";
+		return "index";
+	}
+
+	// 일반회원 마이페이지 업데이트
+	@RequestMapping("/updateimpl")
+	public String updateimpl(Model m, TraineeVO trainee) {
+
+		try {
+			traineebiz.modify(trainee);
+			System.out.println("업데이트 성공");
+		} catch (Exception e) {
+
+			e.printStackTrace();
 		}
 
-		// 트레이니 비번 변경 페이지로 이동
-		@RequestMapping("/techangepwd")
-		public String techangepwd(Model m, HttpSession session) {
-			try {
-				TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
-				m.addAttribute("center", "mypage/techangepwd");
-				m.addAttribute("trainee", trainee);
-					
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return "index";
+		return "index";
+	}
+
+	// 트레이니 비번 변경 페이지로 이동
+	@RequestMapping("/techangepwd")
+	public String techangepwd(Model m, HttpSession session) {
+		try {
+			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
+			m.addAttribute("center", "mypage/techangepwd");
+			m.addAttribute("trainee", trainee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		/*
-		 * // 트레이너 계정정보 업데이트
-		 * 
-		 * @RequestMapping("/tepassword_update") public String tepassword_update(Model
-		 * m, TrainerVO vo) { try { traineebiz.modifyPassword2(vo);
-		 * System.out.println("비밀번호 변경 성공" + vo); } catch (Exception e) {
-		 * e.printStackTrace(); } return "index"; }
-		 */
+		return "index";
+	}
+
+	// 트레이니 계정정보 업데이트 :password
+	@RequestMapping("/tepassword_update")
+	public String tepassword_update(Model m, TraineeVO vo) {
+		try {
+			traineebiz.modifypassword(vo);
+			System.out.println("비밀번호 변경 성공" + vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "index";
+	}
+
+	
+	// 트레이니 마이페이지: 매칭신청
+	@RequestMapping("/tematching")
+	public String tematching(Model m, HttpSession session) {
+		try {
+			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
+			m.addAttribute("center", "mypage/tematching");
+			/* m.addAttribute("trainercenter", "mypage/trmatching"); */
+			m.addAttribute("trainee", trainee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "index";
+	}
+
+	// 트레이니 마이페이지: 이용내역
+	@RequestMapping("/tehistory")
+	public String tehistory(Model m, HttpSession session) {
+		try {
+			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
+			m.addAttribute("center", "mypage/tehistory");
+			/* m.addAttribute("trainercenter", "mypage/trmatching"); */
+			m.addAttribute("trainee", trainee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "index";
+	}
+
+
 }
