@@ -67,4 +67,22 @@ public class TrainerSort {
 			stringBuilder.append((char)(c+44032));
 		}
 	}
+	
+	public void getPreference(TrainerVO trainer, String gender, String zip, String[] workdays) {
+		if(trainer.getGender().equals(gender)) {
+			trainer.addPreference(5000);
+		}
+		
+		int custZip = Integer.parseInt(zip);
+		int trainerZip = Integer.parseInt(trainer.getGym_zip());
+		int absoluteZip = Math.abs(custZip - trainerZip);
+		trainer.addPreference(absoluteZip);
+		
+		for (String day : workdays) {
+			// workday에서 tid, day별로 select하기
+			// workdayㅇ
+		}
+		
+		
+	}
 }

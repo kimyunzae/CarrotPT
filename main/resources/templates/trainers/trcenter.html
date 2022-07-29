@@ -492,6 +492,28 @@ $(function(){
 	    
 	});
 	
+	$('#btn_getpreference').click(function(){
+		var tGender = $('input[name="tgender"]:checked').val();
+		/*
+		const tMajorArr = [];
+		var tMajor = $('input[name="tmajor"]:checked').val();
+		$(tMajor).each(function(){
+			tMajorArr.push($(this).val());
+		});
+		alert(tMajorArr);
+		console.log(tMajorArr);
+		*/
+		const tWorkdayArr = [];
+		var tWorkday = $('input[name="tworkday"]:checked');
+		$(tWorkday).each(function(){
+			tWorkdayArr.push($(this).val());
+		});
+		
+		var tZip = $('input[name="tzip"]').val();
+		
+		
+	});
+	
 });
 
 
@@ -543,14 +565,14 @@ $(function(){
 					<!-- Modal Body Start -->
 						
 						<div class="modal-body p-0">
-							<fieldset class="show 1" id="tab011">
+							<fieldset class="show 1">
 								
 									<!-- <h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3> -->
 									
 									<div class="form-group pb-2 px-3">
 										<h5> 어떤 성별의 트레이너를 선호하시나요? </h5>
 										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio" id="gender_all" name="tgender">
+											<input class="custom-control-input" type="radio" value="all" id="gender_all" name="tgender">
 											<label class="custom-control-label" for="gender_all">상관없어요</label>
 										</div>
 										<div class="custom-control custom-radio">
@@ -568,13 +590,13 @@ $(function(){
 							</fieldset>
 
 
-							<fieldset class="2" id="tab021">
+							<fieldset class="2">
 								<div class="form-group pb-2 px-3">
 									<h5>어떤 운동에 관심이 있으신가요? 모두 골라 주세요.</h5>
 									<div>
-										<div class="custom-control custom-checkbox" th:each="m: ${majors}">
-											<input class="custom-control-input" name="tmajor" type="checkbox" th:id="'major_'+${m.major}" th:value="${m.major}">
-											<label class="custom-control-label" th:text="${m.major}" th:for="'major_'+${m.major}"></label>
+										<div class="custom-control custom-checkbox" th:each="tmajor : ${majors}">
+											<input type="checkbox" th:name="tmajor" class="custom-control-input" th:field="*{majors}" th:value="${tmajor.major}">
+											<label th:for="${#ids.next('majors')}" class="custom-control-label" th:text="${tmajor.major}"></label>
 										</div>
 									</div>
 								</div>
@@ -583,62 +605,60 @@ $(function(){
 							</fieldset>
 							
 								
-							<fieldset class="3" id="tab031">
+							<fieldset class="3">
 								<div class="form-group pb-2 px-3">
 									<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
 
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_mon" type="checkbox">
+										<input class="custom-control-input" value="월" name="tworkday" id="workday_mon" type="checkbox">
 										<label class="custom-control-label" for="workday_mon">월</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_tue" type="checkbox">
+										<input class="custom-control-input" value="화" name="tworkday" id="workday_tue" type="checkbox">
 										<label class="custom-control-label" for="workday_tue">화</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_wed" type="checkbox">
+										<input class="custom-control-input" value="수" name="tworkday" id="workday_wed" type="checkbox">
 										<label class="custom-control-label" for="workday_wed">수</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_thu" type="checkbox">
+										<input class="custom-control-input" value="목" name="tworkday" id="workday_thu" type="checkbox">
 										<label class="custom-control-label" for="workday_thu">목</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_fri" type="checkbox">
+										<input class="custom-control-input" value="금" name="tworkday" id="workday_fri" type="checkbox">
 										<label class="custom-control-label" for="workday_fri">금</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_sat" type="checkbox">
+										<input class="custom-control-input" value="토" name="tworkday" id="workday_sat" type="checkbox">
 										<label class="custom-control-label" for="workday_sat">토</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_sun" type="checkbox">
+										<input class="custom-control-input" value="일" name="tworkday" id="workday_sun" type="checkbox">
 										<label class="custom-control-label" for="workday_sun">일</label>
 									</div>
 								</div>
 								
 									<a class="previous round">&#8249;</a>
-									<a  class="next round">&#8250;</a>
+									<a class="next round">&#8250;</a>
 						</fieldset>
 						
 						<fieldset class="4" id="tab041">
-							<div class="bg-light">
-									<div class="form-group pb-2 px-3">
-										<h5>어떤 지역에서 운동하고 싶으세요?</h5>
-											<input type="text" placeholder="우편번호" name="tzip">
-											<button class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-									</div>
+							<div class="form-group pb-2 px-3">
+								<h5>어떤 지역에서 운동하고 싶으세요?</h5>
+									<input type="text" placeholder="우편번호" name="tzip" onkeyup="sample6_execDaumPostcode()" onclick="sample6_execDaumPostcode()">
+									<button class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 							</div>
 							<div class="px-3">
 								<div class="form-group pb-5 row justify-content-center">
 									<button type="button" class="btn btn-primary px-3"
-										data-toggle="modal" href="#myModal2">찾기</button>
+										data-toggle="modal" id="btn_getpreference">찾기</button>
 								</div>
 							</div>
 							<a class="previous round">&#8249;</a>

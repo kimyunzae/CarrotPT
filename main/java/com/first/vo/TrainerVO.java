@@ -196,6 +196,10 @@ public class TrainerVO {
 		this.id = id;
 	}
 	
+	public void addPreference(int score) {
+		this.preference += score;
+	}
+	
 	
 
 	
