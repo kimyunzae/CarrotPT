@@ -1,10 +1,20 @@
+
+<style>
+img {
+	object-fit: cover;  
+}
+</style>
+
 <div th:if="${totalData > 0}" class="col-md-6 col-lg-4 fadeInUp ftco-animate ftco-animated" th:each="t : ${trlist}">
 	<div class="project">
 	<!-- 프로필 사진 -->
 		<div class="img">
 			<a th:href="'/trainers/detail?id='+${t.id}">
-				<img th:if="${t.profile1 != null and t.profile1 != 'pf1.jpg'}" th:src="@{'/images/CRUD/pf1/' + ${t.profile1}}" class="img-fluid" alt="Colorlib Template">
-				<img th:if="${t.profile1 == null or t.profile1 == 'pf1.jpg'}" th:src="@{'/images/CRUD/pf1/team-1.jpg'}" class="img-fluid" alt="Colorlib Template">
+				<img th:if="${t.profile1 != null and t.profile1 != 'pf1.jpg'}" 
+				th:src="@{'/images/CRUD/pf1/' + ${t.profile1}}" class="img-fluid" 
+				style="height: 270px; width: 250px;" alt="Colorlib Template">
+				<img th:if="${t.profile1 == null or t.profile1 == 'pf1.jpg'}" th:src="@{'/images/CRUD/pf1/team-1.jpg'}" 
+				class="img-fluid" style="height: 270px; width: 250px;" alt="Colorlib Template">
 			</a>
 		</div>
 	<!-- 정보 Start-->
