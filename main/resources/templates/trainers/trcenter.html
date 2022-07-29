@@ -183,6 +183,7 @@
 #myModal a:hover {
 	background-color: #ddd;
 	color: black;
+	cursor:pointer;
 }
 
 #myModal .previous {
@@ -393,7 +394,7 @@ $(function(){
 		GetTarget(parseInt(searchPage));
 	});
 	
-	/* 모달 jquery */
+	// Modal Tab으로 이동
 	$(".tabs").click(function(){
 	    
 	    $(".tabs").removeClass("active");
@@ -423,14 +424,17 @@ $(function(){
 	    });
 	});
 	
+	// Modal 뒤로 가기
 	$('.previous.round').click(function(){
-		// display block인 fieldset 찾기
-		
-		// prev 찾기
 	    current_fs = $('fieldset.show');
-		var currentId = $()	    
-	    prev_fs = 
+		var currentFsClass = $('fieldset.show').attr('class');
+	    var prevFsClass = parseInt(currentFsClass) - 1;
+	    prev_fs = $('fieldset.' + prevFsClass);
 	    
+	    $('fieldset.show').removeClass("show");
+	    $('fieldset.' + prevFsClass).addClass("show");
+	    
+	    // fieldset
 	    current_fs.animate({}, {
 	        step: function() {
 	            current_fs.css({
@@ -442,6 +446,50 @@ $(function(){
 	            });
 	        }
 	    });
+	    
+	    // tab
+	    $(".tabs").removeClass("active");
+	    $(".tabs h6").removeClass("font-weight-bold");    
+	    $(".tabs h6").addClass("text-muted");
+	    
+	    $('#' + prevFsClass).children("h6").removeClass("text-muted");
+	    $('#' + prevFsClass).children("h6").addClass("font-weight-bold");
+	    $('#' + prevFsClass).addClass("active");
+	    
+	});
+	
+	// Modal 앞으로 가기
+	$('.next.round').click(function(){
+	    current_fs = $('fieldset.show');
+		var currentFsClass = $('fieldset.show').attr('class');
+	    var nextFsClass = parseInt(currentFsClass) + 1;
+	    next_fs = $('fieldset.' + nextFsClass);
+	    
+	    $('fieldset.show').removeClass("show");
+	    $('fieldset.' + nextFsClass).addClass("show");
+	    
+	    // fieldset
+	    current_fs.animate({}, {
+	        step: function() {
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            next_fs.css({
+	                'display': 'block'
+	            });
+	        }
+	    });
+	    
+	    // tab
+	    $(".tabs").removeClass("active");
+	    $(".tabs h6").removeClass("font-weight-bold");    
+	    $(".tabs h6").addClass("text-muted");
+	    
+	    $('#' + nextFsClass).children("h6").removeClass("text-muted");
+	    $('#' + nextFsClass).children("h6").addClass("font-weight-bold");
+	    $('#' + nextFsClass).addClass("active");
+	    
 	});
 	
 });
@@ -516,7 +564,7 @@ $(function(){
 										</div>
 									</div>
 											
-									<a href="#tab021" class="next round">&#8250;</a>
+									<a class="next round">&#8250;</a>
 							</fieldset>
 
 
@@ -530,8 +578,8 @@ $(function(){
 										</div>
 									</div>
 								</div>
-									<a href="#tab011" class="previous round">&#8249;</a>
-									<a href="#tab031" class="next round">&#8250;</a>
+									<a class="previous round">&#8249;</a>
+									<a class="next round">&#8250;</a>
 							</fieldset>
 							
 								
@@ -575,8 +623,8 @@ $(function(){
 									</div>
 								</div>
 								
-									<a href="#tab021" class="previous round">&#8249;</a>
-									<a href="#tab041" class="next round">&#8250;</a>
+									<a class="previous round">&#8249;</a>
+									<a  class="next round">&#8250;</a>
 						</fieldset>
 						
 						<fieldset class="4" id="tab041">
@@ -593,7 +641,7 @@ $(function(){
 										data-toggle="modal" href="#myModal2">찾기</button>
 								</div>
 							</div>
-							<a href="#tab031" class="previous round">&#8249;</a>
+							<a class="previous round">&#8249;</a>
 						</fieldset>
 
 					</div>
