@@ -56,11 +56,10 @@ public class TraineeVO {
 		this.email = email;
 	}
 
-	// for pwd UPDATE
-	//public TraineeVO(String id, String pwd) {
-		//super();
-		//this.id = id;
-		//this.pwd = pwd;
-	//}
+	public void TraineeVO(String id, String pwd) {
+		this.id = id;
+		this.pwd = pwd;
+	}
+	
 
 }

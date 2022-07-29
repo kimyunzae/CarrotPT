@@ -93,7 +93,7 @@
 		$("#btn_pwdchange").click(function() {
 			
 			var tedpwd = $('#pwd-change-form input[name=tedpwd]').val();	
-			var tepwd = $('#pwd-change-form input[name=tepwd]').val();
+			var tepwd = $('#pwd-change-form input[name=pwd]').val();
 			var tecpwd = $('#pwd-change-form input[name="tecpwd"]').val();
 
 			if (tedpwd == "") {
@@ -104,7 +104,7 @@
 
 			if (tepwd == "") {
 				alert("새 비밀번호를 입력해주세요");
-				$('#pwd-change-form input[name=tepwd]').focus();
+				$('#pwd-change-form input[name=pwd]').focus();
 				return false
 			}
 			if (tecpwd == "") {
@@ -177,7 +177,7 @@
 						<div class="col">
 							<div class="form-group">
 								<label>현재 비밀번호</label> <input class="form-control" name="tedpwd"
-									id="tedpwd" type="password">
+									id="dpwd" type="password">
 
 							</div>
 						</div>
@@ -186,8 +186,8 @@
 						<div class="col">
 							<div class="form-group">
 
-								<label>새 비밀번호</label> <input class="form-control" id="tepwd"
-									type="password" name="tepwd">
+								<label>새 비밀번호</label> <input class="form-control" id="pwd"
+									type="password" name="pwd">
 							</div>
 						</div>
 					</div>
@@ -203,7 +203,7 @@
 							<div class="form-group">
 								<label>새 비밀번호 확인 <span class="d-none d-xl-inline"></span></label>
 								<input class="form-control" type="password" name="tecpwd"
-									id="tecpwd">
+									id="cpwd">
 							</div>
 						</div>
 					</div>
