@@ -1,12 +1,9 @@
 package com.first.vo;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Singular;
 import lombok.ToString;
 
 @AllArgsConstructor
@@ -24,6 +21,7 @@ public class WorkdayVO {
 	private String fri;
 	private String sat;
 	private String sun;
+	private String searchday;
 	
 	public WorkdayVO(String tid, String mon, String tue, String wed, String thu, String fri, String sat, String sun) {
 		super();
@@ -48,5 +46,13 @@ public class WorkdayVO {
 		this.sat = sat;
 		this.sun = sun;
 	}
+
+	public WorkdayVO(String tid, String searchday) {
+		super();
+		this.tid = tid;
+		this.searchday = searchday;
+	}
+	
+	
 
 }

@@ -23,6 +23,7 @@ public interface TrainerMapper{
 	public List<TrainerVO> selectauthorized(String loc, String major) throws Exception;
 	public int selectcnt(String status) throws Exception;
 	public List<TrainerVO> selectbypage(@Param("pageNo")int pageNo, @Param("amount")int amount, @Param("orderBy")String orderBy, @Param("offset")int offset, @Param("status")String status) throws Exception;
+	public List<TrainerVO> selectforpreference() throws Exception;
 	
 	public String selectbynamephone(String name, String phone) throws Exception;
 	public String selectbyidemail(String id, String email) throws Exception;
@@ -35,9 +36,9 @@ public interface TrainerMapper{
 	
 	public void updateProfile(TrainerVO obj) throws Exception;
 	public void updateAccount(TrainerVO obj) throws Exception;
-	
 	public void updatePassword(TrainerVO obj) throws Exception;
 
+	// 아이디, 비밀번호 찾기에서 사용
 	public void updatepwd(TrainerVO obj) throws Exception;
 
 }

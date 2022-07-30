@@ -33,6 +33,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
+<!-- 선호도 계산용 -->
+	<select id="selectforpreference" resultType="trainerVO">
+		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate
+		FROM trainer
+		WHERE status='수락'
+	</select>
+	
 	
 <!-- status별 트레이너 데이터 개수-->
 	<select id="selectcnt" resultType="int">
