@@ -185,10 +185,8 @@ public class AJAXController {
 	@RequestMapping("checkpwdchange")
 	public String checkpwdchange(String dpwd, HttpSession session) {
 		String result = "";
-
 		try {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
-	
 			if (trainer.getPwd().equals(dpwd)) {
 				result = "1";
 			}

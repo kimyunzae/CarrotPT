@@ -258,7 +258,6 @@ public class MypageController {
 		}
 		return "index";
 	}
-
 	
 	// 트레이니 마이페이지: 매칭신청
 	@RequestMapping("/tematching")
