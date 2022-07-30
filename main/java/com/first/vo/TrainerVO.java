@@ -60,6 +60,7 @@ public class TrainerVO {
 	private int num;
 	
 	private int preference;
+	private String custZip;
 
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
 

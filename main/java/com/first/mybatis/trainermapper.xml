@@ -33,11 +33,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
-<!-- 선호도 계산용 -->
+<!-- 선호도 계산용 --><!--JOIN해서 WORKDAY까지 같이 조회--><!-- WHERE절: 우편번호 차이 > N 이상은 버리기-->
 	<select id="selectforpreference" resultType="trainerVO">
+	<![CDATA[
 		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate
 		FROM trainer
-		WHERE status='수락'
+		WHERE status='수락' AND
+		ABS(CONVERT(gym_zip, SIGNED INTEGER) - CONVERT(#{custZip}, SIGNED INTEGER)) < 10000
+	]]>
 	</select>
 	
 	

@@ -22,7 +22,7 @@ class TrainerPreferenceTest {
 	@Test
 	void contextLoads() {
 		String gender = "여";
-		String zip = "00000";
+		String zip = "60000";
 		String[] workday = new String[] {"mon", "sat"};
 		String[] major = new String[] {"파워리프팅", "필라테스"};
 		try {
