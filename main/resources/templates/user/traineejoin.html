@@ -276,7 +276,45 @@ function kakaoLogin() {
 		});
 	});
 </script>
+<!-- <script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
 
+<body>
+	네이버 로그인 버튼 노출 영역
+	<div class="container register mt-5"><div id="naver_id_login"></div></div>
+
+
+	//네이버 로그인 버튼 노출 영역
+
+
+	네이버아디디로로그인 초기화 Script
+	<script type="text/javascript">
+		var naver_id_login = new naver_id_login("sF6LewfWRlnTE2f83Dnp",
+				"http://127.0.0.1/join/trainee");
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("white", 2, 40);
+		naver_id_login.setDomain(".service.com");
+		naver_id_login.setState(state);
+		naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+	</script>
+	// 네이버 로그인 초기화 Script
+
+	네이버아디디로로그인 Callback페이지 처리 Script
+	<script type="text/javascript">
+		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+		function naverSignInCallback() {
+			// naver_id_login.getProfileData('프로필항목명');
+			// 프로필 항목은 개발가이드를 참고하시기 바랍니다.
+			alert(naver_id_login.getProfileData('email'));
+			alert(naver_id_login.getProfileData('nickname'));
+			alert(naver_id_login.getProfileData('age'));
+		}
+
+		// 네이버 사용자 프로필 조회
+		naver_id_login.get_naver_userprofile("naverSignInCallback()");
+	</script> -->
 
 <div class="container register mt-5">
 	<div class="row mt-5">
@@ -300,7 +338,7 @@ function kakaoLogin() {
 					aria-selected="true">회원가입</a></li>
 				<li class="nav-item"><a class="nav-link" id="profile-tab"
 					data-toggle="tab" href="#profile" role="tab"
-					aria-controls="profile" aria-selected="false">소셜 로그인</a></li>
+					aria-controls="profile" aria-selected="false">소셜 회원가입</a></li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home" role="tabpanel"
@@ -372,7 +410,7 @@ function kakaoLogin() {
 
 				<div class="tab-pane fade show" id="profile" role="tabpanel"
 					aria-labelledby="profile-tab">
-					<h3 class="register-heading">소셜 로그인</h3>
+					<h3 class="register-heading">소셜 회원가입</h3>
 					<div class="row register-form">
 						<div class="bg-light  p-md-5contact-form col-md-12 ml-5">
 							<!-- <div>
@@ -385,10 +423,12 @@ function kakaoLogin() {
 								</a>
 							</div>
 							<div class="kakaobtn ml-5">
-								<a href=""> <input type="image"
+							
+								<a href=""> <input type="image" id="naver_id_login"
 									src="/images/naver_login.png"
 									style="height: 50px; widows: 8px;">
 								</a>
+								<!-- <div id="naver_id_login">네이버 로그인</div> -->
 							</div>
 
 						</div>
