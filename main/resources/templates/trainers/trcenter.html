@@ -7,6 +7,11 @@
 	display: flex;
 }
 
+.container {
+	margin-top:4rem;
+	margin-bottom:5rem;
+}
+
 #addrshort {
 	background: white;
 	border: 0.05rem solid #769BCD;
@@ -97,6 +102,20 @@
 }
 
 /* Modal */
+#myModal h5, label, span{
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+#myModal h5{
+	text-align:center;
+	font-weight:bold;
+}
+
+#myModal label{
+	color:black;
+	font-size:1.1rem;
+}
+
 #myModal body {
 	color: #000;
 	overflow-x: hidden;
@@ -105,9 +124,16 @@
 	background-repeat: no-repeat;
 }
 
-.container {
-	margin-top:4rem;
-	margin-bottom:5rem;
+#myModal .custom-radio input[type="radio"]+label:before{
+	border:1px solid #769BCD;
+}
+
+#myModal .custom-checkbox input[type="checkbox"]+label:before{
+	border:1px solid #769BCD;
+}
+
+#myModal input{
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 #p_heading{
@@ -128,7 +154,7 @@
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
-	border: 1px solid #2196F3 !important;
+	border: 1px solid #769BCD !important;
 	outline-width: 0 !important;
 	font-weight: 200;
 }
@@ -140,6 +166,28 @@
 	outline-width: 0;
 }
 
+#btn_getpreference{
+	font-family:Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	font-size:1.1rem;
+}
+
+#btn_getzip{
+	font-family:Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	font-size:1rem;
+	border:1px solid #D8E4F5 !important;
+	background-color:#EFEFEF;
+	color:black !important;
+	}
+
+input[name="tzip"]{
+	height:35.75px;
+}
+
+#btn_getzip:hover{
+	background-color:#D8E4F5;
+	color:white;
+}
+
 #myModal .tabs {
 	/* margin: 2px 5px 0px 5px; */
 	/* 	padding-bottom: 10px; */
@@ -147,8 +195,14 @@
 }
 
 #myModal .tabs:hover, .tabs.active {
-	border-bottom: 5px solid #2196F3;
+	border-bottom: 5px solid #769BCD;
+	color:#769BCD;
+	
 }
+
+#myModal .tabs:hover, .tabs.active h6{
+	font-size:1.5rem !important;
+} 
 
 #myModal a:hover {
 	text-decoration: none;
@@ -167,6 +221,10 @@
 	width: 100%;
 }
 
+#myModal .pb-5{
+	padding-bottom:0 !important;
+}
+
 @media screen and (max-width: 768px) {
 	.tabs h6 {
 		font-size: 12px;
@@ -183,6 +241,7 @@
 #myModal a:hover {
 	background-color: #ddd;
 	color: black;
+	cursor:pointer;
 }
 
 #myModal .previous {
@@ -198,6 +257,12 @@
 
 #myModal .round {
 	border-radius: 50%;
+}
+
+#myModal .round:hover {
+	border-radius: 50%;
+	background-color:#1565C0;
+	color:white;
 }
 </style>
 
@@ -393,7 +458,7 @@ $(function(){
 		GetTarget(parseInt(searchPage));
 	});
 	
-	/* 모달 jquery */
+	// Modal Tab으로 이동
 	$(".tabs").click(function(){
 	    
 	    $(".tabs").removeClass("active");
@@ -423,14 +488,17 @@ $(function(){
 	    });
 	});
 	
+	// Modal 뒤로 가기
 	$('.previous.round').click(function(){
-		// display block인 fieldset 찾기
-		
-		// prev 찾기
 	    current_fs = $('fieldset.show');
-		var currentId = $()	    
-	    prev_fs = 
+		var currentFsClass = $('fieldset.show').attr('class');
+	    var prevFsClass = parseInt(currentFsClass) - 1;
+	    prev_fs = $('fieldset.' + prevFsClass);
 	    
+	    $('fieldset.show').removeClass("show");
+	    $('fieldset.' + prevFsClass).addClass("show");
+	    
+	    // fieldset
 	    current_fs.animate({}, {
 	        step: function() {
 	            current_fs.css({
@@ -442,6 +510,72 @@ $(function(){
 	            });
 	        }
 	    });
+	    
+	    // tab
+	    $(".tabs").removeClass("active");
+	    $(".tabs h6").removeClass("font-weight-bold");    
+	    $(".tabs h6").addClass("text-muted");
+	    
+	    $('#' + prevFsClass).children("h6").removeClass("text-muted");
+	    $('#' + prevFsClass).children("h6").addClass("font-weight-bold");
+	    $('#' + prevFsClass).addClass("active");
+	    
+	});
+	
+	// Modal 앞으로 가기
+	$('.next.round').click(function(){
+	    current_fs = $('fieldset.show');
+		var currentFsClass = $('fieldset.show').attr('class');
+	    var nextFsClass = parseInt(currentFsClass) + 1;
+	    next_fs = $('fieldset.' + nextFsClass);
+	    
+	    $('fieldset.show').removeClass("show");
+	    $('fieldset.' + nextFsClass).addClass("show");
+	    
+	    // fieldset
+	    current_fs.animate({}, {
+	        step: function() {
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            next_fs.css({
+	                'display': 'block'
+	            });
+	        }
+	    });
+	    
+	    // tab
+	    $(".tabs").removeClass("active");
+	    $(".tabs h6").removeClass("font-weight-bold");    
+	    $(".tabs h6").addClass("text-muted");
+	    
+	    $('#' + nextFsClass).children("h6").removeClass("text-muted");
+	    $('#' + nextFsClass).children("h6").addClass("font-weight-bold");
+	    $('#' + nextFsClass).addClass("active");
+	    
+	});
+	
+	$('#btn_getpreference').click(function(){
+		var tGender = $('input[name="tgender"]:checked').val();
+		/*
+		const tMajorArr = [];
+		var tMajor = $('input[name="tmajor"]:checked').val();
+		$(tMajor).each(function(){
+			tMajorArr.push($(this).val());
+		});
+		alert(tMajorArr);
+		console.log(tMajorArr);
+		*/
+		const tWorkdayArr = [];
+		var tWorkday = $('input[name="tworkday"]:checked');
+		$(tWorkday).each(function(){
+			tWorkdayArr.push($(this).val());
+		});
+		
+		var tZip = $('input[name="tzip"]').val();
+		
+		
 	});
 	
 });
@@ -495,117 +629,111 @@ $(function(){
 					<!-- Modal Body Start -->
 						
 						<div class="modal-body p-0">
-							<fieldset class="show 1" id="tab011">
+							<fieldset class="show 1">
 								
 									<!-- <h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3> -->
 									
-									<div class="form-group pb-2 px-3">
+									<div class="form-group pb-2 px-3 main">
 										<h5> 어떤 성별의 트레이너를 선호하시나요? </h5>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio" id="gender_all" name="tgender">
-											<label class="custom-control-label" for="gender_all">상관없어요</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio" value="여" id="gender_f" name="tgender">
-											<label class="custom-control-label" for="gender_f">여성</label>
-										</div>
-											
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio" value="남" id="gender_m" name="tgender">
-											<label class="custom-control-label" for="gender_m">남성</label>
+										<div class="radio_gender">
+											<div class="custom-control custom-radio">
+												<input class="custom-control-input" type="radio" value="all" id="gender_all" name="tgender">
+												<label class="custom-control-label" for="gender_all">상관없어요</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input class="custom-control-input" type="radio" value="여" id="gender_f" name="tgender">
+												<label class="custom-control-label" for="gender_f">여성</label>
+											</div>
+												
+											<div class="custom-control custom-radio">
+												<input class="custom-control-input" type="radio" value="남" id="gender_m" name="tgender">
+												<label class="custom-control-label" for="gender_m">남성</label>
+											</div>
 										</div>
 									</div>
 											
-									<a href="#tab021" class="next round">&#8250;</a>
+									<a class="next round">&#8250;</a>
 							</fieldset>
 
 
-							<fieldset class="2" id="tab021">
-								<div class="form-group pb-2 px-3">
+							<fieldset class="2">
+								<div class="form-group pb-2 px-3 main">
 									<h5>어떤 운동에 관심이 있으신가요? 모두 골라 주세요.</h5>
 									<div>
-										<div class="custom-control custom-checkbox" th:each="m: ${majors}">
-											<input class="custom-control-input" name="tmajor" type="checkbox" th:id="'major_'+${m.major}" th:value="${m.major}">
-											<label class="custom-control-label" th:text="${m.major}" th:for="'major_'+${m.major}"></label>
+										<div class="custom-control custom-checkbox" th:each="tmajor : ${majors}">
+											<input type="checkbox" th:name="tmajor" class="custom-control-input" th:field="*{majors}" th:value="${tmajor.major}">
+											<label th:for="${#ids.next('majors')}" class="custom-control-label" th:text="${tmajor.major}"></label>
 										</div>
 									</div>
 								</div>
-									<a href="#tab011" class="previous round">&#8249;</a>
-									<a href="#tab031" class="next round">&#8250;</a>
+									<a class="previous round">&#8249;</a>
+									<a class="next round">&#8250;</a>
 							</fieldset>
 							
 								
-							<fieldset class="3" id="tab031">
-								<div class="form-group pb-2 px-3">
+							<fieldset class="3">
+								<div class="form-group pb-2 px-3 main">
 									<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
 
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_mon" type="checkbox">
+										<input class="custom-control-input" value="mon" name="tworkday" id="workday_mon" type="checkbox">
 										<label class="custom-control-label" for="workday_mon">월</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_tue" type="checkbox">
+										<input class="custom-control-input" value="tue" name="tworkday" id="workday_tue" type="checkbox">
 										<label class="custom-control-label" for="workday_tue">화</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_wed" type="checkbox">
+										<input class="custom-control-input" value="wed" name="tworkday" id="workday_wed" type="checkbox">
 										<label class="custom-control-label" for="workday_wed">수</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_thu" type="checkbox">
+										<input class="custom-control-input" value="thu" name="tworkday" id="workday_thu" type="checkbox">
 										<label class="custom-control-label" for="workday_thu">목</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_fri" type="checkbox">
+										<input class="custom-control-input" value="fri" name="tworkday" id="workday_fri" type="checkbox">
 										<label class="custom-control-label" for="workday_fri">금</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_sat" type="checkbox">
+										<input class="custom-control-input" value="sat" name="tworkday" id="workday_sat" type="checkbox">
 										<label class="custom-control-label" for="workday_sat">토</label>
 									</div>
 									
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="tworkday" id="workday_sun" type="checkbox">
+										<input class="custom-control-input" value="sun" name="tworkday" id="workday_sun" type="checkbox">
 										<label class="custom-control-label" for="workday_sun">일</label>
 									</div>
 								</div>
 								
-									<a href="#tab021" class="previous round">&#8249;</a>
-									<a href="#tab041" class="next round">&#8250;</a>
+									<a class="previous round">&#8249;</a>
+									<a class="next round">&#8250;</a>
 						</fieldset>
 						
 						<fieldset class="4" id="tab041">
-							<div class="bg-light">
-									<div class="form-group pb-2 px-3">
-										<h5>어떤 지역에서 운동하고 싶으세요?</h5>
-											<input type="text" placeholder="우편번호" name="tzip">
-											<button class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-									</div>
+							<div class="form-group pb-2 px-3 main">
+								<h5>어떤 지역에서 운동하고 싶으세요?</h5>
+								<div class="div_zipinput">
+									<input type="text" placeholder="우편번호" name="tzip" onkeyup="sample6_execDaumPostcode()" onclick="sample6_execDaumPostcode()">
+									<button class="btn btn-primary" id="btn_getzip" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+								</div>
 							</div>
 							<div class="px-3">
 								<div class="form-group pb-5 row justify-content-center">
 									<button type="button" class="btn btn-primary px-3"
-										data-toggle="modal" href="#myModal2">찾기</button>
+										data-toggle="modal" id="btn_getpreference">나에게 맞는 트레이너 확인하기</button>
 								</div>
 							</div>
-							<a href="#tab031" class="previous round">&#8249;</a>
+							<a class="previous round">&#8249;</a>
 						</fieldset>
 
 					</div>
 				<!-- Modal Body End -->
-				
-				<!-- Modal Footer Start -->
-					<div class="modal-footer">
-						<h6 class="pt-3 pb-3 mb-4 border-bottom">
-							<span class="fa fa-rocket"></span> 당신 근처의 PersonalTrainer
-						</h6>
-					</div>
-				<!-- Modal Footer End -->
 					
 				</div>
 			</div>

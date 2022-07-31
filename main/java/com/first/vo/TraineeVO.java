@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -15,17 +15,17 @@ import lombok.ToString;
 @ToString
 public class TraineeVO {
 
-	private String id; 
-	private String pwd; 
-	private String name; 
-	private String phone; 
-	private String email; 
-	private String zip; 
-	private String addr1; 
-	private String addr2; 
-	private Date regdate; 
+	private String id;
+	private String pwd;
+	private String name;
+	private String phone;
+	private String email;
+	private String zip;
+	private String addr1;
+	private String addr2;
+	private Date regdate;
 	private String level;
-	
+
 	// for INSERT
 	public TraineeVO(String id, String pwd, String name, String phone, String email, String zip, String addr1,
 			String addr2) {
@@ -38,9 +38,9 @@ public class TraineeVO {
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 	}
+
 	// for UPDATE (id로 찾아서 name도 변경 불가)
-	public TraineeVO(String id, String pwd, String phone, String email, String zip, String addr1,
-			String addr2) {
+	public TraineeVO(String id, String pwd, String phone, String email, String zip, String addr1, String addr2) {
 		this.id = id;
 		this.pwd = pwd;
 		this.phone = phone;
@@ -55,13 +55,11 @@ public class TraineeVO {
 		this.pwd = pwd;
 		this.email = email;
 	}
-	
-	
 
-
+	public void TraineeVO(String id, String pwd) {
+		this.id = id;
+		this.pwd = pwd;
+	}
 	
 
 }
-
-
-

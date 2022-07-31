@@ -125,6 +125,13 @@ public class UserController {
 		return "index";
 	}
 	
+	//소셜로그인테스트용
+	@RequestMapping("/join/trainee2")
+	public String traineejoin2(Model m) {
+		m.addAttribute("center", "user/traineejoin2");
+		return "index";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/findidimpl")
 	public String findidimpl(String name, String phone) {
@@ -153,7 +160,7 @@ public class UserController {
 		}
 		return recipient;
 	}
-
+	
 //	@RequestMapping("join/trianeejoin")
 //	public String traineejoin(Model m) {
 //		m.addAttribute("center", "user/traineejoinselect");
