@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.first.vo.TrainerVO;
-import com.first.vo.WorkdayVO;
 
 @Service
 public class TrainerPreference {

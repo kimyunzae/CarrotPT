@@ -134,18 +134,29 @@ public class FTController {
 	}
 	
 	@RequestMapping("/find")
-	public void find(Model m, String trainerGender, String trainerMajor, String trainerWorkday, String trainerZip) {
+	public String find(Model m, String trainerGender, String trainerMajor, String trainerWorkday, String trainerZip) {
 		String[] trainerWorkdayArr= trainerWorkday.split(",");
 		String[] trainerMajorArr = trainerMajor.split(",");
+		int cnt = 0;
+		List<TrainerVO> list = null;
 		try {
-			List<TrainerVO> list = biz.getforpreference(trainerGender, trainerZip, trainerWorkdayArr, trainerMajorArr);
+			list = biz.getforpreference(trainerGender, trainerZip, trainerWorkdayArr, trainerMajorArr);
 			trainersort.sortTrainer(list, "preference");
-			for (TrainerVO trainerVO : list) {
-				System.out.println(trainerVO);
+			cnt = list.toArray().length;
+			if(cnt >= 6) {
+				list = list.subList(0, 6);
 			}
+			m.addAttribute("trlist", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		m.addAttribute("center", "trainers/preference");
+		m.addAttribute("gender", trainerGender);
+		m.addAttribute("major", trainerMajor);
+		m.addAttribute("workday", trainerWorkday);
+		m.addAttribute("zip", trainerZip);
+		return "index";
 	}
 
 }

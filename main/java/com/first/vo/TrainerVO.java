@@ -211,31 +211,31 @@ public class TrainerVO {
 	public String getWorkday(String day) {
 		String result = null;
 		switch(day) {
-		case "mon":
+		case "Mon":
 			result = mon;
 			break;
 			
-		case "tue":
+		case "Tue":
 			result = tue;
 			break;
 			
-		case "wed":
+		case "Wed":
 			result = wed;
 			break;
 		
-		case "thu":
+		case "Thu":
 			result = thu;
 			break;
 			
-		case "fri":
+		case "Fri":
 			result = fri;
 			break;
 			
-		case "sat":
+		case "Sat":
 			result = sat;
 			break;
 			
-		case "sun":
+		case "Sun":
 			result = sun;
 			break;
 		}

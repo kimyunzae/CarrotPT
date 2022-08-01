@@ -1,0 +1,211 @@
+<style>
+#h2_findid{
+	font-family: "Poppins", Arial, sans-serif;
+}
+
+#p_heading{
+	font-size:1.1rem;
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	margin-bottom:1.5rem;
+}
+
+.div_keyword{
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	border:1px solid #769BCD;
+	border-radius:20px;
+	justify-content:center;
+	margin-bottom:2rem;
+	padding-top:0.6rem;
+	padding-bottom:0.6rem;
+	background-color:white;
+	
+}
+
+.div_keyword:hover{
+	box-shadow:5px 5px 2px 1px #769BCD;
+	transition: 0.5s;
+}
+
+
+.div_keyword .subtitle{
+	color:#769BCD;
+	font-style:italic;
+}
+
+#div_nodata .subtitle{
+	font-style:normal;
+	margin-bottom:0;
+}
+
+#div_nodata .subtitle.change{
+	font-style:normal;
+	margin-bottom:0;
+	color:black;
+}
+
+.nodata{
+	font-style:none !important;
+}
+
+#div_tbl{
+	display:flex;
+	justify-content:center;
+}
+
+#tbl_keyword{
+	justify-content:center;
+	}
+
+#tbl_keyword tbody tr td:nth-child(1){
+	color:#769BCD;
+	font-weight:bold;
+}
+
+#tbl_keyword tbody tr td:nth-child(2){
+	display:inline-block;
+	margin-left:1rem;
+	text-align:left;
+	color:black;
+}
+
+#div_matchresult .row{
+	justify-content:center;
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+#div_matchresult .row.info{
+	margin-bottom:1rem;
+}
+
+#div_matchresult .row.info .right{
+	justify-content:left;
+	text-align:left;
+	vertical-align:middle;
+	margin-left:2rem;
+}
+
+#div_matchresult h3{
+	margin-bottom:0;
+	font-size:1.3rem;
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+#p_addrshort{
+	background: white;
+	padding-left: 0.3rem;
+	padding-right: 0.3rem;
+	display: inline-block;
+	color: #769BCD;
+}
+
+#p_major{
+	color:black;
+	margin-bottom:0.1rem;
+}
+
+.bracket{
+	color:#769BCD;
+	font-size:1.3rem;
+}
+
+#a_top{
+	font-size:1.1rem;
+}
+
+#a_top:hover{
+	font-weight:bold;
+}
+
+#btn_backtotrainers{
+	margin-top:1rem;
+	margin-bottom:1rem;
+}
+
+img {
+	object-fit: cover;  
+}
+</style>
+<script>
+
+	$(function(){
+		$($('#btn_backtotrainers')).click(function(){
+			location.href='/trainers';
+		});
+	});
+
+</script>
+<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<span class="subheading">TRAINERS</span>
+				<h2 class="mb-4" id="h2_findid">트레이너</h2>
+				<p id="p_heading">고객님에게 알맞은 트레이너를 찾아보았어요.</p>
+				<div class="div_keyword">
+					<p class="subtitle">다음과 같은 조건으로 검색했어요!</p>
+					<div id="div_tbl">
+						<table id="tbl_keyword">
+							<thead style="display:none">
+								<tr>
+									<th></th><th></th>
+								</tr>
+							</thead>
+							<tbody id="top">
+								<tr>
+									<td>성별</td><td th:text="${gender}"></td>
+								</tr>
+								<tr>
+									<td>운동</td><td th:text="${major}"></td>
+								</tr>
+								<tr>
+									<td>요일</td><td th:text="${workday}"></td>
+								</tr>
+								<tr>
+									<td>주소</td><td th:text="${zip}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="div_keyword" th:if="${not #lists.isEmpty(trlist)}">
+					<p class="subtitle">일치율이 가장 높은 트레이너들이에요.</p>
+					<div id="div_matchresult" th:each="t : ${trlist}">
+						<div class="row info">
+							<div class="col-sm-4" >
+								<a th:href="@{/trainers/detail(id=${t.id})}">
+									<img th:if="${t.profile1 != null and t.profile1 != 'pf1.jpg'}" 
+										th:src="@{'/images/CRUD/pf1/' + ${t.profile1}}" style="height: 200px; width: 200px;">
+									<img th:if="${t.profile1 == null or t.profile1 == 'pf1.jpg'}" th:src="@{'/images/CRUD/pf1/team-1.jpg'}" 
+										class="img-fluid" style="height: 200px; width: 200px;" alt="Trainer Profile Photo">
+								</a>
+							</div>
+							<div class="col-sm-4 right">
+								<a th:href="@{/trainers/detail(id=${t.id})}">
+									<h3 th:text="${t.name}"></h3>
+								</a>
+								<div>
+									<p id="p_major"><span class="bracket">[  </span><span th:text="${t.major}"></span><span class="bracket">  ]</span></p>
+								</div>
+								<div>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#769BCD" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+									  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+						 			</svg>
+									<p id="p_addrshort" th:text="${t.addrshort}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a id="a_top" href="#top">▲TOP</a>
+				</div>
+				
+				<div class="div_keyword" id="div_nodata" th:unless="${not #lists.isEmpty(trlist)}">
+					<p class="subtitle">안타깝게도 아직 추천해드릴 트레이너가 없어요.</p>
+					<p class="subtitle change">조건을 바꾸어 다시 검색해 볼까요?</p>
+					<button type="button" class="btn btn-primary px-3" id="btn_backtotrainers">클릭!</button>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</section>
