@@ -36,10 +36,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <!-- 선호도 계산용 --><!--JOIN해서 WORKDAY까지 같이 조회--><!-- WHERE절: 우편번호 차이 > N 이상은 버리기-->
 	<select id="selectforpreference" resultType="trainerVO">
 	<![CDATA[
-		SELECT id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, regdate
-		FROM trainer
-		WHERE status='수락' AND
-		ABS(CONVERT(gym_zip, SIGNED INTEGER) - CONVERT(#{custZip}, SIGNED INTEGER)) < 10000
+		SELECT t.id, name, gender, major, gym_name, gym_zip, gym_addr1, profile1, mon, tue, wed, thu, fri, sat, sun
+		FROM trainer t
+		INNER JOIN workday w ON t.id = w.tid
+		WHERE t.status='수락' AND
+		ABS(CONVERT(t.gym_zip, SIGNED INTEGER) - CONVERT(#{custZip}, SIGNED INTEGER)) < 10000
 	]]>
 	</select>
 	

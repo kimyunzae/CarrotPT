@@ -12,11 +12,11 @@ import com.first.vo.WorkdayVO;
 public class TrainerPreference {
 	
 	@Autowired
-	WorkdayBiz workdaybiz; //biz가 biz를 상속하는 게 맞는지..? mapper 상속해야하는지
+	WorkdayBiz workdaybiz;
 
 	public static final int genderScore = 1000;
-	public static final int majorScore = 3000;
-	public static final int workdayScore = 100;
+	public static final int majorScore = 2000;
+	public static final int workdayScore = 10;
 	
 	public void getPreference(TrainerVO trainer, String gender, String zip, String[] workdays, String[] majors) {
 		if(trainer.getGender().equals(gender)) {
@@ -34,8 +34,8 @@ public class TrainerPreference {
 		
 		for (String day : workdays) {
 			try {
-				WorkdayVO obj = workdaybiz.getbytidday(day, trainer.getId());
-				if(obj != null) {
+				String result = trainer.getWorkday(day);
+				if(result != null) {
 					trainer.addPreference(workdayScore);
 				}
 			} catch (Exception e) {
