@@ -39,10 +39,6 @@ public class WorkdayBiz implements Biz<Integer, WorkdayVO> {
 	public List<WorkdayVO> get() throws Exception {
 		return dao.selectall();
 	}
-	
-	public WorkdayVO getbytidday(String searchday, String tid) throws Exception{
-		return dao.selectbytidday(searchday, tid);
-	}
 
 	public WorkdayVO getbytid(String tid) throws Exception {
 		return dao.selectbytid(tid);

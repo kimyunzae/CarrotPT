@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.first.biz.ReviewBiz;
 import com.first.biz.TrainerBiz;
+import com.first.biz.TrainerPreference;
 import com.first.biz.TrainerSort;
 import com.first.biz.WorkdayBiz;
 import com.first.vo.MajorVO;
@@ -141,6 +142,21 @@ public class FTController {
 		}
 		m.addAttribute("center", "trainers/trdetail");
 		return "index";
+	}
+	
+	@RequestMapping("/find")
+	public void find(Model m, String trainerGender, String trainerMajor, String trainerWorkday, String trainerZip) {
+		String[] trainerWorkdayArr= trainerWorkday.split(",");
+		String[] trainerMajorArr = trainerMajor.split(",");
+		try {
+			List<TrainerVO> list = biz.getforpreference(trainerGender, trainerZip, trainerWorkdayArr, trainerMajorArr);
+			trainersort.sortTrainer(list, "preference");
+			for (TrainerVO trainerVO : list) {
+				System.out.println(trainerVO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
