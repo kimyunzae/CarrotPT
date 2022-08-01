@@ -141,9 +141,9 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		return dao.selectbynamephone(name, phone);
 	}
 	
-	// 선호도 세팅: String[] majors 추가 필요
+	// 선호도 세팅
 	public List<TrainerVO> getforpreference(String gender, String zip, String[] workdays, String[] majors) throws Exception{
-		List<TrainerVO> list = dao.selectforpreference();
+		List<TrainerVO> list = dao.selectforpreference(zip);
 		for (TrainerVO v : list) {
 			preference.getPreference(v, gender, zip, workdays, majors);
 			trainerinfo(v);

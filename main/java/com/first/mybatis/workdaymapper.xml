@@ -11,11 +11,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="workdayVO">
 		SELECT * FROM workday
 	</select>
-	<!-- tid, 요일별-->
-	<select id="selectbytidday" resultType="workdayVO">
-		SELECT ${searchday} FROM workday
-		WHERE tid=#{tid}
-	</select>
 	<insert id="insert" parameterType="workdayVO">
 		INSERT INTO workday VALUES(NULL, #{tid}, #{mon}, #{tue}, #{wed}, #{thu}, #{fri}, #{sat}, #{sun})
 	</insert>

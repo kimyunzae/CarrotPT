@@ -60,6 +60,14 @@ public class TrainerVO {
 	private int num;
 	
 	private int preference;
+	private String custZip;
+	private String mon;
+	private String tue;
+	private String wed;
+	private String thu;
+	private String fri;
+	private String sat;
+	private String sun;
 
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
 
@@ -90,6 +98,8 @@ public class TrainerVO {
 		this.profile3 = profile3;
 		this.level = level;
 	}
+	
+	
 
 	// for insert default null과 default 값 존재하는 column 제외
 	public TrainerVO(String id, String pwd, String name, String phone, String email, String gender, String major,
@@ -197,5 +207,43 @@ public class TrainerVO {
 	public void addPreference(int score) {
 		this.preference += score;
 	}
+	
+	public String getWorkday(String day) {
+		String result = null;
+		switch(day) {
+		case "mon":
+			result = mon;
+			break;
+			
+		case "tue":
+			result = tue;
+			break;
+			
+		case "wed":
+			result = wed;
+			break;
+		
+		case "thu":
+			result = thu;
+			break;
+			
+		case "fri":
+			result = fri;
+			break;
+			
+		case "sat":
+			result = sat;
+			break;
+			
+		case "sun":
+			result = sun;
+			break;
+		}
+		return result;
+	}
+
+
+
+
 	
 }

@@ -22,9 +22,9 @@ class TrainerPreferenceTest {
 	@Test
 	void contextLoads() {
 		String gender = "여";
-		String zip = "00000";
+		String zip = "02000";
 		String[] workday = new String[] {"mon", "sat"};
-		String[] major = new String[] {"파워리프팅", "필라테스"};
+		String[] major = new String[] {"보디빌딩"};
 		try {
 			List<TrainerVO> list = biz.getforpreference(gender, zip, workday, major);
 			

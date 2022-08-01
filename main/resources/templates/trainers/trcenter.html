@@ -558,15 +558,13 @@ $(function(){
 	
 	$('#btn_getpreference').click(function(){
 		var tGender = $('input[name="tgender"]:checked').val();
-		/*
+		
 		const tMajorArr = [];
-		var tMajor = $('input[name="tmajor"]:checked').val();
-		$(tMajor).each(function(){
+	
+		$('input:checkbox[name="tmajor"]:checked').each(function(){
 			tMajorArr.push($(this).val());
 		});
-		alert(tMajorArr);
-		console.log(tMajorArr);
-		*/
+		
 		const tWorkdayArr = [];
 		var tWorkday = $('input[name="tworkday"]:checked');
 		$(tWorkday).each(function(){
@@ -574,6 +572,19 @@ $(function(){
 		});
 		
 		var tZip = $('input[name="tzip"]').val();
+		
+		$('input[name="trainerGender"]').val(tGender);
+		$('input[name="trainerMajor"]').val(tMajorArr);
+		$('input[name="trainerWorkday"]').val(tWorkdayArr);
+		$('input[name="trainerZip"]').val(tZip);
+		
+		
+		$('#form_preference').attr({
+			'method':'post',
+			'action':'/trainers/find'
+		});
+		
+		$('#form_preference').submit();
 		
 		
 	});
@@ -616,13 +627,13 @@ $(function(){
 							<div class="tabs active first" id="1">
 								<h6 class="font-weight-bold">1</h6>
 							</div>
-							<div class="tabs second" id="2">
+							<div class="tabs" id="2">
 								<h6 class="text-muted">2</h6>
 							</div>
-							<div class="tabs third" id="3">
+							<div class="tabs" id="3">
 								<h6 class="text-muted">3</h6>
 							</div>
-							<div class="tabs fourth" id="4">
+							<div class="tabs" id="4">
 								<h6 class="text-muted">4</h6>
 							</div>
 						</div>
@@ -660,9 +671,10 @@ $(function(){
 								<div class="form-group pb-2 px-3 main">
 									<h5>어떤 운동에 관심이 있으신가요? 모두 골라 주세요.</h5>
 									<div>
-										<div class="custom-control custom-checkbox" th:each="tmajor : ${majors}">
-											<input type="checkbox" th:name="tmajor" class="custom-control-input" th:field="*{majors}" th:value="${tmajor.major}">
-											<label th:for="${#ids.next('majors')}" class="custom-control-label" th:text="${tmajor.major}"></label>
+										<div class="custom-control custom-checkbox" th:each="major : ${majors}">
+											<input type="checkbox" name="tmajor" class="custom-control-input"
+											th:value="${major.major}" th:id="'tmajor'+${major.major}">
+											<label class="custom-control-label" th:text="${major.major}" th:for="'tmajor'+${major.major}"></label>
 										</div>
 									</div>
 								</div>
@@ -715,7 +727,7 @@ $(function(){
 									<a class="next round">&#8250;</a>
 						</fieldset>
 						
-						<fieldset class="4" id="tab041">
+						<fieldset class="4">
 							<div class="form-group pb-2 px-3 main">
 								<h5>어떤 지역에서 운동하고 싶으세요?</h5>
 								<div class="div_zipinput">
@@ -762,6 +774,15 @@ $(function(){
 					</div>
 				</div>
 				<!-- Page Number End -->
+			</div>
+			
+			<div style="display:hidden">
+				<form id="form_preference">
+					<input type="hidden" name="trainerGender">
+					<input type="hidden" name="trainerMajor">
+					<input type="hidden" name="trainerWorkday">
+					<input type="hidden" name="trainerZip">
+				</form>
 			</div>
 			<!-- Left End -->
 			
