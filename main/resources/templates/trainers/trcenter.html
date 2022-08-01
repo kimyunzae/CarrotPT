@@ -573,6 +573,19 @@ $(function(){
 		
 		var tZip = $('input[name="tzip"]').val();
 		
+		$('input[name="trainerGender"]').val(tGender);
+		$('input[name="trainerMajor"]').val(tMajorArr);
+		$('input[name="trainerWorkday"]').val(tWorkdayArr);
+		$('input[name="trainerZip"]').val(tZip);
+		
+		
+		$('#form_preference').attr({
+			'method':'post',
+			'action':'/trainers/find'
+		});
+		
+		$('#form_preference').submit();
+		
 		
 	});
 	
@@ -614,13 +627,13 @@ $(function(){
 							<div class="tabs active first" id="1">
 								<h6 class="font-weight-bold">1</h6>
 							</div>
-							<div class="tabs second" id="2">
+							<div class="tabs" id="2">
 								<h6 class="text-muted">2</h6>
 							</div>
-							<div class="tabs third" id="3">
+							<div class="tabs" id="3">
 								<h6 class="text-muted">3</h6>
 							</div>
-							<div class="tabs fourth" id="4">
+							<div class="tabs" id="4">
 								<h6 class="text-muted">4</h6>
 							</div>
 						</div>
@@ -761,6 +774,15 @@ $(function(){
 					</div>
 				</div>
 				<!-- Page Number End -->
+			</div>
+			
+			<div style="display:hidden">
+				<form id="form_preference">
+					<input type="hidden" name="trainerGender">
+					<input type="hidden" name="trainerMajor">
+					<input type="hidden" name="trainerWorkday">
+					<input type="hidden" name="trainerZip">
+				</form>
 			</div>
 			<!-- Left End -->
 			
