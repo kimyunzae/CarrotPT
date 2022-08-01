@@ -52,6 +52,8 @@ public class WorkdayVO {
 		this.tid = tid;
 		this.searchday = searchday;
 	}
+
+	
 	
 	
 
