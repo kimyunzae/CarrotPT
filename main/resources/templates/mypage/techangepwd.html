@@ -115,6 +115,7 @@
 			if (tepwd != tecpwd) {
 				alert("변경비밀번호가 일치하지 않습니다.");
 				$("#tecpwd").focus();
+				return false
 			}
 					
 			$.ajax({
@@ -139,6 +140,7 @@
 							});
 							$("#pwd-change-form").submit();
 							alert('재로그인 후 업데이트가 완료됩니다.');
+							window.location.href = "/logout"
 						}
 					}
 				}

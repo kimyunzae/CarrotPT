@@ -114,6 +114,7 @@
 			if (pwd != cpwd) {
 				alert("변경비밀번호가 일치하지 않습니다.");
 				$("#cpwd").focus();
+				return false
 			}
 					
 			$.ajax({
@@ -135,7 +136,8 @@
 								"action" : "trpassword_update"
 							});
 							$("#pwd-change-form").submit();
-							alert('재로그인 후 업데이트가 완료됩니다.'); //hu
+							alert('재로그인 후 업데이트가 완료됩니다.'); 
+							window.location.href = "/logout"
 						}
 					}
 				}
