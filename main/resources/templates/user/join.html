@@ -125,10 +125,67 @@
 }
 
 .join-font {
-	 font-family: "Poppins", Arial, sans-serif;
+	 font-family: "Poppins", Arial, sans-serif;	 
 }
+/* .login-input-group-lgimg {
+	height: 60px;
+	width: 140px;
+} */
 </style>
 
+<!-- 네이버아디디 Script -->
+<!-- <script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("sF6LewfWRlnTE2f83Dnp",
+			"http://127.0.0.1/join/trainee");
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("white", 2, 40);
+	naver_id_login.setDomain("http://127.0.0.1");
+	naver_id_login.setState(state);
+	naver_id_login.setPopup();
+	naver_id_login.init_naver_id_login();
+</script>
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("sF6LewfWRlnTE2f83Dnp",
+			"http://127.0.0.1/join/trainee");
+	// 접근 토큰 값 출력
+	alert(naver_id_login.oauthParams.access_token);
+	// 네이버 사용자 프로필 조회
+	naver_id_login.get_naver_userprofile("naverSignInCallback()");
+	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+	function naverSignInCallback() {
+		alert(naver_id_login.getProfileData('email'));
+		alert(naver_id_login.getProfileData('nickname'));
+		alert(naver_id_login.getProfileData('age'));
+	}
+</script> -->
+
+<!-- 카카오 계정 로그인 -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+window.Kakao.init("1246eaf5aa2f74f55a55378bd15623c5")
+
+function kakaoLogin() {
+	window.Kakao.Auth.login({
+		scope: 'profile_nickname, account_email, gender',
+		success: function(authObj) {
+			console.log(authObj);
+			window.Kakao.API.request({
+				url: '/v2/user/me',
+				success: res => {
+					const kakao_account = res.kakao_account;
+					console.log(kakao_account);
+				}
+			});
+		}
+	});
+}
+</script>
+	
 <div class="py-5 mt-5">
 	<div class="row mt-4 m-1 mb-5">
 		<div class="col-lg-6 mb-3 mb-lg-0">
@@ -141,8 +198,8 @@
 						<span class="font-weight-light">일반회원 </span>가입
 					</h3>
 					<a href="/join/trainee"
-						class="hover-3-description small text-uppercase mb-0">나를 도와줄
-						트레이너가 필요해요! <br>트레이너를 찾고 있다면?
+						class="hover-3-description small text-uppercase mb-0" data-toggle="modal" data-target="#loginModal2">
+						나를 도와줄 트레이너가 필요해요! <br>트레이너를 찾고 있다면?
 					</a>
 				</div>
 			</div>
@@ -157,7 +214,7 @@
 						<span class="font-weight-light">트레이너 </span>가입
 					</h3>
 					<a href="/join/trainer"
-						class="hover-3-description small text-uppercase mb-0">현재 트레이너로
+						class="hover-3-description small text-uppercase mb-0" data-toggle="modal" data-target="#loginModal3">현재 트레이너로
 						일하고 있어요! <br>트레이너로 등록하고 싶다면?
 					</a>
 
@@ -165,6 +222,132 @@
 			</div>
 		</div>
 	</div>
-	<a href="/join/trainee2">소셜</a>
+				
 </div>
 
+	<!-- 로그인 modal -->
+	<div class="modal fade" id="loginModal2">
+		<div class="modal-dialog login-modal-dialog modal-dialog-centered">
+			<div class="modal-content login-modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header login-modal-header">
+					<div class="modal-title login-modal-title">
+
+						<p class="navbar-brand modal-title-text">
+							<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
+						</p>
+					</div>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body login-modal-body">
+					<p id="login-check-msg" class="login-title">회원가입 방법을 선택하세요</p>
+					<div class="login-form">					
+							<div class="p-t-10">
+								<a href="/join/trainee" class="login-modal-btn btn--pill btn--signin"
+									id="login_bt" type="button" >일반 회원가입</a>
+							</div>
+							<hr>
+							<div class="login-input-group">
+							<p id="login-check-msg" class="login-title">소셜계정으로 회원가입</p>
+								<div class="login-input-group-lgimg">
+									<a href="javascript:kakaoLogin();"> <input type="image"
+										src="/images/kakao_login.png"
+										style="height: 50px; width: 200px;">
+									</a>
+									<div id="naver_id_login" style="height: 50px; width: 200px;">
+									<!-- <a href=""> <input type="image" 
+										src="/images/naver_login.png"
+										>										
+									</a> -->
+									</div>
+								</div>								
+							</div>			
+						<p class="extra new mt-3">Dangguen Personal Trainers Matching
+							Platform</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End modal -->
+	
+	<!-- 트레이너 로그인 modal -->
+	<div class="modal fade" id="loginModal3">
+		<div class="modal-dialog login-modal-dialog modal-dialog-centered">
+			<div class="modal-content login-modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header login-modal-header">
+					<div class="modal-title login-modal-title">
+
+						<p class="navbar-brand modal-title-text">
+							<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
+						</p>
+					</div>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body login-modal-body">
+					<p id="login-check-msg" class="login-title">회원가입 방법을 선택하세요</p>
+					<div class="login-form">					
+							<div class="p-t-10">
+								<a href="/join/trainer" class="login-modal-btn btn--pill btn--signin"
+									id="login_bt" type="button" >일반 회원가입</a>
+							</div>
+							<hr>
+							<div class="login-input-group">
+							<p id="login-check-msg" class="login-title">소셜계정으로 회원가입</p>
+								<div class="login-input-group-lgimg">
+									<a href="javascript:kakaoLogin();"> <input type="image"
+										src="/images/kakao_login.png"
+										style="height: 50px; width: 200px;">
+									</a>
+									<div id="naver_id_login" style="height: 50px; width: 200px;">
+									<!-- <a href=""> <input type="image" 
+										src="/images/naver_login.png"
+										>										
+									</a> -->
+									</div>
+								</div>								
+							</div>			
+						<p class="extra new mt-3">Dangguen Personal Trainers Matching
+							Platform</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End modal -->
+	
+<!-- 네이버아디디 Script -->
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("sF6LewfWRlnTE2f83Dnp",
+			"http://127.0.0.1/join/trainee");
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("white", 2, 40);
+	naver_id_login.setDomain("http://127.0.0.1");
+	naver_id_login.setState(state);
+	naver_id_login.setPopup();
+	naver_id_login.init_naver_id_login();
+</script>
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("sF6LewfWRlnTE2f83Dnp",
+			"http://127.0.0.1/join/trainee");
+	// 접근 토큰 값 출력
+	alert(naver_id_login.oauthParams.access_token);
+	// 네이버 사용자 프로필 조회
+	naver_id_login.get_naver_userprofile("naverSignInCallback()");
+	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+	function naverSignInCallback() {
+		alert(naver_id_login.getProfileData('email'));
+		alert(naver_id_login.getProfileData('nickname'));
+		alert(naver_id_login.getProfileData('age'));
+	}
+</script>
