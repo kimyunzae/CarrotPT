@@ -131,10 +131,10 @@ public class FTController {
 	@RequestMapping("/detail")
 	public String detail(Model m, String id) {
 		try {
+			TrainerVO obj = biz.get(id);
 			List<ReviewVO> review = rvbiz.getbytid(id);
 			WorkdayVO workday = wbiz.getbytid(id);
-			TrainerVO trainer = biz.get(id);
-			m.addAttribute("dtrainer", trainer);
+			m.addAttribute("dtrainer", obj);
 			m.addAttribute("workday", workday);
 			m.addAttribute("review", review);
 		} catch (Exception e) {

@@ -19,6 +19,14 @@
 .carousel .carousel-item {
 	
 }
+
+body {
+	overflow-x: hidden;
+}
+
+.weekdays {
+	width: 50%;
+}
 </style>
 <script>
 	
@@ -29,9 +37,9 @@
 	id="contact-section">
 	<div class="row justify-content-center pb-3">
 		<div class="col-md-7 heading-section text-center ftco-animate">
-			<span class="subheading" th:text="'종목:' +${dtrainer.major}"></span>
-			<h2 class="trainer_name" th:text="${dtrainer.name}+' 트레이너'"></h2>
-			<div id="addrshort">
+
+
+			<div id="addrshort" class="mt-5">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 					fill="#769BCD" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
 						<path
@@ -53,7 +61,7 @@
 					<div id="carousel-example-1z"
 						class="carousel slide carousel-fade z-depth-1-half"
 						data-ride="carousel">
-					
+
 						<!--Slides-->
 						<div class="carousel-inner" role="listbox">
 							<!--First slide-->
@@ -112,44 +120,26 @@
 					<!--/.Carousel Wrapper-->
 
 
-					<!-- <div class="img align-self-stretch border">
-						<img
-							th:if="${dtrainer.profile1 != null and dtrainer.profile1 != 'pf1.jpg'}"
-							th:src="@{'/images/CRUD/pf1/' + ${dtrainer.profile1}}"
-							class="img-fluid"
-							style="height: 420px; width: 600px; object-fit: cover;">
-
-						<span class="mt-3">
-								<img th:if="${dtrainer.profile2 != null and dtrainer.profile2 != 'pf2.jpg'}"
-								th:src="@{'/images/CRUD/pf2/' + ${dtrainer.profile2}}"
-								class="img-fluid mt-2" style="height: 210px; width: 200px; object-fit: cover;">
-								
-								<img th:if="${dtrainer.profile3 != null and dtrainer.profile3 != 'pf3.jpg'}"
-								th:src="@{'/images/CRUD/pf3/' + ${dtrainer.profile3}}"
-								class="img-fluid mt-2" style="height: 210px; width: 200px; object-fit: cover;">
-							</span>
-
-						<img
-							th:if="${dtrainer.profile1 == null or dtrainer.profile1 == 'pf1.jpg'}"
-							src="@{'/images/CRUD/pf1/team-1.jpg'}" class="img-fluid">
-					</div> -->
 
 				</div>
 				<div class="col-md-5 col-sm-12 ftco-animate">
 					<div class="text py-5">
-						<h2 class="trainer_intro" th:text="'Intro: '+${dtrainer.intro}"></h2>
+						<h2 class="trainer_name" th:text="${dtrainer.name}+' 트레이너'"></h2>
+						<span class="subheading" th:text="'종목: ' +${dtrainer.major}"></span>
+						<p class="trainer_intro" th:text="${dtrainer.intro}"></p>
 						<p th:text="'Phone number: '+${dtrainer.phone}"></p>
+
 						<p class="pos">
 							from <span class="price">$400.00</span>&nbsp5 days
 						</p>
 
 						<p>
 							<a href="#" class="btn btn-secondary">Details</a> <a href="#"
-								class="btn btn-primary">Book now</a>
+								class="btn btn-primary">상담 예약하기</a>
 						</p>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -157,145 +147,103 @@
 
 
 	<div class="comment-form-wrap pt-5">
-	<h3 class="mb-5">Leave a comment</h3>
-			<div class="col-md-12 ">
-				<table class="table">
-					<tbody>
-						<tr>
-							<th scope="row">Departure</th>
-							<td>
-								<p>Greece International Airport</p>
-							</td>
-							<td></td>
-						</tr>
-						<!-- END TR-->
+		<h3 class="mb-3 text-center">레슨 시간표</h3>
+		<div class="col-md-12">
+			<div class="container">
+				<div class="row">
 
-						<tr>
-							<th scope="row">Departure Time</th>
-							<td>
-								<p>Please arrive by 10:20 AM for a prompt departure at 10:50
-									AM</p>
-							</td>
-							<td></td>
-						</tr>
-						<!-- END TR-->
+					<div class="col-md-6">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">근무요일</th>
+									<th scope="col">근무시간</th>
 
-						<tr>
-							<th scope="row">Return Time</th>
-							<td>
-								<p>Approximately 8:30 PM</p>
-							</td>
-							<td></td>
-						</tr>
-						<!-- END TR-->
-			
-
-						<tr>
-							<th scope="row">Included</th>
-							<td class="d-flex">
-								<ul>
-									<li>Airfare</li>
-									<li>5 star accomodation</li>
-								</ul>
-								<ul>
-									<li>Local transportation</li>
-									<li>Private Professional Guide</li>
-								</ul>
-							</td>
-							<td></td>
-						</tr>
-						<!-- END TR-->
-
-						<tr>
-							<th scope="row">Not Included</th>
-							<td class="d-flex">
-								<ul>
-									<li>Departure Taxes</li>
-								</ul>
-								<ul>
-									<li>Entry Fees</li>
-								</ul>
-							</td>
-							<td></td>
-						</tr>
-						<!-- END TR-->
-						<!-- <tr>
-							<th scope="row">Maps</th>
-							<td>
-								<div id="map"></div>
-							</td>
-						</tr> -->
-						<!-- END TR-->
-					</tbody>
-				</table>
-			</div>
-			<div class="col-md-12">
-				<div class="pt-5 mt-5">
-					<h3 class="mb-5">6 Reviews</h3>
-					<ul class="comment-list">
-						<li class="comment">
-							<div class="vcard bio">
-								<img src="/images/team/team-2.jpg" alt="Image placeholder">
-							</div>
-							<div class="comment-body">
-								<h3>one</h3>
-								<div class="meta">October 03, 2018 at 2:21pm</div>
-								<p>This trainer is very passionate!</p>
-								<p>
-									<a href="#" class="reply">Reply</a>
-								</p>
-							</div>
-						</li>
-
-						<li class="comment">
-							<div class="vcard bio">
-								<img src="/images/team/team-3.jpg" alt="Image placeholder">
-							</div>
-							<div class="comment-body">
-								<h3>two</h3>
-								<div class="meta">October 03, 2018 at 2:30pm</div>
-								<p>This trainer is very friendly!!</p>
-								<p>
-									<a href="#" class="reply">Reply</a>
-								</p>
-							</div>
-
-							
-						</li>
-
-						<li class="comment">
-							<div class="vcard bio">
-								<img src="/images/team/team-2.jpg" alt="Image placeholder">
-							</div>
-							<div class="comment-body">
-								<h3>현재킴</h3>
-								<div class="meta">October 11, 2020 at 2:21pm</div>
-								<p>This trainer is very passionate!</p>
-								<p>
-									<a href="#" class="reply">Reply</a>
-								</p>
-							</div>
-						</li>
-					</ul>
-					<!-- END comment-list -->
-
-					<div class="comment-form-wrap pt-5">
-						<h3 class="mb-5">Leave a comment</h3>
-						<form action="#" class="p-5 bg-light">
-							<div class="form-group">
-								<label for="message">Message</label>
-								<textarea name="" id="message" cols="30" rows="10"
-									class="form-control"></textarea>
-							</div>
-							<div class="form-group">
-								<input type="submit" value="Post Comment"
-									class="btn py-3 px-4 btn-primary">
-							</div>
-
-						</form>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">월요일</th>
+									<td th:if="${workday.mon} != null" th:text="${workday.mon}"></td>
+									<td th:if="${workday.mon} == null">휴무</td>
+								</tr>
+								<tr>
+									<th scope="row">화요일</th>
+									<td th:if="${workday.tue} != null" th:text="${workday.tue}"></td>
+									<td th:if="${workday.tue} == null">휴무</td>
+								</tr>
+								<tr>
+									<th scope="row">수요일</th>
+									<td th:if="${workday.wed} != null" th:text="${workday.wed}"></td>
+									<td th:if="${workday.wed} == null">휴무</td>
+								</tr>
+								<tr>
+									<th scope="row">목요일</th>
+									<td th:if="${workday.thu} != null" th:text="${workday.thu}"></td>
+									<td th:if="${workday.thu} == null">휴무</td>
+								</tr>
+								<tr>
+									<th scope="row">금요일</th>
+									<td th:if="${workday.fri} != null" th:text="${workday.fri}"></td>
+									<td th:if="${workday.fri} == null">휴무</td>
+								</tr>
+								<tr>
+									<th scope="row">토요일</th>
+									<td th:if="${workday.sat} != null" th:text="${workday.sat}"></td>
+									<td th:if="${workday.sat} == null">휴무</td>
+								</tr>
+								<tr>
+									<th scope="row">일요일</th>
+									<td th:if="${workday.sun} != null" th:text="${workday.sun}"></td>
+									<td th:if="${workday.sun} == null">휴무</td>
+							</tbody>
+						</table>
 					</div>
 				</div>
+				
+				
+				
+				
 			</div>
+		</div>
 	</div>
-</div>
 
+
+	<div class="col-md-12">
+		<div class="pt-5 mt-5">
+			<h3 class="mb-3 text-center">트레이너 리뷰</h3>
+			<ul class="comment-list">
+				<li class="comment" th:each="rv : ${review}">
+					<div class="vcard bio">
+						<img src="/images/emptypic.svg" alt="Image placeholder">
+					</div>
+					<div class="comment-body">
+						<h3 th:text="${rv.uid}">one</h3>
+						
+						<div class="meta" th:text="${rv.rv_regdate}">October 03, 2018 at 2:21pm</div>
+						<p th:text="${rv.rv_text}"></p>
+						<span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span>
+					</div>
+				</li>	
+			</ul>
+			</div>
+			<!-- END comment-list -->
+
+			<div class="comment-form-wrap pt-5 mb-5 col-12 text-x">
+				<h3 class="text-center">리뷰 작성하기</h3>
+				<form action="#" class="p-5 bg-light">
+					<div class="form-group">
+						<label for="message">Message</label>
+						<textarea name="" id="message" cols="10" rows="3"
+							class="form-control"></textarea>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Post Comment"
+							class="btn py-3 px-4 btn-primary">
+					</div>
+
+				</form>
+			</div>
+		</div>
+	
+</div>
