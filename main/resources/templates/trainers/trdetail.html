@@ -126,12 +126,13 @@ body {
 					<div class="text py-5">
 						<h2 class="trainer_name" th:text="${dtrainer.name}+' 트레이너'"></h2>
 						<span class="subheading" th:text="'종목: ' +${dtrainer.major}"></span>
-						<p class="trainer_intro" th:text="${dtrainer.intro}"></p>
-						<p th:text="'Phone number: '+${dtrainer.phone}"></p>
+						
+						<p  th:text="${dtrainer.intro}"></p>
+						
+						<p th:text="${dtrainer.career}"></p>
 
-						<p class="pos">
-							from <span class="price">$400.00</span>&nbsp5 days
-						</p>
+						<p th:text="'휴대폰: '+${dtrainer.phone}"></p>
+					
 
 						<p>
 							<a href="#" class="btn btn-secondary">Details</a> <a href="#"
