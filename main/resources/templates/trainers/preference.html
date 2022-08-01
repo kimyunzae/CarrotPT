@@ -74,7 +74,7 @@
 }
 
 #div_matchresult .row.info{
-	margin-bottom:1rem;
+	margin-bottom:1.5rem;
 }
 
 #div_matchresult .row.info .right{
@@ -88,12 +88,52 @@
 	margin-bottom:0;
 	font-size:1.3rem;
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	background-image: linear-gradient(
+	    to right,
+	    #769BCD,
+	    #769BCD 50%,
+	    #000 50%
+	  );
+	background-size: 200% 100%;
+	background-position: -100%;
+	display: inline-block;
+	padding: 5px 0;
+	position: relative;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	transition: all 0.3s ease-in-out;
+
+}
+
+#div_matchresult h3:before{
+  content: '';
+  background: #769BCD;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+#div_matchresult h3:hover {
+	background-position: 0;
+}
+
+#div_matchresult h3:hover::before{
+	width: 100%;
+}
+
+#div_tmajor{
+	margin-top:1rem;
 }
 
 #p_addrshort{
 	background: white;
 	padding-left: 0.3rem;
 	padding-right: 0.3rem;
+	margin-bottom:0.3rem;
 	display: inline-block;
 	color: #769BCD;
 }
@@ -108,8 +148,25 @@
 	font-size:1.3rem;
 }
 
+#div_tstar{
+	justify-content:right;
+	text-align:right;
+	padding-right:1.5rem;
+}
+
+.star{
+	font-size:0.8rem;
+}
+
+.ion-ios-star{
+	color:#769BCD;
+}
+
 #a_top{
 	font-size:1.1rem;
+	display:inline-block;
+	margin-top:1rem;
+	margin-bottom:1.5rem;
 }
 
 #a_top:hover{
@@ -140,7 +197,7 @@ img {
 			<div class="col-md-7 heading-section text-center ftco-animate">
 				<span class="subheading">TRAINERS</span>
 				<h2 class="mb-4" id="h2_findid">트레이너</h2>
-				<p id="p_heading">고객님에게 알맞은 트레이너를 찾아보았어요.</p>
+				<p id="p_heading">당근PT가 고객님을 위한 트레이너를 찾아보았어요.</p>
 				<div class="div_keyword">
 					<p class="subtitle">다음과 같은 조건으로 검색했어요!</p>
 					<div id="div_tbl">
@@ -184,7 +241,7 @@ img {
 								<a th:href="@{/trainers/detail(id=${t.id})}">
 									<h3 th:text="${t.name}"></h3>
 								</a>
-								<div>
+								<div id="div_tmajor">
 									<p id="p_major"><span class="bracket">[  </span><span th:text="${t.major}"></span><span class="bracket">  ]</span></p>
 								</div>
 								<div>
@@ -192,6 +249,11 @@ img {
 									  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
 						 			</svg>
 									<p id="p_addrshort" th:text="${t.addrshort}"></p>
+									<p id="p_gymname" th:text="${t.gym_name}"></p>
+								</div>
+								<div id="div_tstar">
+									<span class="ion-ios-star star"></span>
+									<span class="star" th:text="${t.avgrate}"></span>
 								</div>
 							</div>
 						</div>
