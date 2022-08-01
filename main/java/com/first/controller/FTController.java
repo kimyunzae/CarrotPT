@@ -9,11 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.first.biz.ReviewBiz;
 import com.first.biz.TrainerBiz;
 import com.first.biz.TrainerPreference;
 import com.first.biz.TrainerSort;
+import com.first.biz.WorkdayBiz;
 import com.first.vo.MajorVO;
+import com.first.vo.ReviewVO;
 import com.first.vo.TrainerVO;
+import com.first.vo.WorkdayVO;
 
 @Controller
 
@@ -27,7 +31,10 @@ public class FTController {
 	TrainerSort trainersort;
 	
 	@Autowired
-	TrainerPreference preference;
+	WorkdayBiz wbiz;
+	
+	@Autowired
+	ReviewBiz rvbiz;
 		
 	@Value("6")
 	private int amount;
@@ -125,7 +132,11 @@ public class FTController {
 	public String detail(Model m, String id) {
 		try {
 			TrainerVO obj = biz.get(id);
+			List<ReviewVO> review = rvbiz.getbytid(id);
+			WorkdayVO workday = wbiz.getbytid(id);
 			m.addAttribute("dtrainer", obj);
+			m.addAttribute("workday", workday);
+			m.addAttribute("review", review);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

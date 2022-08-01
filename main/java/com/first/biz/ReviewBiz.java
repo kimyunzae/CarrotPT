@@ -44,4 +44,8 @@ public class ReviewBiz implements Biz<Integer, ReviewVO> {
 	public int getcnt(String tid) throws Exception{
 		return dao.selectcnt(tid);
 	}
+	
+	public List<ReviewVO> getbytid(String tid) throws Exception {
+		return dao.selectallbytid(tid);
+	}
 }

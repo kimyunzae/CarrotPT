@@ -40,4 +40,10 @@ public class WorkdayBiz implements Biz<Integer, WorkdayVO> {
 		return dao.selectall();
 	}
 
+	public WorkdayVO getbytid(String tid) throws Exception {
+		return dao.selectbytid(tid);
+	}
+
+	
+	
 }

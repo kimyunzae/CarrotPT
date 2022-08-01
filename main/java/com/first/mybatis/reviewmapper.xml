@@ -8,13 +8,17 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM
 		review WHERE id=#{id}
 	</select>
+	<select id="selectallbytid" parameterType="String" resultType="reviewVO">
+		SELECT * FROM
+		review WHERE tid=#{tid}
+	</select>
 	<select id="selectall" resultType="reviewVO">
 		SELECT * FROM review
 	</select>
 <!-- select: tid별 리뷰 개수-->
 	<select id="selectcnt" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM review
-		WHERE tid=#{tid};
+		WHERE tid=#{tid}
 	</select>
 <!-- select: tid별 별점 평균-->
 	<select id="selectavg" parameterType="String" resultType="Double">
