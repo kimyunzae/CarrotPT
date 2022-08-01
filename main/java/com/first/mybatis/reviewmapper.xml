@@ -8,6 +8,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM
 		review WHERE id=#{id}
 	</select>
+	<select id="selectallbytid" parameterType="String" resultType="reviewVO">
+		SELECT * FROM
+		review WHERE tid=#{tid}
+	</select>
 	<select id="selectall" resultType="reviewVO">
 		SELECT * FROM review
 	</select>

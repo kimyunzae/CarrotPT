@@ -37,6 +37,9 @@ public class ReviewVO {
 		this.rv_rate = rv_rate;
 		this.rv_text = rv_text;
 	}
+
+	
+	
 	
 	
 	

@@ -15,6 +15,7 @@ public interface ReviewMapper {
 	public void update(ReviewVO obj) throws Exception;	
 	public ReviewVO select(int id) throws Exception;
 	public List<ReviewVO> selectall() throws Exception;
+	public List<ReviewVO> selectallbytid(String tid) throws Exception;
 	public int selectcnt(String tid) throws Exception;
 	public double selectavg(String tid) throws Exception;
 }
