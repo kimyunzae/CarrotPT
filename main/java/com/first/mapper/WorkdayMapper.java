@@ -17,5 +17,4 @@ public interface WorkdayMapper {
 	public WorkdayVO select(int id) throws Exception;
 	public List<WorkdayVO> selectall() throws Exception;
 	public WorkdayVO selectbytid(String tid) throws Exception;
-	public WorkdayVO selectbytidday(@Param("searchday")String searchday, @Param("tid")String tid) throws Exception;
 }
