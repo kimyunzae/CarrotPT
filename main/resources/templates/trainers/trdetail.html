@@ -27,9 +27,30 @@ body {
 .weekdays {
 	width: 50%;
 }
+
+.modal-body {
+	max-height: 60vh;
+	overflow-y: auto;
+}
 </style>
 <script>
-	
+	$(document).ready(
+			function() {
+				function alignModal() {
+					var modalDialog = $(this).find(".modal-dialog");
+
+					// Applying the top margin on modal to align it vertically center
+					modalDialog.css("margin-top", Math.max(0, ($(window)
+							.height() - modalDialog.height()) / 2));
+				}
+				// Align modal when it is displayed
+				$(".modal").on("shown.bs.modal", alignModal);
+
+				// Align modal when user resize the window
+				$(window).on("resize", function() {
+					$(".modal:visible").each(alignModal);
+				});
+			});
 </script>
 
 <!-- Header Start -->
@@ -126,17 +147,17 @@ body {
 					<div class="text py-5">
 						<h2 class="trainer_name" th:text="${dtrainer.name}+' 트레이너'"></h2>
 						<span class="subheading" th:text="'종목: ' +${dtrainer.major}"></span>
-						
-						<p  th:text="${dtrainer.intro}"></p>
-						
+
+						<p th:text="${dtrainer.intro}"></p>
+
 						<p th:text="${dtrainer.career}"></p>
 
-						<p th:text="'휴대폰: '+${dtrainer.phone}"></p>
-					
+						<!-- 	<p th:text="'휴대폰: '+${dtrainer.phone}"></p> -->
 
-						<p>
-							<a href="#" class="btn btn-secondary">Details</a> <a href="#"
-								class="btn btn-primary">상담 예약하기</a>
+
+						<p class="mt-5">
+							<a href="#" type="button" class="btn btn-primary"
+								data-toggle="modal" data-target="#bookModal">상담 예약하기</a>
 						</p>
 					</div>
 				</div>
@@ -145,9 +166,9 @@ body {
 		</div>
 	</div>
 
-
-
 	<div class="comment-form-wrap pt-5">
+
+
 		<h3 class="mb-3 text-center">레슨 시간표</h3>
 		<div class="col-md-12">
 			<div class="container">
@@ -201,19 +222,108 @@ body {
 						</table>
 					</div>
 				</div>
-				
-				
-				
-				
 			</div>
 		</div>
 	</div>
 
+	<!-- Modal -->
+
+	<div class="modal fade" id="bookModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLongTitleSC" aria-hidden="true"
+		style="display: none;">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitleSC">Modal
+						title</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
+						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
+						porta ac consectetur ac, vestibulum at eros.</p>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl
+						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+						faucibus dolor auctor.</p>
+					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
+						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
+						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+					</p>
+					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
+						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
+						porta ac consectetur ac, vestibulum at eros.</p>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl
+						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+						faucibus dolor auctor.</p>
+					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
+						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
+						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+					</p>
+					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
+						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
+						porta ac consectetur ac, vestibulum at eros.</p>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl
+						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+						faucibus dolor auctor.</p>
+					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
+						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
+						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+					</p>
+					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
+						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
+						porta ac consectetur ac, vestibulum at eros.</p>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl
+						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+						faucibus dolor auctor.</p>
+					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
+						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
+						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+					</p>
+					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
+						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
+						porta ac consectetur ac, vestibulum at eros.</p>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl
+						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+						faucibus dolor auctor.</p>
+					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
+						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
+						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+					</p>
+					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
+						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
+						porta ac consectetur ac, vestibulum at eros.</p>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl
+						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+						faucibus dolor auctor.</p>
+					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
+						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
+						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button"
+						class="btn btn-secondary waves-effect waves-light"
+						data-dismiss="modal">Close</button>
+					<button type="button"
+						class="btn btn-primary waves-effect waves-light">Save
+						changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal End -->
+
 
 	<div class="col-md-12">
 		<div class="pt-5 mt-5">
-			<h5 class="mb-3 text-center" th:if="${#lists.isEmpty(review)}">아직 작성된 리뷰가 없어요</h5>
-			<h3 class="mb-3 text-center" th:unless="${#lists.isEmpty(review)}">트레이너 리뷰</h3>
+			<h5 class="mb-3 text-center" th:if="${#lists.isEmpty(review)}">아직
+				작성된 리뷰가 없어요</h5>
+			<h3 class="mb-3 text-center" th:unless="${#lists.isEmpty(review)}">트레이너
+				리뷰</h3>
 			<ul class="comment-list">
 				<li class="comment" th:each="rv : ${review}">
 					<div class="vcard bio">
@@ -221,31 +331,30 @@ body {
 					</div>
 					<div class="comment-body">
 						<h3 th:text="${rv.uid}">one</h3>
-						
-						<div class="meta" th:text="${rv.rv_regdate}">October 03, 2018 at 2:21pm</div>
+
+						<div class="meta" th:text="${rv.rv_regdate}">October 03,
+							2018 at 2:21pm</div>
 						<p th:text="${rv.rv_text}"></p>
 						<span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span>
 					</div>
-				</li>	
+				</li>
 			</ul>
-			</div>
-			<!-- END comment-list -->
-
-			<div class="comment-form-wrap pt-5 mb-5 col-12 text-x">
-				<h3 class="text-center">리뷰 작성하기</h3>
-				<form action="#" class="p-5 bg-light">
-					<div class="form-group">
-						<label for="message">Message</label>
-						<textarea name="" id="message" cols="10" rows="3"
-							class="form-control"></textarea>
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Post Comment"
-							class="btn py-3 px-4 btn-primary">
-					</div>
-
-				</form>
-			</div>
 		</div>
-	
+		<!-- END comment-list -->
+
+		<div class="comment-form-wrap pt-5 mb-5 col-12 text-x">
+			<h3 class="text-center">리뷰 작성하기</h3>
+			<form action="#" class="p-5 bg-light">
+				<div class="form-group">
+					<label for="message">Message</label>
+					<textarea name="" id="message" cols="10" rows="3"
+						class="form-control"></textarea>
+				</div>
+				<div class="form-group d-flex justify-content-end">
+					<input type="submit" value="리뷰작성" class="btn py-3 px-4 btn-primary">
+				</div>
+
+			</form>
+		</div>
+	</div>
 </div>
