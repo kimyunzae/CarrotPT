@@ -466,6 +466,11 @@ function sample6_execDaumPostcode() {
 				      if(pwd==pwd2 && $(this).val()) {
 				    		$('#next-btn-1').removeAttr('disabled');
 				      }
+				      
+				      if(pwd != pwd2) {
+				    		$('#next-btn-1').attr('disabled');
+				    		return false
+				      }
 				    });   
 				});
 			
@@ -502,20 +507,38 @@ function sample6_execDaumPostcode() {
 				}); 		
 			
 			
-			
 			//4번 필수입력창 확인
-				$('.field-4 textarea[name=intro],[name=career]').on('keyup', function() {		
-				    $('.field-4 input[name=intro],[name=career]').each(function() {
+			
+				var field4 = false;
+			
+				$('.field-4 textarea[name=intro],[name=career]').on('keyup', function() {	
+				    $('.field-4 textarea[name=intro],[name=career]').each(function() {
 				      if(!$(this).val()){
 				    		$('#next-btn-4').attr('disabled', 'disabled');
-				           return false;
+					           return false;									
 				        }
 				     
 				      else {
-				    		$('#next-btn-4').removeAttr('disabled');
-				      }
+				    	 /*  $('#next-btn-4').removeAttr('disabled'); */
+				    		 field4 = true;
+				      	}
 				    });   
+					
 				});
+			
+				$('.field-4 input[name=pf1]').on('change', function() {	
+				      if($('field-4 input[name=pf1]').val() != "" && field4 == true){  							
+					 		 $('#next-btn-4').removeAttr('disabled');
+				        }
+				     
+				      else {
+				    	 	 $('#next-btn-4').attr('disabled', 'disabled');
+				           return false;	
+				      	}
+				  
+					
+				});
+
 
 			// 소개글 글자수제한
 				var text_max = 200;
@@ -715,7 +738,7 @@ function sample6_execDaumPostcode() {
 								      	<br> 
 																
 								<label
-									class="fieldlabels">대표 프로필 사진: *</label> <input type="file"
+									class="fieldlabels">대표 프로필 사진: *</label> <input type="file" id="pf1"
 									name="pf1"> <label class="fieldlabels">프로필
 									사진 2: </label> <input type="file" name="pf2" accept="images/*"> <label
 									class="fieldlabels">프로필 사진 3: </label> <input type="file"
