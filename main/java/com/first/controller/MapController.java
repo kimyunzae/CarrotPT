@@ -11,8 +11,23 @@ public class MapController {
 	 * @RequestMapping("/map") public String mapcenter(Model m) {
 	 * m.addAttribute("center", "map/mapcenter"); return "index"; }
 	 */
+
+	/* 인덱스에서 지도로 찾기 하면 mapcenter2(임시) */
 	@RequestMapping("/map")
-	public String mapcenter(Model m) {
+	public String mapcenter2(Model m) {
+		m.addAttribute("center", "map/mapcenter2");
+		return "index";
+	}
+	
+	/* nav bar에서 mapcenter */
+	@RequestMapping("/mapsearch")
+	public String mapsearch(Model m) {
+		m.addAttribute("center", "map/mapcenter");
+		return "index";
+	}
+	/* nav bar에서 mapcenter2 */
+	@RequestMapping("/maploc")
+	public String maploc(Model m) {
 		m.addAttribute("center", "map/mapcenter2");
 		return "index";
 	}
