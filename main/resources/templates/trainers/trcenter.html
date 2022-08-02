@@ -7,9 +7,8 @@
 	display: flex;
 }
 
-.container {
+.container.heading {
 	margin-top:4rem;
-	margin-bottom:5rem;
 }
 
 #addrshort {
@@ -51,7 +50,7 @@
 	justify-content:center;
 }
 
-.pb-3, .py-3{
+#section_ft .pb-3, .py-3{
 	padding-bottom:0 !important;
 }
 
@@ -194,7 +193,7 @@ input[name="tzip"]{
 	cursor: pointer;
 }
 
-#myModal .tabs:hover, .tabs.active {
+#myModal .tabs:hover, #myModal .tabs.active {
 	border-bottom: 5px solid #769BCD;
 	color:#769BCD;
 	
@@ -264,6 +263,10 @@ input[name="tzip"]{
 	background-color:#1565C0;
 	color:white;
 }
+
+#div_chatbot .chatbox-popup .chatbox-popup__header {
+  bottom:32.65rem !important;
+  }
 </style>
 
 
@@ -592,7 +595,7 @@ $(function(){
 
 
 </script>
-<section class="ftco-section">
+<section class="ftco-section" id="section_ft">
 
 	<div class="row justify-content-center mb-5 pb-3">
 		<div class="col-md-7 heading-section text-center ftco-animate">
@@ -602,7 +605,7 @@ $(function(){
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="container heading">
 		<div class="row justify-content-center">
 			<button type="button" data-toggle="modal" data-target="#myModal"
 				class="btn btn-primary py-2 px-4">맞춤트레이너찾기(Click!)</button>
@@ -752,7 +755,7 @@ $(function(){
 		<!-- Modal End -->		
 
 
-	<div class="container">
+	<div class="container heading">
 		<div class="row">
 			<!-- Left Start -->
 			<div class="col-lg-9 pr-lg-4">
