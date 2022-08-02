@@ -212,7 +212,8 @@ body {
 
 	<div class="col-md-12">
 		<div class="pt-5 mt-5">
-			<h3 class="mb-3 text-center">트레이너 리뷰</h3>
+			<h5 class="mb-3 text-center" th:if="${#lists.isEmpty(review)}">아직 작성된 리뷰가 없어요</h5>
+			<h3 class="mb-3 text-center" th:unless="${#lists.isEmpty(review)}">트레이너 리뷰</h3>
 			<ul class="comment-list">
 				<li class="comment" th:each="rv : ${review}">
 					<div class="vcard bio">
