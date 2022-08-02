@@ -221,7 +221,6 @@ public class MypageController {
 	// 일반회원 마이페이지 업데이트
 	@RequestMapping("/updateimpl")
 	public String updateimpl(Model m, TraineeVO trainee) {
-
 		try {
 			traineebiz.modify(trainee);
 			System.out.println("업데이트 성공");
