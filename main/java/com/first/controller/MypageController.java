@@ -221,7 +221,6 @@ public class MypageController {
 	// 일반회원 마이페이지 업데이트
 	@RequestMapping("/updateimpl")
 	public String updateimpl(Model m, TraineeVO trainee) {
-
 		try {
 			traineebiz.modify(trainee);
 			System.out.println("업데이트 성공");
@@ -259,22 +258,6 @@ public class MypageController {
 		return "index";
 	}
 	
-	// 트레이니 마이페이지: 매칭신청
-	@RequestMapping("/tematching")
-	public String tematching(Model m, HttpSession session) {
-		try {
-			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
-			m.addAttribute("center", "mypage/tematching");
-			/* m.addAttribute("trainercenter", "mypage/trmatching"); */
-			m.addAttribute("trainee", trainee);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "index";
-	}
-
 	// 트레이니 마이페이지: 이용내역
 	@RequestMapping("/tehistory")
 	public String tehistory(Model m, HttpSession session) {

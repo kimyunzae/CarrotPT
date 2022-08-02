@@ -1,7 +1,4 @@
 <style>
-body {
-	overflow-x: hidden;
-}
 
 #btn_findid {
 	float: right;
@@ -33,13 +30,27 @@ body {
 	color: black;
 	text-decoration: underline;
 }
-</style>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>
-	window.Kakao.init("1246eaf5aa2f74f55a55378bd15623c5")
 
+#edit_activate:disabled {
+	cursor: auto;
+	pointer-events: none;
+}
+
+#updatebtn:disabled {
+	cursor: auto;
+	pointer-events: none;
+}
+
+body {
+	background: #F8F9FA;
+	overflow-x: hidden;
+}
+
+</style>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<script>
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
 				{
@@ -83,26 +94,39 @@ body {
 	}
 
 	$(document).ready(function() {
+		$('#user input').attr('disabled', 'disabled');
+		$('#updatebtn').attr('disabled', 'disabled');
+
+		$('#edit_activate').click(function() {
+			$('#edit_activate').attr('disabled', 'disabled');
+			$('#user input').removeAttr('disabled', 'disabled');
+			$('#updatebtn').removeAttr('disabled', 'disabled');
+
+		});
+		
 		$('#updatebtn').click(function() {
-			$('.user').attr({
+			$('#user').attr({
 				'method' : 'post',
 				'action' : 'updateimpl'
 			});
-			$('.user').submit();
-			alert("업데이트가 되었습니다:>");
+			$('#user').submit();
+			alert('재로그인 후 변경내용이 반영됩니다.');
 		});
 	});
 </script>
 
 <div class="container mt-5">
+
 	<div class="row flex-lg-nowrap">
-		<div class="col mypage-main">
+		<div class="col mypage-main mt-5">
 			<div class="row">
-				<div class="col mb-3">
-					<div class="card mt-5">
+				<div class="col mb-5">
+					<h5>프로필 정보</h5>
+					<div class="card">
+
 						<div class="card-body">
 
-							<form class="form" id="form_account">
+							<form class="form" id="user">
 								<div class="tab-content pt-3">
 									<div class="tab-pane active">
 
@@ -124,17 +148,7 @@ body {
 													</div>
 												</div>
 
-												<div class="row">
-													<div class="col">
-														<div class="form-group">
-															<label>Email</label> <input class="form-control"
-																type="text" name="email" th:value="${trainee.email}"
-																placeholder="user@example.com">
-														</div>
-													</div>
-
-												</div>
-
+												
 											</div>
 										</div>
 									</div>
@@ -183,11 +197,24 @@ body {
 														<label>아이디</label> <input class="form-control" readonly
 															type="ID" th:value="${trainee.id}" name="id">
 													</div>
-													<div class="form-group">
-														<a href="techangepwd">비밀번호 변경</a>
-													</div>
+													
 												</div>
 											</div>
+											<div class="row">
+													<div class="col">
+														<div class="form-group">
+															<label>Email</label> <input class="form-control"
+																type="text" name="email" th:value="${trainee.email}"
+																placeholder="user@example.com">
+														</div>
+														
+														<div class="form-group mt-3">
+														<a href="techangepwd">비밀번호 변경</a>
+													</div>
+													</div>
+
+												</div>
+											
 
 
 											<div class="col d-flex justify-content-end mt-5">
@@ -210,106 +237,3 @@ body {
 	</div>
 </div>
 
-<section class="contact-section mt-4" id="contact-section">
-	<div class="container-center">
-		<div class="row justify-content-center">
-			<form class="user">
-				<div class="col-md-10 col-sm-12 heading-section">
-					<div class="mypage-nav">
-						<a href="#" class="nav-menus">프로필 정보</a>
-
-						<div>
-							<a href="tematching" class="nav-menus mr-3">상담신청 내역</a> <a
-								href="tehistory" class="nav-menus">이용 내역</a>
-						</div>
-					</div>
-
-					<hr>
-
-					<div class="container">
-						<div class="row">
-							<div class="col-md-7 ml-auto mr-auto text-center">
-								<div class="profile">
-									<div class="avatar">
-
-										<div class="name" name="name">
-											프로필 정보
-											<h3 class="name" th:text="${trainee.name}+님">//</h3>
-
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<hr>
-
-						<div class="container rounded bg-white mb-5">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="p-3 py-5">
-										<div
-											class="d-flex justify-content-between align-items-center ">
-
-										</div>
-
-										<div class="row">
-											<div class="col-md-12">
-												<label class="labels">아이디</label><input type="text"
-													name="id" class="form-control" placeholder="아이디"
-													th:value="${trainee.id}" readonly>
-											</div>
-											<div class="col-md-12">
-												<label class="labels">비밀번호</label><input type="text"
-													name="pwd" class="form-control" th:value="${trainee.pwd}"
-													placeholder="비밀번호"> <a href="techangepwd">비밀번호
-													변경</a>
-											</div>
-										</div>
-										<div class="row mt-3">
-											<div class="col-md-12">
-												<label class="labels">휴대폰 번호</label><input type="text"
-													name="phone" class="form-control"
-													th:value="${trainee.phone}" placeholder="휴대폰 번호">
-											</div>
-											<div class="col-md-12">
-												<label class="labels">이메일</label><input type="text"
-													name="email" class="form-control" placeholder="Email"
-													th:value="${trainee.email}">
-											</div>
-
-										</div>
-										<div class="row mt-3">
-											<div class="col-md-12">
-												<label class="labels">주소</label><input type="text"
-													name="addr1" class="form-control" placeholder="주소"
-													id="sample6_address" th:value="${trainee.addr1}">
-											</div>
-											<div class="col-md-6">
-												<label class="labels">상세주소 </label> <input type="text"
-													name="addr2" class="form-control" placeholder="상세정보"
-													id="sample6_detailAddress" th:value="${trainee.addr2}">
-											</div>
-											<div class="col-md-6">
-												<label class="labels">우편번호</label> <input type="text"
-													class="form-control" th:value="${trainee.zip}" name="zip"
-													id="sample6_postcode" placeholder="우편번호"> <input
-													type="button" onclick="sample6_execDaumPostcode()"
-													value="우편번호 찾기">
-											</div>
-										</div>
-										<div class="mt-5 text-center">
-											<a id="updatebtn" href="#" class="btn btn-primary py-3 px-5">업데이트</a>
-											<span id="btn_findid"><a href="#">*회원 탈퇴</a></span>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</section>
