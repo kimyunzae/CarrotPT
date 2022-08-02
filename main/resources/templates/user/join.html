@@ -1,5 +1,6 @@
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap')
+	;
 
 .traineejoin {
 	background-image: url(images/fitness/TraineeJoin.jpg);
@@ -22,19 +23,19 @@
 }
 
 .hover {
-  overflow: hidden;
-  position: relative;
-  padding-bottom: 60%;
+	overflow: hidden;
+	position: relative;
+	padding-bottom: 60%;
 }
 
 .hover-overlay {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 90;
-  transition: all 0.4s;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	transition: all 0.4s;
 }
 
 .hover-3-title {
@@ -42,74 +43,73 @@
 }
 
 .hover img {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.3s;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: all 0.3s;
 }
 
 .hover-content {
-  position: relative;
-  z-index: 99;
+	position: relative;
+	z-index: 99;
 }
 
 .hover-3::after {
-  content: '';
-  width: calc(100% - 3rem);
-  height: calc(100% - 3rem);
-  border: 1px solid #fff;
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 90;
-  transition: all 0.3s;
-  transform: scale(1.1);
-  opacity: 0;
-  display: block;
-  opacity: 0;
+	content: '';
+	width: calc(100% - 3rem);
+	height: calc(100% - 3rem);
+	border: 1px solid #fff;
+	position: absolute;
+	top: 1.5rem;
+	left: 1.5rem;
+	z-index: 90;
+	transition: all 0.3s;
+	transform: scale(1.1);
+	opacity: 0;
+	display: block;
+	opacity: 0;
 }
 
 .hover-3-content {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  transform: translateY(-50%);
-  text-align: center;
-  z-index: 99;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	transform: translateY(-50%);
+	text-align: center;
+	z-index: 99;
 }
 
 .hover-3-description {
-  opacity: 0;
-  transform: scale(1.3);
-  transition: all 0.3s;
+	opacity: 0;
+	transform: scale(1.3);
+	transition: all 0.3s;
 }
 
-
 .hover-3 img {
-  width: 110%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+	width: 110%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .hover-3 .hover-overlay {
-  background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.2);
 }
 
 .hover-3:hover img {
-  width: 100%;
+	width: 100%;
 }
 
 .hover-3:hover::after {
-  opacity: 1;
-  transform: none;
+	opacity: 1;
+	transform: none;
 }
 
 .hover-3:hover .hover-3-description {
-  opacity: 1;
-  transform: none;
+	opacity: 1;
+	transform: none;
 }
 
 .hover-3-description {
@@ -121,11 +121,11 @@
 }
 
 .hover-3:hover .hover-overlay {
-  background: rgba(0, 0, 0, 0.8);
+	background: rgba(0, 0, 0, 0.8);
 }
 
 .join-font {
-	 font-family: "Poppins", Arial, sans-serif;	 
+	font-family: "Poppins", Arial, sans-serif;
 }
 </style>
 
@@ -150,7 +150,7 @@ function kakaoLogin() {
 	});
 }
 </script>
-	
+
 <div class="py-5 mt-5">
 	<div class="row mt-4 m-1 mb-5">
 		<div class="col-lg-6 mb-3 mb-lg-0">
@@ -163,8 +163,9 @@ function kakaoLogin() {
 						<span class="font-weight-light">일반회원 </span>가입
 					</h3>
 					<a href="/join/trainee"
-						class="hover-3-description small text-uppercase mb-0" data-toggle="modal" data-target="#loginModal2">
-						나를 도와줄 트레이너가 필요해요! <br>트레이너를 찾고 있다면?
+						class="hover-3-description small text-uppercase mb-0"
+						data-toggle="modal" data-target="#loginModal2"> 나를 도와줄 트레이너가
+						필요해요! <br>트레이너를 찾고 있다면?
 					</a>
 				</div>
 			</div>
@@ -179,57 +180,57 @@ function kakaoLogin() {
 						<span class="font-weight-light">트레이너 </span>가입
 					</h3>
 					<a href="/join/trainer"
-						class="hover-3-description small text-uppercase mb-0" data-toggle="modal" data-target="#loginModal3">현재 트레이너로
-						일하고 있어요! <br>트레이너로 등록하고 싶다면?
+						class="hover-3-description small text-uppercase mb-0"
+						data-toggle="modal" data-target="#loginModal3">현재 트레이너로 일하고
+						있어요! <br>트레이너로 등록하고 싶다면?
 					</a>
 
 				</div>
 			</div>
 		</div>
 	</div>
-				
+
 </div>
 
 <!-- 일반회원 로그인 modal -->
-	<div class="modal fade" id="loginModal2">
-		<div class="modal-dialog login-modal-dialog modal-dialog-centered">
-			<div class="modal-content login-modal-content">
+<div class="modal fade" id="loginModal2">
+	<div class="modal-dialog login-modal-dialog modal-dialog-centered">
+		<div class="modal-content login-modal-content">
 
-				<!-- Modal Header -->
-				<div class="modal-header login-modal-header">
-					<div class="modal-title login-modal-title">
+			<!-- Modal Header -->
+			<div class="modal-header login-modal-header">
+				<div class="modal-title login-modal-title">
 
-						<p class="navbar-brand modal-title-text">
-							<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
-						</p>
-					</div>
+					<p class="navbar-brand modal-title-text">
+						<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
+					</p>
 				</div>
+			</div>
 
-				<!-- Modal body -->
-				<div class="modal-body login-modal-body">
-					<p id="login-check-msg" class="login-title">회원가입 방법을 선택하세요</p>
-					<div class="login-form">					
-							<div class="p-t-10">
-								<a href="/join/trainee" class="login-modal-btn btn--pill btn--signin"
-									id="login_bt" type="button" >일반 회원가입</a>
-							</div>
-							<hr>
-							<p id="login-check-msg" class="login-title">소셜계정으로 회원가입</p>
-									<a href="javascript:kakaoLogin();"> <input type="image"
-										src="/images/kakao_login.png"
-										style="height: 45px; width: 200px;">
-									</a>
-									<div id="naver_id_login">
-									</div>	
-						<p class="extra new mt-3">Dangguen Personal Trainers Matching
-							Platform</p>
+			<!-- Modal body -->
+			<div class="modal-body login-modal-body">
+				<p id="login-check-msg" class="login-title">회원가입 방법을 선택하세요</p>
+				<div class="login-form">
+					<div class="p-t-10">
+						<a href="/join/trainee"
+							class="login-modal-btn btn--pill btn--signin" id="login_bt"
+							type="button">일반 회원가입</a>
 					</div>
-				</div>				
+					<hr>
+					<p id="login-check-msg" class="login-title">소셜계정으로 회원가입</p>
+					<a href="javascript:kakaoLogin();"> <input type="image"
+						src="/images/kakao_login.png" style="height: 45px; width: 200px;">
+					</a>
+					<div id="naver_id_login"></div>
+					<p class="extra new mt-3">Dangguen Personal Trainers Matching
+						Platform</p>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- End modal -->
-		
+</div>
+<!-- End modal -->
+
 <!-- 일반회원 네이버아이디 Script -->
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
@@ -258,62 +259,55 @@ function kakaoLogin() {
 		alert(naver_id_login.getProfileData('email'));
 		alert(naver_id_login.getProfileData('nickname'));
 		alert(naver_id_login.getProfileData('age'));
-	}
+	} 
 </script>
+<div class="modal fade" id="loginModal3">
+	<div class="modal-dialog login-modal-dialog modal-dialog-centered">
+		<div class="modal-content login-modal-content">
 
-<!-- 트레이너 로그인 modal -->
-	<div class="modal fade" id="loginModal3">
-		<div class="modal-dialog login-modal-dialog modal-dialog-centered">
-			<div class="modal-content login-modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header login-modal-header">
+				<div class="modal-title login-modal-title">
 
-				Modal Header
-				<div class="modal-header login-modal-header">
-					<div class="modal-title login-modal-title">
-
-						<p class="navbar-brand modal-title-text">
-							<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
-						</p>
-					</div>
+					<p class="navbar-brand modal-title-text">
+						<span class="carrot"><i class="fas fa-carrot"></i></span> 당근PT
+					</p>
 				</div>
+			</div>
 
-				Modal body
-				<div class="modal-body login-modal-body">
-					<p id="login-check-msg" class="login-title">회원가입 방법을 선택하세요</p>
-					<div class="login-form">					
-							<div class="p-t-10">
-								<a href="/join/trainer" class="login-modal-btn btn--pill btn--signin"
-									id="login_bt" type="button" >일반 회원가입</a>
-							</div>
-							<hr>
-							<div class="login-input-group">
-							<p id="login-check-msg" class="login-title">소셜계정으로 회원가입</p>
-								<div class="login-input-group">
-									<a href="javascript:kakaoLogin();"> <input type="image"
-										src="/images/kakao_login.png"
-										style="height: 45px; width: 200px;">
-									</a>
-									<div id="naver_id_login">
-									</div>
-								</div>								
-							</div>			
-						<p class="extra new mt-3">Dangguen Personal Trainers Matching
-							Platform</p>
+			<!-- Modal body -->
+			<div class="modal-body login-modal-body">
+				<p id="login-check-msg" class="login-title">회원가입 방법을 선택하세요</p>
+				<div class="login-form">
+					<div class="p-t-10">
+						<a href="/join/trainer"
+							class="login-modal-btn btn--pill btn--signin" id="login_bt"
+							type="button">트레이너 회원가입</a>
 					</div>
+					<hr>
+					<p id="login-check-msg" class="login-title">소셜계정으로 회원가입</p>
+					<a href="javascript:kakaoLogin();"> <input type="image"
+						src="/images/kakao_login.png" style="height: 45px; width: 200px;">
+					</a>
+					<div id="naver_id_login2"></div>
+					<p class="extra new mt-3">Dangguen Personal Trainers Matching
+						Platform</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- End modal -->
-	
+</div>
+<!-- 트레이너 회원가입 End modal -->
+
 
 <!-- 네이버아디디 Script -->
-<!-- <script type="text/javascript"
+<script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("sF6LewfWRlnTE2f83Dnp",
+	var naver_id_login2 = new naver_id_login("hPG3Zxi7uHaLkye9hjzh",
 			"http://127.0.0.1/join/trainer");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("green", 30, 43);
@@ -323,7 +317,7 @@ function kakaoLogin() {
 	naver_id_login.init_naver_id_login();
 </script>
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("sF6LewfWRlnTE2f83Dnp",
+	var naver_id_login2 = new naver_id_login("hPG3Zxi7uHaLkye9hjzh",
 			"http://127.0.0.1/join/trainer");
 	// 접근 토큰 값 출력
 	alert(naver_id_login.oauthParams.access_token);
@@ -334,5 +328,5 @@ function kakaoLogin() {
 		alert(naver_id_login.getProfileData('email'));
 		alert(naver_id_login.getProfileData('nickname'));
 		alert(naver_id_login.getProfileData('age'));
-	} -->
+	}
 </script>
