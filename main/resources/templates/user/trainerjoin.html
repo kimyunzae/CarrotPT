@@ -235,13 +235,13 @@ p {
 	width: 100%;
 }
 
-#next-btn-1:disabled, #next-btn-2:disabled, #next-btn-3:disabled, #next-btn-4:disabled {
+#next-btn-1:disabled, #next-btn-2:disabled, #next-btn-3:disabled, #next-btn-4:disabled, #next-btn-5:disabled {
 	color: rgba(white, 0.5);
 	background-color: grey; 
 	cursor: auto;
 }
 
-#next-btn-1:disabled:hover, #next-btn-2:disabled:hover, #next-btn-3:disabled:hover, #next-btn-4:disabled:hover {
+#next-btn-1:disabled:hover, #next-btn-2:disabled:hover, #next-btn-3:disabled:hover, #next-btn-4:disabled:hover, #next-btn-5:disabled:hover {
 	color: rgba(white, 0.5);
 	background-color: grey;
 	cursor: auto;
@@ -397,6 +397,7 @@ function sample6_execDaumPostcode() {
 			$('#next-btn-2').attr('disabled', 'disabled');
 			$('#next-btn-3').attr('disabled', 'disabled');
 			$('#next-btn-4').attr('disabled', 'disabled');
+			$('#next-btn-5').attr('disabled', 'disabled');
 		
 
 			// ajax 이용해서 사용가능한 아이디, 불가능한 아이디 띄우기
@@ -534,9 +535,7 @@ function sample6_execDaumPostcode() {
 				      else {
 				    	 	 $('#next-btn-4').attr('disabled', 'disabled');
 				           return false;	
-				      	}
-				  
-					
+				      }
 				});
 
 
@@ -559,6 +558,20 @@ function sample6_execDaumPostcode() {
 				  var text_remaining = text_max - text_length;
 				  
 				  $('#count_message2').html(text_length + ' / ' + text_max);
+				});
+				
+				
+				$('.field-5 input[name=lc1]').on('change', function() {	
+				      if($('field-5 input[name=lc1]').val() != ""){  							
+					 		 $('#next-btn-5').removeAttr('disabled');
+				        }
+				     
+				      else {
+				    	 	 $('#next-btn-5').attr('disabled', 'disabled');
+				           return false;	
+				      	}
+				  
+					
 				});
 				
 				
@@ -769,7 +782,7 @@ function sample6_execDaumPostcode() {
 									name="lc3" accept="images/*">
 							</div>
 						</div>
-						<input type="button" name="next" class="next action-button" 
+						<input type="button" name="next" class="next action-button" id="next-btn-5" 
 							value="다음"/> <input type="button"
 							name="previous" class="previous action-button-previous"
 							value="이전" />
