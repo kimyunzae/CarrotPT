@@ -75,7 +75,7 @@ public class FTController {
 		try {
 			List<TrainerVO> list = biz.getauthorized(loc, major);
 			trainersort.sortTrainer(list, orderBy);
-			cnt = list.toArray().length;
+			cnt = list.size();
 			
 			if(cnt - startIndex < amount) {
 				endIndex = startIndex + (cnt % amount);
@@ -108,7 +108,7 @@ public class FTController {
 			List<TrainerVO> list = biz.getauthorized(loc, major);
 			
 			trainersort.sortTrainer(list, orderBy);
-			cnt = list.toArray().length;
+			cnt = list.size();
 			
 			if(cnt - startIndex < amount) {
 				endIndex = startIndex + (cnt % amount);
@@ -149,13 +149,12 @@ public class FTController {
 		String[] trainerWorkdayArr= trainerWorkday.split(",");
 		String[] trainerMajorArr = trainerMajor.split(",");
 		int cnt = 0;
-		List<TrainerVO> list = null;
 		try {
-			list = biz.getforpreference(trainerGender, trainerZip, trainerWorkdayArr, trainerMajorArr);
+			List<TrainerVO> list = biz.getforpreference(trainerGender, trainerZip, trainerWorkdayArr, trainerMajorArr);
 			trainersort.sortTrainer(list, "preference");
-			cnt = list.toArray().length;
-			if(cnt >= 6) {
-				list = list.subList(0, 6);
+			cnt = list.size();
+			if(cnt >= amount) {
+				list = list.subList(0, amount);
 			}
 			m.addAttribute("trlist", list);
 		} catch (Exception e) {
