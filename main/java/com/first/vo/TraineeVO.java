@@ -39,16 +39,18 @@ public class TraineeVO {
 		this.addr2 = addr2;
 	}
 
-	// for UPDATE (id로 찾아서 name도 변경 불가)
-	public TraineeVO(String id, String pwd, String phone, String email, String zip, String addr1, String addr2) {
+	// for UPDATE 
+	public TraineeVO(String id, String name, String phone, String email, String zip, String addr1, String addr2) {
 		this.id = id;
-		this.pwd = pwd;
+		this.name = name;
 		this.phone = phone;
 		this.email = email;
 		this.zip = zip;
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 	}
+	
+	
 
 	public TraineeVO(String pwd, String email) {
 		super();
@@ -60,6 +62,6 @@ public class TraineeVO {
 		this.id = id;
 		this.pwd = pwd;
 	}
-	
+
 
 }
