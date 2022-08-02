@@ -65,10 +65,10 @@ public class ChatBot {
 		} catch (Exception e){
 			System.out.println("## Exception : " + e);
 		}
-
 		return requestBody;
-
 	}
+	
+	
 	public String makeSignature(String message, String secretKey) {
 
 		 String encodeBase64String = "";
@@ -86,6 +86,7 @@ public class ChatBot {
 	        }
 	        return encodeBase64String;
 	}
+	
 	
 	public String getAnswer(String chatMessage) throws IOException {
 		URL url = new URL(apiUrl);

@@ -2,16 +2,12 @@ package com.first.biz;
 
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.first.vo.TrainerVO;
 
 @Service
 public class TrainerPreference {
-	
-	@Autowired
-	WorkdayBiz workdaybiz;
 
 	public static final int genderScore = 1000;
 	public static final int majorScore = 2000;
