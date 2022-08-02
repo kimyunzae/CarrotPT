@@ -258,22 +258,6 @@ public class MypageController {
 		return "index";
 	}
 	
-	// 트레이니 마이페이지: 매칭신청
-	@RequestMapping("/tematching")
-	public String tematching(Model m, HttpSession session) {
-		try {
-			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
-			m.addAttribute("center", "mypage/tematching");
-			/* m.addAttribute("trainercenter", "mypage/trmatching"); */
-			m.addAttribute("trainee", trainee);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "index";
-	}
-
 	// 트레이니 마이페이지: 이용내역
 	@RequestMapping("/tehistory")
 	public String tehistory(Model m, HttpSession session) {
