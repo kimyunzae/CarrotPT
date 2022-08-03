@@ -248,19 +248,23 @@
 	
 	function sendMessage(){
 		var question = $('#ta_chatquestion').val();
-	
+		$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
+		
 		$.ajax({
 			url:'/sendMessage',
 			data:{
 				'question': question
 			},
 			success:function(result){
-				alert(result);
+				showMessage(result);
 			}
 		});
 	}
 	
-	function showMessage(message){
+	function showMessage(answer){
+		$('#div_chatroom').append('<div class="chat_response"><p class="chattext">' + answer + '</p></div>');
+		$("#div_chatroom").scrollTop($("#div_chatroom")[0].scrollHeight);
+		$('#ta_chatquestion').val('');
 		
 	}
  
@@ -354,6 +358,12 @@
 		  
 		  $('#btn_sendmessage').click(function(){
 			  sendMessage();
+		  });
+		  
+		  $('#ta_chatquestion').keydown(function(key){
+			  if(key.keyCode == 13){
+				  sendMessage();
+			  }
 		  });
 	});
 </script>
@@ -581,15 +591,9 @@
 				  </header>
 				  
 				  <main class="chatbox-popup__main">
-				    <table>
-				    	<thead>
-				    		<tr>
-				    			<th>Chat with ChatBot</th>
-				    		</tr>
-				    	</thead>
-				    	<tbody>
-				    	</tbody>
-				    </table>
+				  	<div id="div_chatroom">
+					    
+				    </div>
 				  </main>
 				  
 				  <footer class="chatbox-popup__footer">
