@@ -16,6 +16,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
 
@@ -65,10 +67,10 @@ public class ChatBot {
 		} catch (Exception e){
 			System.out.println("## Exception : " + e);
 		}
-
 		return requestBody;
-
 	}
+	
+	
 	public String makeSignature(String message, String secretKey) {
 
 		 String encodeBase64String = "";
@@ -87,6 +89,8 @@ public class ChatBot {
 	        return encodeBase64String;
 	}
 	
+	@MessageMapping("/sendMessage")
+	@SendTo("/topic/public")
 	public String getAnswer(String chatMessage) throws IOException {
 		URL url = new URL(apiUrl);
 		String message =  getReqMessage(chatMessage);

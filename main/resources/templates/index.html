@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="/css/flaticon.css">
 <link rel="stylesheet" href="/css/icomoon.css">
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/scss/chatbot.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -43,6 +44,13 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c4b0ad65affd6cc37ad679d341d2eab0&libraries=services"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
 <style>
 @media ( width :1024px) {
 	.login-modal-dialog {
@@ -202,26 +210,61 @@
 	color: black;
 }
 
-.modal {
+#loginModal {
     overflow-y: auto;
 }
 
-.modal-open {
+#loginModal .modal-open {
     overflow: auto;
 }
 
-.modal-open[style] {
+#loginModal .modal-open[style] {
     padding-right: 0px !important;
 }
+
+
 </style>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c4b0ad65affd6cc37ad679d341d2eab0&libraries=services"></script>
 
 <script>
-	$(document).ready(function() {
+
+/* ChatBot */
+	function connect(){
+		var socket = new SockJS('/ws');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function(frame){
+			console.log('Connected' + frame);
+			stompClient.subscribe('/topic/public', function(message){
+				showMessage(message.body);
+			});
+		});
+	}
+	
+	function disconnect(){
+		if(stompClient !== null){
+			stompClient.disconnect();
+		}
+	}
+	
+	function sendMessage(){
+		var question = $('#ta_chatquestion').val();
+	
+		$.ajax({
+			url:'/sendMessage',
+			data:{
+				'question': question
+			},
+			success:function(result){
+				alert(result);
+			}
+		});
+	}
+	
+	function showMessage(message){
+		
+	}
+ 
+	$(function() {
 		// Ajax로 로그인 처리 - 실패
 		/*  $('#login_bt').click(function() {
 			var id = $('input[name="lid"]').val();
@@ -295,6 +338,23 @@
 			$('.loginform').submit();
 
 		});
+		
+		/* ChatBot */
+		const chatbox = jQuery.noConflict();
+
+		  $('#btn_startchat').click(function(){
+			  chatbox(".chatbox-popup, .chatbox-close").fadeIn();
+			  connect();
+		  });
+
+		  $('.toclose').click(function(){
+			  chatbox(".chatbox-popup, .chatbox-close").fadeOut();
+			  disconnect();
+		  });
+		  
+		  $('#btn_sendmessage').click(function(){
+			  sendMessage();
+		  });
 	});
 </script>
 </head>
@@ -405,8 +465,8 @@
 						</form>
 
 						<div class="extra">
-							<a href="/findidpwd" class="mr-3"><u>로그인이 안되세요?</u></a> <a
-								href="/join" class="ml-3"><u>회원가입 하러가기</u></a>
+							<a href="/findidpwd" class="mr-3"><u>아이디/비밀번호 찾기</u></a> <a
+								href="/join" class="ml-3"><u>회원 가입</u></a>
 						</div>
 
 
@@ -450,8 +510,11 @@
 	<!-- Center Start -->
 
 	<div th:insert="${center} ? ${center} : center"></div>
-
+	
 	<!-- Center End -->
+	
+
+	
 	<!-- Footer Start -->
 	<footer class="ftco-footer ftco-section">
 		<div class="container">
@@ -494,6 +557,52 @@
 		</div>
 	</footer>
 	<!-- Footer End -->
+	
+		<!-- Chatbot Start -->
+		<div id="div_chatbot">
+			<button class="chatbox-open" id="btn_startchat">
+			    <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+			  </button>
+			<button class="chatbox-close toclose">
+			    <i class="fa fa-close fa-2x" aria-hidden="true"></i>
+			  </button>
+			  
+			<section class="chatbox-popup">
+				  <header class="chatbox-popup__header">
+					    <aside style="flex:3">
+					     <i class="fa-regular fa-comment-dots"></i>
+					    </aside>
+					    <aside style="flex:8">
+					      <h1 id="h1_chatbotname">당근PT 챗봇</h1>
+					    </aside>
+					    <aside style="flex:1">
+					      <button id="btn_exit" class="chatbox-close-x toclose"><i class="fa-solid fa-x"></i></button>
+					    </aside>
+				  </header>
+				  
+				  <main class="chatbox-popup__main">
+				    <table>
+				    	<thead>
+				    		<tr>
+				    			<th>Chat with ChatBot</th>
+				    		</tr>
+				    	</thead>
+				    	<tbody>
+				    	</tbody>
+				    </table>
+				  </main>
+				  
+				  <footer class="chatbox-popup__footer">
+					    <aside style="flex:13">
+					      <textarea type="text" id="ta_chatquestion" placeholder="메시지를 입력하세요" autofocus></textarea>
+					    </aside>
+					    <aside style="flex:1;color:#888;text-align:center;">
+					      <i class="fa fa-paper-plane" id="btn_sendmessage" aria-hidden="true"></i>
+					    </aside>
+				  </footer>
+			</section>
+		</div>
+	<!-- Chatbot End -->
 
 
 	<!-- loader -->
@@ -503,7 +612,7 @@
 				stroke-width="4" stroke="#eeeeee" />
 			
 			<circle class="path" cx="24" cy="24" r="22" fill="none"
-				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
+				stroke-width="4" stroke-miterlimit="10" stroke="#769BCD" /></svg>
 	</div>
 
 

@@ -173,10 +173,11 @@
 	
 	/* 개별 status 변경*/
 	function UpdateStatus(id){
+		
 		var newStatus = $('#'+'selectstatus'+id).val();
 		
 		// Modal로 확인
-		$('#modal_updatestatus').modal();
+		$('#modal_updatestatus').fadeIn();
 		
 		$('.modal-body.updatestatus').empty();
 		$('.modal-body.updatestatus').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
