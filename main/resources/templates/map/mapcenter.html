@@ -3,7 +3,7 @@ body {
 	overflow-x: hidden;
 }
 
-#h2_map{
+#h2_map {
 	font-family: "Poppins", Arial, sans-serif;
 }
 
@@ -193,10 +193,41 @@ body {
 	color: #777;
 }
 
+/* nav bar */
+#div_searchbar {
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+		Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol", sans-serif;
+}
+
+#div_searchbar h2 {
+	text-align: center;
+	font-size: 1.5rem;
+	color: #769BCD;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#div_searchbar h2 i {
+	margin-right: 10px;
+}
+
+#div_searchbar label {
+	font-size: 1.2rem;
+}
+
+#div_searchbar select {
+	background-color: white !important;
+	border-radius: 20px;
+}
 </style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+	rel="stylesheet">
 
 <section class="ftco-section">
-
+<div class="container">
 	<div class="row justify-content-center mb-5 pb-3">
 		<div class="col-md-7 heading-section text-center ftco-animate">
 			<span class="subheading">Trainers</span>
@@ -205,27 +236,58 @@ body {
 
 		</div>
 	</div>
-
-	<div class="container">
-		<div class="map_wrap">
-			<div id="map"
-				style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-
-			<div id="menu_wrap" class="bg_white">
-				<div class="option">
-					<div>
-						<form onsubmit="searchPlaces(); return false;">
-						<input type="text" id="keyword_loc" size="15" placeholder="검색할 지역">
-						<input type="text" id="keyword_facility" size="15" placeholder="eg.헬스장, 필라테스">						
-							<button id="sub_btn" type="submit">찾기</button>
-						</form>
+	<div class="row">
+		<!-- 지도 + 검색 목록 시작  -->
+		<div class="col-lg-10 pr-lg-4">
+		<div class="container">
+			<div class="map_wrap">
+				<div id="map"
+					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+				<div id="menu_wrap" class="bg_white">
+					<div class="option">
+						<div>
+							<form onsubmit="searchPlaces(); return false;">
+								<input type="text" id="keyword_loc" size="15"
+									placeholder="검색할 지역"> <input type="text"
+									id="keyword_facility" size="15" placeholder="eg.헬스장, 필라테스">
+								<button id="sub_btn" type="submit">찾기</button>
+							</form>
+						</div>
 					</div>
+					<hr>
+					<ul id="placesList"></ul>
+					<div id="pagination"></div>
 				</div>
-				<hr>
-				<ul id="placesList"></ul>
-				<div id="pagination"></div>
 			</div>
 		</div>
+		</div>		
+		<!-- 지도 + 검색 목록 끝  -->
+
+		<!-- right nav bar strat -->
+		<div class="col-lg-2 p-3 bg-light">
+			<div class="search-wrap-1 ftco-animate" id="div_searchbar">
+				<h2 class="mb-3">
+					<i class="fa-solid fa-magnifying-glass"></i>지도로 찾기
+				</h2>
+				<form action="#" class="search-property-1">
+					<div class="row">
+						<div class="col-lg-12 align-items-end mb-3">
+							<div class="form-group">
+								<li class="nav-item"><a href="/mapsearch">검색해서 지도로 찾기</a></li>
+							</div>
+						</div>
+
+						<div class="col-lg-12 align-items-end mb-3">
+							<div class="form-group">
+								<li class="nav-item"><a href="/maploc">내 위치로 찾기</a></li>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- right nav bar end -->
+	</div>
 	</div>
 </section>
 
@@ -233,7 +295,6 @@ body {
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c4b0ad65affd6cc37ad679d341d2eab0&libraries=services"></script>
 <script>
-
 	// 마커를 담을 배열입니다
 	var markers = [];
 
@@ -263,16 +324,16 @@ body {
 		var keyword = '';
 		var trim_loc = $.trim($('#keyword_loc').val());
 		var trim_facility = $.trim($('#keyword_facility').val());
-		
-		if(trim_facility == ''){
+
+		if (trim_facility == '') {
 			keyword = trim_loc + '헬스장';
-		}else{
+		} else {
 			keyword = trim_loc + ' ' + trim_facility;
 		}
 
 		if (!keyword.replace(/^\s+|\s+$/g, '')) {
 			/* alert('키워드를 입력해주세요!'); */
-				
+
 			return false;
 		}
 
