@@ -248,17 +248,26 @@
 	
 	function sendMessage(){
 		var question = $('#ta_chatquestion').val();
-		$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
 		
-		$.ajax({
-			url:'/sendMessage',
-			data:{
-				'question': question
-			},
-			success:function(result){
-				showMessage(result);
+		if(question.trim() == ''){
+			alert('질문을 입력하세요');
+			return;
 			}
-		});
+		
+		if(question.trim() != ''){
+			$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
+			$.ajax({
+				url:'/sendMessage',
+				data:{
+					'question': question
+				},
+				success:function(result){
+					showMessage(result);
+				}
+			});
+		}
+		
+		
 	}
 	
 	function showMessage(answer){
