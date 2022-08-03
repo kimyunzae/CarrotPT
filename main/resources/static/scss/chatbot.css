@@ -1,8 +1,7 @@
 #div_chatbot body {
   margin: 0;
   padding: 0;
-  font-family: "Lato", sans-serif;
-  background-color: #f6f7f9;
+   background-color: #f6f7f9;
 }
 
 #div_chatbot h1 {
@@ -127,14 +126,28 @@
   right:5rem;
   bottom:12.1rem;
   box-sizing: border-box;
-  padding: calc(2 * 16px) 16px;
+  padding: 6px 16px;
   line-height: calc(16px + 16px / 2);
-  color: #888;
+  color: black;
+  font-size:0.85rem;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
+ 
   text-align: center;
   background-color:#fff;
    box-shadow: -5px 0 5px -5px #769BCD, 5px 0 5px -5px #769BCD;
-  
 }
+
+#div_chatroom{
+	overflow-y:scroll;
+	height:300px;
+	padding:0 5px 0 5px;
+}
+
+#div_chatroom::-webkit-scrollbar{
+	display:none;
+	width:0 !important;	
+}
+
 #div_chatbot .chatbox-popup .chatbox-popup__footer {
   position: fixed;
   max-width:300px;
@@ -144,7 +157,6 @@
   box-sizing: border-box;
   display: flex;
   padding: 16px;
-
   align-items: center;
   justify-content: space-around;
   border-bottom-right-radius: 12px;
@@ -153,7 +165,33 @@
   box-shadow:0 5px 5px -5px #769BCD, -5px 0 5px -5px #769BCD, 5px 0 5px -5px #769BCD;
 }
 
-table{
-	border:1px solid black;	
+
+#div_chatroom .chattext{
+	margin-bottom:10px;
+	background-color: #f6f6f6;
+	padding:8px;
+	border-radius:12px;
 }
+
+.chat_ask{
+	max-width:160px;
+	float:right;
+	margin-right:0;
+	margin-left:auto;
+	text-align:right;
+	margin-left:80px;
+}
+
+.chat_ask .chattext{
+	background-color:#e3effd !important;
+}
+
+.chat_response{
+	float:left;
+	max-width:160px;
+	text-align:left;
+}
+
+
+
 /*# sourceMappingURL=chatbot.css.map */

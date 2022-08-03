@@ -12,7 +12,6 @@ import com.first.biz.ChatBot;
 @Controller
 public class ChatController {
 
-	
 	@Autowired
 	ChatBot chatbot;
 	
