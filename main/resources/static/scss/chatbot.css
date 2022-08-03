@@ -32,7 +32,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
-  border: 0;
+  border:1px solid #DCDCDC;
   border-radius: 50%;
   cursor: pointer;
   margin: 16px;
@@ -48,7 +48,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
-  border: 0;
+  border:1px solid #DCDCDC;
   border-radius: 50%;
   cursor: pointer;
   display: none;
@@ -59,7 +59,7 @@
   position: fixed;
   bottom:10rem;
   box-sizing: border-box;
-  max-width:200px;
+  max-width:230px;
   width: 70%;
   margin: 0;
   height: calc(16px + 16px / 2);
@@ -72,7 +72,7 @@
   border: 0;
   outline: 0 !important;
   resize: none;
-  overflow: hidden;
+  overflow-y:scroll;
 }
 #div_chatbot textarea::-moz-placeholder {
   color: #888;
@@ -151,5 +151,9 @@
   border-bottom-left-radius: 12px;
   background-color:white;
   box-shadow:0 5px 5px -5px #769BCD, -5px 0 5px -5px #769BCD, 5px 0 5px -5px #769BCD;
+}
+
+table{
+	border:1px solid black;	
 }
 /*# sourceMappingURL=chatbot.css.map */
