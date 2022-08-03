@@ -61,11 +61,6 @@ body.modal-open {
 }
 </style>
 
-
-
-
-
-
 <script>
 	$(document).ready(
 			function() {
@@ -84,7 +79,24 @@ body.modal-open {
 					$(".modal:visible").each(alignModal);
 				});
 
+				$('#csl_modal_btn_null').click(function() {
+					alert('로그인 후 이용 해주세요');
+					/* window.location.href = "/" */
+				});
+				
+				// INSERT 기능
+				$('#csl_submit_btn').click(function() {
+					$('.csl_form').attr({
+						'method' : 'post',
+						'action' : '/cslListaddimpl'
+					});
+					$('.csl_form').submit();
+					alert('매칭신청이 완료되었습니다');
+				});
+
 			});
+
+	
 </script>
 
 
@@ -192,8 +204,11 @@ body.modal-open {
 
 
 						<p class="mt-5">
-							<a href="#" type="button" class="btn btn-primary"
-								data-toggle="modal" data-target="#bookModal">상담 예약하기</a>
+							<a type="button" th:if="${session.logincust == null}"
+								class="btn btn-primary" id="csl_modal_btn_null">상담 예약하기</a> <a
+								href="#" th:if="${session.logincust != null}" type="button"
+								class="btn btn-primary" data-toggle="modal"
+								data-target="#bookModal">상담 예약하기</a>
 						</p>
 					</div>
 				</div>
@@ -321,160 +336,174 @@ body.modal-open {
 					</button>
 				</div>
 				<div class="modal-body">
-					<div class="mt-2  px-3">
-						<h5>고객님의 연령대는 어떻게 되나요?</h5>
-						<div class="form-group">
-							<select class="select-1" id="sel1" name="age">
-								<option>10대</option>
-								<option>20대</option>
-								<option>30대</option>
-								<option>40대</option>
-								<option>50대 이상</option>
-							</select>
-						</div>
-					</div>
+					<form class="csl_form">
+						<input type="text" id="modal_id_input" name="uid"
+							th:if="${session.logincust != null}"
+							th:value="${session.logincust.id}" hidden>
 
-
-					<div class="form-group pb-2 px-3">
-						<h5>고객님의 성별이 어떻게 되나요?</h5>
-						<div class="form-check-inline">
-							<div class=" custom-radio">
-								<input class="mr-1" id="option111" type="radio" value=""
-									name="gender"> <label class="" for="option111">남성</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input class="mr-1" id="option112" type="radio" value=""
-									name="gender"><label class="" for="option112">여성</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input class="mr-1" id="option113" type="radio" value=""
-									name="gender"><label class="" for="option113">대답
-									안할래요</label>
+						<div class="mt-2  px-3">
+							<h5>고객님의 연령대는 어떻게 되나요?</h5>
+							<div class="form-group">
+								<select class="select-1" id="sel1" name="age">
+									<option>10대</option>
+									<option>20대</option>
+									<option>30대</option>
+									<option>40대</option>
+									<option>50대 이상</option>
+								</select>
 							</div>
 						</div>
 
-					</div>
 
-					<div class="form-group pb-2 px-3">
-						<h5>운동하시려는 목적을 말씀해주세요</h5>
-						<form name="selex" action="./example.html">
-							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option221" type="radio"
-									value="0" name="purpose"> <label
-									class="custom-control-label" for="option221">다이어트</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option222" type="radio"
-									value="0" name="purpose"> <label
-									class="custom-control-label" for="option222">체력증진</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option223" type="radio"
-									value="0" name="purpose"> <label
-									class="custom-control-label" for="option223">근성장</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option224" type="radio"
-									value="0" name="purpose"> <label
-									class="custom-control-label" for="option224">자격증 및 대회
-									준비</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option225" type="radio"
-									value="0" name="purpose"> <label
-									class="custom-control-label" for="option225">입시 준비</label>
+						<div class="form-group pb-2 px-3">
+							<h5>고객님의 성별이 어떻게 되나요?</h5>
+							<div class="form-check-inline">
+								<div class=" custom-radio">
+									<input class="mr-1" id="option111" type="radio" value=""
+										name="gender"> <label class="" for="option111">남성</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="mr-1" id="option112" type="radio" value=""
+										name="gender"><label class="" for="option112">여성</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="mr-1" id="option113" type="radio" value=""
+										name="gender"><label class="" for="option113">대답
+										안할래요</label>
+								</div>
 							</div>
 
-						</form>
-					</div>
+						</div>
 
-					<div class="form-group pb-2 px-3">
-						<h5>평소에 운동을 얼마나 하시나요?</h5>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" id="option311" type="radio"
-								value="" name="frequency"> <label
-								class="custom-control-label" for="option311"> 거의 하지 않음 </label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" id="option312" type="radio"
-								value="" name="frequency"><label
-								class="custom-control-label" for="option312">한 달에 1-2번 </label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" id="option313" type="radio"
-								value="" name="frequency"><label
-								class="custom-control-label" for="option313">일주일에 1번 </label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" id="option314" type="radio"
-								value="" name="frequency"><label
-								class="custom-control-label" for="option314">일주일에 2-3번 </label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" id="option315" type="radio"
-								value="" name="frequency"><label
-								class="custom-control-label" for="option315">일주일에 4번 이상
-							</label>
-						</div>
-					</div>
+						<div class="form-group pb-2 px-3">
+							<h5>운동하시려는 목적을 말씀해주세요</h5>
 					
-					<div class="form-group pb-2 px-3 main">
-						<h5>상담을 원하는 날짜와 시간을 선택하세요</h5>
-						<input type="date" id="csl_date" name="csl_date">
-						<input type="time" min="06:00" max="23:00" name="csl_time">
-					</div>
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" id="option221" type="radio"
+										value="0" name="purpose"> <label
+										class="custom-control-label" for="option221">다이어트</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" id="option222" type="radio"
+										value="0" name="purpose"> <label
+										class="custom-control-label" for="option222">체력증진</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" id="option223" type="radio"
+										value="0" name="purpose"> <label
+										class="custom-control-label" for="option223">근성장</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" id="option224" type="radio"
+										value="0" name="purpose"> <label
+										class="custom-control-label" for="option224">자격증 및 대회
+										준비</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" id="option225" type="radio"
+										value="0" name="purpose"> <label
+										class="custom-control-label" for="option225">입시 준비</label>
+								</div>
 
-					<div class="form-group pb-2 px-3 main">
-						<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
-						<div class="form-check-inline">
-							<div class=" custom-checkbox">
-								<input class="" value="Mon" name="csl_workoutday" id="workday_mon"
-									type="checkbox"> <label class="" for="workday_mon">월</label>
+						
+						</div>
+
+						<div class="form-group pb-2 px-3">
+							<h5>평소에 운동을 얼마나 하시나요?</h5>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="option311" type="radio"
+									value="" name="frequency"> <label
+									class="custom-control-label" for="option311"> 거의 하지 않음
+								</label>
 							</div>
-
-							<div class="custom-control custom-checkbox">
-								<input class="" value="Tue" name="csl_workoutday" id="workday_tue"
-									type="checkbox"> <label class="" for="workday_tue">화</label>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="option312" type="radio"
+									value="" name="frequency"><label
+									class="custom-control-label" for="option312">한 달에 1-2번
+								</label>
 							</div>
-
-							<div class="custom-control custom-checkbox">
-								<input class="" value="Wed" name="csl_workoutday" id="workday_wed"
-									type="checkbox"> <label class="" for="workday_wed">수</label>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="option313" type="radio"
+									value="" name="frequency"><label
+									class="custom-control-label" for="option313">일주일에 1번 </label>
 							</div>
-
-							<div class="custom-control custom-checkbox">
-								<input class="" value="Thu" name="csl_workoutday" id="workday_thu"
-									type="checkbox"> <label class="" for="workday_thu">목</label>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="option314" type="radio"
+									value="" name="frequency"><label
+									class="custom-control-label" for="option314">일주일에 2-3번
+								</label>
 							</div>
-
-							<div class="custom-control custom-checkbox">
-								<input class="" value="Fri" name="csl_workoutday" id="workday_fri"
-									type="checkbox"> <label class="" for="workday_fri">금</label>
-							</div>
-
-							<div class="custom-control custom-checkbox">
-								<input class="" value="Sat" name="csl_workoutday" id="workday_sat"
-									type="checkbox"> <label class="" for="workday_sat">토</label>
-							</div>
-
-							<div class="custom-control custom-checkbox">
-								<input class="" value="Sun" name="csl_workoutday" id="workday_sun"
-									type="checkbox"> <label class="" for="workday_sun">일</label>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="option315" type="radio"
+									value="" name="frequency"><label
+									class="custom-control-label" for="option315">일주일에 4번 이상
+								</label>
 							</div>
 						</div>
-					</div>
 
-					
+						<div class="form-group pb-2 px-3 main">
+							<h5>상담을 원하는 날짜와 시간을 선택하세요</h5>
+							<input type="date" id="csl_date" name="csl_date"> <input
+								type="time" min="06:00" max="23:00" name="csl_time">
+						</div>
+
+						<div class="form-group pb-2 px-3 main">
+							<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
+							<div class="form-check-inline">
+								<div class=" custom-checkbox">
+									<input class="" value="Mon" name="csl_workoutday"
+										id="workday_mon" type="checkbox"> <label class=""
+										for="workday_mon">월</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Tue" name="csl_workoutday"
+										id="workday_tue" type="checkbox"> <label class=""
+										for="workday_tue">화</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Wed" name="csl_workoutday"
+										id="workday_wed" type="checkbox"> <label class=""
+										for="workday_wed">수</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Thu" name="csl_workoutday"
+										id="workday_thu" type="checkbox"> <label class=""
+										for="workday_thu">목</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Fri" name="csl_workoutday"
+										id="workday_fri" type="checkbox"> <label class=""
+										for="workday_fri">금</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Sat" name="csl_workoutday"
+										id="workday_sat" type="checkbox"> <label class=""
+										for="workday_sat">토</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Sun" name="csl_workoutday"
+										id="workday_sun" type="checkbox"> <label class=""
+										for="workday_sun">일</label>
+								</div>
+							</div>
+						</div>
 
 
-					<div class="modal-footer">
-						<button type="button"
-							class="btn btn-secondary waves-effect waves-light"
-							data-dismiss="modal">취소</button>
-						<button type="button" id="csl_submit_btn"
-							class="btn btn-primary waves-effect waves-light">상담 신청
+						<div class="modal-footer">
+							<button type="button"
+								class="btn btn-secondary waves-effect waves-light"
+								data-dismiss="modal">취소</button>
+							<button type="submit" id="csl_submit_btn"
+								class="btn btn-primary waves-effect waves-light">상담 신청
 							</button>
-					</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
