@@ -133,7 +133,7 @@ public class MypageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new RedirectView("/traccount");
+		return new RedirectView("index");
 	}
 
 	// 트레이너 마이페이지: 매칭신청

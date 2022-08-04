@@ -16,10 +16,6 @@
 	margin-bottom: 1rem;
 }
 
-.carousel .carousel-item {
-	
-}
-
 body {
 	overflow-x: hidden;
 }
@@ -84,6 +80,13 @@ body.modal-open {
 					/* window.location.href = "/" */
 				});
 				
+				function copyValue() {
+					  let allOptions = Array.prototype.slice.call(document.getElementsByName('opt'));
+					  let selectedOption = allOptions.filter(opt => opt.checked)[0];
+					  let selectedOptionValue = selectedOption ? selectedOption.value : undefined;
+					  document.getElementById('gender').value = selectedOptionValue;
+					}
+				
 				// INSERT 기능
 				$('#csl_submit_btn').click(function() {
 					$('.csl_form').attr({
@@ -92,11 +95,10 @@ body.modal-open {
 					});
 					$('.csl_form').submit();
 					alert('매칭신청이 완료되었습니다');
-				});
-
+				});		
+			
 			});
-
-	
+	 
 </script>
 
 
@@ -359,19 +361,22 @@ body.modal-open {
 							<h5>고객님의 성별이 어떻게 되나요?</h5>
 							<div class="form-check-inline">
 								<div class=" custom-radio">
-									<input class="mr-1" id="option111" type="radio" value=""
-										name="gender"> <label class="" for="option111">남성</label>
+									<input class="mr-1" id="opt" type="radio" value=""
+										name="opt"> <label class="" for="option111">남성</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="mr-1" id="option112" type="radio" value=""
-										name="gender"><label class="" for="option112">여성</label>
+									<input class="mr-1" id="opt" type="radio" value=""
+										name="opt"><label class="" for="option112">여성</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="mr-1" id="option113" type="radio" value=""
-										name="gender"><label class="" for="option113">대답
+									<input class="mr-1" id="opt" type="radio" value=""
+										name="opt"><label class="" for="option113">대답
 										안할래요</label>
 								</div>
 							</div>
+							
+							<input type="hidden" name="gender" id="gender"/>
+							<input type="button" value="Copy Value" onClick="copyValue()"/>
 
 						</div>
 
