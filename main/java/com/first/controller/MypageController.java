@@ -124,16 +124,26 @@ public class MypageController {
 		return "index";
 	}
 
+	// 트레이너 계정정보 업데이트 : 정보 업데이트 후 404error
+	/*
+	 * @RequestMapping("/traccount_update") public RedirectView
+	 * traccount_update(Model m, TrainerVO vo) { try { trainerbiz.modifyAccount(vo);
+	 * System.out.println("성공" + vo); } catch (Exception e) { e.printStackTrace(); }
+	 * return new RedirectView("index"); }
+	 */
+	
 	// 트레이너 계정정보 업데이트
 	@RequestMapping("/traccount_update")
-	public RedirectView traccount_update(Model m, TrainerVO vo) {
+	public String traccount_update(Model m, TrainerVO vo) {
 		try {
 			trainerbiz.modifyAccount(vo);
-			System.out.println("성공" + vo);
+			System.out.println("업데이트 성공" + vo);
 		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
-		return new RedirectView("index");
+
+		return "index";
 	}
 
 	// 트레이너 마이페이지: 매칭신청
@@ -208,7 +218,7 @@ public class MypageController {
 	public String mypage(Model m, HttpSession session) {
 		try {
 			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
-			m.addAttribute("center", "mypage/mypage2");
+			m.addAttribute("center", "mypage/mypage");
 			m.addAttribute("trainee", trainee);
 
 		} catch (Exception e) {
