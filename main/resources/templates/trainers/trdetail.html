@@ -134,6 +134,7 @@ body.modal-open {
 				
 				// INSERT 기능
 				$('#csl_submit_btn').click(function() {
+					copyValue();
 					$('.csl_form').attr({
 						'method' : 'post',
 						'action' : '/cslListaddimpl'
