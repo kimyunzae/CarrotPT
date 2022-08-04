@@ -119,6 +119,11 @@ body.modal-open {
 					/* window.location.href = "/" */
 				});
 				
+				$('#review_btn_null').click(function() {
+					alert('로그인 후 이용 해주세요');
+					/* window.location.href = "/" */
+				});
+				
 				function copyValue() {
 					  let allOptions = Array.prototype.slice.call(document.getElementsByName('opt'));
 					  let selectedOption = allOptions.filter(opt => opt.checked)[0];
@@ -350,7 +355,7 @@ body.modal-open {
 				<div class="form-group">
 					<div class="vcard bio mb-3">
 						<img src="/images/emptypic.svg" alt="Image placeholder" style="width:50px; height:50px;">
-						<span th:text="${session.logincust.id}">one</span>
+						<span th:if="${session.logincust != null}" th:text="${session.logincust.id}">one</span>
 					</div>
 					<textarea name="" id="message" cols="10" rows="3"
 						class="form-control"></textarea>
@@ -363,7 +368,9 @@ body.modal-open {
 				<input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
                 </div>
 				<div class="form-group d-flex justify-content-end">
-					<input type="submit" value="리뷰작성" class="btn py-3 px-4 btn-primary">
+					<input th:if="${session.logincust == null}"  id="review_btn_null" type="submit"
+					 value="리뷰작성" class="btn py-3 px-4 btn-primary">
+					<input th:if="${session.logincust != null}" type="submit" value="리뷰작성" class="btn py-3 px-4 btn-primary">
 				</div>
 				
 			</form>
