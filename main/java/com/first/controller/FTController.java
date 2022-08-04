@@ -181,25 +181,17 @@ public class FTController {
 	
 	// 일반회원 가입
 	@RequestMapping("cslListaddimpl")
-	public String cslListaddimpl(Model m, CslListVO cslList) {
+	public String cslListaddimpl(Model m, CslListVO cslList, CslVO csl) {
 		try {
 			cslLbiz.register(cslList);
-			System.out.println("cslList: " +  cslLbiz);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "redirect:/";
-	}
-	
-	@RequestMapping("csladdimpl")
-	public String csladdimpl(Model m, CslVO csl) {
-		try {
 			cslbiz.register(csl);
+			System.out.println("cslList: " +  cslLbiz);
 			System.out.println("csl: " +  cslbiz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "redirect:/";
 	}
+	
 
 }

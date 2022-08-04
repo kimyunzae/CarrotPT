@@ -128,11 +128,19 @@ body.modal-open {
 
 				// INSERT 기능
 				$('#csl_submit_btn').click(function() {
-				
+					
 					var optGender = $('input[name="optGender"]:checked').val();
 					var optPurpose = $('input[name="optPurpose"]:checked').val();
 					var optFrequency = $('input[name="optFrequency"]:checked').val();
 
+					
+					const optWorkoutdayArr = [];
+					var optCsl_workoutday = $('input[name="tworkday"]:checked');
+					$(optCsl_workoutday).each(function(){
+						optWorkoutdayArr.push($(this).val());
+					});
+						
+					$('input[name="csl_workoutday"]').val(optWorkoutdayArr);
 					$('input[name="gender"]').val(optGender);
 					$('input[name="purpose"]').val(optPurpose);
 					$('input[name="frequency"]').val(optFrequency);
@@ -406,6 +414,8 @@ body.modal-open {
 						<input type="text" id="modal_id_input" name="uid"
 							th:if="${session.logincust != null}"
 							th:value="${session.logincust.id}" hidden>
+						<input type="text" id="" name="tid"
+							th:value="${dtrainer.id}" hidden>
 
 						<div class="mt-2  px-3">
 							<h5>고객님의 연령대는 어떻게 되나요?</h5>
