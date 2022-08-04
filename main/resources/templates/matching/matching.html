@@ -58,13 +58,12 @@
 		
 		$.ajax(settings).done(function(response){
 			const data = JSON.parse(response);
-			var quoteNum = Math.floor(Math.random() * 1640);
+			var quoteNum = Math.floor(Math.random() * (data.length + 1));
 			var quote = data[quoteNum];
 			
 			$('#div_quotetext').append('<p>' + quote.text + '</p>');
 			$('#div_quoteauthor').append('<p>' + quote.author + '</p>');
 			
-			// alert(data.length); = 1643
 		});
 	}
 
@@ -75,8 +74,19 @@
 		const weekdayArr = ['월', '화', '수', '목', '금', '토', '일'];
 		var weekdayNum = parseInt(now.day);
 		
+		var nowMinute = now.minute;
+		var nowSecond = now.second;
+		
+		if(now.minute < 10){
+			nowMinute = ''.concat(0, now.minute);
+		}
+		
+		if(now.second < 10){
+			nowSecond = ''.concat(0, now.second);
+		}
+		
 		$('#span_currentdate').text(now.year + '년 ' + now.month + '월 ' + now.date + '일 (' + weekdayArr[weekdayNum] + ') '
-				+ now.hour + ':' + now.minute + ':' + now.second);
+				+ now.hour + ':' + nowMinute + ':' + nowSecond);
 	}
 
 	function currentDateTime(){

@@ -75,7 +75,6 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
 		return result;
 		
 	}
