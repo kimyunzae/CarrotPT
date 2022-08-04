@@ -2,8 +2,6 @@ package com.first.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -11,12 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.first.biz.CslBiz;
 import com.first.biz.CslListBiz;
 import com.first.biz.ReviewBiz;
 import com.first.biz.TrainerBiz;
 import com.first.biz.TrainerSort;
 import com.first.biz.WorkdayBiz;
 import com.first.vo.CslListVO;
+import com.first.vo.CslVO;
 import com.first.vo.MajorVO;
 import com.first.vo.ReviewVO;
 import com.first.vo.TrainerVO;
@@ -38,6 +38,9 @@ public class FTController {
 	
 	@Autowired
 	ReviewBiz rvbiz;
+	
+	@Autowired
+	CslBiz cslbiz;
 	
 	@Autowired
 	CslListBiz cslLbiz;
@@ -182,6 +185,17 @@ public class FTController {
 		try {
 			cslLbiz.register(cslList);
 			System.out.println("cslList: " +  cslLbiz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/";
+	}
+	
+	@RequestMapping("csladdimpl")
+	public String csladdimpl(Model m, CslVO csl) {
+		try {
+			cslbiz.register(csl);
+			System.out.println("csl: " +  cslbiz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
