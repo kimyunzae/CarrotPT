@@ -2,6 +2,8 @@ package com.first.controller;
 
 import java.time.LocalDateTime;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -13,9 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MatchingController {
 
 	@RequestMapping("/matching")
-	public String matching(Model m) {
-//		m.addAttribute("center", "matching/matching");
-		return "matching/matching";
+	public String matching(Model m, HttpSession session) {
+		String result = "";
+		Object cust = session.getAttribute("logincust");
+		if(cust == null) {
+			result = "redirect:/";
+		}else {
+			m.addAttribute("logincust", cust);
+			result = "matching/matching";
+		}
+		return result;
 	}
 	
 	@ResponseBody
