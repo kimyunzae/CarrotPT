@@ -248,8 +248,19 @@
 	
 	function sendMessage(){
 		var question = $('#ta_chatquestion').val();
-		$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
 		
+		if(question.trim() == ''){
+			alert('질문을 입력하세요');
+			return;
+			}
+		
+		$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
+		$("#div_chatroom").scrollTop($("#div_chatroom")[0].scrollHeight);
+		setTimeout(() => getAnswer(question), 200);
+		
+	}
+	
+	function getAnswer(question){
 		$.ajax({
 			url:'/sendMessage',
 			data:{
