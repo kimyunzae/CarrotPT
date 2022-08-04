@@ -3,10 +3,25 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/argon-dashboard.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+	
 
 <style>
+
+	body{
+		font-family:Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+		background-image:url('/images/match/matching_background.jpg');
+	}
 	#navbar{
 		justify-content:space-between;
+		
+	}
+	
+	#navbar a{
+		color:#fff !important;
+		font-weight:bold;
 	}
 	
 	#nav_match i{
@@ -14,20 +29,22 @@
 	}
 	
 	#span_currentdate{
-		color:white;
+		color:#fff;
+		font-weight:bold;
 	}
 	
 	#div_currentdate{
 		margin-left:0 !important;
 	}
 	
-	#div_matchheader{
+	#div_matchheader .card{
 		justify-content:space-between;
 	}
 	
 	#div_profileicon p{
 		color:black !important;
 		font-size:3rem;
+		margin-top:0.5rem;
 		margin-bottom:0;
 	}
 	
@@ -38,6 +55,34 @@
 	.div_card .profilemessage{
 		font-size:0.9rem;
 	}
+	
+	#div_quote{
+		text-align:center !important;
+		justify-content:center;
+ 		align-items: center;
+  		display:flex;
+  		padding:0.7rem !important;
+  		min-height:111.89px !important;
+	}
+	
+	#div_quotetext{
+		text-align:center !important;
+		justify-content:center;
+	}
+	
+	.quote{
+		font-family:'Space Mono', monospace;
+		font-size:1rem;
+		text-align:center;
+		color:black;
+	}
+	
+	.quote-author{
+		margin-bottom:0;
+		font-size:0.8rem;
+		color:#769BCD;
+	}
+	
 
 </style>
 
@@ -45,7 +90,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-<link rel="stylesheet" href="/css/argon-dashboard.css">
 
 <script>
 	function getQuotes(){
@@ -61,8 +105,8 @@
 			var quoteNum = Math.floor(Math.random() * (data.length + 1));
 			var quote = data[quoteNum];
 			
-			$('#div_quotetext').append('<p>' + quote.text + '</p>');
-			$('#div_quoteauthor').append('<p>' + quote.author + '</p>');
+			$('#div_quotetext').append('<p class="quote text">' + quote.text + '</p>');
+			$('#div_quotetext').append('<p class="quote quote-author">' + quote.author + '</p>');
 			
 		});
 	}
@@ -109,7 +153,7 @@
 </script>
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
  
   <main class="main-content position-relative border-radius-lg ">
@@ -161,11 +205,7 @@
 	                    </p>
 	                  </div>
 	                </div>
-	                <div class="col-4 text-end">
-	                  <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-	                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-	                  </div>
-	                </div>
+
 	              </div>
 	            </div>
 	          </div>
@@ -173,12 +213,10 @@
 	        
 	        <!-- Quote Start -->
 	        <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
-	          <div class="card">
-	            <div class="card-body p-3">
+	          <div class="card div-quote">
+	            <div class="card-body p-3" id="div_quote">
 	              <div id="div_quotetext">
 	              	
-	              </div>
-	              <div id="div_quoteauthor">
 	              
 	              </div>
 	            </div>
@@ -200,7 +238,9 @@
 				                    <p class="mb-0 profilemessage" th:if="${logincust.level == '일반회원'}" th:text="'오늘도 힘내서 운동해 보아요!'"></p>
 			                    </div>
 			                    <div id="div_profileicon" class="col-3">
-			                 		 <p><i class="fa-solid fa-heart-pulse"></i></p>
+			                    	<div>
+			                 		 	<p><i class="fa-solid fa-heart-pulse"></i></p>
+			                 		 </div>
 			               		 </div>
 		               		 </div>
 		             	</div>
