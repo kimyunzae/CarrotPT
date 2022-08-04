@@ -202,13 +202,13 @@ public class MypageController {
 	 * } catch (Exception e) { e.printStackTrace(); } m.addAttribute("center",
 	 * "mypage/mypage"); return "index"; }
 	 */
+	
 	// 트레이니 마이페이지: 메인(프로필)
 	@RequestMapping("/mypage")
 	public String mypage(Model m, HttpSession session) {
 		try {
 			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
-			m.addAttribute("center", "mypage/mypage");
-			/* m.addAttribute("trainercenter", "mypage/trmatching"); */
+			m.addAttribute("center", "mypage/mypage2");
 			m.addAttribute("trainee", trainee);
 
 		} catch (Exception e) {
