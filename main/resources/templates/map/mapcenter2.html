@@ -85,11 +85,14 @@
 <!-- Geolocation -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c4b0ad65affd6cc37ad679d341d2eab0"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c4b0ad65affd6cc37ad679d341d2eab0&libraries=services"></script>
+
 <script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
-		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		level : 10
+		center : new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		level : 5
 	// 지도의 확대 레벨 
 	};
 
@@ -105,7 +108,10 @@
 			lon = position.coords.longitude; // 경도
 
 			var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-			message = '<div style="padding:5px;">회원님이 계신 곳?!</div>'; // 인포윈도우에 표시될 내용입니다
+			
+			// 인포윈도우에 표시될 내용입니다
+		/* 	message = '<div style="padding:5px;">회원님이 계신 곳?!</div>';  */
+			
 
 			// 마커와 인포윈도우를 표시합니다
 			displayMarker(locPosition, message);
@@ -143,6 +149,9 @@
 		// 지도 중심좌표를 접속위치로 변경합니다
 		map.setCenter(locPosition);
 	}
+	// 장소 검색 객체를 생성합니다
+	var ps = new kakao.maps.services.Places();	
+	
 </script>
 
 <!-- 키워드로 장소 검색하기 -->
