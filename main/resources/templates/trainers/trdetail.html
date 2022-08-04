@@ -16,33 +16,90 @@
 	margin-bottom: 1rem;
 }
 
-.carousel .carousel-item {
-	
-}
-
 body {
 	overflow-x: hidden;
 }
 
-.weekdays {
-	width: 50%;
-}
-
 .modal-body {
-	max-height: 60vh;
+	max-height: 65vh;
 	overflow-y: auto;
 }
+
+body.modal-open {
+	overflow: hidden;
+}
+
+.select-1 {
+	padding: 8px 15px 8px 15px;
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	margin-bottom: 25px;
+	margin-top: 2px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: "Poppins", Arial, sans-serif;
+	/* 	color: #2C3E50; */
+	/* background-color: #ECEFF1; */
+	font-size: 16px;
+	letter-spacing: 1px
+}
+
+.select-1:focus {
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	border: 1px solid #769BCD;
+	outline-width: 0;
+}
+
+.rating {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-end
+}
+
+.rating>input {
+	display: none
+}
+
+.rating>label {
+	position: relative;
+	width: 1em;
+	font-size: 30px;
+	font-weight: 300;
+	color: #FFD600;
+	cursor: pointer
+}
+
+.rating>label::before {
+	content: "\2605";
+	position: absolute;
+	opacity: 0
+}
+
+.rating>label:hover:before, .rating>label:hover ~label:before {
+	opacity: 1 !important
+}
+
+.rating>input:checked ~label:before {
+	opacity: 1
+}
+
+.rating:hover>input:checked ~label:before {
+	opacity: 0.4
+}
 </style>
+
 <script>
 	$(document).ready(
 			function() {
 				function alignModal() {
 					var modalDialog = $(this).find(".modal-dialog");
-
 					// Applying the top margin on modal to align it vertically center
 					modalDialog.css("margin-top", Math.max(0, ($(window)
 							.height() - modalDialog.height()) / 2));
 				}
+
 				// Align modal when it is displayed
 				$(".modal").on("shown.bs.modal", alignModal);
 
@@ -50,8 +107,48 @@ body {
 				$(window).on("resize", function() {
 					$(".modal:visible").each(alignModal);
 				});
+
+				$('#csl_modal_btn_null').click(function() {
+					alert('로그인 후 이용 해주세요');
+					/* window.location.href = "/" */
+				});
+
+				$('#review_btn_null').click(function() {
+					alert('로그인 후 이용 해주세요');
+					/* window.location.href = "/" */
+				});
+
+				/* 	function copyValue() {
+						  let allOptions = Array.prototype.slice.call(document.getElementsByName('opt'));
+						  let selectedOption = allOptions.filter(opt => opt.checked)[0];
+						  let selectedOptionValue = selectedOption ? selectedOption.value : undefined;
+						  document.getElementById('gender').value = selectedOptionValue;
+						}
+				 */
+
+				// INSERT 기능
+				$('#csl_submit_btn').click(function() {
+				
+					var optGender = $('input[name="optGender"]:checked').val();
+					var optPurpose = $('input[name="optPurpose"]:checked').val();
+					var optFrequency = $('input[name="optFrequency"]:checked').val();
+
+					$('input[name="gender"]').val(optGender);
+					$('input[name="purpose"]').val(optPurpose);
+					$('input[name="frequency"]').val(optFrequency);
+				
+					$('.csl_form').attr({
+						'method' : 'post',
+						'action' : 'cslListaddimpl'
+					});
+					$('.csl_form').submit();
+					alert('매칭신청이 완료되었습니다');
+				});
+
 			});
 </script>
+
+
 
 <!-- Header Start -->
 <section class="ftco-section contact-section ftco-no-pb"
@@ -156,8 +253,11 @@ body {
 
 
 						<p class="mt-5">
-							<a href="#" type="button" class="btn btn-primary"
-								data-toggle="modal" data-target="#bookModal">상담 예약하기</a>
+							<a type="button" th:if="${session.logincust == null}"
+								class="btn btn-primary" id="csl_modal_btn_null">상담 예약하기</a> <a
+								href="#" th:if="${session.logincust != null}" type="button"
+								class="btn btn-primary" data-toggle="modal"
+								data-target="#bookModal">상담 예약하기</a>
 						</p>
 					</div>
 				</div>
@@ -226,96 +326,6 @@ body {
 		</div>
 	</div>
 
-	<!-- Modal -->
-
-	<div class="modal fade" id="bookModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLongTitleSC" aria-hidden="true"
-		style="display: none;">
-		<div class="modal-dialog modal-dialog-scrollable" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitleSC">Modal
-						title</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
-						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
-						porta ac consectetur ac, vestibulum at eros.</p>
-					<p>Praesent commodo cursus magna, vel scelerisque nisl
-						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
-						faucibus dolor auctor.</p>
-					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
-						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
-						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-					</p>
-					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
-						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
-						porta ac consectetur ac, vestibulum at eros.</p>
-					<p>Praesent commodo cursus magna, vel scelerisque nisl
-						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
-						faucibus dolor auctor.</p>
-					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
-						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
-						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-					</p>
-					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
-						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
-						porta ac consectetur ac, vestibulum at eros.</p>
-					<p>Praesent commodo cursus magna, vel scelerisque nisl
-						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
-						faucibus dolor auctor.</p>
-					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
-						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
-						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-					</p>
-					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
-						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
-						porta ac consectetur ac, vestibulum at eros.</p>
-					<p>Praesent commodo cursus magna, vel scelerisque nisl
-						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
-						faucibus dolor auctor.</p>
-					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
-						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
-						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-					</p>
-					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
-						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
-						porta ac consectetur ac, vestibulum at eros.</p>
-					<p>Praesent commodo cursus magna, vel scelerisque nisl
-						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
-						faucibus dolor auctor.</p>
-					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
-						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
-						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-					</p>
-					<p>Cras mattis consectetur purus sit amet fermentum. Cras justo
-						odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
-						porta ac consectetur ac, vestibulum at eros.</p>
-					<p>Praesent commodo cursus magna, vel scelerisque nisl
-						consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
-						faucibus dolor auctor.</p>
-					<p>Aenean lacinia bibendum nulla sed consectetur. Praesent
-						commodo cursus magna, vel scelerisque nisl consectetur et. Donec
-						sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button"
-						class="btn btn-secondary waves-effect waves-light"
-						data-dismiss="modal">Close</button>
-					<button type="button"
-						class="btn btn-primary waves-effect waves-light">Save
-						changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal End -->
 
 
 	<div class="col-md-12">
@@ -346,15 +356,227 @@ body {
 			<h3 class="text-center">리뷰 작성하기</h3>
 			<form action="#" class="p-5 bg-light">
 				<div class="form-group">
-					<label for="message">Message</label>
+					<div class="vcard bio mb-3">
+						<img src="/images/emptypic.svg" alt="Image placeholder"
+							style="width: 50px; height: 50px;"> <span
+							th:if="${session.logincust != null}"
+							th:text="${session.logincust.id}">one</span>
+					</div>
 					<textarea name="" id="message" cols="10" rows="3"
 						class="form-control"></textarea>
 				</div>
+				<div class="rating d-flex justify-content-end">
+					<input type="radio" name="rating" value="5" id="5"><label
+						for="5">☆</label> <input type="radio" name="rating" value="4"
+						id="4"><label for="4">☆</label> <input type="radio"
+						name="rating" value="3" id="3"><label for="3">☆</label> <input
+						type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+					<input type="radio" name="rating" value="1" id="1"><label
+						for="1">☆</label>
+				</div>
 				<div class="form-group d-flex justify-content-end">
-					<input type="submit" value="리뷰작성" class="btn py-3 px-4 btn-primary">
+					<input th:if="${session.logincust == null}" id="review_btn_null"
+						value="리뷰작성" class="btn py-3 px-4 btn-primary"> <input
+						th:if="${session.logincust != null}" value="리뷰작성"
+						class="btn py-3 px-4 btn-primary">
 				</div>
 
 			</form>
 		</div>
 	</div>
+
+
+	<!-- Modal -->
+
+	<div class="modal fade" id="bookModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLongTitleSC" aria-hidden="true"
+		style="display: none;">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitleSC">상담 예약하기</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="csl_form">
+						<input type="text" id="modal_id_input" name="uid"
+							th:if="${session.logincust != null}"
+							th:value="${session.logincust.id}" hidden>
+
+						<div class="mt-2  px-3">
+							<h5>고객님의 연령대는 어떻게 되나요?</h5>
+							<div class="form-group">
+								<select class="select-1" id="sel1" name="age">
+									<option>10대</option>
+									<option>20대</option>
+									<option>30대</option>
+									<option>40대</option>
+									<option>50대 이상</option>
+								</select>
+							</div>
+						</div>
+
+
+						<div class="form-group pb-2 px-3">
+							<h5>고객님의 성별이 어떻게 되나요?</h5>
+							<div class="form-check-inline">
+								<div class=" custom-radio">
+									<input class="mr-1" id="optGender1" type="radio" value="남성" name="optGender">
+									<label class="" for="optGender1">남성</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="mr-1" id="optGender2" type="radio" value="여성" name="optGender"><label
+										class="" for="optGender2">여성</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input class="mr-1" id="optGender3" type="radio" value="x" name="optGender"><label
+										class="" for="optGender3">대답 안할래요</label>
+								</div>
+							</div>
+
+							<input type="hidden" name="gender" id="gender" />
+
+
+						</div>
+
+						<div class="form-group pb-2 px-3">
+							<h5>운동하시려는 목적을 말씀해주세요</h5>
+
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optPurpose1" type="radio"
+									value="다이어트" name="optPurpose"> <label
+									class="custom-control-label" for="optPurpose1">다이어트</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optPurpose2" type="radio"
+									value="체력증진" name="optPurpose"> <label
+									class="custom-control-label" for="optPurpose2">체력증진</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optPurpose3" type="radio"
+									value="근성장" name="optPurpose"> <label
+									class="custom-control-label" for="optPurpose3">근성장</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optPurpose4" type="radio"
+									value="자격증 및 대회 준비" name="optPurpose"> <label
+									class="custom-control-label" for="optPurpose4">자격증 및 대회 준비</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optPurpose5" type="radio"
+									value="입시 준비" name="optPurpose"> <label
+									class="custom-control-label" for="optPurpose5">입시 준비</label>
+							</div>
+
+							<input type="hidden" name="purpose" id="purpose" />
+
+
+						</div>
+
+						<div class="form-group pb-2 px-3">
+							<h5>평소에 운동을 얼마나 하시나요?</h5>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optFrequency1" type="radio"
+									value="" name="optFrequency"> <label
+									class="custom-control-label" for="optFrequency1"> 거의 하지 않음 </label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optFrequency2" type="radio"
+									value="" name="optFrequency"><label
+									class="custom-control-label" for="optFrequency2">한 달에 1-2번 </label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optFrequency3" type="radio"
+									value="" name="optFrequency"><label
+									class="custom-control-label" for="optFrequency3">일주일에 1번 </label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optFrequency4" type="radio"
+									value="" name="optFrequency"><label
+									class="custom-control-label" for="optFrequency4">일주일에 2-3번 </label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" id="optFrequency5" type="radio"
+									value="" name="optFrequency"><label
+									class="custom-control-label" for="optFrequency5">일주일에 4번 이상 </label>
+							</div>
+							<input type="hidden" name="frequency" id="purpose" />
+
+						</div>
+
+						<div class="form-group pb-2 px-3 main">
+							<h5>상담을 원하는 날짜와 시간을 선택하세요</h5>
+							<input type="date" id="csl_date" name="csl_date"> <input
+								type="time" min="06:00" max="23:00" name="csl_time">
+						</div>
+
+						<div class="form-group pb-2 px-3 main">
+							<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
+							<div class="form-check-inline">
+								<div class=" custom-checkbox">
+									<input class="" value="Mon" name="csl_workoutday"
+										id="workday_mon" type="checkbox"> <label class=""
+										for="workday_mon">월</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Tue" name="csl_workoutday"
+										id="workday_tue" type="checkbox"> <label class=""
+										for="workday_tue">화</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Wed" name="csl_workoutday"
+										id="workday_wed" type="checkbox"> <label class=""
+										for="workday_wed">수</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Thu" name="csl_workoutday"
+										id="workday_thu" type="checkbox"> <label class=""
+										for="workday_thu">목</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Fri" name="csl_workoutday"
+										id="workday_fri" type="checkbox"> <label class=""
+										for="workday_fri">금</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Sat" name="csl_workoutday"
+										id="workday_sat" type="checkbox"> <label class=""
+										for="workday_sat">토</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input class="" value="Sun" name="csl_workoutday"
+										id="workday_sun" type="checkbox"> <label class=""
+										for="workday_sun">일</label>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="modal-footer">
+							<button type="button"
+								class="btn btn-secondary waves-effect waves-light"
+								data-dismiss="modal">취소</button>
+							<button id="csl_submit_btn"
+								class="btn btn-primary waves-effect waves-light">상담 신청
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal End -->
+
+
 </div>

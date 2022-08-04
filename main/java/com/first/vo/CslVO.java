@@ -22,15 +22,17 @@ public class CslVO{
 	private String csl_time;
 	private String csl_read;
 	private String csl_progress;
+	private Date csl_regdate;
 	
 	// for INSERT
-	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time) {
+	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time, Date csl_regdate) {
 		super();
 		this.uid = uid;
 		this.tid = tid;
 		this.csl_workoutday = csl_workoutday;
 		this.csl_date = csl_date;
 		this.csl_time = csl_time;
+		this.csl_regdate = csl_regdate;
 	}
 	
 	// for UPDATE: 상담 희망 날짜, 시간 수정

@@ -23,7 +23,7 @@ class CslInsertTest {
 	@Test
 	void contextloads() {
 		Date d = convert.convert("2022-07-13");
-		CslVO obj = new CslVO("id05", "tid03", "금, 토", d, "15:00");
+		CslVO obj = new CslVO("id06", "tid22", "월, 금, 토", d, "15:00", null);
 		try {
 			biz.register(obj);
 			System.out.println("Inserted: " + obj);

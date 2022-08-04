@@ -161,6 +161,12 @@ public class UserController {
 		return recipient;
 	}
 	
+	@RequestMapping("/userlogin")
+	public String userlogin(Model m) {
+		m.addAttribute("center", "user/login");
+		return "index";
+	}
+	
 //	@RequestMapping("join/trianeejoin")
 //	public String traineejoin(Model m) {
 //		m.addAttribute("center", "user/traineejoinselect");

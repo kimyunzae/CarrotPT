@@ -9,11 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.first.biz.CslBiz;
+import com.first.biz.CslListBiz;
 import com.first.biz.ReviewBiz;
 import com.first.biz.TrainerBiz;
-import com.first.biz.TrainerPreference;
 import com.first.biz.TrainerSort;
 import com.first.biz.WorkdayBiz;
+import com.first.vo.CslListVO;
+import com.first.vo.CslVO;
 import com.first.vo.MajorVO;
 import com.first.vo.ReviewVO;
 import com.first.vo.TrainerVO;
@@ -35,6 +38,12 @@ public class FTController {
 	
 	@Autowired
 	ReviewBiz rvbiz;
+	
+	@Autowired
+	CslBiz cslbiz;
+	
+	@Autowired
+	CslListBiz cslLbiz;
 		
 	@Value("6")
 	private int amount;
@@ -167,6 +176,30 @@ public class FTController {
 		m.addAttribute("workday", trainerWorkday);
 		m.addAttribute("zip", trainerZip);
 		return "index";
+	}
+	
+	
+	// 일반회원 가입
+	@RequestMapping("cslListaddimpl")
+	public String cslListaddimpl(Model m, CslListVO cslList) {
+		try {
+			cslLbiz.register(cslList);
+			System.out.println("cslList: " +  cslLbiz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/";
+	}
+	
+	@RequestMapping("csladdimpl")
+	public String csladdimpl(Model m, CslVO csl) {
+		try {
+			cslbiz.register(csl);
+			System.out.println("csl: " +  cslbiz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/";
 	}
 
 }
