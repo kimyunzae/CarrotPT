@@ -2487,6 +2487,9 @@ progress {
   vertical-align: bottom;
 }
 
+.table-group-divider {
+  border-top: calc(2 * $table-border-width) solid currentColor;
+}
 
 .caption-top {
   caption-side: top;
@@ -5587,6 +5590,9 @@ fieldset:disabled .btn {
   border-color: var(--bs-pagination-disabled-border-color);
 }
 
+.page-item:not(:first-child) .page-link {
+  margin-left: calc($pagination-border-width * -1);
+}
 
 .page-item:first-child .page-link {
   border-top-left-radius: var(--bs-pagination-border-radius);
@@ -22602,6 +22608,11 @@ hr.horizontal.gray-light {
   border-radius: 0.25rem;
 }
 
+.navbar-vertical.navbar-expand-xs .navbar-nav .nav .nav-link {
+  padding-top: calc($navbar-vertical-nav-link-padding-y / 1.5);
+  padding-bottom: calc($navbar-vertical-nav-link-padding-y / 1.5);
+  padding-left: 15px;
+}
 
 .navbar-vertical.navbar-expand-xs .navbar-nav .nav .nav-link>span.sidenav-normal {
   transition: all 0.1s ease 0s;
@@ -22697,11 +22708,16 @@ hr.horizontal.gray-light {
     border-radius: 0.25rem;
   }
 
+  .navbar-vertical.navbar-expand-sm .navbar-nav .nav .nav-link {
+    padding-top: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-bottom: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-left: 15px;
+  }
 
   .navbar-vertical.navbar-expand-sm .navbar-nav .nav .nav-link>span.sidenav-normal {
     transition: all 0.1s ease 0s;
   }
-
+}
 
 @media (min-width: 768px) {
   .navbar-vertical.navbar-expand-md {
@@ -22793,7 +22809,11 @@ hr.horizontal.gray-light {
     border-radius: 0.25rem;
   }
 
-
+  .navbar-vertical.navbar-expand-md .navbar-nav .nav .nav-link {
+    padding-top: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-bottom: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-left: 15px;
+  }
 
   .navbar-vertical.navbar-expand-md .navbar-nav .nav .nav-link>span.sidenav-normal {
     transition: all 0.1s ease 0s;
@@ -22890,12 +22910,16 @@ hr.horizontal.gray-light {
     border-radius: 0.25rem;
   }
 
-
+  .navbar-vertical.navbar-expand-lg .navbar-nav .nav .nav-link {
+    padding-top: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-bottom: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-left: 15px;
+  }
 
   .navbar-vertical.navbar-expand-lg .navbar-nav .nav .nav-link>span.sidenav-normal {
     transition: all 0.1s ease 0s;
   }
-
+}
 
 @media (min-width: 1200px) {
   .navbar-vertical.navbar-expand-xl {
@@ -22987,12 +23011,16 @@ hr.horizontal.gray-light {
     border-radius: 0.25rem;
   }
 
-
+  .navbar-vertical.navbar-expand-xl .navbar-nav .nav .nav-link {
+    padding-top: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-bottom: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-left: 15px;
+  }
 
   .navbar-vertical.navbar-expand-xl .navbar-nav .nav .nav-link>span.sidenav-normal {
     transition: all 0.1s ease 0s;
   }
-
+}
 
 @media (min-width: 1400px) {
   .navbar-vertical.navbar-expand-xxl {
@@ -23084,7 +23112,11 @@ hr.horizontal.gray-light {
     border-radius: 0.25rem;
   }
 
-
+  .navbar-vertical.navbar-expand-xxl .navbar-nav .nav .nav-link {
+    padding-top: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-bottom: calc($navbar-vertical-nav-link-padding-y / 1.5);
+    padding-left: 15px;
+  }
 
   .navbar-vertical.navbar-expand-xxl .navbar-nav .nav .nav-link>span.sidenav-normal {
     transition: all 0.1s ease 0s;
@@ -26896,4 +26928,5 @@ pre[class*="language-"] {
     overflow: auto !important;
   }
 }
-}}}
+
+/*# sourceMappingURL=dashboard-free.css.map */
