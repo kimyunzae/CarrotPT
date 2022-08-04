@@ -20,11 +20,6 @@ body {
 	overflow-x: hidden;
 }
 
-.modal {
-	overflow-x: hidden;
-	 overflow-y: auto;
-}
-
 .modal-body {
 	max-height: 65vh;
 	overflow-y: auto;
@@ -98,15 +93,14 @@ body.modal-open {
 </style>
 
 <script>
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
 				function alignModal() {
 					var modalDialog = $(this).find(".modal-dialog");
-
 					// Applying the top margin on modal to align it vertically center
 					modalDialog.css("margin-top", Math.max(0, ($(window)
 							.height() - modalDialog.height()) / 2));
 				}
+			
 				// Align modal when it is displayed
 				$(".modal").on("shown.bs.modal", alignModal);
 
@@ -131,10 +125,24 @@ body.modal-open {
 					  let selectedOptionValue = selectedOption ? selectedOption.value : undefined;
 					  document.getElementById('gender').value = selectedOptionValue;
 					}
+				function copyValue2() {
+					  let allOptions = Array.prototype.slice.call(document.getElementsByName('opt2'));
+					  let selectedOption = allOptions.filter(opt2 => opt2.checked)[0];
+					  let selectedOptionValue = selectedOption ? selectedOption.value : undefined;
+					  document.getElementById('purpose').value = selectedOptionValue;
+					}
+				function copyValue3() {
+					  let allOptions = Array.prototype.slice.call(document.getElementsByName('opt3'));
+					  let selectedOption = allOptions.filter(opt3 => opt3.checked)[0];
+					  let selectedOptionValue = selectedOption ? selectedOption.value : undefined;
+					  document.getElementById('frequency').value = selectedOptionValue;
+					}
 				
 				// INSERT 기능
 				$('#csl_submit_btn').click(function() {
 					copyValue();
+					copyValue2();
+					copyValue3();
 					$('.csl_form').attr({
 						'method' : 'post',
 						'action' : '/cslListaddimpl'
@@ -370,9 +378,9 @@ body.modal-open {
 				<input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
                 </div>
 				<div class="form-group d-flex justify-content-end">
-					<input th:if="${session.logincust == null}"  id="review_btn_null" type="submit"
+					<input th:if="${session.logincust == null}"  id="review_btn_null" 
 					 value="리뷰작성" class="btn py-3 px-4 btn-primary">
-					<input th:if="${session.logincust != null}" type="submit" value="리뷰작성" class="btn py-3 px-4 btn-primary">
+					<input th:if="${session.logincust != null}" value="리뷰작성" class="btn py-3 px-4 btn-primary">
 				</div>
 				
 			</form>
@@ -419,22 +427,22 @@ body.modal-open {
 							<h5>고객님의 성별이 어떻게 되나요?</h5>
 							<div class="form-check-inline">
 								<div class=" custom-radio">
-									<input class="mr-1" id="opt" type="radio" value=""
+									<input class="mr-1" id="opt" type="radio" value="남성"
 										name="opt"> <label class="" for="option111">남성</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="mr-1" id="opt" type="radio" value=""
+									<input class="mr-1" id="opt" type="radio" value="여성"
 										name="opt"><label class="" for="option112">여성</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="mr-1" id="opt" type="radio" value=""
+									<input class="mr-1" id="opt" type="radio" value="x"
 										name="opt"><label class="" for="option113">대답
 										안할래요</label>
 								</div>
 							</div>
 							
 							<input type="hidden" name="gender" id="gender"/>
-							<input type="button" value="Copy Value" onClick="copyValue()"/>
+							
 
 						</div>
 
@@ -442,66 +450,70 @@ body.modal-open {
 							<h5>운동하시려는 목적을 말씀해주세요</h5>
 					
 								<div class="custom-control custom-radio">
-									<input class="custom-control-input" id="option221" type="radio"
-										value="0" name="purpose"> <label
-										class="custom-control-label" for="option221">다이어트</label>
+									<input class="custom-control-input" id="opt2" type="radio"
+										value="다이어트" name="opt2"> <label
+										class="custom-control-label" for="opt2">다이어트</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="custom-control-input" id="option222" type="radio"
-										value="0" name="purpose"> <label
-										class="custom-control-label" for="option222">체력증진</label>
+									<input class="custom-control-input" id="opt2" type="radio"
+										value="체력증진" name="opt2"> <label
+										class="custom-control-label" for="opt2">체력증진</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="custom-control-input" id="option223" type="radio"
-										value="0" name="purpose"> <label
-										class="custom-control-label" for="option223">근성장</label>
+									<input class="custom-control-input" id="opt2" type="radio"
+										value="근성장" name="opt2"> <label
+										class="custom-control-label" for="opt2">근성장</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="custom-control-input" id="option224" type="radio"
-										value="0" name="purpose"> <label
-										class="custom-control-label" for="option224">자격증 및 대회
+									<input class="custom-control-input" id="opt2" type="radio"
+										value="자격증 및 대회 준비" name="opt2"> <label
+										class="custom-control-label" for="opt2">자격증 및 대회
 										준비</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="custom-control-input" id="option225" type="radio"
-										value="0" name="purpose"> <label
-										class="custom-control-label" for="option225">입시 준비</label>
+									<input class="custom-control-input" id="opt2" type="radio"
+										value="입시 준비" name="opt2"> <label
+										class="custom-control-label" for="opt2">입시 준비</label>
 								</div>
-
+								
+								<input type="hidden" name="purpose" id="purpose"/>
+								
 						
 						</div>
 
 						<div class="form-group pb-2 px-3">
 							<h5>평소에 운동을 얼마나 하시나요?</h5>
 							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option311" type="radio"
-									value="" name="frequency"> <label
-									class="custom-control-label" for="option311"> 거의 하지 않음
+								<input class="custom-control-input" id="opt3" type="radio"
+									value="" name="opt3"> <label
+									class="custom-control-label" for="opt3"> 거의 하지 않음
 								</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option312" type="radio"
-									value="" name="frequency"><label
-									class="custom-control-label" for="option312">한 달에 1-2번
+								<input class="custom-control-input" id="opt3" type="radio"
+									value="" name="opt3"><label
+									class="custom-control-label" for="opt3">한 달에 1-2번
 								</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option313" type="radio"
-									value="" name="frequency"><label
-									class="custom-control-label" for="option313">일주일에 1번 </label>
+								<input class="custom-control-input" id="opt3" type="radio"
+									value="" name="opt3"><label
+									class="custom-control-label" for="opt3">일주일에 1번 </label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option314" type="radio"
-									value="" name="frequency"><label
-									class="custom-control-label" for="option314">일주일에 2-3번
+								<input class="custom-control-input" id="opt3" type="radio"
+									value="" name="opt3"><label
+									class="custom-control-label" for="opt3">일주일에 2-3번
 								</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input class="custom-control-input" id="option315" type="radio"
-									value="" name="frequency"><label
-									class="custom-control-label" for="option315">일주일에 4번 이상
+								<input class="custom-control-input" id="opt3" type="radio"
+									value="" name="opt3"><label
+									class="custom-control-label" for="opt3">일주일에 4번 이상
 								</label>
 							</div>
+							<input type="hidden" name="frequency" id="purpose"/>
+							
 						</div>
 
 						<div class="form-group pb-2 px-3 main">
@@ -562,7 +574,7 @@ body.modal-open {
 							<button type="button"
 								class="btn btn-secondary waves-effect waves-light"
 								data-dismiss="modal">취소</button>
-							<button type="submit" id="csl_submit_btn"
+							<button id="csl_submit_btn"
 								class="btn btn-primary waves-effect waves-light">상담 신청
 							</button>
 						</div>
