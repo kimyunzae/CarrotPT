@@ -177,11 +177,11 @@ public class FTController {
 	
 	
 	// 일반회원 가입
-	@RequestMapping("/cslListaddimpl")
+	@RequestMapping("cslListaddimpl")
 	public String cslListaddimpl(Model m, CslListVO cslList) {
 		try {
 			cslLbiz.register(cslList);
-		
+			System.out.println("cslList: " +  cslLbiz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
