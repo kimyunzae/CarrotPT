@@ -559,10 +559,9 @@ $(function(){
 	});
 	
 	$('#btn_getpreference').click(function(){
-		var tGender = $('input[name="tgender"]:checked').val();
 		
+		var tGender = $('input[name="tgender"]:checked').val();
 		const tMajorArr = [];
-	
 		$('input:checkbox[name="tmajor"]:checked').each(function(){
 			tMajorArr.push($(this).val());
 		});

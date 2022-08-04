@@ -1,5 +1,15 @@
 <style>
+#navbar{
+	justify-content:space-between;
+}
 
+#span_currentdate{
+	color:white;
+}
+
+#div_currentdate{
+	margin-left:0 !important;
+}
 
 </style>
 
@@ -8,6 +18,37 @@
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <link rel="stylesheet" href="/css/argon-dashboard.css">
+
+<script>
+
+	function displayDateTime(result){
+		var data = JSON.parse(result);
+		var now = data[0];
+		
+		const weekdayArr = ['월', '화', '수', '목', '금', '토', '일'];
+		var weekdayNum = parseInt(now.day);
+		
+		$('#span_currentdate').text(now.year + '년 ' + now.month + '월 ' + now.date + '일 (' + weekdayArr[weekdayNum] + ') '
+				+ now.hour + ':' + now.minute + ':' + now.second);
+	}
+
+	function currentDateTime(){
+		$.ajax({
+			url:'getTime',
+			success:function(result){
+				displayDateTime(result);
+			}
+		});
+	}
+
+	
+	$(function(){
+		currentDateTime();
+		setInterval(() => currentDateTime(), 1000);
+	});
+	
+	
+</script>
 
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -18,16 +59,22 @@
       <div class="container-fluid py-1 px-3">
         
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
-          <ul class="navbar-nav  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none"><a class="text-dark" href="/">나가기</a></span>
-              </a>
-            </li>
-          </ul>
-             
+        
+			<div class="ms-md-auto pe-md-3 d-flex" id="div_currentdate">
+				<span id="span_currentdate">오늘날짜</span>
+			</div>
+			
+			<div class="ms-md-auto pe-md-3 d-flex align-items-center">
+				<ul class="navbar-nav justify-content-end" id="nav_match">
+					<li class="nav-item d-flex align-items-center">
+						<a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+							<i class="fa fa-user me-sm-1"></i>
+							<span class="d-sm-inline d-none"><a class="text-dark" href="/">나가기</a></span>
+						</a>
+					</li>
+				</ul>
+            </div> 
+            
         </div>
       </div>
     </nav>
@@ -40,7 +87,7 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">상담날짜 / 시간 </p>
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Upcoming</p>
                     <h6 class="font-weight-bolder">
                      2022-07-28 목요일 15:30
                     </h6>

@@ -251,7 +251,9 @@
 		
 		if(question.trim() == ''){
 			alert('질문을 입력하세요');
+			$('#ta_chatquestion').focus();
 			return;
+			
 			}
 		
 		$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
@@ -360,6 +362,7 @@
 		  $('#btn_startchat').click(function(){
 			  chatbox(".chatbox-popup, .chatbox-close").fadeIn();
 			  connect();
+			  $('#ta_chatquestion').focus();
 		  });
 
 		  $('.toclose').click(function(){
