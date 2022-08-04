@@ -48,6 +48,25 @@
 <link rel="stylesheet" href="/css/argon-dashboard.css">
 
 <script>
+	function getQuotes(){
+		const settings = {
+				'async': true,
+				'crossDomain': true,
+				'url': 'https://type.fit/api/quotes',
+				'method': 'GET'
+		}
+		
+		$.ajax(settings).done(function(response){
+			const data = JSON.parse(response);
+			var quoteNum = Math.floor(Math.random() * 1640);
+			var quote = data[quoteNum];
+			
+			$('#div_quotetext').append('<p>' + quote.text + '</p>');
+			$('#div_quoteauthor').append('<p>' + quote.author + '</p>');
+			
+			// alert(data.length); = 1643
+		});
+	}
 
 	function displayDateTime(result){
 		var data = JSON.parse(result);
@@ -73,6 +92,7 @@
 	$(function(){
 		currentDateTime();
 		setInterval(() => currentDateTime(), 1000);
+		getQuotes();
 	});
 	
 	
@@ -141,6 +161,21 @@
 	          </div>
 	        </div>
 	        
+	        <!-- Quote Start -->
+	        <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
+	          <div class="card">
+	            <div class="card-body p-3">
+	              <div id="div_quotetext">
+	              	
+	              </div>
+	              <div id="div_quoteauthor">
+	              
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	        <!-- Quote End -->
+	        
 	        <!-- Trainer/Trainee Information Start -->
 		        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
 		          <div class="card">
@@ -182,19 +217,6 @@
 			         </div>
 			         <div class="card-body p-3">
 			              <div class="chart border" style="height:300px;">
-			              
-			              	<p th:text="${session.loginid}">ID</p>
-			              	<p id="status">Status</p>
-			              	<p id="servermsg1">Server Msg1</p>
-			              	<p id="servermsg2">Server Msg2</p>
-			              	<button id="connect">Connect</button>
-			              	<button id="disconnect">Disconnect</button>
-								
-			              	<p>Send message</p>
-			              	<input type="text" id="target">
-			              	<input type="text" id="totext"><button id="sendto">Send</button>
-			              	<div id="to"></div>
-					
 			              </div>
 		            </div>
 				</div>
