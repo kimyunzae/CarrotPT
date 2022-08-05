@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		</select>
 		<insert id="insert" parameterType="cslVO">
 			INSERT INTO csl VALUES(NULL, #{uid}, #{tid}, #{csl_workoutday}, #{csl_date}, #{csl_time}, 
-			DEFAULT, DEFAULT, SYSDATE())
+			DEFAULT, DEFAULT, CURDATE(), #{age}, #{gender}, #{purpose}, #{frequency})
 		</insert>
 	<!-- update: 상담 희망 date, time 수정-->
 		<update id="update" parameterType="cslVO">
