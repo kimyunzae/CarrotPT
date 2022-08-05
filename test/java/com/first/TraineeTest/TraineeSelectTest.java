@@ -17,7 +17,7 @@ class TraineeSelectTest {
 	void contextLoads() {
 		TraineeVO obj = null;
 		try {
-			obj = biz.get("id01121");
+			obj = biz.get("id01");
 			System.out.println(obj);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -20,7 +20,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE trainee SET pwd=#{pwd} WHERE email=#{email};
 	</update>
 	<select id="select" parameterType="String" resultType="TraineeVO">
-		SELECT * FROM trainee WHERE ID=#{id}
+		SELECT *,
+		(SELECT COUNT(*) FROM csl WHERE csl_read = '대기중' AND uid = #{id}) AS cslnew,
+		(SELECT COUNT(*) FROM csl WHERE csl_read='수락' AND csl_progress='대기중' AND uid=#{id}) AS cslwait,
+		(SELECT COUNT(*) FROM csl WHERE csl_progress='완료' AND uid=#{id}) AS cslcompleted
+		FROM trainee
+		WHERE ID=#{id}
 	</select>
 	<select id="selectall" resultType="TraineeVO">
 		SELECT * FROM trainee
