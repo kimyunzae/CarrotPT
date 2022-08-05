@@ -68,6 +68,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT email FROM trainee WHERE email=#{email}
 	</select>
 	
+	<select id="selectbyid" resultType="String">
+		SELECT id FROM trainee
+		WHERE id=#{id}
+	</select>
+	
 <!-- 아이디로 비밀번호 변경 -->
 	<update id="updatepassword" parameterType="traineeVO">
 		UPDATE trainee SET PWD=#{pwd} WHERE ID=#{id};

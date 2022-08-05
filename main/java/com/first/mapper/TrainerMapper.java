@@ -28,6 +28,7 @@ public interface TrainerMapper{
 	public String selectbynamephone(String name, String phone) throws Exception;
 	public String selectbyidemail(String id, String email) throws Exception;
 	public String selectemailbyemail(String email) throws Exception;
+	public String selectbyid(String id) throws Exception;
 	
 	public List<MajorVO> selectmajor() throws Exception;
 	public List<StatusVO> selectstatus() throws Exception;

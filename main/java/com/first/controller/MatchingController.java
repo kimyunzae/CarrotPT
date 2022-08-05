@@ -23,10 +23,11 @@ public class MatchingController {
 	@Autowired
 	CslBiz biz;
 	
-	@ModelAttribute("csllist")
+	@ModelAttribute("cslList")
 	public List<CslVO> cslList(HttpSession session){
 		List<CslVO> list = null;
-		String id = session.getAttribute("id").toString();
+		String id = session.getAttribute("custid").toString();
+
 		try {
 			list = biz.getlistbyid(id);
 		} catch (Exception e) {

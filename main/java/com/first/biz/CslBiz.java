@@ -69,8 +69,7 @@ public class CslBiz implements Biz<Integer, CslVO> {
 	}
 
 	public List<CslVO> getlistbyid(String id) throws Exception{
-		TrainerVO trainer = trainerdao.select(id);
-		TraineeVO trainee = traineedao.select(id);
+		String trainer = trainerdao.selectbyid(id);
 		List<CslVO> list = null;
 		if(trainer != null) {
 			list = dao.selectbytid(id);

@@ -24,6 +24,9 @@ public class CslVO{
 	private String csl_progress;
 	private Date csl_regdate;
 	
+	private String uname;
+	private String tname;
+	
 	// for INSERT
 	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time, Date csl_regdate) {
 		super();

@@ -54,7 +54,7 @@ public class UserController {
 			}else if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
 					result = "redirect:/";
-					session.setAttribute("id", id);
+					session.setAttribute("custid", id);
 					m.addAttribute("logincust", tner);
 					session.setAttribute("logincust", tner);
 				}else {
@@ -65,6 +65,7 @@ public class UserController {
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
 					result = "redirect:/";
+					session.setAttribute("custid", id);
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);			
 				}else {
