@@ -7,15 +7,23 @@ import org.springframework.stereotype.Service;
 
 import com.first.frame.Biz;
 import com.first.mapper.CslMapper;
-import com.first.mapper.ReportMapper;
-
+import com.first.mapper.TraineeMapper;
+import com.first.mapper.TrainerMapper;
 import com.first.vo.CslVO;
+import com.first.vo.TraineeVO;
+import com.first.vo.TrainerVO;
 
 @Service("cslbiz")
 public class CslBiz implements Biz<Integer, CslVO> {
 	
 	@Autowired
 	CslMapper dao;
+	
+	@Autowired
+	TrainerMapper trainerdao;
+	
+	@Autowired
+	TraineeMapper traineedao;
 
 	@Override
 	public void register(CslVO v) throws Exception {
@@ -51,8 +59,26 @@ public class CslBiz implements Biz<Integer, CslVO> {
 	public void modifyprogress(CslVO v) throws Exception{
 		dao.updateprogress(v);
 	}
+	
+	public List<CslVO> getbyuid(String uid) throws Exception{
+		return dao.selectbyuid(uid);
+	}
+	
+	public List<CslVO> getbytid(String tid) throws Exception{
+		return dao.selectbytid(tid);
+	}
 
-
+	public List<CslVO> getlistbyid(String id) throws Exception{
+		TrainerVO trainer = trainerdao.select(id);
+		TraineeVO trainee = traineedao.select(id);
+		List<CslVO> list = null;
+		if(trainer != null) {
+			list = dao.selectbytid(id);
+		}else {
+			list = dao.selectbyuid(id);
+		}
+		return list;
+	}
 
 	
 	
