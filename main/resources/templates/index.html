@@ -235,9 +235,27 @@
 </style>
 
 
-<script>
+<script th:inline="javascript">
 
 /* ChatBot */
+
+/*
+	window.onbeforeunload = function(){
+		var trainer = [[${dtrainer}]];
+		if(trainer != null){
+			localStorage.setItem("dtrainer", trainer);
+		}
+		
+		
+	};
+
+	window.onload = function(){
+		if(localStorage.getItem("dtrainer") != null){
+			var dtrainer = localStorage.getItem("dtrainer");
+		}
+	}
+	*/
+	
 	function connect(){
 		var socket = new SockJS('/ws');
 		stompClient = Stomp.over(socket);
@@ -298,6 +316,8 @@
 			}
 		});
 	}
+	
+	
 	
 
  
