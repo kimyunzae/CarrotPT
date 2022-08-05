@@ -37,6 +37,7 @@ public class UserController {
 //		return "redirect:/";
 //	}
 
+	@ResponseBody
 	@RequestMapping("/loginimpl")
 	public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 		String result = "";
@@ -47,30 +48,27 @@ public class UserController {
 			tner = trainerbiz.get(id);
 			tnee = traineebiz.get(id);
 			
-			// 1) 아이디 존재하지 않음
-			if(tner == null && tnee == null) {
-				result = "none";
-				// 2) trainer ID 존재
-			}else if(tner != null && tnee == null) {
+			// 1) trainer ID 존재
+			if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
-					result = "redirect:/";
+					result = "1";
 					session.setAttribute("custid", id);
 					m.addAttribute("logincust", tner);
 					session.setAttribute("logincust", tner);
 				}else {
 					// trainer ID 비밀번호 불일치
-					result = "redirect:/";
+					result = "0";
 				}
-				// 3) trainee ID 존재
+				// 2) trainee ID 존재
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
-					result = "redirect:/";
+					result = "1";
 					session.setAttribute("custid", id);
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);			
 				}else {
 					// trainee ID 비밀번호 불일치
-					result = "redirect:/";
+					result = "0";
 				}
 			}
 			
@@ -87,12 +85,12 @@ public class UserController {
 		return "index";
 	}
 
+	@ResponseBody
 	@RequestMapping("/logout")
-	public String logout(Model m, HttpSession session) {
+	public void logout(HttpSession session) {
 		if (session != null) {
 			session.invalidate();
 		}
-		return "redirect:/";
 	}
 	
 	@RequestMapping("/update")
