@@ -179,7 +179,6 @@ public class FTController {
 	}
 	
 	
-	// 일반회원 가입
 	@RequestMapping("cslListaddimpl")
 	public String cslListaddimpl(Model m, CslListVO cslList, CslVO csl) {
 		try {

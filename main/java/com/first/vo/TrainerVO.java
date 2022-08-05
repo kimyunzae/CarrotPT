@@ -68,6 +68,10 @@ public class TrainerVO {
 	private String fri;
 	private String sat;
 	private String sun;
+	
+	private int cslnew;
+	private int cslwait;
+	private int cslcompleted;
 
 	// for update 트레이너 name,regdate 제외 모두 수정 가능
 
