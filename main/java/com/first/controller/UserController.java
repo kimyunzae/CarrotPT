@@ -79,12 +79,6 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping("/findidpwd")
-	public String findidpwd(Model m) {
-		m.addAttribute("center", "user/findidpwd");
-		return "index";
-	}
-
 	@ResponseBody
 	@RequestMapping("/logout")
 	public void logout(HttpSession session) {
@@ -128,6 +122,12 @@ public class UserController {
 	@RequestMapping("/join/trainee2")
 	public String traineejoin2(Model m) {
 		m.addAttribute("center", "user/traineejoin2");
+		return "index";
+	}
+	
+	@RequestMapping("/findidpwd")
+	public String findidpwd(Model m) {
+		m.addAttribute("center", "user/findidpwd");
 		return "index";
 	}
 	

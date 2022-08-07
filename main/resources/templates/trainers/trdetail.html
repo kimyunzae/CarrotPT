@@ -90,29 +90,51 @@ body.modal-open {
 }
 </style>
 
-<script>
+<script th:inline=javascript>
+
+
 
 function openLoginModal(){
 	$('#loginModal').modal('show');
 }
-	$(document).ready(
-			function() {
-				function alignModal() {
-					var modalDialog = $(this).find(".modal-dialog");
-					// Applying the top margin on modal to align it vertically center
-					modalDialog.css("margin-top", Math.max(0, ($(window)
-							.height() - modalDialog.height()) / 2));
-				}
 
-				// Align modal when it is displayed
-				$(".modal").on("shown.bs.modal", alignModal);
+$(function(){
+	
 
-				// Align modal when user resize the window
-				$(window).on("resize", function() {
-					$(".modal:visible").each(alignModal);
-				});
+	function alignModal() {
+		var modalDialog = $(this).find(".modal-dialog");
+		// Applying the top margin on modal to align it vertically center
+		modalDialog.css("margin-top", Math.max(0, ($(window)
+				.height() - modalDialog.height()) / 2));
+	}
 
+	// Align modal when displayed
+	$(".modal").on("shown.bs.modal", alignModal);
 
+	// Align modal when user resize the window
+	$(window).on("resize", function() {
+		$(".modal:visible").each(alignModal);
+	});
+	
+	$('#csl_submit_btn').click(function(){
+		const workoutdayArr = [];
+		
+		$('input[name="workoutday"]:checked').each(function(){
+			workoutdayArr.push($(this).val());
+		});
+		
+		$('input[name="csl_workoutday"]').val(workoutdayArr);
+		
+		$('.csl_form').attr({
+			'method' : 'post',
+			'action' : 'cslListaddimpl'
+		});
+		$('.csl_form').submit();
+		alert('매칭신청이 완료되었습니다');
+		
+	});
+
+				
 
 				/* 	function copyValue() {
 						  let allOptions = Array.prototype.slice.call(document.getElementsByName('opt'));
@@ -121,7 +143,7 @@ function openLoginModal(){
 						  document.getElementById('gender').value = selectedOptionValue;
 						}
 				 */
-
+			/*
 				// INSERT 기능
 				$('#csl_submit_btn').click(function() {
 					
@@ -148,7 +170,7 @@ function openLoginModal(){
 					$('.csl_form').submit();
 					alert('매칭신청이 완료되었습니다');
 				});
-
+			*/
 			});
 </script>
 
@@ -167,9 +189,9 @@ function openLoginModal(){
 						<path
 						d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
 					</svg>
-				<span th:text="${dtrainer.addrshort}"></span>
+				<span th:text="${session.dtrainer.addrshort}"></span>
 			</div>
-			<p th:text="${dtrainer.gym_name}"></p>
+			<p th:text="${session.dtrainer.gym_name}"></p>
 		</div>
 	</div>
 </section>
@@ -228,19 +250,17 @@ function openLoginModal(){
 						</div>
 						<!--/.Slides-->
 						<!--Controls-->
-						<a class="carousel-control-prev" href="#carousel-example-1z"
-							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-							class="sr-only">Previous</span>
-						</a> <a class="carousel-control-next" href="#carousel-example-1z"
-							role="button" data-slide="next"> <span
-							class="carousel-control-next-icon" aria-hidden="true"></span> <span
-							class="sr-only">Next</span>
+						<a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
 						</a>
 						<!--/.Controls-->
 					</div>
 					<!--/.Carousel Wrapper-->
-
 
 
 				</div>
@@ -250,16 +270,14 @@ function openLoginModal(){
 						<span class="subheading" th:text="'종목: ' +${dtrainer.major}"></span>
 
 						<p th:text="${dtrainer.intro}"></p>
-
 						<p th:text="${dtrainer.career}"></p>
 
 						<!-- 	<p th:text="'휴대폰: '+${dtrainer.phone}"></p> -->
 
-
 						<p class="mt-5">
 							<a type="button" th:if="${session.logincust == null}"
 								class="btn btn-primary" id="csl_modal_btn_null" data-toggle="modal"
-						data-target="#loginModal">상담 예약하기</a>
+								data-target="#loginModal">상담 예약하기</a>
 							<a href="#" th:if="${session.logincust != null}" type="button"
 								class="btn btn-primary" data-toggle="modal"
 								data-target="#bookModal">상담 예약하기</a>
@@ -285,7 +303,6 @@ function openLoginModal(){
 								<tr>
 									<th scope="col">근무요일</th>
 									<th scope="col">근무시간</th>
-
 								</tr>
 							</thead>
 							<tbody>
@@ -362,22 +379,26 @@ function openLoginModal(){
 			<form action="#" class="p-5 bg-light">
 				<div class="form-group">
 					<div class="vcard bio mb-3">
-						<img src="/images/emptypic.svg" alt="Image placeholder"
-							style="width: 50px; height: 50px;"> <span
-							th:if="${session.logincust != null}"
-							th:text="${session.logincust.id}">one</span>
+						<img src="/images/emptypic.svg" alt="Image placeholder" style="width: 50px; height: 50px;">
+							<span th:if="${session.logincust != null}" th:text="${session.logincust.id}">one</span>
 					</div>
-					<textarea name="" id="message" cols="10" rows="3"
-						class="form-control"></textarea>
+					<textarea name="" id="message" cols="10" rows="3" class="form-control"></textarea>
 				</div>
 				<div class="rating d-flex justify-content-end">
-					<input type="radio" name="rating" value="5" id="5"><label
-						for="5">☆</label> <input type="radio" name="rating" value="4"
-						id="4"><label for="4">☆</label> <input type="radio"
-						name="rating" value="3" id="3"><label for="3">☆</label> <input
-						type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-					<input type="radio" name="rating" value="1" id="1"><label
-						for="1">☆</label>
+					<input type="radio" name="rating" value="5" id="5">
+					<label for="5">☆</label>
+					
+					<input type="radio" name="rating" value="4" id="4">
+					<label for="4">☆</label>
+					
+					<input type="radio" name="rating" value="3" id="3">
+					<label for="3">☆</label>
+					
+					<input type="radio" name="rating" value="2" id="2">
+					<label for="2">☆</label>
+					
+					<input type="radio" name="rating" value="1" id="1">
+					<label for="1">☆</label>
 				</div>
 				<div class="form-group d-flex justify-content-end">
 					<input type="button" th:if="${session.logincust == null}" id="review_btn_null"
@@ -402,18 +423,16 @@ function openLoginModal(){
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitleSC">상담 예약하기</h5>
 
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 				<div class="modal-body">
 					<form class="csl_form">
-						<input type="text" id="modal_id_input" name="uid"
-							th:if="${session.logincust != null}"
-							th:value="${session.logincust.id}" hidden>
-						<input type="text" id="" name="tid"
-							th:value="${dtrainer.id}" hidden>
+					
+						<input type="hidden" id="modal_id_input" name="uid" th:if="${session.logincust != null}" th:value="${session.logincust.id}">
+						<input type="hidden" name="tid" th:value="${dtrainer.id}">
+						<input type="hidden" name="csl_workoutday">
 
 						<div class="mt-2  px-3">
 							<h5>고객님의 연령대는 어떻게 되나요?</h5>
@@ -430,141 +449,137 @@ function openLoginModal(){
 
 
 						<div class="form-group pb-2 px-3">
-							<h5>고객님의 성별이 어떻게 되나요?</h5>
+							<h5>성별을 말씀해 주세요.</h5>
 							<div class="form-check-inline">
 								<div class=" custom-radio">
-									<input class="mr-1" id="optGender1" type="radio" value="남성" name="optGender">
+									<input class="mr-1" id="optGender1" type="radio" value="남성" name="gender">
 									<label class="" for="optGender1">남성</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="mr-1" id="optGender2" type="radio" value="여성" name="optGender"><label
-										class="" for="optGender2">여성</label>
+									<input class="mr-1" id="optGender2" type="radio" value="여성" name="gender">
+									<label class="" for="optGender2">여성</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input class="mr-1" id="optGender3" type="radio" value="x" name="optGender"><label
-										class="" for="optGender3">대답 안할래요</label>
+									<input class="mr-1" id="optGender3" type="radio" value="x" name="gender">
+									<label class="" for="optGender3">대답 안 할래요.</label>
 								</div>
 							</div>
-
-							<input type="hidden" name="gender" id="gender" />
 
 
 						</div>
 
 						<div class="form-group pb-2 px-3">
-							<h5>운동하시려는 목적을 말씀해주세요</h5>
+							<h5>운동하시려는 목적을 말씀해주세요.</h5>
 
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optPurpose1" type="radio"
-									value="다이어트" name="optPurpose"> <label
-									class="custom-control-label" for="optPurpose1">다이어트</label>
+									value="다이어트" name="purpose">
+								<label class="custom-control-label" for="optPurpose1">다이어트</label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optPurpose2" type="radio"
-									value="체력증진" name="optPurpose"> <label
-									class="custom-control-label" for="optPurpose2">체력증진</label>
+									value="체력 증진" name="purpose">
+								<label class="custom-control-label" for="optPurpose2">체력 증진</label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optPurpose3" type="radio"
-									value="근성장" name="optPurpose"> <label
-									class="custom-control-label" for="optPurpose3">근성장</label>
+									value="근성장" name="purpose">
+								<label class="custom-control-label" for="optPurpose3">근성장</label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optPurpose4" type="radio"
-									value="자격증 및 대회 준비" name="optPurpose"> <label
-									class="custom-control-label" for="optPurpose4">자격증 및 대회 준비</label>
+									value="자격증 및 대회 준비" name="purpose">
+								<label class="custom-control-label" for="optPurpose4">자격증 및 대회 준비</label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optPurpose5" type="radio"
-									value="입시 준비" name="optPurpose"> <label
-									class="custom-control-label" for="optPurpose5">입시 준비</label>
+									value="입시 준비" name="purpose">
+								<label class="custom-control-label" for="optPurpose5">입시 준비</label>
 							</div>
-
-							<input type="hidden" name="purpose" id="purpose" />
-
 
 						</div>
 
 						<div class="form-group pb-2 px-3">
-							<h5>평소에 운동을 얼마나 하시나요?</h5>
+							<h5>평소에 운동을 얼마나 자주 하시나요?</h5>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency1" type="radio"
-									value="" name="optFrequency"> <label
-									class="custom-control-label" for="optFrequency1"> 거의 하지 않음 </label>
+									name="frequency">
+								<label class="custom-control-label" for="optFrequency1">거의 하지 않음 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency2" type="radio"
-									value="" name="optFrequency"><label
-									class="custom-control-label" for="optFrequency2">한 달에 1-2번 </label>
+									name="frequency">
+								<label class="custom-control-label" for="optFrequency2">한 달에 1-2번 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency3" type="radio"
-									value="" name="optFrequency"><label
-									class="custom-control-label" for="optFrequency3">일주일에 1번 </label>
+									name="frequency">
+								<label class="custom-control-label" for="optFrequency3">일주일에 1번 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency4" type="radio"
-									value="" name="optFrequency"><label
-									class="custom-control-label" for="optFrequency4">일주일에 2-3번 </label>
+									name="frequency">
+								<label class="custom-control-label" for="optFrequency4">일주일에 2-3번 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency5" type="radio"
-									value="" name="optFrequency"><label
-									class="custom-control-label" for="optFrequency5">일주일에 4번 이상 </label>
+									name="frequency">
+								<label class="custom-control-label" for="optFrequency5">일주일에 4번 이상 </label>
 							</div>
 							<input type="hidden" name="frequency" id="frequency" />
 
 						</div>
 
 						<div class="form-group pb-2 px-3 main">
-							<h5>상담을 원하는 날짜와 시간을 선택하세요</h5>
-							<input type="date" id="csl_date" name="csl_date"> <input
-								type="time" min="06:00" max="23:00" name="csl_time">
+							<h5>상담 날짜와 시간을 선택해 주세요.</h5>
+							<input type="date" id="csl_date" name="csl_date">
+							<input type="time" min="06:00" max="23:00" name="csl_time">
 						</div>
-
+				
+				</form>
 						<div class="form-group pb-2 px-3 main">
 							<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
 							<div class="form-check-inline">
 								<div class=" custom-checkbox">
-									<input class="" value="Mon" name="csl_workoutday"
-										id="workday_mon" type="checkbox"> <label class=""
-										for="workday_mon">월</label>
+									<input name="workoutday"
+										id="workday_mon" type="checkbox">
+									<label class="" for="workday_mon">월</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input class="" value="Tue" name="csl_workoutday"
-										id="workday_tue" type="checkbox"> <label class=""
-										for="workday_tue">화</label>
+									<input name="workoutday"
+										id="workday_tue" type="checkbox">
+									<label class="" for="workday_tue">화</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input class="" value="Wed" name="csl_workoutday"
-										id="workday_wed" type="checkbox"> <label class=""
-										for="workday_wed">수</label>
+									<input name="workoutday"
+										id="workday_wed" type="checkbox">
+									<label class="" for="workday_wed">수</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input class="" value="Thu" name="csl_workoutday"
-										id="workday_thu" type="checkbox"> <label class=""
-										for="workday_thu">목</label>
+									<input name="workoutday"
+										id="workday_thu" type="checkbox">
+									<label class="" for="workday_thu">목</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input class="" value="Fri" name="csl_workoutday"
-										id="workday_fri" type="checkbox"> <label class=""
-										for="workday_fri">금</label>
+									<input name="workoutday"
+										id="workday_fri" type="checkbox">
+									<label class="" for="workday_fri">금</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input class="" value="Sat" name="csl_workoutday"
-										id="workday_sat" type="checkbox"> <label class=""
-										for="workday_sat">토</label>
+									<input name="workoutday"
+										id="workday_sat" type="checkbox">
+									<label class="" for="workday_sat">토</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input class="" value="Sun" name="csl_workoutday"
-										id="workday_sun" type="checkbox"> <label class=""
-										for="workday_sun">일</label>
+									<input name="workoutday"
+										id="workday_sun" type="checkbox">
+									<label class="" for="workday_sun">일</label>
 								</div>
 							</div>
 						</div>
@@ -578,7 +593,7 @@ function openLoginModal(){
 								class="btn btn-primary waves-effect waves-light">상담 신청
 							</button>
 						</div>
-					</form>
+					
 				</div>
 			</div>
 		</div>
