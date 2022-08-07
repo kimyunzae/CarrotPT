@@ -2,6 +2,8 @@ package com.first.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,6 @@ import com.first.biz.ReviewBiz;
 import com.first.biz.TrainerBiz;
 import com.first.biz.TrainerSort;
 import com.first.biz.WorkdayBiz;
-import com.first.vo.CslListVO;
 import com.first.vo.CslVO;
 import com.first.vo.MajorVO;
 import com.first.vo.ReviewVO;
@@ -43,7 +44,7 @@ public class FTController {
 	CslBiz cslbiz;
 	
 	@Autowired
-	CslListBiz cslLbiz;
+	CslListBiz cslListbiz;
 		
 	@Value("6")
 	private int amount;
@@ -138,12 +139,13 @@ public class FTController {
 	
 	
 	@RequestMapping("/detail")
-	public String detail(Model m, String id) {
+	public String detail(Model m, String id, HttpSession session) {
 		try {
 			TrainerVO obj = biz.get(id);
 			List<ReviewVO> review = rvbiz.getbytid(id);
 			WorkdayVO workday = wbiz.getbytid(id);
 			m.addAttribute("dtrainer", obj);
+			session.setAttribute("dtrainer", obj);
 			m.addAttribute("workday", workday);
 			m.addAttribute("review", review);
 		} catch (Exception e) {
@@ -178,20 +180,31 @@ public class FTController {
 		return "index";
 	}
 	
-	
-	// 일반회원 가입
 	@RequestMapping("cslListaddimpl")
-	public String cslListaddimpl(Model m, CslListVO cslList, CslVO csl) {
+	public String cslListaddimpl(Model m, CslVO csl) {
 		try {
-			cslLbiz.register(cslList);
+			
 			cslbiz.register(csl);
-			System.out.println("cslList: " +  cslLbiz);
+			
 			System.out.println("csl: " +  cslbiz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "redirect:/";
 	}
+	
+//	@RequestMapping("cslListaddimpl")
+//	public String cslListaddimpl(Model m, CslListVO cslList, CslVO csl) {
+//		try {
+//			cslLbiz.register(cslList);
+//			cslbiz.register(csl);
+//			System.out.println("cslList: " +  cslLbiz);
+//			System.out.println("csl: " +  cslbiz);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return "redirect:/";
+//	}
 	
 
 }

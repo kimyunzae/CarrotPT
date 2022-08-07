@@ -1,32 +1,29 @@
 package com.first.CslTest;
 
-import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.first.biz.CslBiz;
-import com.first.frame.StringToDateConverter;
+import com.first.biz.ReportBiz;
+import com.first.vo.ReportVO;
 import com.first.vo.CslVO;
 
-
 @SpringBootTest
-class CslInsertTest {
+class CslSelectListByIdTest {
 
 	@Autowired
 	CslBiz biz;
 	
-	@Autowired
-	StringToDateConverter convert;
-	
 	@Test
 	void contextloads() {
-		Date d = convert.convert("2022-09-13");
-		CslVO obj = new CslVO("id07", "tid35", "수, 목", d, "12:00", "20대", "여성", "재활", "일주일에 2-3번");
 		try {
-			biz.register(obj);
-			System.out.println("Inserted: " + obj);
+			List<CslVO> list = biz.getlistbyid("tid01");
+			for (CslVO obj : list) {
+				System.out.println(obj);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

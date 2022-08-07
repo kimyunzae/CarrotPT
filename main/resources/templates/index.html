@@ -227,13 +227,35 @@
     padding-right: 0px !important;
 }
 
+#a_logout:hover{
+	cursor:pointer;
+}
+
 
 </style>
 
 
-<script>
+<script th:inline="javascript">
 
 /* ChatBot */
+
+/*
+	window.onbeforeunload = function(){
+		var trainer = [[${dtrainer}]];
+		if(trainer != null){
+			localStorage.setItem("dtrainer", trainer);
+		}
+		
+		
+	};
+
+	window.onload = function(){
+		if(localStorage.getItem("dtrainer") != null){
+			var dtrainer = localStorage.getItem("dtrainer");
+		}
+	}
+	*/
+	
 	function connect(){
 		var socket = new SockJS('/ws');
 		stompClient = Stomp.over(socket);
@@ -285,6 +307,19 @@
 		$('#ta_chatquestion').val('');
 		
 	}
+	
+	function logout(){
+		$.ajax({
+			url:'/logout',
+			success:function(){
+				location.reload();
+			}
+		});
+	}
+	
+	
+	
+
  
 	$(function() {
 		// Ajax로 로그인 처리 - 실패
@@ -353,11 +388,25 @@
 		});
 
 		$('#login_bt').click(function() {
-			$('.loginform').attr({
-				'method' : 'post',
-				'action' : '/loginimpl'
+			
+			var id = $('.loginform input[name=id]').val();
+			var pwd = $('.loginform input[name=pwd]').val();
+			
+			$.ajax({
+				method:'post',
+				url:'/loginimpl',
+				data:{
+					'id':id,
+					'pwd':pwd
+				},
+				success:function(result){
+					if(result == "1"){
+						location.reload();
+					}else{
+						alert('fail');
+					}
+				}
 			});
-			$('.loginform').submit();
 
 		});
 		
@@ -407,12 +456,19 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="/"
-						class="nav-link index-nav-link"><span>Home</span></a></li>
-					<li class="nav-item"><a href="/trainers/" class="nav-link"><span>트레이너
-								찾기</span></a></li>
-					<li class="nav-item"><a href="/map" class="nav-link"><span>지도로
-								찾기</span></a></li>
+					<li class="nav-item">
+						<a href="/" class="nav-link index-nav-link"><span>Home</span></a>
+					</li>
+					<li class="nav-item">
+						<a href="/trainers/" class="nav-link">
+							<span>트레이너 찾기</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/map" class="nav-link">
+							<span>지도로 찾기</span>
+						</a>
+					</li>
 
 					<li th:unless="${session.logincust == null}" class="nav-item">
 					<!--  
@@ -424,14 +480,17 @@
 								class="fab fa-maxcdn mr-1"></i>매칭</span></a></li>
 
 
-					<li th:if="${session.logincust == null}" class="nav-item"><a
-						class="nav-link " href="#" data-toggle="modal"
-						data-target="#loginModal"><span>로그인</span></a></li>
+					<li th:if="${session.logincust == null}" class="nav-item">
+						<a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">
+							<span>로그인</span>
+						</a>
+					</li>
 
 
 					<li th:unless="${session.logincust == null}"
-						class="nav-item dropdown"><a class="nav-link dropdown-toggle"
-						href="#" id="navbarDropdown" role="button"
+						class="nav-item dropdown">
+						
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"
 						th:text="${session.logincust.name} + ' 님'"></a>
 
@@ -440,18 +499,19 @@
 							<!-- <a th:if="${session.logincust == null}" class="dropdown-item" href="/login">로그인</a>
 					<a th:if="${session.logincust == null}" class="dropdown-item" href="/join">회원가입</a> -->
 
-							<a th:if="${session.logincust != null}" class="dropdown-item"
-								href="/logout">로그아웃</a> <a
-								th:if="${session.logincust != null} and ${session.logincust.level == '일반회원'}"
+							<a th:if="${session.logincust != null}" id="a_logout" onclick="logout()" class="dropdown-item">로그아웃</a>
+							
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '일반회원'}"
 								class="dropdown-item"
-								th:href="@{/mypage(id=${session.logincust.id})}">마이페이지</a> <a
-								th:if="${session.logincust != null} and ${session.logincust.level == '트레이너'}"
+								th:href="@{/mypage(id=${session.logincust.id})}">마이페이지</a>
+								
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '트레이너'}"
 								class="dropdown-item" href="/trmypage">마이페이지</a>
 							<!--  th:href="@{/trmypage(id=${session.logincust.id})}" -->
-							<a
-								th:if="${session.logincust != null} and ${session.logincust.level == '관리자'}"
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '관리자'}"
 								class="dropdown-item" th:href="@{/admin}">관리자 페이지</a>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -497,8 +557,8 @@
 						</form>
 
 						<div class="extra">
-							<a href="/findidpwd" class="mr-3"><u>아이디/비밀번호 찾기</u></a> <a
-								href="/join" class="ml-3"><u>회원 가입</u></a>
+							<a href="/findidpwd" class="mr-3"><u>아이디/비밀번호 찾기</u></a>
+							<a href="/join" class="ml-3"><u>회원 가입</u></a>
 						</div>
 
 
@@ -509,9 +569,8 @@
 										SIGN IN WITH GOOGLE <img
 											src="https://img.icons8.com/color/48/000000/google-logo.png" />
 									</button> -->
-									<a href="javascript:kakaoLogin();"> <input type="image"
-										src="/images/kakao_login.png"
-										style="height: 46px; widows: 10px;">
+									<a href="javascript:kakaoLogin();">
+										<input type="image" src="/images/kakao_login.png" style="height: 46px; widows: 10px;">
 									</a>
 								</div>
 							</div>
@@ -521,15 +580,13 @@
 										SIGN IN WITH PODIO <img
 											src="https://img.icons8.com/color/48/000000/podio.png" />
 									</button> -->
-									<a href=""> <input type="image" 
-										src="/images/naver_login.png"
-										style="height: 50px; widows: 8px;">										
+									<a href="">
+										<input type="image" src="/images/naver_login.png" style="height: 50px; widows: 8px;">										
 									</a>
 								</div>
 							</div>
 						</div>
-						<p class="extra new mt-3">Dangguen Personal Trainers Matching
-							Platform</p>
+						<p class="extra new mt-3">Dangguen Personal Trainers Matching Platform</p>
 					</div>
 				</div>
 			</div>
@@ -553,8 +610,8 @@
 			<div class="row">
 				<div class="col-md-4 col-sm-12">
 					<h5 class="text-light">당근PT</h5>
-					<a href=""><i class="fa-brands fa-instagram"></i></a> <a href=""><i
-						class="fa-brands fa-youtube ml-2"></i></a>
+					<a href=""><i class="fa-brands fa-instagram"></i></a>
+					<a href=""><i class="fa-brands fa-youtube ml-2"></i></a>
 					<p>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;
@@ -602,13 +659,13 @@
 			<section class="chatbox-popup">
 				  <header class="chatbox-popup__header">
 					    <aside style="flex:3">
-					     <i class="fa-regular fa-comment-dots"></i>
+					     	<i class="fa-regular fa-comment-dots"></i>
 					    </aside>
 					    <aside style="flex:8">
-					      <h1 id="h1_chatbotname">당근PT 챗봇</h1>
+					     	<h1 id="h1_chatbotname">당근PT 챗봇</h1>
 					    </aside>
 					    <aside style="flex:1">
-					      <button id="btn_exit" class="chatbox-close-x toclose"><i class="fa-solid fa-x"></i></button>
+					     	<button id="btn_exit" class="chatbox-close-x toclose"><i class="fa-solid fa-x"></i></button>
 					    </aside>
 				  </header>
 				  
@@ -620,10 +677,10 @@
 				  
 				  <footer class="chatbox-popup__footer">
 					    <aside style="flex:13">
-					      <textarea type="text" id="ta_chatquestion" placeholder="메시지를 입력하세요" autofocus></textarea>
+					     	<textarea type="text" id="ta_chatquestion" placeholder="메시지를 입력하세요" autofocus></textarea>
 					    </aside>
 					    <aside style="flex:1;color:#888;text-align:center;">
-					      <i class="fa fa-paper-plane" id="btn_sendmessage" aria-hidden="true"></i>
+					     	<i class="fa fa-paper-plane" id="btn_sendmessage" aria-hidden="true"></i>
 					    </aside>
 				  </footer>
 			</section>

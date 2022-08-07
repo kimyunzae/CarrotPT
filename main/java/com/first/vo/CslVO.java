@@ -23,16 +23,27 @@ public class CslVO{
 	private String csl_read;
 	private String csl_progress;
 	private Date csl_regdate;
+	private String age;
+	private String gender;
+	private String purpose;
+	private String frequency;
+	
+	private String uname;
+	private String tname;
 	
 	// for INSERT
-	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time, Date csl_regdate) {
+	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time, String age,
+			String gender, String purpose, String frequency) {
 		super();
 		this.uid = uid;
 		this.tid = tid;
 		this.csl_workoutday = csl_workoutday;
 		this.csl_date = csl_date;
 		this.csl_time = csl_time;
-		this.csl_regdate = csl_regdate;
+		this.age = age;
+		this.gender = gender;
+		this.purpose = purpose;
+		this.frequency = frequency;
 	}
 	
 	// for UPDATE: 상담 희망 날짜, 시간 수정
@@ -49,6 +60,8 @@ public class CslVO{
 		this.id = id;
 		this.csl_read = csl_read;
 	}
+
+
 
 
 
