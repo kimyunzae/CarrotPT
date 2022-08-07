@@ -227,6 +227,10 @@
     padding-right: 0px !important;
 }
 
+#a_logout:hover{
+	cursor:pointer;
+}
+
 
 </style>
 
@@ -256,7 +260,9 @@
 		
 		if(question.trim() == ''){
 			alert('질문을 입력하세요');
+			$('#ta_chatquestion').focus();
 			return;
+			
 			}
 		
 		$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
@@ -283,6 +289,17 @@
 		$('#ta_chatquestion').val('');
 		
 	}
+	
+	function logout(){
+		$.ajax({
+			url:'/logout',
+			success:function(){
+				location.reload();
+			}
+		});
+	}
+	
+
  
 	$(function() {
 		// Ajax로 로그인 처리 - 실패
@@ -351,11 +368,25 @@
 		});
 
 		$('#login_bt').click(function() {
-			$('.loginform').attr({
-				'method' : 'post',
-				'action' : '/loginimpl'
+			
+			var id = $('.loginform input[name=id]').val();
+			var pwd = $('.loginform input[name=pwd]').val();
+			
+			$.ajax({
+				method:'post',
+				url:'/loginimpl',
+				data:{
+					'id':id,
+					'pwd':pwd
+				},
+				success:function(result){
+					if(result == "1"){
+						location.reload();
+					}else{
+						alert('fail');
+					}
+				}
 			});
-			$('.loginform').submit();
 
 		});
 		
@@ -365,6 +396,7 @@
 		  $('#btn_startchat').click(function(){
 			  chatbox(".chatbox-popup, .chatbox-close").fadeIn();
 			  connect();
+			  $('#ta_chatquestion').focus();
 		  });
 
 		  $('.toclose').click(function(){
@@ -404,28 +436,41 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="/"
-						class="nav-link index-nav-link"><span>Home</span></a></li>
-					<li class="nav-item"><a href="/trainers/" class="nav-link"><span>트레이너
-								찾기</span></a></li>
-					<li class="nav-item"><a href="/map" class="nav-link"><span>지도로
-								찾기</span></a></li>
+					<li class="nav-item">
+						<a href="/" class="nav-link index-nav-link"><span>Home</span></a>
+					</li>
+					<li class="nav-item">
+						<a href="/trainers/" class="nav-link">
+							<span>트레이너 찾기</span>
+						</a>
+					</li>
+					<li class="nav-item">
+					<a href="/map" class="nav-link">
+						<span>지도로 찾기</span>
+					</a>
+					</li>
 
-					<li class="nav-item"><span
-						class="badge badge-pill badge-warning"
-						style="float: right; margin-bottom: -5px; margin-right: 0px; font-size: 10px">123</span>
+					<li th:unless="${session.logincust == null}" class="nav-item">
+					<!--  
+						<span class="badge badge-pill badge-warning"
+						style="float: right; margin-bottom: -5px; margin-right: 0px; font-size: 10px">123
+						</span>
+						-->
 						<a class="nav-link" href="/matching"><span><i
 								class="fab fa-maxcdn mr-1"></i>매칭</span></a></li>
 
 
-					<li th:if="${session.logincust == null}" class="nav-item"><a
-						class="nav-link " href="#" data-toggle="modal"
-						data-target="#loginModal"><span>로그인</span></a></li>
+					<li th:if="${session.logincust == null}" class="nav-item">
+						<a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">
+							<span>로그인</span>
+						</a>
+					</li>
 
 
 					<li th:unless="${session.logincust == null}"
-						class="nav-item dropdown"><a class="nav-link dropdown-toggle"
-						href="#" id="navbarDropdown" role="button"
+						class="nav-item dropdown">
+						
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"
 						th:text="${session.logincust.name} + ' 님'"></a>
 
@@ -434,18 +479,19 @@
 							<!-- <a th:if="${session.logincust == null}" class="dropdown-item" href="/login">로그인</a>
 					<a th:if="${session.logincust == null}" class="dropdown-item" href="/join">회원가입</a> -->
 
-							<a th:if="${session.logincust != null}" class="dropdown-item"
-								href="/logout">로그아웃</a> <a
-								th:if="${session.logincust != null} and ${session.logincust.level == '일반회원'}"
+							<a th:if="${session.logincust != null}" id="a_logout" onclick="logout()" class="dropdown-item">로그아웃</a>
+							
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '일반회원'}"
 								class="dropdown-item"
-								th:href="@{/mypage(id=${session.logincust.id})}">마이페이지</a> <a
-								th:if="${session.logincust != null} and ${session.logincust.level == '트레이너'}"
+								th:href="@{/mypage(id=${session.logincust.id})}">마이페이지</a>
+								
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '트레이너'}"
 								class="dropdown-item" href="/trmypage">마이페이지</a>
 							<!--  th:href="@{/trmypage(id=${session.logincust.id})}" -->
-							<a
-								th:if="${session.logincust != null} and ${session.logincust.level == '관리자'}"
+							<a th:if="${session.logincust != null} and ${session.logincust.level == '관리자'}"
 								class="dropdown-item" th:href="@{/admin}">관리자 페이지</a>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>

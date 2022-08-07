@@ -91,6 +91,10 @@ body.modal-open {
 </style>
 
 <script>
+
+function openLoginModal(){
+	$('#loginModal').modal('show');
+}
 	$(document).ready(
 			function() {
 				function alignModal() {
@@ -108,15 +112,7 @@ body.modal-open {
 					$(".modal:visible").each(alignModal);
 				});
 
-				$('#csl_modal_btn_null').click(function() {
-					alert('로그인 후 이용 해주세요');
-					/* window.location.href = "/" */
-				});
 
-				$('#review_btn_null').click(function() {
-					alert('로그인 후 이용 해주세요');
-					/* window.location.href = "/" */
-				});
 
 				/* 	function copyValue() {
 						  let allOptions = Array.prototype.slice.call(document.getElementsByName('opt'));
@@ -262,8 +258,9 @@ body.modal-open {
 
 						<p class="mt-5">
 							<a type="button" th:if="${session.logincust == null}"
-								class="btn btn-primary" id="csl_modal_btn_null">상담 예약하기</a> <a
-								href="#" th:if="${session.logincust != null}" type="button"
+								class="btn btn-primary" id="csl_modal_btn_null" data-toggle="modal"
+						data-target="#loginModal">상담 예약하기</a>
+							<a href="#" th:if="${session.logincust != null}" type="button"
 								class="btn btn-primary" data-toggle="modal"
 								data-target="#bookModal">상담 예약하기</a>
 						</p>
@@ -383,9 +380,10 @@ body.modal-open {
 						for="1">☆</label>
 				</div>
 				<div class="form-group d-flex justify-content-end">
-					<input th:if="${session.logincust == null}" id="review_btn_null"
-						value="리뷰작성" class="btn py-3 px-4 btn-primary"> <input
-						th:if="${session.logincust != null}" value="리뷰작성"
+					<input type="button" th:if="${session.logincust == null}" id="review_btn_null"
+						value="리뷰작성" class="btn py-3 px-4 btn-primary" data-toggle="modal"
+						data-target="#loginModal">
+					<input type="button" th:if="${session.logincust != null}" value="리뷰작성"
 						class="btn py-3 px-4 btn-primary">
 				</div>
 

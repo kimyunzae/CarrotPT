@@ -190,4 +190,10 @@
 	float:left;
 	max-width:160px;
 	text-align:left;
+	margin-right:110px;
+}
+
+#btn_sendmessage:hover{
+	color:#769BCD;
+	cursor:pointer;
 }

@@ -5,8 +5,21 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.first.mapper.CslMapper">
 
 		<select id="select" parameterType="int" resultType="cslVO">
-			SELECT * FROM
-			csl WHERE id=#{id}
+			SELECT * FROM csl WHERE id=#{id}
+		</select>
+		<select id="selectbyuid" parameterType="String" resultType="cslVO">
+			SELECT c.id, c.uid, u.name AS uname, c.tid, t.name AS tname, csl_workoutday, csl_date, csl_time, csl_read, csl_progress, csl_regdate AS csl_regdate FROM csl c
+			INNER JOIN trainee u ON c.uid = u.id
+			INNER JOIN trainer t ON c.tid = t.id
+			WHERE uid=#{uid}
+			ORDER BY c.id DESC
+		</select>
+		<select id="selectbytid" parameterType="String" resultType="cslVO">
+			SELECT c.id, c.uid, u.name AS uname, c.tid, t.name AS tname, csl_workoutday, csl_date, csl_time, csl_read, csl_progress, csl_regdate AS csl_regdate FROM csl c
+			INNER JOIN trainee u ON c.uid = u.id
+			INNER JOIN trainer t ON c.tid = t.id
+			WHERE tid=#{tid}
+			ORDER BY c.id DESC
 		</select>
 		<select id="selectall" resultType="cslVO">
 			SELECT * FROM csl

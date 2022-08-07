@@ -16,7 +16,7 @@ class TrainerSelectTest {
 	@Test
 	void contextLoads() {
 		try {
-			TrainerVO obj = biz.get("ewq");
+			TrainerVO obj = biz.get("tid01");
 			System.out.println(obj);
 
 		} catch (Exception e) {

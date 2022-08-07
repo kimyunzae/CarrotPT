@@ -17,4 +17,7 @@ public interface CslMapper {
 	public void updateprogress(CslVO obj) throws Exception;	
 	public CslVO select(int id) throws Exception;
 	public List<CslVO> selectall() throws Exception;
+	
+	public List<CslVO> selectbyuid(String uid) throws Exception;
+	public List<CslVO> selectbytid(String tid) throws Exception;
 }
