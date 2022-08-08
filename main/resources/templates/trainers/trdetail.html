@@ -267,10 +267,10 @@ $(function(){
 				<div class="col-md-5 col-sm-12 ftco-animate">
 					<div class="text py-5">
 						<h2 class="trainer_name" th:text="${dtrainer?.name}+' 트레이너'"></h2>
-						<span class="subheading" th:text="'종목: ' +${dtrainer?.major}"></span>
+						<h5 class="subheading" th:text="'종목: ' +${dtrainer?.major}"></h5>
 
 						<p th:text="${dtrainer?.intro}"></p>
-						<p th:text="${dtrainer?.career}"></p>
+						<p th:text="'경력사항: ' + ${dtrainer?.career}"></p>
 
 						<!-- 	<p th:text="'휴대폰: '+${dtrainer.phone}"></p> -->
 
@@ -400,6 +400,13 @@ $(function(){
 					<input type="radio" name="rating" value="1" id="1">
 					<label for="1">☆</label>
 				</div>
+				<a type="button" th:if="${session.logincust == null}" href=""
+					class="" id="csl_modal_btn_null" data-toggle="modal"
+					data-target="#loginModal">트레이너 신고</a>
+				<a href="" th:if="${session.logincust != null}" type="button"
+					class="" data-toggle="modal" 
+					data-target="#reportModal">트레이너 신고</a>
+								
 				<div class="form-group d-flex justify-content-end">
 					<input type="button" th:if="${session.logincust == null}" id="review_btn_null"
 						value="리뷰작성" class="btn py-3 px-4 btn-primary" data-toggle="modal"
@@ -414,7 +421,6 @@ $(function(){
 
 
 	<!-- Modal -->
-
 	<div class="modal fade" id="bookModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLongTitleSC" aria-hidden="true"
 		style="display: none;">
@@ -591,6 +597,89 @@ $(function(){
 								data-dismiss="modal">취소</button>
 							<button id="csl_submit_btn"
 								class="btn btn-primary waves-effect waves-light">상담 신청
+							</button>
+						</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal End -->
+	
+	<!-- Modal -->
+	<div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLongTitleSC" aria-hidden="true"
+		style="display: none;">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitleSC">트레이너 신고하기</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="report_form">
+					
+						<input type="hidden" id="modal_id_input" name="uid" th:if="${session.logincust != null}" th:value="${session.logincust.id}">
+						<input type="hidden" name="tid" th:value="${dtrainer?.id}">
+						
+
+						<div class="form-group pb-2 px-3 main">
+							<h5>신고 사유를 선택해주세요.</h5>
+							<div class="form-check-inline">
+								<div class=" custom-checkbox">
+									<input name="workoutday"
+										id="workday_mon" type="checkbox">
+									<label class="" for="workday_mon">폭행</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input name="workoutday"
+										id="workday_tue" type="checkbox">
+									<label class="" for="workday_tue">욕설</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input name="workoutday"
+										id="workday_wed" type="checkbox">
+									<label class="" for="workday_wed">불친절</label>
+								</div>
+
+								<div class="custom-control custom-checkbox">
+									<input name="workoutday"
+										id="workday_thu" type="checkbox">
+									<label class="" for="workday_thu">사기</label>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input name="workoutday"
+										id="workday_thu" type="checkbox">
+									<label class="" for="workday_thu">기타</label>
+								</div>
+
+							</div>
+						</div>
+						
+						<div class="form-group pb-2 px-3">
+							<h5>신고 목적을 자세히 설명해주세요.</h5>
+								<textarea class="form-control" id="text" name="intro" 
+								 maxlength="500" placeholder="" rows="4"></textarea>
+						</div>
+						
+						<div class="form-group pb-2 px-3">
+							<input type="file" id="rp_imgname"	name="rp1">
+						</div>
+				</form>
+						
+
+
+						<div class="modal-footer">
+							<button type="button"
+								class="btn btn-secondary waves-effect waves-light"
+								data-dismiss="modal">취소</button>
+							<button id="report_submit_btn"
+								class="btn btn-primary waves-effect waves-light">신고하기
 							</button>
 						</div>
 					
