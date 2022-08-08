@@ -24602,9 +24602,6 @@ hr.horizontal.gray-light {
   border-bottom-color: #e9ecef;
 }
 
-.table> :not(:first-child) {
-  border-top: 1px solid currentColor;
-}
 
 .timeline {
   position: relative;
