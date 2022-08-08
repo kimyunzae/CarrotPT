@@ -131,19 +131,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		<choose>
 			<when test="profile1 == null or profile1.equals('')"></when>
 			<otherwise>
-				,profil1=#{profile1}
+				,profile1=#{profile1}
 			</otherwise>
 		</choose>
 		<choose>
 			<when test="profile2 == null or profile2.equals('')"></when>
 			<otherwise>
-				,profil2=#{profile2}
+				,profile2=#{profile2}
 			</otherwise>
 		</choose>
 		<choose>
 			<when test="profile3 == null or profile3.equals('')"></when>
 			<otherwise>
-				,profil3=#{profile3}
+				,profile3=#{profile3}
 			</otherwise>
 		</choose>
 		

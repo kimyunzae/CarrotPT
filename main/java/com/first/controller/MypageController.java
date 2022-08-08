@@ -178,14 +178,18 @@ public class MypageController {
 
 	// 트레이너 계정정보 업데이트
 	@RequestMapping("/trpassword_update")
-	public String trpassword_update(Model m, TrainerVO vo) {
+	public String trpassword_update(Model m, TrainerVO vo, HttpSession session) {
 		try {
 			trainerbiz.modifyPassword(vo);
 			System.out.println("비밀번호 변경 성공" + vo);
+			if (session != null) {
+				session.invalidate();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("비밀번호 변경 실패");
 		}
-		return "index";
+		return "redirect:/";
 	}
 
 	// 트레이너 마이페이지: 이용내역
@@ -249,7 +253,7 @@ public class MypageController {
 			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/techangepwd");
 			m.addAttribute("trainee", trainee);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -258,14 +262,17 @@ public class MypageController {
 
 	// 트레이니 계정정보 업데이트 :password
 	@RequestMapping("/tepassword_update")
-	public String tepassword_update(Model m, TraineeVO vo) {
+	public String tepassword_update(Model m, TraineeVO vo, HttpSession session) {
 		try {
 			traineebiz.modifypassword(vo);
 			System.out.println("비밀번호 변경 성공" + vo);
+			if (session != null) {
+				session.invalidate();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "index";
+		return "redirect:/";
 	}
 	
 	// 트레이니 마이페이지: 이용내역
