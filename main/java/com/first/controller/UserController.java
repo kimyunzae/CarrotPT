@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,7 +40,7 @@ public class UserController {
 //	}
 
 	@ResponseBody
-	@RequestMapping("/loginimpl")
+	@PostMapping(value = "/loginimpl")
 	public String loginimpl(Model m, String id, String pwd, HttpSession session) {
 		String result = "";
 		
@@ -166,6 +168,9 @@ public class UserController {
 		return "index";
 	}
 	
+
+	
+
 //	@RequestMapping("join/trianeejoin")
 //	public String traineejoin(Model m) {
 //		m.addAttribute("center", "user/traineejoinselect");

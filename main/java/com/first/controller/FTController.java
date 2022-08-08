@@ -139,13 +139,13 @@ public class FTController {
 	
 	
 	@RequestMapping("/detail")
-	public String detail(Model m, String id, HttpSession session) {
+	public String detail(Model m, String id) {
 		try {
 			TrainerVO obj = biz.get(id);
 			List<ReviewVO> review = rvbiz.getbytid(id);
 			WorkdayVO workday = wbiz.getbytid(id);
 			m.addAttribute("dtrainer", obj);
-			session.setAttribute("dtrainer", obj);
+//			session.setAttribute("dtrainer", obj);
 			m.addAttribute("workday", workday);
 			m.addAttribute("review", review);
 		} catch (Exception e) {

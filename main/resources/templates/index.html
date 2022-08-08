@@ -308,6 +308,27 @@
 		
 	}
 	
+	function goLogin(){
+		var id = $('.loginform input[name=id]').val();
+		var pwd = $('.loginform input[name=pwd]').val();
+		
+		$.ajax({
+			method:'post',
+			url:'/loginimpl',
+			data:{
+				'id':id,
+				'pwd':pwd
+			},
+			success:function(loginResult){
+				if(loginResult == "1"){
+					location.reload();
+				}else{
+					alert('fail');
+				}
+			}
+		});
+	}
+	
 	function logout(){
 		$.ajax({
 			url:'/logout',
@@ -360,6 +381,7 @@
 
 		// ajax 이용해서 아이디 존재여부
 		$('.loginform input[name=id],[name=pwd]').keyup(function() {
+			
 			var id = $('.loginform input[name=id]').val();
 			var pwd = $('.loginform input[name=pwd]').val();
 
@@ -388,26 +410,7 @@
 		});
 
 		$('#login_bt').click(function() {
-			
-			var id = $('.loginform input[name=id]').val();
-			var pwd = $('.loginform input[name=pwd]').val();
-			
-			$.ajax({
-				method:'post',
-				url:'/loginimpl',
-				data:{
-					'id':id,
-					'pwd':pwd
-				},
-				success:function(result){
-					if(result == "1"){
-						location.reload();
-					}else{
-						alert('fail');
-					}
-				}
-			});
-
+			goLogin();
 		});
 		
 		/* ChatBot */
@@ -540,7 +543,7 @@
 					<!-- <span id="login-check-msg" class="text-dark">gd</span> -->
 
 					<div class="login-form">
-						<form class="loginform">
+						<div class="loginform">
 							<div class="login-input-group">
 								<input class="input--style-3 login-input" type="text"
 									placeholder="아이디" name="id">
@@ -552,9 +555,9 @@
 
 							<div class="p-t-10">
 								<button class="login-modal-btn btn--pill btn--signin"
-									id="login_bt">로그인</button>
+									id="login_bt" onclick="goLogin()">로그인</button>
 							</div>
-						</form>
+						</div>
 
 						<div class="extra">
 							<a href="/findidpwd" class="mr-3"><u>아이디/비밀번호 찾기</u></a>

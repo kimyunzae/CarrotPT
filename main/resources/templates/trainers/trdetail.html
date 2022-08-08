@@ -150,7 +150,6 @@ $(function(){
 					var optGender = $('input[name="optGender"]:checked').val();
 					var optPurpose = $('input[name="optPurpose"]:checked').val();
 					var optFrequency = $('input[name="optFrequency"]:checked').val();
-
 					
 					const optWorkoutdayArr = [];
 					var optCsl_workoutday = $('input[name="tworkday"]:checked');
@@ -189,9 +188,9 @@ $(function(){
 						<path
 						d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
 					</svg>
-				<span th:text="${session.dtrainer.addrshort}"></span>
+				<span th:text="${dtrainer?.addrshort}"></span>
 			</div>
-			<p th:text="${session.dtrainer.gym_name}"></p>
+			<p th:text="${dtrainer?.gym_name}"></p>
 		</div>
 	</div>
 </section>
@@ -211,12 +210,12 @@ $(function(){
 							<!--First slide-->
 							<div class="carousel-item active">
 								<img
-									th:if="${dtrainer.profile1 != null and dtrainer.profile1 != 'pf1.jpg'}"
-									th:src="@{'/images/CRUD/pf1/' + ${dtrainer.profile1}}"
+									th:if="${dtrainer?.profile1 != null and dtrainer?.profile1 != 'pf1.jpg'}"
+									th:src="@{'/images/CRUD/pf1/' + ${dtrainer?.profile1}}"
 									class="img-fluid"
 									style="height: 540px; width: 600px; object-fit: cover;">
 								<img
-									th:if="${dtrainer.profile1 == null or dtrainer.profile1 == 'pf1.jpg'}"
+									th:if="${dtrainer?.profile1 == null or dtrainer?.profile1 == 'pf1.jpg'}"
 									th:src="@{'/images/CRUD/pf1/team-1.jpg'}" class="img-fluid"
 									style="height: 540px; width: 600px; object-fit: cover;">
 							</div>
@@ -224,12 +223,12 @@ $(function(){
 							<!--Second slide-->
 							<div class="carousel-item">
 								<img
-									th:if="${dtrainer.profile2 != null and dtrainer.profile2 != 'pf2.jpg'}"
-									th:src="@{'/images/CRUD/pf2/' + ${dtrainer.profile2}}"
+									th:if="${dtrainer?.profile2 != null and dtrainer?.profile2 != 'pf2.jpg'}"
+									th:src="@{'/images/CRUD/pf2/' + ${dtrainer?.profile2}}"
 									class="img-fluid"
 									style="height: 540px; width: 600px; object-fit: cover;">
 								<img
-									th:if="${dtrainer.profile2 == null or dtrainer.profile2 == 'pf2.jpg'}"
+									th:if="${dtrainer?.profile2 == null or dtrainer?.profile2 == 'pf2.jpg'}"
 									th:src="@{'/images/CRUD/pf1/team-1.jpg'}" class="img-fluid"
 									style="height: 540px; width: 600px; object-fit: cover;">
 							</div>
@@ -237,12 +236,12 @@ $(function(){
 							<!--Third slide-->
 							<div class="carousel-item">
 								<img
-									th:if="${dtrainer.profile3 != null and dtrainer.profile3 != 'pf3.jpg'}"
-									th:src="@{'/images/CRUD/pf3/' + ${dtrainer.profile3}}"
+									th:if="${dtrainer?.profile3 != null and dtrainer?.profile3 != 'pf3.jpg'}"
+									th:src="@{'/images/CRUD/pf3/' + ${dtrainer?.profile3}}"
 									class="img-fluid"
 									style="height: 540px; width: 600px; object-fit: cover;">
 								<img
-									th:if="${dtrainer.profile3 == null or dtrainer.profile3 == 'pf3.jpg'}"
+									th:if="${dtrainer?.profile3 == null or dtrainer?.profile3 == 'pf3.jpg'}"
 									th:src="@{'/images/CRUD/pf1/team-1.jpg'}" class="img-fluid"
 									style="height: 540px; width: 600px; object-fit: cover;">
 							</div>
@@ -266,11 +265,11 @@ $(function(){
 				</div>
 				<div class="col-md-5 col-sm-12 ftco-animate">
 					<div class="text py-5">
-						<h2 class="trainer_name" th:text="${dtrainer.name}+' 트레이너'"></h2>
-						<span class="subheading" th:text="'종목: ' +${dtrainer.major}"></span>
+						<h2 class="trainer_name" th:text="${dtrainer?.name}+' 트레이너'"></h2>
+						<span class="subheading" th:text="'종목: ' +${dtrainer?.major}"></span>
 
-						<p th:text="${dtrainer.intro}"></p>
-						<p th:text="${dtrainer.career}"></p>
+						<p th:text="${dtrainer?.intro}"></p>
+						<p th:text="${dtrainer?.career}"></p>
 
 						<!-- 	<p th:text="'휴대폰: '+${dtrainer.phone}"></p> -->
 
@@ -308,38 +307,38 @@ $(function(){
 							<tbody>
 								<tr>
 									<th scope="row">월요일</th>
-									<td th:if="${workday.mon} != null" th:text="${workday.mon}"></td>
-									<td th:if="${workday.mon} == null">휴무</td>
+									<td th:if="${workday?.mon} != null" th:text="${workday?.mon}"></td>
+									<td th:if="${workday?.mon} == null">휴무</td>
 								</tr>
 								<tr>
 									<th scope="row">화요일</th>
-									<td th:if="${workday.tue} != null" th:text="${workday.tue}"></td>
-									<td th:if="${workday.tue} == null">휴무</td>
+									<td th:if="${workday?.tue} != null" th:text="${workday?.tue}"></td>
+									<td th:if="${workday?.tue} == null">휴무</td>
 								</tr>
 								<tr>
 									<th scope="row">수요일</th>
-									<td th:if="${workday.wed} != null" th:text="${workday.wed}"></td>
-									<td th:if="${workday.wed} == null">휴무</td>
+									<td th:if="${workday?.wed} != null" th:text="${workday?.wed}"></td>
+									<td th:if="${workday?.wed} == null">휴무</td>
 								</tr>
 								<tr>
 									<th scope="row">목요일</th>
-									<td th:if="${workday.thu} != null" th:text="${workday.thu}"></td>
-									<td th:if="${workday.thu} == null">휴무</td>
+									<td th:if="${workday?.thu} != null" th:text="${workday?.thu}"></td>
+									<td th:if="${workday?.thu} == null">휴무</td>
 								</tr>
 								<tr>
 									<th scope="row">금요일</th>
-									<td th:if="${workday.fri} != null" th:text="${workday.fri}"></td>
-									<td th:if="${workday.fri} == null">휴무</td>
+									<td th:if="${workday?.fri} != null" th:text="${workday?.fri}"></td>
+									<td th:if="${workday?.fri} == null">휴무</td>
 								</tr>
 								<tr>
 									<th scope="row">토요일</th>
-									<td th:if="${workday.sat} != null" th:text="${workday.sat}"></td>
-									<td th:if="${workday.sat} == null">휴무</td>
+									<td th:if="${workday?.sat} != null" th:text="${workday?.sat}"></td>
+									<td th:if="${workday?.sat} == null">휴무</td>
 								</tr>
 								<tr>
 									<th scope="row">일요일</th>
-									<td th:if="${workday.sun} != null" th:text="${workday.sun}"></td>
-									<td th:if="${workday.sun} == null">휴무</td>
+									<td th:if="${workday?.sun} != null" th:text="${workday?.sun}"></td>
+									<td th:if="${workday?.sun} == null">휴무</td>
 							</tbody>
 						</table>
 					</div>
@@ -431,7 +430,7 @@ $(function(){
 					<form class="csl_form">
 					
 						<input type="hidden" id="modal_id_input" name="uid" th:if="${session.logincust != null}" th:value="${session.logincust.id}">
-						<input type="hidden" name="tid" th:value="${dtrainer.id}">
+						<input type="hidden" name="tid" th:value="${dtrainer?.id}">
 						<input type="hidden" name="csl_workoutday">
 
 						<div class="mt-2  px-3">
@@ -526,6 +525,7 @@ $(function(){
 									name="frequency">
 								<label class="custom-control-label" for="optFrequency5">일주일에 4번 이상 </label>
 							</div>
+							<input type="hidden" name="frequency" id="frequency" />
 
 						</div>
 
