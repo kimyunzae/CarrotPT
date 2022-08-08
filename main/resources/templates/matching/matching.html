@@ -146,6 +146,10 @@
 			var quoteNum = Math.floor(Math.random() * (data.length + 1));
 			var quote = data[quoteNum];
 			
+			if(quote.author == null){
+				quote.author = 'Unknown';
+			}
+			
 			$('#div_quotetext').append('<p class="quote text">' + quote.text + '</p>');
 			$('#div_quotetext').append('<p class="quote quote-author">' + quote.author + '</p>');
 			
@@ -159,19 +163,13 @@
 		const weekdayArr = ['월', '화', '수', '목', '금', '토', '일'];
 		var weekdayNum = parseInt(now.day);
 		
-		var nowMinute = now.minute;
-		var nowSecond = now.second;
+		var nowHour = '0' + now.hour;
+		var nowMinute = '0' + now.minute;
+		var nowSecond = '0' + now.second;
 		
-		if(now.minute < 10){
-			nowMinute = ''.concat(0, now.minute);
-		}
-		
-		if(now.second < 10){
-			nowSecond = ''.concat(0, now.second);
-		}
 		
 		$('#span_currentdate').text(now.year + '년 ' + now.month + '월 ' + now.date + '일 (' + weekdayArr[weekdayNum] + ') '
-				+ now.hour + ':' + nowMinute + ':' + nowSecond);
+				+ nowHour.slice(-2) + ':' + nowMinute.slice(-2) + ':' + nowSecond.slice(-2));
 	}
 
 	function currentDateTime(){
