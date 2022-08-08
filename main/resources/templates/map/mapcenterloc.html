@@ -83,6 +83,11 @@
 </section>
 
 <!-- Geolocation -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="../static/kakaoscript0.js"></script>
+<script src="../static/kakaoscriptAll.js"></script> -->
+    
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c4b0ad65affd6cc37ad679d341d2eab0"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -103,7 +108,7 @@ if (navigator.geolocation) {
             lon = position.coords.longitude; // 경도
         
         var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-            message = '<div style="padding:5px;">여기에 계시는군요!</div>'; // 인포윈도우에 표시될 내용입니다
+            message = '<div style="padding:5px;">사용자위치(없앨예정)!</div>'; // 인포윈도우에 표시될 내용입니다
         
         // 마커와 인포윈도우를 표시합니다
         displayMarker(locPosition, message);
@@ -145,7 +150,59 @@ function displayMarker(locPosition, message) {
 
 /* 근처 헬스장 표시 */
 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-var positions = [
+getdatas = []
+m_infos = []
+positions = []
+
+$.ajax({
+    type: 'get',
+    url: "/data",
+    success: function (response) {
+        getdatas = response['result']
+        for (i = 0; i < getdatas.length; i++) {
+            let m_g = getdatas[i]['gymname']
+            let m_x = getdatas[i]['lat']
+            let m_y = getdatas[i]['longt']
+
+            let m_info = { 'gymname': m_g, 'lat': m_x, 'longt': m_y }
+            m_infos.push(m_info)
+        }
+
+        //  아래는 마커와 인포윈도우 여러개 표시
+        for (var i = 0; i < m_infos.length; i++) {
+            var m_i_name = m_infos[i]['gymname']
+            var m_i_x = m_infos[i]['lat']
+            var m_i_y = m_infos[i]['longt']
+            var gb_position = { content: `<div class="ifw"><h5>${m_i_name}</h5><h6>${m_i_addr}</h6><h5> ${m_i_gw}</h5>`, latlng: new kakao.maps.LatLng(m_i_y, m_i_x) }
+            positions.push(gb_position)
+        }
+
+
+    /*     for (var i = 0; i < positions.length; i++) {
+            var m_i_addr2 = m_infos[i]['매장주소']
+            var m_i_name2 = m_infos[i]['매장명']
+            var m_i_gw2 = m_infos[i]['권역']
+            var m_i_gj2 = m_infos[i]['거점']
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: positions[i].latlng,
+                clickable: true
+            })
+            var iwContent = `<div id="iw_con_info"><h5>${m_i_name2}</h5><h5>${m_i_addr2}</h5><h5>권역: ${m_i_gw2}</h5><h5>거점: ${m_i_gj2}</h5></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+            var infowindow = new kakao.maps.InfoWindow({
+                content: iwContent,
+                removable: iwRemoveable
+            });
+
+            kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+
+        } */
+    }
+})
+
+/* var positions = [
     {
         content: '<div>소울휘트니스</div>', 
         latlng: new kakao.maps.LatLng(37.6136489, 127.0347646)
@@ -181,7 +238,7 @@ var positions = [
         content: '<div>피트니스포에버 헬스/PT/기구필라테스</div>',
         latlng: new kakao.maps.LatLng(37.5259231, 126.868438)
     }
-];
+]; */
 
 for (var i = 0; i < positions.length; i ++) {
     // 마커를 생성합니다

@@ -67,6 +67,29 @@ public class AJAXController {
 		return result;
 	}
 
+	// 트레이니 마이페이지 : 비밀변호 변경
+	@RequestMapping("techeckpwdchange")
+	public String techeckpwdchange(String pwd, HttpSession session) {
+		String result = "";
+
+		try {
+			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
+	
+			if (trainee.getPwd().equals(pwd)) {
+				result = "1";
+			}
+
+			else {
+				result = "0";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(result);
+		return result;
+	}
+
 //	@RequestMapping("checkpwd")
 //	public String checkpwd(String pwd) {
 //		String result = "";
@@ -202,27 +225,5 @@ public class AJAXController {
 		return result;
 	}
 	
-	// 트레이니 마이페이지 : 비밀변호 변경
-	@RequestMapping("techeckpwdchange")
-	public String techeckpwdchange(String tedpwd, HttpSession session) {
-		String result = "";
-
-		try {
-			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
-	
-			if (trainee.getPwd().equals(tedpwd)) {
-				result = "1";
-			}
-
-			else {
-				result = "0";
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println(result);
-		return result;
-	}
 
 }
