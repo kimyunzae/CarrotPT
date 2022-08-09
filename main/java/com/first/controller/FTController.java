@@ -190,10 +190,7 @@ public class FTController {
 	@RequestMapping("cslListaddimpl")
 	public String cslListaddimpl(Model m, CslVO csl) {
 		try {
-			
 			cslbiz.register(csl);
-			
-			System.out.println("csl: " +  cslbiz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -204,7 +201,6 @@ public class FTController {
 	public String reviewaddimpl(Model m, ReviewVO rv) {
 		try {
 			rvbiz.register(rv);
-			System.out.println("review: " +  rvbiz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -231,7 +227,6 @@ public class FTController {
 		try {
 			rpbiz.register(report);
 			Util.saveFileR(report.getRp(), dir7);
-			System.out.println("report: " +  rpbiz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
