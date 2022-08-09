@@ -130,6 +130,16 @@ body.modal-open {
 
 		});
 		
+		$('#review_submit_btn').click(function() {
+			$('#review_form').attr({
+				'method' : 'post',
+				'action' : 'reviewaddimpl'
+			});
+			$('#review_form').submit();
+			alert('리뷰가 작성되었습니다');
+
+		});
+		
 		$('#report_submit_btn').click(function() {
 			const reasonArr = [];
 
@@ -140,6 +150,7 @@ body.modal-open {
 			$('input[name="rp_reason"]').val(reasonArr);
 
 			$('.report_form').attr({
+				'enctype' : 'multipart/form-data',
 				'method' : 'post',
 				'action' : 'reportaddimpl'
 			});
@@ -351,9 +362,10 @@ body.modal-open {
 		</div>
 		<!-- END comment-list -->
 
+		<!-- 리뷰 -->
 		<div class="comment-form-wrap pt-5 mb-5 col-12 text-x">
 			<h3 class="text-center">리뷰 작성하기</h3>
-			<form action="#" class="p-5 bg-light">
+			<form id="review_form" class="p-5 bg-light">
 				<div class="form-group">
 					<div class="vcard bio mb-3">
 						<img src="/images/emptypic.svg" alt="Image placeholder"
@@ -361,7 +373,7 @@ body.modal-open {
 							th:if="${session.logincust != null}"
 							th:text="${session.logincust.id}">one</span>
 					</div>
-					<textarea name="" id="message" cols="10" rows="3"
+					<textarea name="rv_text" id="message" cols="10" rows="3"
 						class="form-control"></textarea>
 				</div>
 				<div class="rating d-flex justify-content-end">
@@ -372,6 +384,7 @@ body.modal-open {
 						type="radio" name="rating" value="2" id="2"> <label
 						for="2">☆</label> <input type="radio" name="rating" value="1"
 						id="1"> <label for="1">☆</label>
+						<input type="hidden" name="rv_rate" value="3">
 				</div>
 				<a type="button" th:if="${session.logincust == null}" href=""
 					class="" id="csl_modal_btn_null" data-toggle="modal"
@@ -383,13 +396,16 @@ body.modal-open {
 					<input type="button" th:if="${session.logincust == null}"
 						id="review_btn_null" value="리뷰작성"
 						class="btn py-3 px-4 btn-primary" data-toggle="modal"
-						data-target="#loginModal"> <input type="button"
+						data-target="#loginModal"> <input id="review_submit_btn" type="button"
 						th:if="${session.logincust != null}" value="리뷰작성"
 						class="btn py-3 px-4 btn-primary">
 				</div>
-
+					<input type="hidden" name="uid" th:if="${session.logincust != null}"
+						th:value="${session.logincust.id}"> 
+					<input type="hidden" name="tid" th:value="${dtrainer?.id}">
 			</form>
 		</div>
+		<!-- 리뷰 끝 -->
 	</div>
 
 
@@ -609,35 +625,36 @@ body.modal-open {
 							<h5>신고 사유를 선택해주세요.</h5>
 							<div class="form-check-inline">
 								<div class=" custom-checkbox">
-									<input name="workoutday" id="workday_mon" type="checkbox">
-									<label class="" for="workday_mon">폭행</label>
+									<input name="reason" id="reason_violence" type="checkbox">
+									<label class="" for="reason_violence">폭행</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input name="workoutday" id="workday_tue" type="checkbox">
-									<label class="" for="workday_tue">욕설</label>
+									<input name="reason" id="reason_insult" type="checkbox">
+									<label class="" for="reason_insult">욕설</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input name="workoutday" id="workday_wed" type="checkbox">
-									<label class="" for="workday_wed">불친절</label>
+									<input name="reason" id="reason_attitude" type="checkbox">
+									<label class="" for="reason_attitude">불친절</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input name="workoutday" id="workday_thu" type="checkbox">
-									<label class="" for="workday_thu">사기</label>
+									<input name="reason" id="reason_fraud" type="checkbox">
+									<label class="" for="reason_fraud">사기</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input name="workoutday" id="workday_thu" type="checkbox">
-									<label class="" for="workday_thu">기타</label>
+									<input name="reason" id="reason_etc" type="checkbox">
+									<label class="" for="reason_etc">기타</label>
 								</div>
-
+								
+								<input type="hidden" name="rp_reason">
 							</div>
 						</div>
 
 						<div class="form-group pb-2 px-3">
 							<h5>신고 목적을 자세히 설명해주세요.</h5>
-							<textarea class="form-control" id="text" name="intro"
+							<textarea class="form-control" id="text" name="rp_detail"
 								maxlength="500" placeholder="" rows="4"></textarea>
 						</div>
 

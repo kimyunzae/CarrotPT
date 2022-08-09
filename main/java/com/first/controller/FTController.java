@@ -200,6 +200,17 @@ public class FTController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping("reviewaddimpl")
+	public String reviewaddimpl(Model m, ReviewVO rv) {
+		try {
+			rvbiz.register(rv);
+			System.out.println("review: " +  rvbiz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/";
+	}
+	
 //	@RequestMapping("cslListaddimpl")
 //	public String cslListaddimpl(Model m, CslListVO cslList, CslVO csl) {
 //		try {
