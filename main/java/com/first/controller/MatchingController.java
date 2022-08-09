@@ -8,6 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.first.biz.CslBiz;
+import com.first.vo.ChatMessageVO;
 import com.first.vo.CslVO;
 
 @Controller
@@ -44,9 +48,6 @@ public class MatchingController {
 			result = "redirect:/";
 		}else {
 			m.addAttribute("logincust", cust);
-		
-			
-			
 			result = "matching/matching";
 		}
 		return result;
@@ -77,5 +78,13 @@ public class MatchingController {
 		
 		currentArr.put(currentObj);
 		return currentArr.toString();
+	}
+	
+	@MessageMapping("/{roomId}")
+	@SendTo("/room/{roomId}")
+	public ChatMessageVO sendChat(@DestinationVariable int roomId, ChatMessageVO message) {
+		ChatMessageVO obj = new ChatMessageVO(roomId, message.getSender(), message.getMessage());
+		System.out.println(obj);
+		return obj;
 	}
 }
