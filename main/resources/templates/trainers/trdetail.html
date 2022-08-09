@@ -131,6 +131,9 @@ body.modal-open {
 		});
 		
 		$('#review_submit_btn').click(function() {
+			var star_rate = $('input[name="rating"]:checked').val();
+			$('input[name="rv_rate"]').val(star_rate);
+			
 			$('#review_form').attr({
 				'method' : 'post',
 				'action' : 'reviewaddimpl'
@@ -362,7 +365,7 @@ body.modal-open {
 		</div>
 		<!-- END comment-list -->
 
-		<!-- 리뷰 -->
+		<!-- 리뷰ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 		<div class="comment-form-wrap pt-5 mb-5 col-12 text-x">
 			<h3 class="text-center">리뷰 작성하기</h3>
 			<form id="review_form" class="p-5 bg-light">
@@ -384,7 +387,7 @@ body.modal-open {
 						type="radio" name="rating" value="2" id="2"> <label
 						for="2">☆</label> <input type="radio" name="rating" value="1"
 						id="1"> <label for="1">☆</label>
-						<input type="hidden" name="rv_rate" value="3">
+						<input type="hidden" name="rv_rate">
 				</div>
 				<a type="button" th:if="${session.logincust == null}" href=""
 					class="" id="csl_modal_btn_null" data-toggle="modal"
@@ -405,7 +408,7 @@ body.modal-open {
 					<input type="hidden" name="tid" th:value="${dtrainer?.id}">
 			</form>
 		</div>
-		<!-- 리뷰 끝 -->
+		<!-- 리뷰 끝 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	</div>
 
 
