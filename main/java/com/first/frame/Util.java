@@ -113,14 +113,14 @@ public class Util {
 
 	}
 	
-	public static void saveFileR(MultipartFile rp1, String dir7) {
+	public static void saveFileR(MultipartFile rp, String dir7) {
 
 		byte[] dataR;
 
-		String report = rp1.getOriginalFilename();
+		String report = rp.getOriginalFilename();
 
 		try {
-			dataR = rp1.getBytes();
+			dataR = rp.getBytes();
 			FileOutputStream foR = new FileOutputStream(dir7 + report);
 			foR.write(dataR);
 			foR.close();

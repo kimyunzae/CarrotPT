@@ -215,11 +215,11 @@ public class FTController {
 	
 	@RequestMapping("reportaddimpl")
 	public String reportaddimpl(Model m, ReportVO report) {
-		String rp_imgname = report.getRp1().getOriginalFilename();
+		String rp_imgname = report.getRp().getOriginalFilename();
 		report.setRp_imgname(rp_imgname);
 		try {
 			rpbiz.register(report);
-			Util.saveFileR(report.getRp1(), dir7);
+			Util.saveFileR(report.getRp(), dir7);
 			System.out.println("report: " +  rpbiz);
 		} catch (Exception e) {
 			e.printStackTrace();

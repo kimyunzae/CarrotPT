@@ -22,7 +22,7 @@ public class ReportVO {
 	private String rp_reason;
 	private String rp_detail;
 	private String rp_imgname;
-	private MultipartFile rp1;
+	private MultipartFile rp;
 	private String rp_status;
 	private Date rp_regdate;
 	
