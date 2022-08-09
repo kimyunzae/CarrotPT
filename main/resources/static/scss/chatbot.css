@@ -174,12 +174,11 @@
 }
 
 .chat_ask{
-	max-width:160px;
+	max-width:200px;
 	float:right;
 	margin-right:0;
-	margin-left:auto;
+	margin-left:100px;
 	text-align:right;
-	margin-left:80px;
 }
 
 .chat_ask .chattext{
@@ -188,9 +187,9 @@
 
 .chat_response{
 	float:left;
-	max-width:160px;
+	max-width:200px;
 	text-align:left;
-	margin-right:110px;
+	margin-right:100px;
 }
 
 #btn_sendmessage:hover{
