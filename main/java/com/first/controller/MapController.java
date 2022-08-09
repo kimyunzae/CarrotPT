@@ -15,15 +15,14 @@ public class MapController {
 	 */
 
 	/* 인덱스에서 지도로 찾기 하면 mapcenter2(임시) */
-<<<<<<< HEAD
-	@RequestMapping("/map")
-	public String mapcenterloc(Model m) {
-		m.addAttribute("center", "map/mapcenterloc");
-=======
+
+	
+
+	
 	@RequestMapping("")
 	public String mapmain(Model m) {
-		m.addAttribute("center", "map/mapcenter2");
->>>>>>> 7d53ad5f0362a64c22529595f3dac4359888f2f7
+		m.addAttribute("center", "map/mapcenterloc");
+
 		return "index";
 	}
 	
@@ -33,16 +32,16 @@ public class MapController {
 		m.addAttribute("center", "map/mapcenter");
 		return "index";
 	}
-<<<<<<< HEAD
+
 	/* nav bar에서 maphttps://search.naver.com/search.naver?where=nexearch&sm=top_brd&fbm=0&ie=utf8&query=%EC%84%B8%EA%B3%84+%EA%B3%A0%EC%96%91%EC%9D%B4%EC%9D%98+%EB%82%A0center2 */
 	@RequestMapping("/maploc")
 	public String maploc(Model m) {
 		m.addAttribute("center", "map/mapcenterloc");
 		return "index";
 	}
-=======
 
->>>>>>> 7d53ad5f0362a64c22529595f3dac4359888f2f7
+	
+
 }
 	
 
