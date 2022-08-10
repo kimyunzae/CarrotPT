@@ -216,7 +216,7 @@ body.modal-open {
 			}
 
 			$.ajax({
-				url : "/checkreviewauthority",
+				url : "/checkauthority",
 				type : "POST",
 				data : {
 					'uid' : uid,
@@ -235,14 +235,11 @@ body.modal-open {
 					}
 
 					if (data == 0) {
-						alert("리뷰를 작성하실수 없습니다.");
+						alert("리뷰작성 권한이 없습니다.");
 						return;
 					}
 				}
 			})
-			
-			
-
 		});
 
 		$('#report_submit_btn').click(function() {
@@ -251,16 +248,35 @@ body.modal-open {
 			$('input[name="reason"]:checked').each(function() {
 				reasonArr.push($(this).val());
 			});
-
 			$('input[name="rp_reason"]').val(reasonArr);
+		
+			$.ajax({
+				url : "/checkauthority",
+				type : "POST",
+				data : {
+					'uid' : uid,
+					'tid' : tid
+				},
+				success : function(data) {
+					if (data == 1) {
+						if (confirm("신고 하시겠습니까?")) {
+							$('.report_form').attr({
+								'enctype' : 'multipart/form-data',
+								'method' : 'post',
+								'action' : 'reportaddimpl'
+							});
+							$('.report_form').submit();
+							alert('신고가 접수되었습니다');
+						}
+					}
 
-			$('.report_form').attr({
-				'enctype' : 'multipart/form-data',
-				'method' : 'post',
-				'action' : 'reportaddimpl'
-			});
-			$('.report_form').submit();
-			alert('신고가 접수되었습니다');
+					if (data == 0) {
+						alert("신고 권한이 없습니다.");
+						return;
+					}
+				}
+			})
+		
 
 		});
 	});
