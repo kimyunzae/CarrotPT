@@ -148,9 +148,48 @@
 	}
 	
 	#div_chatEach{
-		border:1px solid blue;
 		height:240px;
 		overflow-y:scroll;
+	}
+	
+	.chat_mine{
+		background-color:#e3effd;
+		max-width:300px;
+		margin-left:auto;
+		margin-right:0.5rem;
+		padding-right:0.5rem;
+		border-radius:15px;
+		text-align:right;
+	}
+	
+	.chat_notmine{
+		background-color:#f6f6f6;
+		max-width:300px;
+		margin-right:auto;
+		margin-left:0.5rem;
+		padding-left:0.5rem;
+		border-radius:15px;
+		text-align:left;
+	}
+	
+	.chat_name p{
+		font-size:0.9rem !important;
+		margin-bottom:0.5rem;
+	}
+	
+	.chat_name.mine{
+		text-align:right;
+		padding-right:0.5rem;
+	}
+	
+	.chat_name.notmine{
+		text-align:left;
+		padding-left:0.5rem;	
+	}
+	
+	.chattext{
+		color:black;
+		padding:0.5rem;
 	}
 	
 	#div_chatText{
@@ -167,7 +206,7 @@
 	}
 	
 	textarea:focus{
-		border:2px solid #769BCD;
+		border:1.6px solid #B8CDFA;
 		border-radius:5px;
 		outline:none;
 	}
@@ -250,9 +289,6 @@
 			stompClient.subscribe('/room/'+roomId, function(chatMessage){
 				showMessage(JSON.parse(chatMessage.body));
 				console.log('connected' + frame);
-				
-
-				
 			});
 			
 			var enterMessage = ' 님이 입장하셨습니다.';
@@ -263,16 +299,13 @@
 						'message':enterMessage
 					})
 			);
-			enterChat(JSON.parse(chatMessage.body));
+			//enterChat(JSON.parse(chatMessage.body));
 			
 			
 		});
 		$('#span_chatGuide').text(name + '님과의 채팅방입니다.');
 		$('#div_chatText').show();
 		chatroomId = roomId;
-			
-
-	
 	}
 	
 	function disconnectChat(){
@@ -293,20 +326,35 @@
 	}
 	
 	
-	function enterChat(chatMessage){
-		$('#div_chatEach').append(
-				'<p>'+ chatMessage.sender + chatMessage.message + '</p>'		
-		);
-	}
-	
 	function showMessage(chatMessage){
-		$('#div_chatEach').append(
-			'<p>'+'[' + chatMessage.sender + ']' + chatMessage.message + '</p>'		
-		);
+		
+		if(chatMessage.messageType == "ENTER" || chatMessage.messageType == "EXIT"){
+			$('#div_chatEach').append(
+					'<div><p class="chattext">'+'[' + chatMessage.sender + ']' + chatMessage.message + '</p></div>'		
+			);
+		}else{
+			if(chatMessage.sender == custName){
+				$('#div_chatEach').append(
+					'<div class="chat_name mine"><p>' + chatMessage.sender + '</p></div>' +
+					'<div class="chat_mine"><p class="chattext">' + chatMessage.message + '</p></div>'		
+				);
+			}else{
+				$('#div_chatEach').append(
+					'<div class="chat_name notmine"><p>' + chatMessage.sender + '</p></div>' +
+					'<div class="chat_notmine"><p class="chattext">' + chatMessage.message + '</p></div>'		
+				);
+			}
+		}
+		$("#div_chatEach").scrollTop($("#div_chatEach")[0].scrollHeight);
 	}
 	
 	function sendChat(chatroomId){
 		var message = $('textarea[name="chatMessage"]').val();
+		
+		if(message.trim() == ''){
+			$('textarea[name="chatMessage"]').focus();
+			return;
+		}
 		
 		stompClient.send("/send/" + chatroomId, {},
 				JSON.stringify({
@@ -331,6 +379,7 @@
 		
 		$('textarea[name="chatMessage"]').on('keydown',function(event){
 			if(event.keyCode === 13){
+				event.preventDefault();
 				sendChat(chatroomId);
 			}
 		});
