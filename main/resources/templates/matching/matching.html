@@ -244,22 +244,48 @@
 		
 		disconnectChat();
 		
-			var socket = new SockJS('/ws');
-			stompClient = Stomp.over(socket);
-			stompClient.connect({}, function(frame){
-				stompClient.subscribe('/room/'+roomId, function(chatMessage){
-				//	enterChat(JSON.parse(chatMessage.body));
-					showMessage(JSON.parse(chatMessage.body));
-					console.log('connected' + frame);
-				});
+		var socket = new SockJS('/ws');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function(frame){
+			stompClient.subscribe('/room/'+roomId, function(chatMessage){
+				showMessage(JSON.parse(chatMessage.body));
+				console.log('connected' + frame);
+				
+
+				
 			});
-			$('#span_chatGuide').text(name + '님과의 채팅방입니다.');
-			$('#div_chatText').show();
-			chatroomId = roomId;
+			
+			var enterMessage = ' 님이 입장하셨습니다.';
+			stompClient.send("/send/" + chatroomId, {},
+					JSON.stringify({
+						'messageType':'ENTER',
+						'sender':custName,
+						'message':enterMessage
+					})
+			);
+			enterChat(JSON.parse(chatMessage.body));
+			
+			
+		});
+		$('#span_chatGuide').text(name + '님과의 채팅방입니다.');
+		$('#div_chatText').show();
+		chatroomId = roomId;
+			
+
+	
 	}
 	
 	function disconnectChat(){
 		if(stompClient !== null){
+			
+			var exitMessage = ' 님이 퇴장하셨습니다.';
+			stompClient.send("/send/" + chatroomId, {},
+					JSON.stringify({
+						'messageType':'EXIT',
+						'sender':custName,
+						'message':exitMessage
+					})
+			);
 			stompClient.disconnect();
 		}
 		
@@ -267,17 +293,12 @@
 	}
 	
 	
-	/*
 	function enterChat(chatMessage){
-		var enterMessage = ' 님이 입장하셨습니다.';
-		stompClient.send("/send/" + chatroomId, {},
-				JSON.stringify({
-					'sender':custName,
-					'message':enterMessage
-				})
+		$('#div_chatEach').append(
+				'<p>'+ chatMessage.sender + chatMessage.message + '</p>'		
 		);
 	}
-	*/
+	
 	function showMessage(chatMessage){
 		$('#div_chatEach').append(
 			'<p>'+'[' + chatMessage.sender + ']' + chatMessage.message + '</p>'		
@@ -289,6 +310,7 @@
 		
 		stompClient.send("/send/" + chatroomId, {},
 				JSON.stringify({
+					'messageType':'TALK',
 					'sender':custName,
 					'message':message
 		}));
