@@ -195,6 +195,8 @@ body.modal-open {
 
 		});
 
+		var uid = $('input[name="uid"]').val();
+		var tid = $('input[name="tid"]').val();
 		$('#review_submit_btn').click(function() {
 			var star_rate = $('input[name="rating"]:checked').val();
 			var rv_text = $('input[name=rv_text]').val();
@@ -217,17 +219,12 @@ body.modal-open {
 				url : "/checkreviewauthority",
 				type : "POST",
 				data : {
-					'tid' : tid,
-					'uid' : uid
+					'uid' : uid,
+					'tid' : tid
 				},
 				success : function(data) {
-					if (data == 0) {
-						alert("패스워드가 틀렸습니다.");
-						return;
-					}
-
 					if (data == 1) {
-						if (confirm("변경하시겠습니까?")) {
+						if (confirm("리뷰를 작성하시겠습니까?")) {
 							$('#review_form').attr({
 								'method' : 'post',
 								'action' : 'reviewaddimpl'
@@ -235,6 +232,11 @@ body.modal-open {
 							$('#review_form').submit();
 							alert('리뷰가 작성되었습니다');
 						}
+					}
+
+					if (data == 0) {
+						alert("리뷰를 작성하실수 없습니다.");
+						return;
 					}
 				}
 			})
