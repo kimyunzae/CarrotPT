@@ -1,38 +1,22 @@
-//package com.first.frame;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Component;
-//import org.springframework.web.socket.TextMessage;
-//import org.springframework.web.socket.WebSocketSession;
-//import org.springframework.web.socket.handler.TextWebSocketHandler;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.first.biz.ChatBiz;
-//import com.first.vo.ChatMessageVO;
-//import com.first.vo.CslVO;
-//
-//import lombok.extern.slf4j.Slf4j;
-//
-//@Slf4j
-//@Component
-//public class WebSocketHandler extends TextWebSocketHandler {
-//		private final ObjectMapper objectMapper = new ObjectMapper();
-//		
-//		@Autowired
-//		ChatBiz ChatBiz;
-//
-//	    @Override
-//	    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-//	        String payload = message.getPayload();
-//	        log.info("payload {}", payload);
-//	        TextMessage textMessage = new TextMessage("Welcome!");
-//	        session.sendMessage(textMessage);
-//	        
-//	        ChatMessageVO chatMessage = objectMapper.readValue(payload, ChatMessageVO.class);
-//            CslVO room = ChatBiz.getroombyroomid(chatMessage.getRoomId());
-//            room.handleActions(session, chatMessage, ChatBiz);
-//	        
-//	        
-//	    }
-//	
-//}
+package com.first.frame;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.stomp.StompCommand;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.support.ChannelInterceptor;
+
+@Configuration
+public class WebSocketHandler implements ChannelInterceptor {
+
+    @Override
+    public Message<?> preSend(Message<?> message, MessageChannel channel) {
+        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+        if (StompCommand.SUBSCRIBE == accessor.getCommand()) {
+            System.out.println("New connection");
+        }
+
+        return message;
+    }
+}

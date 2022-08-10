@@ -14,10 +14,10 @@ import lombok.ToString;
 public class ChatMessageVO {
 	
 	public enum MessageType{
-		ENTER, TALK
+		ENTER, TALK, EXIT
 	}
 	
-	private MessageType messagetype;
+	private MessageType messageType;
 	private int roomId;
 	private String sender;
 	private String message;

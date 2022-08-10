@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.first.biz.CslBiz;
 import com.first.vo.ChatMessageVO;
@@ -83,7 +84,12 @@ public class MatchingController {
 	@MessageMapping("/{roomId}")
 	@SendTo("/room/{roomId}")
 	public ChatMessageVO sendChat(@DestinationVariable int roomId, ChatMessageVO message) {
-		ChatMessageVO obj = new ChatMessageVO(roomId, message.getSender(), message.getMessage());
+		ChatMessageVO obj = new ChatMessageVO(message.getMessageType(), roomId, message.getSender(), message.getMessage());
+		
+//		if(message.getMessageType().equals(ChatMessageVO.MessageType.ENTER)) {
+//			sessions.setAttribute(, socketSession); // HttpSession에 HashSet 저장 가능? 방별로 다른 HashSet을 만들어야 하는지?
+//		}
+		
 		System.out.println(obj);
 		return obj;
 	}
