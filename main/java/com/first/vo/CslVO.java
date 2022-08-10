@@ -1,12 +1,6 @@
 package com.first.vo;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.web.socket.WebSocketSession;
-
-import com.first.biz.ChatBiz;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +32,7 @@ public class CslVO{
 	private String tname;
 	
 	private int roomid;
+	private String matching_status;
 	
 	// for INSERT
 	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time, String age,

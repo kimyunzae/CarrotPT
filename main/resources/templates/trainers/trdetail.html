@@ -107,7 +107,6 @@ body.modal-open {
 	color: #FFD600;
 	cursor: auto
 }
-
 </style>
 
 <script th:inline=javascript>
@@ -116,12 +115,52 @@ body.modal-open {
 	}
 
 	$(function() {
-	
-	//리뷰 별점 출력 if rv_rate_ui = 5, 5 starts selected 
-	var star_rating = $('#rv_rate_ui').val(); 
-	/* 	alert(star_rating); */
-	
-	
+
+		//리뷰 별점 출력 if rv_rate_ui = 5, 5 starts selected 
+		// var star_rating_int = $('#rv_rate_int').val(); 
+		// 	alert(star_rating);
+		/* var star0 = document.querySelector('#zero');
+		var star1 = document.querySelector('#one');
+		var star2 = document.querySelector('#two');
+		var star3 = document.querySelector('#three');
+		var star4 = document.querySelector('#four');
+		var star5 = document.querySelector('#five'); */
+
+		var rating2 = $('.rating2');
+		$('#zero').hide();
+		$('#one').hide();
+		$('#two').hide();
+		$('#three').hide();
+		$('#four').hide();
+		$('#five').hide();
+
+		var rv_rate_int = $('.rating2 input[name="rv_rate_int"]').val();
+		$('.rating2 input[name="rv_rate_int"]').each(function() { //이게 안되네
+			if ($(this).val() == 0) {
+				$('#zero').show();
+				return;
+			}
+			if ($(this).val() == 1) {
+				$('#one').show();
+				return;
+			}
+			if ($(this).val() == 2) {
+				$('#two').show();
+				return;
+			}
+			if ($(this).val() == 3) {
+				$('#three').show();
+				return;
+			}
+			if ($(this).val() == 4) {
+				$('#four').show();
+				return;
+			}
+			if ($(this).val() == 5) {
+				$('#five').show();
+				return;
+			}
+		});
 
 		function alignModal() {
 			var modalDialog = $(this).find(".modal-dialog");
@@ -158,14 +197,49 @@ body.modal-open {
 
 		$('#review_submit_btn').click(function() {
 			var star_rate = $('input[name="rating"]:checked').val();
+			var rv_text = $('input[name=rv_text]').val();
+
 			$('input[name="rv_rate"]').val(star_rate);
 
-			$('#review_form').attr({
-				'method' : 'post',
-				'action' : 'reviewaddimpl'
-			});
-			$('#review_form').submit();
-			alert('리뷰가 작성되었습니다');
+			if ($('input[name="rv_rate"]').val(star_rate) == "") {
+				alert("별점을 매겨주세요");
+				$('input[name=rv_text]').focus();
+				return false
+			}
+
+			if (rv_text == "") {
+				alert("리뷰글을 작성해주세요");
+				$('input[name=rv_text]').focus();
+				return false
+			}
+
+			$.ajax({
+				url : "/checkreviewauthority",
+				type : "POST",
+				data : {
+					'tid' : tid,
+					'uid' : uid
+				},
+				success : function(data) {
+					if (data == 0) {
+						alert("패스워드가 틀렸습니다.");
+						return;
+					}
+
+					if (data == 1) {
+						if (confirm("변경하시겠습니까?")) {
+							$('#review_form').attr({
+								'method' : 'post',
+								'action' : 'reviewaddimpl'
+							});
+							$('#review_form').submit();
+							alert('리뷰가 작성되었습니다');
+						}
+					}
+				}
+			})
+			
+			
 
 		});
 
@@ -386,14 +460,14 @@ body.modal-open {
 						<p th:text="${rv.rv_text}"></p>
 						<!-- <span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span> -->
 						<div class="rating2 d-flex justify-content-end">
-							<input type="radio" value="five" id="five"><label for="five">☆</label>
-							<input type="radio" value="four" id="four"><label for="four">☆</label>
-							<input type="radio"	value="three" id="three"><label for="three">☆</label>
-							<input type="radio" value="two" id="two"><label for="two">☆</label>
-						    <input type="radio" value="one"	id="one"><label for="one">☆</label>
-							
-							
-							<input type="hidden" id="rv_rate_ui" th:value="${rv.rv_rate}" name="rv_rate">
+							<input type="radio" name="five"><label id="five">★★★★★</label>
+							<input type="radio" name="four"><label id="four">★★★★☆</label>
+							<input type="radio" name="three"><label id="three">★★★☆☆</label>
+							<input type="radio" name="two"><label id="two">★★☆☆☆</label>
+							<input type="radio" name="one"><label id="one">★☆☆☆☆</label>
+							<input type="radio" name="zero"><label id="zero">☆☆☆☆☆</label>
+
+							<input type="hidden" name="rv_rate_int" th:value="${rv.rv_rate}">
 						</div>
 					</div>
 				</li>
@@ -585,38 +659,38 @@ body.modal-open {
 						<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
 						<div class="form-check-inline">
 							<div class=" custom-checkbox">
-								<input name="workoutday" id="workday_mon" type="checkbox">
-								<label class="" for="workday_mon">월</label>
+								<input name="workoutday" id="workday_mon" type="checkbox"
+									value="월"> <label class="" for="workday_mon">월</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
-								<input name="workoutday" id="workday_tue" type="checkbox">
-								<label class="" for="workday_tue">화</label>
+								<input name="workoutday" id="workday_tue" type="checkbox"
+									value="화"> <label class="" for="workday_tue">화</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
-								<input name="workoutday" id="workday_wed" type="checkbox">
-								<label class="" for="workday_wed">수</label>
+								<input name="workoutday" id="workday_wed" type="checkbox"
+									value="수"> <label class="" for="workday_wed">수</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
-								<input name="workoutday" id="workday_thu" type="checkbox">
-								<label class="" for="workday_thu">목</label>
+								<input name="workoutday" id="workday_thu" type="checkbox"
+									value="목"> <label class="" for="workday_thu">목</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
-								<input name="workoutday" id="workday_fri" type="checkbox">
-								<label class="" for="workday_fri">금</label>
+								<input name="workoutday" id="workday_fri" type="checkbox"
+									value="금"> <label class="" for="workday_fri">금</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
-								<input name="workoutday" id="workday_sat" type="checkbox">
-								<label class="" for="workday_sat">토</label>
+								<input name="workoutday" id="workday_sat" type="checkbox"
+									value="토"> <label class="" for="workday_sat">토</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
-								<input name="workoutday" id="workday_sun" type="checkbox">
-								<label class="" for="workday_sun">일</label>
+								<input name="workoutday" id="workday_sun" type="checkbox"
+									value="일"> <label class="" for="workday_sun">일</label>
 							</div>
 						</div>
 					</div>
