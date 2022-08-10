@@ -88,6 +88,26 @@ body.modal-open {
 .rating:hover>input:checked ~label:before {
 	opacity: 0.4
 }
+
+.rating2 {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-end
+}
+
+.rating2>input {
+	display: none;
+}
+
+.rating2>label {
+	position: relative;
+	width: 1em;
+	font-size: 22px;
+	font-weight: 300;
+	color: #FFD600;
+	cursor: auto
+}
+
 </style>
 
 <script th:inline=javascript>
@@ -96,6 +116,12 @@ body.modal-open {
 	}
 
 	$(function() {
+	
+	//리뷰 별점 출력 if rv_rate_ui = 5, 5 starts selected 
+	var star_rating = $('#rv_rate_ui').val(); 
+	/* 	alert(star_rating); */
+	
+	
 
 		function alignModal() {
 			var modalDialog = $(this).find(".modal-dialog");
@@ -129,11 +155,11 @@ body.modal-open {
 			alert('매칭신청이 완료되었습니다');
 
 		});
-		
+
 		$('#review_submit_btn').click(function() {
 			var star_rate = $('input[name="rating"]:checked').val();
 			$('input[name="rv_rate"]').val(star_rate);
-			
+
 			$('#review_form').attr({
 				'method' : 'post',
 				'action' : 'reviewaddimpl'
@@ -142,7 +168,7 @@ body.modal-open {
 			alert('리뷰가 작성되었습니다');
 
 		});
-		
+
 		$('#report_submit_btn').click(function() {
 			const reasonArr = [];
 
@@ -358,7 +384,17 @@ body.modal-open {
 						<div class="meta" th:text="${rv.rv_regdate}">October 03,
 							2018 at 2:21pm</div>
 						<p th:text="${rv.rv_text}"></p>
-						<span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span>
+						<!-- <span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span> -->
+						<div class="rating2 d-flex justify-content-end">
+							<input type="radio" value="five" id="five"><label for="five">☆</label>
+							<input type="radio" value="four" id="four"><label for="four">☆</label>
+							<input type="radio"	value="three" id="three"><label for="three">☆</label>
+							<input type="radio" value="two" id="two"><label for="two">☆</label>
+						    <input type="radio" value="one"	id="one"><label for="one">☆</label>
+							
+							
+							<input type="hidden" id="rv_rate_ui" th:value="${rv.rv_rate}" name="rv_rate">
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -386,8 +422,8 @@ body.modal-open {
 						name="rating" value="3" id="3"> <label for="3">☆</label> <input
 						type="radio" name="rating" value="2" id="2"> <label
 						for="2">☆</label> <input type="radio" name="rating" value="1"
-						id="1"> <label for="1">☆</label>
-						<input type="hidden" name="rv_rate">
+						id="1"> <label for="1">☆</label> <input type="hidden"
+						name="rv_rate">
 				</div>
 				<a type="button" th:if="${session.logincust == null}" href=""
 					class="" id="csl_modal_btn_null" data-toggle="modal"
@@ -399,13 +435,13 @@ body.modal-open {
 					<input type="button" th:if="${session.logincust == null}"
 						id="review_btn_null" value="리뷰작성"
 						class="btn py-3 px-4 btn-primary" data-toggle="modal"
-						data-target="#loginModal"> <input id="review_submit_btn" type="button"
-						th:if="${session.logincust != null}" value="리뷰작성"
+						data-target="#loginModal"> <input id="review_submit_btn"
+						type="button" th:if="${session.logincust != null}" value="리뷰작성"
 						class="btn py-3 px-4 btn-primary">
 				</div>
-					<input type="hidden" name="uid" th:if="${session.logincust != null}"
-						th:value="${session.logincust.id}"> 
-					<input type="hidden" name="tid" th:value="${dtrainer?.id}">
+				<input type="hidden" name="uid" th:if="${session.logincust != null}"
+					th:value="${session.logincust.id}"> <input type="hidden"
+					name="tid" th:value="${dtrainer?.id}">
 			</form>
 		</div>
 		<!-- 리뷰 끝 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
@@ -619,8 +655,7 @@ body.modal-open {
 
 						<input type="hidden" name="uid"
 							th:if="${session.logincust != null}"
-							th:value="${session.logincust.id}"> 
-						<input type="hidden"
+							th:value="${session.logincust.id}"> <input type="hidden"
 							name="tid" th:value="${dtrainer?.id}">
 
 
@@ -628,29 +663,29 @@ body.modal-open {
 							<h5>신고 사유를 선택해주세요.</h5>
 							<div class="form-check-inline">
 								<div class=" custom-checkbox">
-									<input name="reason" id="reason_violence" type="checkbox" value="폭행">
-									<label class="" for="reason_violence">폭행</label>
+									<input name="reason" id="reason_violence" type="checkbox"
+										value="폭행"> <label class="" for="reason_violence">폭행</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input name="reason" id="reason_insult" type="checkbox" value="욕설">
-									<label class="" for="reason_insult">욕설</label>
+									<input name="reason" id="reason_insult" type="checkbox"
+										value="욕설"> <label class="" for="reason_insult">욕설</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input name="reason" id="reason_attitude" type="checkbox" value="불친절">
-									<label class="" for="reason_attitude">불친절</label>
+									<input name="reason" id="reason_attitude" type="checkbox"
+										value="불친절"> <label class="" for="reason_attitude">불친절</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
-									<input name="reason" id="reason_fraud" type="checkbox" value="사기">
-									<label class="" for="reason_fraud">사기</label>
+									<input name="reason" id="reason_fraud" type="checkbox"
+										value="사기"> <label class="" for="reason_fraud">사기</label>
 								</div>
 								<div class="custom-control custom-checkbox">
 									<input name="reason" id="reason_etc" type="checkbox" value="기타">
 									<label class="" for="reason_etc">기타</label>
 								</div>
-								
+
 								<input type="hidden" name="rp_reason">
 							</div>
 						</div>
