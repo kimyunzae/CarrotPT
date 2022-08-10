@@ -83,7 +83,7 @@ public class MatchingController {
 	
 	@MessageMapping("/{roomId}")
 	@SendTo("/room/{roomId}")
-	public ChatMessageVO sendChat(@DestinationVariable int roomId, ChatMessageVO message, WebSocketSession socketSession, HttpSession sessions) {
+	public ChatMessageVO sendChat(@DestinationVariable int roomId, ChatMessageVO message) {
 		ChatMessageVO obj = new ChatMessageVO(message.getMessageType(), roomId, message.getSender(), message.getMessage());
 		
 //		if(message.getMessageType().equals(ChatMessageVO.MessageType.ENTER)) {

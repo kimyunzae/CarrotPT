@@ -412,6 +412,13 @@
 			goLogin();
 		});
 		
+		$('.login-input').keydown(function(key){
+			if(key.keyCode == 13){
+				goLogin();
+			}
+		});	
+		
+		
 		/* ChatBot */
 		const chatbox = jQuery.noConflict();
 
@@ -435,6 +442,7 @@
 				  sendMessage();
 			  }
 		  });
+		  
 	});
 </script>
 </head>
