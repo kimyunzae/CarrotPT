@@ -2,6 +2,8 @@ package com.first.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -77,7 +79,8 @@ public class AdminController {
 	
 	// 1-1 메인: 일반회원 조회
 	@RequestMapping("")
-	public String admin(Model m, String orderBy, Integer pageNo) {
+	public String admin(Model m, String orderBy, Integer pageNo, HttpSession session) {
+		
 		if(pageNo == null) {
 			pageNo = 1;
 		}

@@ -20,4 +20,9 @@ public interface CslMapper {
 	
 	public List<CslVO> selectbyuid(String uid) throws Exception;
 	public List<CslVO> selectbytid(String tid) throws Exception;
+	
+	public void updateroomid(CslVO obj) throws Exception;
+	public int selectroomid(int id) throws Exception;
+	public List<CslVO> selectallroomid() throws Exception;
+	public CslVO selectroombyroomid(int id) throws Exception;
 }

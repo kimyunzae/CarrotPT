@@ -101,21 +101,21 @@
 }
 
 /* Modal */
-#myModal > h5, #myModal > label, #myModal > span{
+#preferenceModal > h5, #preferenceModal > label, #preferenceModal > span{
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-#myModal h5{
+#preferenceModal h5{
 	text-align:center;
 	font-weight:bold;
 }
 
-#myModal label{
+#preferenceModal label{
 	color:black;
 	font-size:1.1rem;
 }
 
-#myModal body {
+#preferenceModal body {
 	color: #000;
 	overflow-x: hidden;
 	height: 100%;
@@ -123,15 +123,15 @@
 	background-repeat: no-repeat;
 }
 
-#myModal .custom-radio input[type="radio"]+label:before{
+#preferenceModal .custom-radio input[type="radio"]+label:before{
 	border:1px solid #769BCD;
 }
 
-#myModal .custom-checkbox input[type="checkbox"]+label:before{
+#preferenceModal .custom-checkbox input[type="checkbox"]+label:before{
 	border:1px solid #769BCD;
 }
 
-#myModal input{
+#preferenceModal input{
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
@@ -141,15 +141,15 @@
 	font-size:1.2rem;
 }
 
-#myModal fieldset {
+#preferenceModal fieldset {
 	display: none;
 }
 
-#myModal fieldset.show {
+#preferenceModal fieldset.show {
 	display: block;
 }
 
-#myModal select:focus, input:focus {
+#preferenceModal select:focus, input:focus {
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
@@ -158,7 +158,7 @@
 	font-weight: 200;
 }
 
-#myModal button:focus {
+#preferenceModal button:focus {
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
@@ -187,40 +187,40 @@ input[name="tzip"]{
 	color:white;
 }
 
-#myModal .tabs {
+#preferenceModal .tabs {
 	/* margin: 2px 5px 0px 5px; */
 	/* 	padding-bottom: 10px; */
 	cursor: pointer;
 }
 
-#myModal .tabs:hover, #myModal .tabs.active {
+#preferenceModal .tabs:hover, #preferenceModal .tabs.active {
 	border-bottom: 5px solid #769BCD;
 	color:#769BCD;
 	
 }
 
-#myModal .tabs:hover, .tabs.active h6{
+#preferenceModal .tabs:hover, .tabs.active h6{
 	font-size:1.5rem !important;
 } 
 
-#myModal a:hover {
+#preferenceModal a:hover {
 	text-decoration: none;
 	color: #1565C0;
 }
 
-#myModal .box {
+#preferenceModal .box {
 	margin-bottom: 10px;
 	border-radius: 5px;
 	padding: 10px;
 }
 
-#myModal .line {
+#preferenceModal .line {
 	background-color: #CFD8DC;
 	height: 1px;
 	width: 100%;
 }
 
-#myModal .pb-5{
+#preferenceModal .pb-5{
 	padding-bottom:0 !important;
 }
 
@@ -231,34 +231,34 @@ input[name="tzip"]{
 }
 
 /* next previous button Style */
-#myModal a {
+#preferenceModal a {
 	text-decoration: none;
 	display: inline-block;
 	padding: 8px 16px;
 }
 
-#myModal a:hover {
+#preferenceModal a:hover {
 	background-color: #ddd;
 	color: black;
 	cursor:pointer;
 }
 
-#myModal .previous {
+#preferenceModal .previous {
 	background-color: #f1f1f1;
 	color: black;
 }
 
-#myModal .next {
+#preferenceModal .next {
 	background-color: #769BCD;
 	color: white;
 	float: right;
 }
 
-#myModal .round {
+#preferenceModal .round {
 	border-radius: 50%;
 }
 
-#myModal .round:hover {
+#preferenceModal .round:hover {
 	border-radius: 50%;
 	background-color:#1565C0;
 	color:white;
@@ -452,8 +452,8 @@ function sample6_execDaumPostcode() {
 
 
 /* 모달 창 닫기 */
-function myModalClose() {
-	$('#myModal').modal('hide');
+function preferenceModalClose() {
+	$('#preferenceModal').modal('hide');
 }	
 	
 $(function(){
@@ -609,13 +609,13 @@ $(function(){
 
 	<div class="container heading">
 		<div class="row justify-content-center">
-			<button type="button" data-toggle="modal" data-target="#myModal"
+			<button type="button" data-toggle="modal" data-target="#preferenceModal"
 				class="btn btn-primary py-2 px-4">맞춤트레이너찾기(Click!)</button>
 		</div>
 	</div>	
 	
 		<!-- Modal Start -->		
-			<div id="myModal" tabindex="-1" role="dialog"
+			<div id="preferenceModal" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLabel" aria-hidden="true"
 				class="modal fade text-left">
 				<div role="document" class="modal-dialog">
