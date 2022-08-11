@@ -126,16 +126,17 @@ body.modal-open {
 		var star4 = document.querySelector('#four');
 		var star5 = document.querySelector('#five'); */
 
-		var rating2 = $('.rating2');
+
 		$('#zero').hide();
 		$('#one').hide();
 		$('#two').hide();
 		$('#three').hide();
 		$('#four').hide();
 		$('#five').hide();
+		
+		var rv_rate_int = [[${rv_rate_int}]];
 
-		var rv_rate_int = $('.rating2 input[name="rv_rate_int"]').val();
-		$('.rating2 input[name="rv_rate_int"]').each(function() { //이게 안되네
+		rv_rate_int.each(function() { 
 			if ($(this).val() == 0) {
 				$('#zero').show();
 				return;
@@ -478,14 +479,15 @@ body.modal-open {
 						<p th:text="${rv.rv_text}"></p>
 						<!-- <span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span> -->
 						<div class="rating2 d-flex justify-content-end">
-							<input type="radio" name="five"><label id="five">★★★★★</label>
-							<input type="radio" name="four"><label id="four">★★★★☆</label>
-							<input type="radio" name="three"><label id="three">★★★☆☆</label>
-							<input type="radio" name="two"><label id="two">★★☆☆☆</label>
-							<input type="radio" name="one"><label id="one">★☆☆☆☆</label>
-							<input type="radio" name="zero"><label id="zero">☆☆☆☆☆</label>
+							<input type="radio"><label name="five" id="five">★★★★★</label>
+							<input type="radio"><label name="four" id="four">★★★★☆</label>
+							<input type="radio"><label name="three" id="three">★★★☆☆</label>
+							<input type="radio"><label name="two" id="two">★★☆☆☆</label>
+							<input type="radio"><label name="one" id="one">★☆☆☆☆</label>
+							<input type="radio"><label name="zero" id="zero">☆☆☆☆☆</label>
 
 							<input type="hidden" name="rv_rate_int" th:value="${rv.rv_rate}">
+							<!-- th:id="'rv_rate_int' + ${rv.rv_rate}'"  -->
 						</div>
 					</div>
 				</li>
