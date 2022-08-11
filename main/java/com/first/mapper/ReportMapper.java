@@ -3,6 +3,7 @@ package com.first.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.first.vo.ReportVO;
@@ -16,4 +17,6 @@ public interface ReportMapper {
 	public ReportVO select(int id) throws Exception;
 	public List<ReportVO> selectall() throws Exception;
 	public int selectcnt(String status) throws Exception;
+	
+	public List<ReportVO> selectbypage(@Param("pageNo")int pageNo, @Param("amount")int amount, @Param("offset")int offset, @Param("rp_status")String rp_status) throws Exception;
 }

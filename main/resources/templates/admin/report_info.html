@@ -1,0 +1,35 @@
+<div id="div_trainee_row" class="table-responsive table-lg mt-3">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        
+        <th class="sortable" width="100px">번호</th>
+        <th class="sortable" width="140px">일반회원</th>
+        <th class="sortable" width="140px">트레이너</th>
+        <th class="sortable" width="140px">사유</th>
+        <th class="sortable" width="120px">신고일</th>
+        <th class="sortable" width="120px">상태</th>
+      </tr>
+    </thead>
+    <tbody th:each="r : ${reportlist}">
+      <tr class="trainee_info">
+        
+        <td class="text-nowrap align-middle" width="100px" th:text="${r.id}"></td>
+        <td class="text-nowrap align-middle" width="140px" th:text="${r.uid}"></td>
+        <td class="text-nowrap align-middle" width="140px" th:text="${r.tid}"></td>
+        <td class="text-nowrap align-middle" width="140px"th:text="${r.rp_reason}"></td>
+        <td class="text-nowrap align-middle" width="120px" th:text="${#dates.format(r.rp_regdate, 'yyyy-MM-dd')}"></td>
+        <td class="text-nowrap align-middle" width="120px" th:text="${r.rp_status}"></td>
+       
+      </tr>
+      <tr>
+      	<td colspan="6">
+      		<div>
+      			<span>숨기자</span>
+      		</div>
+      	</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>

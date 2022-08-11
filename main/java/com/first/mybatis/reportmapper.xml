@@ -11,6 +11,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="reportVO">
 		SELECT * FROM report
 	</select>
+	<select id="selectbypage" resultType="reportVO">
+		SELECT * FROM report
+		<if test="rp_status != 'all'">
+			WHERE rp_status = #{rp_status}
+		</if>
+		LIMIT #{offset}, #{amount}
+	</select>
 <!-- select: rp_status별 select-->
 	<select id="selectcnt" resultType="int">
 		SELECT COUNT(*) FROM report

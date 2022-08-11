@@ -16,6 +16,7 @@ import com.first.biz.ReportBiz;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.NewAlarmVO;
+import com.first.vo.ReportVO;
 import com.first.vo.StatusVO;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
@@ -139,9 +140,8 @@ public class AdminController {
 		if(status == null) {
 			status = "all";
 		}
-		int offset = 0;
 		try {
-			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
+			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, status);
 			m.addAttribute("tnerlist", list);
 			List<StatusVO> statuslist = trainerbiz.getstatus();
 			m.addAttribute("statuslist", statuslist);
@@ -160,9 +160,8 @@ public class AdminController {
 	@RequestMapping("/findtpage")
 	public String findtPage(int pageNo, String orderBy, String status, Model m) {
 		
-		int offset = 0;
 		try {
-			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
+			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, status);
 			m.addAttribute("tnerlist", list);
 			List<StatusVO> statuslist = trainerbiz.getstatus();
 			m.addAttribute("statuslist", statuslist);
@@ -198,6 +197,20 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("/reports")
+	public String reports(Model m) {
+		try {
+			List<ReportVO> list = reportbiz.get();
+			m.addAttribute("reportlist", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("center", "admin/admin");
+		m.addAttribute("admincenter", "admin/report");
+		m.addAttribute("report_info", "admin/report_info");
+		return "index";
 	}
 
 

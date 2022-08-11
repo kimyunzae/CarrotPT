@@ -1,0 +1,351 @@
+<style>
+ #ul_status .nav-item:hover{
+ 	color:#769BCD;
+ 	cursor:pointer;
+ }
+ #ul_status .active{
+ 	color:#769BCD;
+ 	font-weight:bold;
+ }
+ 
+ .admin.modal-title{
+ 	font-family: "Poppins", Arial, sans-serif;
+ }
+ 
+</style>
+<script th:inline="javascript">
+
+	function GetTarget(j){
+		var orderBy = $('#select_order').val();
+		var status = $('.active.nav-link.a_status').data("value");
+		
+		$.ajax({
+			url:'/admin/findtpage',
+			data:{
+				'pageNo':j,
+				'orderBy':orderBy,
+				'status':status
+			},
+			method:'GET',
+			success: function(result){
+				
+				$('#div_trainee_row').empty();
+				$('#div_trainee_row').append(result);
+				
+				var pages = $('#pages');
+				pages.empty();
+				
+				var currentPage = j;
+				var totalData = $('#total_hidden').val();
+				
+				var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
+				var pageSize = 5; // 화면에 표시될 페이지 수
+				var totalPages = Math.ceil(totalData / limitPerPage);
+				var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+				var last = pageGroup * pageSize;
+				
+				if(currentPage <= 0){
+					currentPage = 1;
+				}
+				if(last > totalPages){
+					last = totalPages;
+				}
+				var veryFirst = 1;
+				var veryLast = totalPages;
+				var first = last - (pageSize - 1);
+				const next = last + 1;
+				var prev = first - 1;
+				
+				if(totalPages < 1){
+					first = last;
+				}
+				
+				// 1페이지로
+				if(totalPages > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+				}
+				
+				// prev 버튼
+				if(first > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')"><</a></li>');
+				}
+				
+				for (var k = first; k <= last; k++) {
+					
+					if(currentPage == k){
+						pages.append('<li class="active page-item"><a class="page-link" onclick="GetTarget(' + k + ');"' + '>' + k + '</a></li>');
+					}else if(k > 0){
+						pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ k +')">' + k + '</a></li>');
+						};
+					}
+				
+				if(next > pageSize && next <= totalPages){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
+				};
+				
+				if(totalPages > 1){
+					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
+				}
+				
+			}
+
+		});
+		history.pushState({
+			data:'/admin/findtpage',
+			pageNo: j,
+			orderBy: orderBy,
+			status: status
+		}, // state
+		null, // title
+		'/admin/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&status=' + status); // url	
+	}
+	
+	$(window).on('popstate', function(event){
+		window.location = document.location.href;
+
+	});
+	
+	function paging(totalData, currentPage){
+		
+		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
+		var totalData = [[${TrainerTotal}]];
+		var currentPage = [[${currentPage}]];
+		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
+		var pageSize = 5; // 화면에 표시될 페이지 수
+		var totalPages = Math.ceil(totalData / limitPerPage);
+		var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+		var last = pageGroup * pageSize;
+		
+		if(currentPage <= 0){
+			currentPage = 1;
+		}
+		if(last > totalPages){
+			last = totalPages;
+		}
+		var veryFirst = 1;
+		var veryLast = totalPages;
+		var first = last - (pageSize - 1);
+		const next = last + 1;
+		var prev = first - 1;
+		
+		if(totalPages < 1){
+			first = last;
+		}
+		
+		var pages = $('#pages');
+		pages.empty();
+		
+		if(totalPages < 1){
+			first = last;
+		}
+		
+		// 1페이지로
+		if(totalPages > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+		}
+		
+		// prev 버튼
+		if(first > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')"><</a></li>');
+		}
+		
+		// 페이지 숫자
+		for (var j = first; j <= last; j++) {
+			
+			if(currentPage == j){
+				pages.append('<li class="page-item active"><a class="page-link" onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
+			}else if(j > 0){
+				pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ j +')">' + j + '</a></li>');
+				};
+			}
+		
+		// next 버튼
+		if(next > pageSize && next <= totalPages){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
+		};
+		
+		// 마지막 페이지로
+		if(totalPages > 1){
+			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
+		}
+	
+	}
+	
+	/* 개별 status 변경*/
+	function UpdateStatus(id){
+		
+		var newStatus = $('#'+'selectstatus'+id).val();
+		
+		// Modal로 확인
+		$('#modal_updatestatus').fadeIn();
+		
+		$('.modal-body.updatestatus').empty();
+		$('.modal-body.updatestatus').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
+		
+		$('.modal-footer.updatestatus').empty();
+		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
+		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
+       
+		// 거절 or 정지: 사유 입력해야 함
+		if(newStatus == "거절" || newStatus == "정지"){
+			
+			if(newStatus == "거절"){
+				var refuse = '<label for="select_statusdetail">거절 사유</label>'
+					+ '<select id="select_statusdetail">'
+					+ '<option>자격 및 경력 증명 서류 미비</option>'
+					+ '<option>근무 여부 확인 불가</option>'
+					+ '<option>프로필 사진 부적합</option>'
+					+ '<option>기타</option>'
+					+ '</select>';
+			}else{
+				var refuse = '<label for="select_statusdetail">정지 사유</label>'
+					+ '<select id="select_statusdetail">'
+					+ '<option>신고 누적</option>'
+					+ '<option>폭행</option>'
+					+ '<option>욕설</option>'
+					+ '<option>기타</option>'
+					+ '</select>';
+			}
+			
+				
+			$('.modal-body.updatestatus').append(refuse);
+				
+			$('#select_statusdetail').change(function(){
+				$('#input_refuseEtc').remove();
+				
+				if($('#select_statusdetail option:selected').val() == '기타'){
+					$('.modal-body.updatestatus').append('<p><input type="text" id="input_refuseEtc"></p>');
+				}
+			});
+		
+			$('#btn_status').click(function(){
+				var refuseReason = $('#select_statusdetail option:selected').val();
+				var statusDetail = '';
+				if(refuseReason == '기타'){
+					statusDetail = refuseReason + ': ' + $.trim($('#input_refuseEtc').val());
+				}else{
+					statusDetail = refuseReason;
+				}
+				updateimpl(id, newStatus, statusDetail);
+			});
+			closeModal();
+		};
+		
+		if(newStatus != '거절' & newStatus != '정지'){
+			$('#btn_status').click(function(){
+				statusDetail = '';
+				updateimpl(id, newStatus, statusDetail);
+			});
+			closeModal();
+		}
+	};
+	
+	
+	function updateimpl(id, newStatus, statusDetail){
+		$.ajax({
+			url:'/admin/updatestatus',
+			data:{
+				'id':id,
+				'newstatus':newStatus,
+				'statusdetail':statusDetail
+			},
+			success: function(result){
+				$('.modal-body').empty();
+				$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
+				$('.modal-footer').empty();
+				$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
+				closeModal();
+			}
+		});
+	}
+	
+	
+	function closeModal(){
+		$('#btn_closemodal').click(function(){
+			location.reload();
+		});
+	};
+	
+	
+	$(function(){
+		
+		paging();
+		
+		// 정렬
+		$('#select_order').change(function(){
+			var searchPage = 1;
+			GetTarget(parseInt(searchPage));
+		});
+		
+		// status별 조회
+		$('.nav-link.a_status').click(function(){
+			
+			// 다른 tab에서 active 제거
+			$('.nav-link.a_status').not(this).removeClass("active");
+			
+			// 선택 tab에 active 붙이기
+			$(this).addClass("active");
+			
+			var status = $('.active.nav-link.a_status').data("value");
+			var searchPage = 1;
+			GetTarget(parseInt(searchPage));
+		});
+		
+	});
+</script>
+
+<ul class="nav nav-tabs" id="ul_status" >
+	<li class="nav-item"><a class="nav-link a_status" id="statustab_all" data-value="all">ALL</a></li>
+	<li class="nav-item">
+		<a class="nav-link a_status">대기중</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link a_status">처리완료</a>
+	</li>
+</ul>
+
+<div class="tab-content pt-3">
+	<div class="tab-pane active">
+		
+ <div class="row flex-lg-nowrap">
+      <div class="col mb-3">
+        <div class="e-panel card">
+          <div class="card-body">
+
+            <div class="e-table">
+            
+              <!-- Table Start -->
+              <div id="div_trainee_row"
+              th:replace="${report_info} ? ${report_info} : report_info">
+              </div>
+              <!-- Table End-->
+              
+              <!-- Modal -->
+              <div class="modal" id="modal_updatestatus" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header updatestatus">
+				        <h5 class="admin modal-title">트레이너 status 변경</h5>
+				      </div>
+				      <div class="modal-body updatestatus">
+				      </div>
+				      <div class="modal-footer updatestatus">
+				      </div>
+				    </div>
+				  </div>
+				</div>
+               <!-- Modal End -->
+               
+              <div class="d-flex justify-content-center">
+                <ul class="pagination mt-3 mb-0" id="pages">
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+	</div>
+</div>
