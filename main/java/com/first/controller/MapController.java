@@ -57,10 +57,8 @@ public class MapController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(positionArr);
 		return positionArr;
 	}
-
 }
 	
 
