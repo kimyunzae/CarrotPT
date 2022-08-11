@@ -1,13 +1,25 @@
 package com.first.controller;
 
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.first.biz.MapBiz;
+import com.first.vo.MapVO;
 
 @Controller
 
 @RequestMapping("/map")
 public class MapController {
+	
+	@Autowired
+	MapBiz biz;
 
 	/*
 	 * @RequestMapping("/map") public String mapcenter(Model m) {
@@ -28,11 +40,24 @@ public class MapController {
 		m.addAttribute("center", "map/mapcenter");
 		return "index";
 	}
-	/* nav bar에서 maphttps://search.naver.com/search.naver?where=nexearch&sm=top_brd&fbm=0&ie=utf8&query=%EC%84%B8%EA%B3%84+%EA%B3%A0%EC%96%91%EC%9D%B4%EC%9D%98+%EB%82%A0center2 */
-	@RequestMapping("/maploc")
-	public String maploc(Model m) {
-		m.addAttribute("center", "map/mapcenterloc");
-		return "index";
+	
+	@ResponseBody
+	@RequestMapping("/getpositions")
+	public Object getpositions() {
+		JSONArray positionArr = new JSONArray();
+		try {
+			List<MapVO> positionList = biz.get();
+			for (MapVO marker : positionList) {
+				JSONObject positionObj = new JSONObject();
+				positionObj.put("gymname", marker.getGymname());
+				positionObj.put("lat", marker.getLat());
+				positionObj.put("lng", marker.getLng());
+				positionArr.add(positionObj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return positionArr;
 	}
 }
 	
