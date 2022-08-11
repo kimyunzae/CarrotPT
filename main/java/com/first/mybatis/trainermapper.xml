@@ -100,6 +100,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE id=#{id}
 	</select>
 	
+	<select id="selectbyrvrate" resultType="trainerVO">
+		SELECT name,major,intro,profile1,tid, sum(rv_rate)
+		FROM trainer,review
+		WHERE review.tid=trainer.id
+		GROUP BY tid
+		ORDER BY sum(rv_rate) DESC
+		LIMIT 5
+	</select>
+	
 	<insert id="insert" parameterType="trainerVO">
 		INSERT INTO trainer VALUES(#{id},#{pwd},#{name},#{phone},#{email},#{gender},#{major},
 		#{gym_name},#{gym_zip},#{gym_addr1},#{gym_addr2},#{intro},#{career},

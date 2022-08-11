@@ -41,5 +41,8 @@ public interface TrainerMapper{
 
 	// 아이디, 비밀번호 찾기에서 사용
 	public void updatepwd(TrainerVO obj) throws Exception;
+	
+	//리뷰 평점 높은순 트레이너 5명
+	public List<TrainerVO> selectbyrvrate() throws Exception;
 
 }
