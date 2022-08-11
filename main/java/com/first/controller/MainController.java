@@ -25,7 +25,7 @@ public class MainController {
 	public String main(Model m) {
 		List<TrainerVO> trainerlist = null;
 		try {
-			trainerlist = trainerbiz.get();
+			trainerlist = trainerbiz.getbyrvrate();
 			
 			m.addAttribute("trainerlist", trainerlist);
 		} catch (Exception e) {
