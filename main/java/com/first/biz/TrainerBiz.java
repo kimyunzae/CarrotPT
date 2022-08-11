@@ -150,6 +150,13 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 		}
 		return list;
 	}
+	
+	public List<TrainerVO> getbyrvrate() throws Exception {
+		List<TrainerVO> list = dao.selectbyrvrate();
+		return list;
+	}
+	
+	
 
 
 }

@@ -401,7 +401,10 @@ h1 {
 					<div class="item" th:each="t:${trainerlist}">
 						<div class="testimony-wrap text-center py-4 pb-2">
 							<div class="user-img"
-								style="background-image: url(images/team/team-1.jpg)">
+								
+								th:style="'background-image:url('+ @{'/images/CRUD/pf1/' + ${t.profile1}} +');'">
+								
+									
 								<span
 									class="quote d-flex align-items-center justify-content-center">
 									<i class="icon-quote-left"></i>

@@ -25,4 +25,5 @@ public interface CslMapper {
 	public int selectroomid(int id) throws Exception;
 	public List<CslVO> selectallroomid() throws Exception;
 	public CslVO selectroombyroomid(int id) throws Exception;
+	public String checkmatching(String uid, String tid) throws Exception;
 }

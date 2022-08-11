@@ -78,6 +78,10 @@ public class CslBiz implements Biz<Integer, CslVO> {
 		}
 		return list;
 	}
+	
+	public String checkmatching(String uid, String tid) throws Exception {
+		return dao.checkmatching(uid, tid);
+	}
 
 	
 	

@@ -4,9 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.first.biz.CslBiz;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.TraineeVO;
@@ -20,6 +20,9 @@ public class AJAXController {
 
 	@Autowired
 	TrainerBiz trainerbiz;
+	
+	@Autowired
+	CslBiz cslbiz;
 
 	@RequestMapping("checkid")
 	public String checkid(String id) {
@@ -224,6 +227,54 @@ public class AJAXController {
 		System.out.println(result);
 		return result;
 	}
+	
+		// 트레이너 상세페이지: 매칭성사 체크 (review)
+		@RequestMapping("checkreviewauthority")
+		public String checkreviewauthority(String uid, String tid) {
+			String result = "";
+			String matching_status = "";
+			try {
+				matching_status = cslbiz.checkmatching(uid, tid);
+				System.out.println("uid= " + uid + " | tid= " + tid);
+				System.out.println(matching_status);
+		
+				if (matching_status != null && matching_status.equals("success")) {	
+					result = "1";
+				}
+				else {
+					result = "0";
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println(result);
+			return result;
+		}
+		
+		// 트레이너 상세페이지: 매칭성사 체크 (report)
+				@RequestMapping("checkauthority")
+				public String checkauthority(String uid, String tid) {
+					String result = "";
+					String matching_status = "";
+					try {
+						matching_status = cslbiz.checkmatching(uid, tid);
+						System.out.println("uid= " + uid + " | tid= " + tid);
+						System.out.println(matching_status);
+				
+						if (matching_status != null && matching_status.equals("success")) {	
+							result = "1";
+						}
+						else {
+							result = "0";
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					System.out.println(result);
+					return result;
+				}
 	
 
 }

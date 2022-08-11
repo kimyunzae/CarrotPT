@@ -62,8 +62,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			SELECT roomid FROM csl
 			WHERE roomid=#{roomid}
 		</select>
-	<delete id="delete" parameterType="int">
-		DELETE FROM csl WHERE id=#{id}
-	</delete>
+		<select id="checkmatching" parameterType="String" resultType="String">
+			SELECT matching_status from csl where uid=#{uid} and tid=#{tid}
+		</select>
+		<delete id="delete" parameterType="int">
+			DELETE FROM csl WHERE id=#{id}
+		</delete>
 
 </mapper>
