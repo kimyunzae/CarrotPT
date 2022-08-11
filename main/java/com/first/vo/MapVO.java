@@ -15,6 +15,6 @@ public class MapVO {
 	private int id;
 	private String gymname;
 	private String lat;
-	private String longt;
+	private String lng;
 
 }

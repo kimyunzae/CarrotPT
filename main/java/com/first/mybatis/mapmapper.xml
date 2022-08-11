@@ -4,14 +4,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.first.mapper.MapMapper">
 
-	<select id="getlist" parameterType="MapVO" resultType="MapVO">
-		SELECT * FROM
-		gymloc WHERE id=#{id}
+	<select id="selectall" resultType="mapVO">
+		SELECT gymname, lat, lng FROM
+		gymloc;
 	</select>
 
-<!-- <if test="searchWrd != null and searchWrd !=''">
-    (fctry_rdnmadr LIKE CONCAT('%', #{searchWrd},'%') or  
-    fctry_cmpnm LIKE CONCAT('%', #{searchWrd},'%'))
-</if>
- -->
+
 </mapper>
