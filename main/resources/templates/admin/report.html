@@ -269,7 +269,7 @@
 		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
 		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
 	   
-	
+		closeModal();
 		var refuse = '<label for="select_statusdetail">사유</label>'
 			+ '<select id="select_statusdetail">'
 			+ '<option>신고 누적</option>'
@@ -299,8 +299,9 @@
 				}
 				updateimpl(id, newStatus, statusDetail);
 				updateReportStatus(rid);
+				closeModal();
 			});
-			closeModal();
+			
 	};
 		
 		

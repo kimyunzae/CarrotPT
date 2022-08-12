@@ -54,6 +54,8 @@ public class UserController {
 			if(tner != null && tnee == null) {
 				if(tner.getPwd().equals(pwd)) {
 					result = "1";
+					
+					session.setAttribute("custLevel", tner.getLevel());
 					session.setAttribute("custid", id);
 					m.addAttribute("logincust", tner);
 					session.setAttribute("logincust", tner);
@@ -65,6 +67,7 @@ public class UserController {
 			}else if(tner == null && tnee != null) {
 				if(tnee.getPwd().equals(pwd)) {
 					result = "1";
+					session.setAttribute("custLevel", tnee.getLevel());
 					session.setAttribute("custid", id);
 					m.addAttribute("logincust", tnee);
 					session.setAttribute("logincust", tnee);			
