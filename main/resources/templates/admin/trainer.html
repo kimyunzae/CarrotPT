@@ -185,7 +185,7 @@
 		$('.modal-footer.updatestatus').empty();
 		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
 		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
-       
+	   
 		// 거절 or 정지: 사유 입력해야 함
 		if(newStatus == "거절" || newStatus == "정지"){
 			
@@ -239,33 +239,6 @@
 			closeModal();
 		}
 	};
-	
-	
-	function updateimpl(id, newStatus, statusDetail){
-		$.ajax({
-			url:'/admin/updatestatus',
-			data:{
-				'id':id,
-				'newstatus':newStatus,
-				'statusdetail':statusDetail
-			},
-			success: function(result){
-				$('.modal-body').empty();
-				$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
-				$('.modal-footer').empty();
-				$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
-				closeModal();
-			}
-		});
-	}
-	
-	
-	function closeModal(){
-		$('#btn_closemodal').click(function(){
-			location.reload();
-		});
-	};
-	
 	
 	$(function(){
 		

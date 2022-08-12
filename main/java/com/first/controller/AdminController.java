@@ -17,6 +17,7 @@ import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.NewAlarmVO;
 import com.first.vo.ReportVO;
+import com.first.vo.ReviewVO;
 import com.first.vo.StatusVO;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
@@ -199,6 +200,7 @@ public class AdminController {
 		}
 	}
 	
+	// 3-1 신고 조회
 	@RequestMapping("/reports")
 	public String reports(Model m) {
 		try {
@@ -212,8 +214,18 @@ public class AdminController {
 		m.addAttribute("report_info", "admin/report_info");
 		return "index";
 	}
-
-
+	
+	// 3-3 신고 status 업데이트
+	@ResponseBody
+	@RequestMapping("/updateReportStatus")
+	public void updateReportStatus(int id, String rp_status) {
+		ReportVO obj = new ReportVO(id, rp_status);
+		try {
+			reportbiz.modify(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }

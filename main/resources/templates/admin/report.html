@@ -1,4 +1,10 @@
 <style>
+
+ #span_reportGuide{
+	font-size:0.8rem;
+	font-weight:bold;
+ }
+ 
  #ul_status .nav-item:hover{
  	color:#769BCD;
  	cursor:pointer;
@@ -14,7 +20,6 @@
  
  .report_info_detail{
  	background-color:#F5F9FC;
- 	color:#303030;
  }
  
  .report.img{
@@ -24,7 +29,6 @@
  	cursor:pointer;
  }
  
-
  .report_detail{
  	align-items:center;
  	justify-content:space-between;
@@ -64,18 +68,6 @@
  	place-content:center;
  }
 
- /*
- .modal_content{
- 	margin:auto;
- 	display:block;
- 	width:700px; height:auto;
- 	max-width:700px;
- 	animation-name:zoom;
- 	animation-duration:0.8s;
- }
- 
-
- */
 </style>
 <script th:inline="javascript">
 
@@ -238,21 +230,85 @@
 
 	function openImgModal(rid){
 		$('#modal_reportimg.' + rid).show();
-	}
+	};
 	
 	function closeImgModal(rid){
 		$('#modal_reportimg.' + rid).hide();
-	}
+	};
+	
 	function closeImgModalOutside(rid){
 		closeImgModal(rid);
+	};
 	
-}
+	function toggleDetail(id){
+		$('.report_info_detail.' + id).slideToggle(200, "swing");
+	}
+	
+	function updateReportStatus(rid){
+		$.ajax({
+			url:'/admin/updateReportStatus',
+			data:{
+				'id':rid,
+				'rp_status':'처리완료'
+			}
+		});
+	}
+	
+	/* 개별 status 변경*/
+	function UpdateStatus(rid, id){
+		
+		var newStatus = $('#'+'selectstatus'+id).val();
+		
+		// Modal로 확인
+		$('#modal_updatestatus').fadeIn();
+		
+		$('.modal-body.updatestatus').empty();
+		$('.modal-body.updatestatus').append('<p>' + id + ' 회원의 상태를 "' + newStatus + '"(으)로 변경하시겠습니까?</p>');
+		
+		$('.modal-footer.updatestatus').empty();
+		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
+		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
+	   
+	
+		var refuse = '<label for="select_statusdetail">사유</label>'
+			+ '<select id="select_statusdetail">'
+			+ '<option>신고 누적</option>'
+			+ '<option>폭행</option>'
+			+ '<option>욕설</option>'
+			+ '<option>기타</option>'
+			+ '</select>';
+		
+			
+			$('.modal-body.updatestatus').append(refuse);
+				
+			$('#select_statusdetail').change(function(){
+				$('#input_refuseEtc').remove();
+				
+				if($('#select_statusdetail option:selected').val() == '기타'){
+					$('.modal-body.updatestatus').append('<p><input type="text" id="input_refuseEtc"></p>');
+				}
+			});
+		
+			$('#btn_status').click(function(){
+				var refuseReason = $('#select_statusdetail option:selected').val();
+				var statusDetail = '';
+				if(refuseReason == '기타'){
+					statusDetail = refuseReason + ': ' + $.trim($('#input_refuseEtc').val());
+				}else{
+					statusDetail = refuseReason;
+				}
+				updateimpl(id, newStatus, statusDetail);
+				updateReportStatus(rid);
+			});
+			closeModal();
+	};
+		
+		
+	
 	
 	$(function(){
 		
 		paging();
-		
-		
 		
 		
 		// 정렬
@@ -295,7 +351,7 @@
       <div class="col mb-3">
         <div class="e-panel card">
           <div class="card-body">
-
+				<span id="span_reportGuide">* 신고 내역을 클릭하면 상세 신고 사유 및 이미지를 확인하고 조치를 취할 수 있습니다.</span>
             <div class="e-table">
             
               <!-- Table Start -->
@@ -303,6 +359,22 @@
               th:replace="${report_info} ? ${report_info} : report_info">
               </div>
               <!-- Table End-->
+              
+              <!-- Modal -->
+              <div class="modal" id="modal_updatestatus" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header updatestatus">
+				        <h5 class="admin modal-title">트레이너 status 변경</h5>
+				      </div>
+				      <div class="modal-body updatestatus">
+				      </div>
+				      <div class="modal-footer updatestatus">
+				      </div>
+				    </div>
+				  </div>
+				</div>
+              <!-- Modal End -->
                
               <div class="d-flex justify-content-center">
                 <ul class="pagination mt-3 mb-0" id="pages">

@@ -32,10 +32,37 @@
 	}
 </style>
 <script>
+	
+	function updateimpl(id, newStatus, statusDetail){
+		$.ajax({
+			url:'/admin/updatestatus',
+			data:{
+				'id':id,
+				'newstatus':newStatus,
+				'statusdetail':statusDetail
+			},
+			success: function(result){
+				$('.modal-body').empty();
+				$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
+				$('.modal-footer').empty();
+				$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
+			}
+		});
+	}
+	
+	function closeModal(){
+		$('#btn_closemodal').click(function(){
+			location.reload();
+		});
+	};
+
+	
 	$(function(){
 		$('#trainerAlarm').click(function(){
 			$('#a_trainers').attr('href', "/admin/trainers?status=대기중");
 		});
+		
+		
 	});
 </script>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
