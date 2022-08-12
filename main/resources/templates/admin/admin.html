@@ -56,15 +56,20 @@
 			location.reload();
 		});
 	};
-
 	
+	function changeOrder(){
+		$('#select_order').change(function(){
+			var searchPage = 1;
+			GetTarget(parseInt(searchPage));
+		});
+	}
+
 	$(function(){
 		$('#trainerAlarm').click(function(){
 			$('#a_trainers').attr('href', "/admin/trainers?status=대기중");
 		});
-		
-		
 	});
+	
 </script>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	

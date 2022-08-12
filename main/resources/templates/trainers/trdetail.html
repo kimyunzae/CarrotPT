@@ -109,7 +109,7 @@ body.modal-open {
 }
 </style>
 
-<script th:inline=javascript>
+<script>
 	function openLoginModal() {
 		$('#loginModal').modal('show');
 	}
@@ -183,7 +183,7 @@ body.modal-open {
 		var tid = $('input[name="tid"]').val();
 		$('#review_submit_btn').click(function() {
 			var star_rate = $('input[name="rating"]:checked').val();
-			var rv_text = $('input[name=rv_text]').val();
+			var rv_text = $('input[name=rv_text]').trim().val();
 
 			$('input[name="rv_rate"]').val(star_rate);
 

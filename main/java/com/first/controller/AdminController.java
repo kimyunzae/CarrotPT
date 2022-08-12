@@ -91,7 +91,7 @@ public class AdminController {
 			}
 			int offset = 0;
 			try {
-				List<TraineeVO> list = traineebiz.getbypage(pageNo, amount, orderBy, offset);
+				List<TraineeVO> list = traineebiz.getbypage(pageNo, amount, orderBy);
 				m.addAttribute("tneelist", list);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -113,7 +113,7 @@ public class AdminController {
 		int offset = 0;
 		List<TraineeVO> list = null;
 		try {
-			list = traineebiz.getbypage(pageNo, amount, orderBy, offset);
+			list = traineebiz.getbypage(pageNo, amount, orderBy);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

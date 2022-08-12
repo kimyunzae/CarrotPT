@@ -237,24 +237,71 @@
 
 <script th:inline="javascript">
 
-/* ChatBot */
+/* Pagination */
+ 
+var currentPage = 0;
+var totalData = 0;
+var limitPerPage = [[${amount}]];
+var pageSize = 5;
+var totalPages = 0;
+var pageGroup = 0;
+var last = 0;
+var veryFirst = 1;
+var veryLst = 0;
+var first = 0;
+var next = 0;
+var prev = 0;
 
-/*
-	window.onbeforeunload = function(){
-		var trainer = [[${dtrainer}]];
-		if(trainer != null){
-			localStorage.setItem("dtrainer", trainer);
-		}
-		
-		
-	};
-
-	window.onload = function(){
-		if(localStorage.getItem("dtrainer") != null){
-			var dtrainer = localStorage.getItem("dtrainer");
-		}
+function calcPage(){
+	var pages = $('#pages');
+	pages.empty();
+	
+	if(currentPage <= 0){
+		currentPage = 1;
 	}
-	*/
+	if(last > totalPages){
+		last = totalPages;
+	}
+	
+	first = last - (pageSize - 1);
+	next = last + 1;
+	prev = first - 1;
+	
+	if(totalPages < 1){
+		first = last;
+	}
+	
+	if(totalPages > 1){
+		pages.append('<li><a onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+	}
+	
+	// prev 버튼
+	if(first > 1){
+		pages.append('<li><a onclick="GetTarget('+ first +')"><</a></li>');
+	}
+	
+	// 페이지 숫자
+	for (var j = first; j <= last; j++) {
+		
+		if(currentPage == j){
+			pages.append('<li class="active"><a onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
+		}else if(j > 0){
+			pages.append('<li><a onclick="GetTarget('+ j +')">' + j + '</a></li>');
+			};
+		}
+	
+	// next 버튼
+	if(next > pageSize && next <= totalPages){
+		pages.append('<li><a onclick="GetTarget(' + next + ')">></a></li>');
+	};
+	
+	if(totalPages > 1){
+		pages.append('<li><a onclick="GetTarget('+ veryLast +')">>></a></li>');
+	};
+}
+
+
+/* ChatBot */
 	
 	function connect(){
 		var socket = new SockJS('/ws');
@@ -266,11 +313,13 @@
 		});
 	}
 	
+	
 	function disconnect(){
 		if(stompClient !== null){
 			stompClient.disconnect();
 		}
 	}
+	
 	
 	function sendMessage(){
 		var question = $('#ta_chatquestion').val();
@@ -279,13 +328,11 @@
 			alert('질문을 입력하세요');
 			$('#ta_chatquestion').focus();
 			return;
-			
 			}
 		
 		$('#div_chatroom').append('<div class="chat_ask"><p class="chattext">' + question + '</p></div>');
 		$("#div_chatroom").scrollTop($("#div_chatroom")[0].scrollHeight);
 		setTimeout(() => getAnswer(question), 200);
-		
 	}
 	
 	function getAnswer(question){
@@ -300,12 +347,13 @@
 		});
 	}
 	
+	
 	function showMessage(answer){
 		$('#div_chatroom').append('<div class="chat_response"><p class="chattext">' + answer + '</p></div>');
 		$("#div_chatroom").scrollTop($("#div_chatroom")[0].scrollHeight);
 		$('#ta_chatquestion').val('');
-		
 	}
+	
 	
 	function goLogin(){
 		var id = $('.loginform input[name=id]').val();
@@ -328,6 +376,7 @@
 		});
 	}
 	
+	
 	function logout(){
 		$.ajax({
 			url:'/logout',
@@ -344,42 +393,7 @@
 	
 	
 	
-
- 
 	$(function() {
-		// Ajax로 로그인 처리 - 실패
-		/*  $('#login_bt').click(function() {
-			var id = $('input[name="lid"]').val();
-			var pwd = $('input[name="lpwd"]').val();
-			
-			$.ajax({
-				type : "post",
-				url : 'loginimpl',
-				data : {
-					'id' : id,
-					'pwd' : pwd
-				},
-				success : function(result) {
-					alert(result);	
-					
-					if (result == "success") {
-						location.href("/");
-					}
-					
-					if (result == 'none') {
-						$('#login-check-msg').text('아이디가 존재하지 않습니다');	
-					}
-					
-					if (result == 'tner_pwd_fail') {
-						$('#login-check-msg').text('비밀번호를 확인해주세요');
-					}
-					
-					if (result == 'tnee_pwd_fail') {
-						$('#login-check-msg').text('비밀번호를 확인해주세요');
-					}			
-				}
-			});
-		});    */
 
 		$('#login_bt').attr('disabled', 'disabled');
 
@@ -408,14 +422,15 @@
 						$('#login-check-msg').text('비밀번호를 확인해주세요');
 						$('#login_bt').attr('disabled', 'disabled');
 					}
-
 				}
 			});
 		});
 
+		
 		$('#login_bt').click(function() {
 			goLogin();
 		});
+		
 		
 		$('.login-input').keydown(function(key){
 			if(key.keyCode == 13){
