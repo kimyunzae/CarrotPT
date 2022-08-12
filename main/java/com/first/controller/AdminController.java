@@ -17,7 +17,6 @@ import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.NewAlarmVO;
 import com.first.vo.ReportVO;
-import com.first.vo.ReviewVO;
 import com.first.vo.StatusVO;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
