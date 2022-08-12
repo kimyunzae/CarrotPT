@@ -10,20 +10,41 @@ import com.first.mapper.MapMapper;
 import com.first.vo.MapVO;
 
 @Service("mapbiz")
-public abstract class MapBiz implements Biz<Integer, MapVO> {
+public class MapBiz implements Biz<Integer, MapVO> {
 	
 	@Autowired
 	MapMapper dao;
 	
-	@Autowired
-	MapMapper mapdao;
-	
-	public List<MapVO> getList(MapVO searchVO) {
-	    return dao.getList(searchVO);
+
+	@Override
+	public void register(MapVO v) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
-	/*
-	 * public List<MapVO> getList(MapVO searchVO) { return selectList("getList",
-	 * searchVO); }
-	 */
+
+	@Override
+	public void remove(Integer k) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modify(MapVO v) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MapVO get(Integer k) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MapVO> get() throws Exception {
+		return dao.selectall();
+	}
+	
+
 
 }

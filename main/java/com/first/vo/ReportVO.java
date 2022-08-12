@@ -22,20 +22,33 @@ public class ReportVO {
 	private String rp_reason;
 	private String rp_detail;
 	private String rp_imgname;
-	private MultipartFile mf;
+	private MultipartFile rp;
 	private String rp_status;
 	private Date rp_regdate;
 	
 	
 	// for INSERT
-	public ReportVO(String uid, String tid, String rp_reason, String rp_detail, String rp_imgname, MultipartFile mf) {
+	public ReportVO(String uid, String tid, String rp_reason, String rp_detail, String rp_imgname, String rp_status,
+			Date rp_regdate) {
 		super();
 		this.uid = uid;
 		this.tid = tid;
 		this.rp_reason = rp_reason;
 		this.rp_detail = rp_detail;
 		this.rp_imgname = rp_imgname;
-		this.mf = mf;
+		this.rp_status = rp_status;
+		this.rp_regdate = rp_regdate;
+	}
+	
+
+	public ReportVO(String uid, String tid, String rp_reason, String rp_detail, String rp_status, Date rp_regdate) {
+		super();
+		this.uid = uid;
+		this.tid = tid;
+		this.rp_reason = rp_reason;
+		this.rp_detail = rp_detail;
+		this.rp_status = rp_status;
+		this.rp_regdate = rp_regdate;
 	}
 	
 	// for UPDATE
@@ -44,6 +57,9 @@ public class ReportVO {
 		this.id = id;
 		this.rp_status = rp_status;
 	}
+
+
+
 
 
 	

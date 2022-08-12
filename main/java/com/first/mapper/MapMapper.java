@@ -14,8 +14,6 @@ public interface MapMapper {
 	public void delete(int id) throws Exception;
 	public void update(MapVO obj) throws Exception;
 	public MapVO select(int id) throws Exception;
-	public List<MapVO> seleclist() throws Exception;
-	List<MapVO> getlist(MapVO searchVO) throws Exception;
-	public List<MapVO> getList(MapVO searchVO);
+	public List<MapVO> selectall() throws Exception;
 	
 }

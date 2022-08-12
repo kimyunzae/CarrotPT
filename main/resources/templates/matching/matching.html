@@ -1,4 +1,5 @@
 <head>
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -6,10 +7,9 @@
 <link rel="stylesheet" href="/css/argon-dashboard.css">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
-	
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
 <style>
-
+	
 	body{
 		font-family:Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 		background-image:url('/images/match/matching_background.jpg');
@@ -104,8 +104,6 @@
 		text-align:center;
 	}
 	
-
-	
 	#div_csldetail{
 		margin:0.2rem;
 		padding-left:1.5rem;
@@ -124,6 +122,96 @@
 		background-color:#F5F9FC;
 	}
 	
+	.chart.border.chat{
+		overflow:hidden;
+	}
+	
+	#btn_startchat:hover{
+		cursor:pointer;
+	}
+	
+	
+	#btn_submitChat{
+		width:100%;
+		height:30px;
+		border:1.5px solid black;
+		border-radius:0.2rem;
+		background:linear-gradient(#fff, #D5D5D5);
+		font-family:'Galmuri11', sans-serif;
+		
+	}
+	
+	#btn_submitChat:hover{
+		color:#fff;
+		background:linear-gradient(#769BCD, #84A5EA);
+		cursor:pointer;
+	}
+	
+	#div_chatEach{
+		height:240px;
+		overflow-y:scroll;
+	}
+	
+	.chat_mine{
+		background-color:#e3effd;
+		max-width:300px;
+		margin-left:auto;
+		margin-right:0.5rem;
+		padding-right:0.5rem;
+		border-radius:15px;
+		text-align:right;
+	}
+	
+	.chat_notmine{
+		background-color:#f6f6f6;
+		max-width:300px;
+		margin-right:auto;
+		margin-left:0.5rem;
+		padding-left:0.5rem;
+		border-radius:15px;
+		text-align:left;
+	}
+	
+	.chat_name p{
+		font-size:0.9rem !important;
+		margin-bottom:0.5rem;
+	}
+	
+	.chat_name.mine{
+		text-align:right;
+		padding-right:0.5rem;
+	}
+	
+	.chat_name.notmine{
+		text-align:left;
+		padding-left:0.5rem;	
+	}
+	
+	.chattext{
+		color:black;
+		padding:0.5rem;
+	}
+	
+	#div_chatText{
+		justify-content:center;
+	}
+	
+	textarea{
+		overflow-y:hidden;
+		margin-bottom:10px;
+		margin-right:auto;
+		width:100%;
+		display:block;
+		border-radius:5px;
+	}
+	
+	textarea:focus{
+		border:1.6px solid #B8CDFA;
+		border-radius:5px;
+		outline:none;
+	}
+
+
 
 </style>
 
@@ -132,7 +220,12 @@
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
-<script>
+<script th:inline="javascript">
+	var stompClient = null;
+	var custName = [[${logincust.name}]];
+	var chatroomId = 0;
+
+
 	function getQuotes(){
 		const settings = {
 				'async': true,
@@ -184,12 +277,113 @@
 	function toggleDetail(id){
 		$('.' + id).slideToggle(200, "swing");
 	}
-
 	
+	/* Chat */
+	function startChat(roomId, name){
+		
+		disconnectChat();
+		
+		var socket = new SockJS('/ws');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function(frame){
+			stompClient.subscribe('/room/'+roomId, function(chatMessage){
+				showMessage(JSON.parse(chatMessage.body));
+				console.log('connected' + frame);
+			});
+			
+			var enterMessage = ' 님이 입장하셨습니다.';
+			stompClient.send("/send/" + chatroomId, {},
+					JSON.stringify({
+						'messageType':'ENTER',
+						'sender':custName,
+						'message':enterMessage
+					})
+			);
+			//enterChat(JSON.parse(chatMessage.body));
+			
+			
+		});
+		$('#span_chatGuide').text(name + '님과의 채팅방입니다.');
+		$('#div_chatText').show();
+		chatroomId = roomId;
+	}
+	
+	function disconnectChat(){
+		if(stompClient !== null){
+			
+			var exitMessage = ' 님이 퇴장하셨습니다.';
+			stompClient.send("/send/" + chatroomId, {},
+					JSON.stringify({
+						'messageType':'EXIT',
+						'sender':custName,
+						'message':exitMessage
+					})
+			);
+			stompClient.disconnect();
+		}
+		
+		$('#div_chatEach').empty();
+	}
+	
+	
+	function showMessage(chatMessage){
+		
+		if(chatMessage.messageType == "ENTER" || chatMessage.messageType == "EXIT"){
+			$('#div_chatEach').append(
+					'<div><p class="chattext">'+'[' + chatMessage.sender + ']' + chatMessage.message + '</p></div>'		
+			);
+		}else{
+			if(chatMessage.sender == custName){
+				$('#div_chatEach').append(
+					'<div class="chat_name mine"><p>' + chatMessage.sender + '</p></div>' +
+					'<div class="chat_mine"><p class="chattext">' + chatMessage.message + '</p></div>'		
+				);
+			}else{
+				$('#div_chatEach').append(
+					'<div class="chat_name notmine"><p>' + chatMessage.sender + '</p></div>' +
+					'<div class="chat_notmine"><p class="chattext">' + chatMessage.message + '</p></div>'		
+				);
+			}
+		}
+		$("#div_chatEach").scrollTop($("#div_chatEach")[0].scrollHeight);
+	}
+	
+	function sendChat(chatroomId){
+		var message = $('textarea[name="chatMessage"]').val();
+		
+		if(message.trim() == ''){
+			$('textarea[name="chatMessage"]').focus();
+			return;
+		}
+		
+		stompClient.send("/send/" + chatroomId, {},
+				JSON.stringify({
+					'messageType':'TALK',
+					'sender':custName,
+					'message':message
+		}));
+		
+		$('textarea[name="chatMessage"]').val('');
+	}
+	
+	
+
 	$(function(){
 		currentDateTime();
 		setInterval(() => currentDateTime(), 1000);
 		getQuotes();
+		
+		$('#btn_submitChat').click(function(){
+			sendChat(chatroomId);
+		});
+		
+		$('textarea[name="chatMessage"]').on('keydown',function(event){
+			if(event.keyCode === 13){
+				event.preventDefault();
+				sendChat(chatroomId);
+			}
+		});
+		
 	});
 	
 	
@@ -311,7 +505,7 @@
 		            <div class="card-header pb-0 pt-3 bg-transparent">
 			              <h6 class="text-capitalize">상담 신청 내역</h6>
 			              <p class="text-sm mb-0">
-			                <span class="font-weight-bold">상담 신청 및 진행 결과를 확인해 보세요</span>
+			                <span class="font-weight-bold">내역을 클릭하면 자세한 정보를 확인할 수 있어요.</span>
 			              </p>
 			         </div>
 			         <div class="card-body p-3">
@@ -325,7 +519,7 @@
 				              		
 				              		<table class="table csl trainer">
 				              			<thead>
-				              				<tr><th>신청일</th><th>신청자</th><th>상담 희망일</th><th>신청</th><th>상담</th></tr>
+				              				<tr><th>신청일</th><th>신청자</th><th>상담 희망일</th><th>신청</th><th>상담</th><th></th></tr>
 				              			</thead>
 				              			<tbody th:each="csl : ${cslList}">
 				              				<tr th:onclick="toggleDetail([[${csl.id}]])">
@@ -349,10 +543,11 @@
 				              							<option th:selected="${csl.csl_progress == '거절'}">거절</option>
 				              						</select>
 			              						</td>
+			              						<td><i class="fa-solid fa-comments" id="btn_startchat" th:onclick="startChat([[${csl.id}]], [[${csl.uname}]])"></i></td>
 				              				</tr>
 				              				
 				              				<tr class="csl_info" >
-				              					<td colspan="5" th:classappend="${csl.id}" style="display:none;">
+				              					<td colspan="6" th:classappend="${csl.id}" style="display:none;">
 				              						<div id="div_csldetail" class="row" th:classappend="'div' + ${csl.id}">
 				              						
 				              							<div class="col-2 csl_detail">
@@ -386,7 +581,7 @@
 				              		
 				              		<table class="table csl trainer">
 				              			<thead>
-				              				<tr><th>신청일</th><th>트레이너</th><th>상담 희망일</th><th>신청</th><th>상담</th></tr>
+				              				<tr><th>신청일</th><th>트레이너</th><th>상담 희망일</th><th>신청</th><th>상담</th><th></th></tr>
 				              			</thead>
 				              			<tbody th:each="csl : ${cslList}">
 				              				<tr th:onclick="toggleDetail([[${csl.id}]])">
@@ -398,10 +593,11 @@
 			              						</td>
 				              					<td th:text="${csl.csl_read}"></td>
 				              					<td th:text="${csl.csl_progress}"></td>
+				              					<td><i class="fa-solid fa-comments" id="btn_startchat" th:onclick="startChat([[${csl.id}]], [[${csl.tname}]])"></i></td>
 				              				</tr>
 				              				
 				              				<tr class="csl_info" >
-				              					<td colspan="5" th:classappend="${csl.id}" style="display:none;">
+				              					<td colspan="6" th:classappend="${csl.id}" style="display:none;">
 				              						<div id="div_csldetail" class="row" th:classappend="'div' + ${csl.id}">
 				              						
 				              							<div class="col-2 csl_detail">
@@ -437,27 +633,34 @@
         <div class="col-lg-6 mb-lg-0 mb-4">
           <div class="card z-index-2 h-100">
             <div class="card-header pb-0 pt-3 bg-transparent">
-              <h6 class="text-capitalize">채팅방 UI</h6>
+              <h6 class="text-capitalize">채팅</h6>
               <p class="text-sm mb-0">
-                <i class="fa fa-arrow-up text-success"></i>
-                <span class="font-weight-bold">4% more</span> in 2021
+                <span id="span_chatGuide" class="font-weight-bold">좌측에서 채팅 상대를 선택하세요!</span>
               </p>
             </div>
             <div class="card-body p-3">
-              <div class="chart border" style="height:300px;">
-              
-			<p th:text="${session.loginid}">ID</p>
-			<p id="status">Status</p>
-			<p id="servermsg1">Server Msg1</p>
-			<p id="servermsg2">Server Msg2</p>
-			<button id="connect">Connect</button>
-			<button id="disconnect">Disconnect</button>
+              <div class="chart border chat" style="height:300px;">
+              	<div id="div_chatEach">
+              	
+              	</div>
+
 			
-			<p>Send message</p>
-			<input type="text" id="target">
-			<input type="text" id="totext"><button id="sendto">Send</button>
-			<div id="to"></div>
-			
+              	<div id="div_chatText" class="row" style="display:none;">
+              		<div class="col-9" style="justify-content:right;padding-right:0;display:flex;">
+              			<textarea type="text" name="chatMessage" rows="1"></textarea>
+              		</div>
+              		<div class="col-3" style="padding-left:0;">
+              			<button id="btn_submitChat" style="justify-content:left;">
+              				<span>보내기</span>
+           				</button>
+              		</div>
+              			
+              		
+              			
+              		
+				</div>
+
+
               </div>
             </div>
           </div>

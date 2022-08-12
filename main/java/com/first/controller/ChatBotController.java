@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.first.biz.ChatBot;
 
 @Controller
-public class ChatController {
+public class ChatBotController {
 
 	@Autowired
 	ChatBot chatbot;

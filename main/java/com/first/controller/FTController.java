@@ -2,8 +2,6 @@ package com.first.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.first.biz.CslBiz;
 import com.first.biz.CslListBiz;
+import com.first.biz.ReportBiz;
 import com.first.biz.ReviewBiz;
 import com.first.biz.TrainerBiz;
 import com.first.biz.TrainerSort;
 import com.first.biz.WorkdayBiz;
+import com.first.frame.Util;
 import com.first.vo.CslVO;
 import com.first.vo.MajorVO;
+import com.first.vo.ReportVO;
 import com.first.vo.ReviewVO;
 import com.first.vo.TrainerVO;
 import com.first.vo.WorkdayVO;
@@ -45,6 +46,12 @@ public class FTController {
 	
 	@Autowired
 	CslListBiz cslListbiz;
+	
+	@Autowired
+	ReportBiz rpbiz;
+	
+	@Value("${dir7}")
+	String dir7;
 		
 	@Value("6")
 	private int amount;
@@ -183,10 +190,17 @@ public class FTController {
 	@RequestMapping("cslListaddimpl")
 	public String cslListaddimpl(Model m, CslVO csl) {
 		try {
-			
 			cslbiz.register(csl);
-			
-			System.out.println("csl: " +  cslbiz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/";
+	}
+	
+	@RequestMapping("reviewaddimpl")
+	public String reviewaddimpl(Model m, ReviewVO rv) {
+		try {
+			rvbiz.register(rv);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -205,6 +219,19 @@ public class FTController {
 //		}
 //		return "redirect:/";
 //	}
+	
+	@RequestMapping("reportaddimpl")
+	public String reportaddimpl(Model m, ReportVO report) {
+		String rp_imgname = report.getRp().getOriginalFilename();
+		report.setRp_imgname(rp_imgname);
+		try {
+			rpbiz.register(report);
+			Util.saveFileR(report.getRp(), dir7);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/";
+	}
 	
 
 }

@@ -1,6 +1,6 @@
 package com.first.frame;
 
-import java.io.FileOutputStream;
+import java.io.FileOutputStream; 
 import org.springframework.web.multipart.MultipartFile;
 
 public class Util {
@@ -106,6 +106,24 @@ public class Util {
 			FileOutputStream fo3 = new FileOutputStream(dir3 + profile3);
 			fo3.write(data3);
 			fo3.close();
+
+		} catch (Exception e) {
+
+		}
+
+	}
+	
+	public static void saveFileR(MultipartFile rp, String dir7) {
+
+		byte[] dataR;
+
+		String report = rp.getOriginalFilename();
+
+		try {
+			dataR = rp.getBytes();
+			FileOutputStream foR = new FileOutputStream(dir7 + report);
+			foR.write(dataR);
+			foR.close();
 
 		} catch (Exception e) {
 

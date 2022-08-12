@@ -30,23 +30,43 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			INSERT INTO csl VALUES(NULL, #{uid}, #{tid}, #{csl_workoutday}, #{csl_date}, #{csl_time}, 
 			DEFAULT, DEFAULT, CURDATE(), #{age}, #{gender}, #{purpose}, #{frequency})
 		</insert>
-	<!-- update: 상담 희망 date, time 수정-->
+	<!-- 상담 희망 date, time 수정-->
 		<update id="update" parameterType="cslVO">
 			UPDATE csl SET csl_date=#{csl_date}, csl_time=#{csl_time}
 			WHERE id=#{id}
 		</update>
-	<!-- update: 수락 여부 수정-->
+	<!-- 수락 여부 수정-->
 		<update id="updateread" parameterType="cslVO">
 			UPDATE csl SET csl_read=#{csl_read}
 			WHERE id=#{id}
 		</update>
-	<!-- update: 상담 여부 수정-->
+	<!-- 상담 여부 수정-->
 		<update id="updateprogress" parameterType="cslVO">
 			UPDATE csl SET csl_progress=#{csl_read}
 			WHERE id=#{id}
 		</update>
-	<delete id="delete" parameterType="int">
-		DELETE FROM csl WHERE id=#{id}
-	</delete>
+	<!-- ChatRoom Id 수정-->
+		<update id="updateroomid" parameterType="int">
+			UPDATE csl SET roomid=#{roomid}
+			WHERE id=#{id}
+		</update>
+	<!-- ChatRoom 찾기 -->
+		<select id="selectroomid" parameterType="int">
+			SELECT roomid FROM csl
+			WHERE id=#{id}
+		</select>
+		<select id="selectallroomid">
+			SELECT roomid FROM csl
+		</select>
+		<select id="selectroombyroomid" parameterType="int">
+			SELECT roomid FROM csl
+			WHERE roomid=#{roomid}
+		</select>
+		<select id="checkmatching" parameterType="String" resultType="String">
+			SELECT matching_status from csl where uid=#{uid} and tid=#{tid}
+		</select>
+		<delete id="delete" parameterType="int">
+			DELETE FROM csl WHERE id=#{id}
+		</delete>
 
 </mapper>

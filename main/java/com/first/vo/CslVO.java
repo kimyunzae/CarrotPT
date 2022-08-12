@@ -31,6 +31,9 @@ public class CslVO{
 	private String uname;
 	private String tname;
 	
+	private int roomid;
+	private String matching_status;
+	
 	// for INSERT
 	public CslVO(String uid, String tid, String csl_workoutday, Date csl_date, String csl_time, String age,
 			String gender, String purpose, String frequency) {
@@ -61,8 +64,29 @@ public class CslVO{
 		this.csl_read = csl_read;
 	}
 
-
-
+	public CslVO(int id, int roomid) {
+		super();
+		this.id = id;
+		this.roomid = roomid;
+	}
+	
+//	private Set<WebSocketSession> sessions = new HashSet<>();
+//	
+//
+//    public void handleActions(WebSocketSession session, ChatMessageVO chatMessage, ChatBiz chatService) {
+//        if (chatMessage.getMessagetype().equals(ChatMessageVO.MessageType.ENTER)) {
+//            sessions.add(session);
+//            chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다.");
+//        }
+//        sendMessage(chatMessage, chatService);
+//    }
+//
+//    public <T> void sendMessage(T message, ChatBiz chatService) {
+//        sessions.parallelStream().forEach(session -> chatService.sendMessage(session, message));
+//    }
+//
+//
+//
 
 
 	

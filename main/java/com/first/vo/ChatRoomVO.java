@@ -11,10 +11,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MapVO {
-	private int id;
-	private String gymname;
-	private String lat;
-	private String lng;
-
+public class ChatRoomVO {
+	private int roomId;
+	private int participants;
+	public ChatRoomVO(int participants) {
+		super();
+		this.participants = participants;
+	}
+	
+	
 }
