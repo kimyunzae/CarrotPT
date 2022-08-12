@@ -115,53 +115,61 @@ body.modal-open {
 	}
 
 	$(function() {
+		/* var star = $('#rv_rate_int' + "1027").val();
+		var star2 = $('#rv_rate_int' + "1029").val();
+		alert(star);
+		alert(star2); */
+		
+		 /*<![CDATA[*/ 		 /*]]>*/
+		var star1 = $(rvid).val();
+		star1.each(function(){
+			review(star1);		
+		});
+		
+		
+		function review(rvid) {
+			
+			alert(star1);
+			const starElement = document.getElementById("stars");
+				if (star1 == 1) {
+					starElement.innerHTML = "★☆☆☆☆";
+					
+					return;
+				}
+				if (star1 == 2) {
+					starElement.innerHTML = "★★☆☆☆";
+					return;
+				}
+				if (star1 == 3) {
+					starElement.innerHTML = "★★★☆☆";
+					return;
+				}
+				if (star1 == 4) {
+					starElement.innerHTML = "★★★★☆";
+					return;
+				}
+				if (star1 == 5) {
+					starElement.innerHTML = "★★★★★";
+					return;
+				}
+				else {
+					starElement.innerHTML = "☆☆☆☆☆";
+					return;
+				}
 
-		//리뷰 별점 출력 if rv_rate_ui = 5, 5 starts selected 
-		// var star_rating_int = $('#rv_rate_int').val(); 
-		// 	alert(star_rating);
-		/* var star0 = document.querySelector('#zero');
-		var star1 = document.querySelector('#one');
-		var star2 = document.querySelector('#two');
-		var star3 = document.querySelector('#three');
-		var star4 = document.querySelector('#four');
-		var star5 = document.querySelector('#five'); */
-
-		var rating2 = $('.rating2');
+		/* var rating2 = $('.rating2');
 		$('#zero').hide();
 		$('#one').hide();
 		$('#two').hide();
 		$('#three').hide();
 		$('#four').hide();
 		$('#five').hide();
+		 */
 
-		var rv_rate_int = $('.rating2 input[name="rv_rate_int"]').val();
-		$('.rating2 input[name="rv_rate_int"]').each(function() { //이게 안되네
-			if ($(this).val() == 0) {
-				$('#zero').show();
-				return;
-			}
-			if ($(this).val() == 1) {
-				$('#one').show();
-				return;
-			}
-			if ($(this).val() == 2) {
-				$('#two').show();
-				return;
-			}
-			if ($(this).val() == 3) {
-				$('#three').show();
-				return;
-			}
-			if ($(this).val() == 4) {
-				$('#four').show();
-				return;
-			}
-			if ($(this).val() == 5) {
-				$('#five').show();
-				return;
-			}
-		});
-
+		/* var star_int = $('.rating2 input[name="star_int"]').val(); */
+		
+		
+	
 		function alignModal() {
 			var modalDialog = $(this).find(".modal-dialog");
 			// Applying the top margin on modal to align it vertically center
@@ -249,7 +257,7 @@ body.modal-open {
 				reasonArr.push($(this).val());
 			});
 			$('input[name="rp_reason"]').val(reasonArr);
-		
+
 			$.ajax({
 				url : "/checkauthority",
 				type : "POST",
@@ -276,7 +284,6 @@ body.modal-open {
 					}
 				}
 			})
-		
 
 		});
 	});
@@ -478,14 +485,17 @@ body.modal-open {
 						<p th:text="${rv.rv_text}"></p>
 						<!-- <span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span> -->
 						<div class="rating2 d-flex justify-content-end">
-							<input type="radio" name="five"><label id="five">★★★★★</label>
-							<input type="radio" name="four"><label id="four">★★★★☆</label>
-							<input type="radio" name="three"><label id="three">★★★☆☆</label>
-							<input type="radio" name="two"><label id="two">★★☆☆☆</label>
-							<input type="radio" name="one"><label id="one">★☆☆☆☆</label>
-							<input type="radio" name="zero"><label id="zero">☆☆☆☆☆</label>
+							<input type="radio"><label id="stars"></label>
 
-							<input type="hidden" name="rv_rate_int" th:value="${rv.rv_rate}">
+							<!-- 	<input type="radio"><label name="four" id="four">★★★★☆</label>
+							<input type="radio"><label name="three" id="three">★★★☆☆</label>
+							<input type="radio"><label name="two" id="two">★★☆☆☆</label>
+							<input type="radio"><label name="one" id="one">★☆☆☆☆</label>
+							<input type="radio"><label name="zero" id="zero">☆☆☆☆☆</label> -->
+
+							<input type="hidden" name="star_int" th:id="'rv_rate_int' + ${rv.id}" class="rate_int" th:value="${rv.rv_rate}">
+
+							<!-- th:id="'rv_rate_int' + ${rv.rv_rate}'"  -->
 						</div>
 					</div>
 				</li>
