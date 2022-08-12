@@ -332,7 +332,12 @@
 		$.ajax({
 			url:'/logout',
 			success:function(){
-				location.reload();
+				if (window.location.href.indexOf("mypage") > -1) {
+				      document.location.href="/";
+				    }
+				else {
+					location.reload();
+				}		
 			}
 		});
 	}

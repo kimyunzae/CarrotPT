@@ -113,8 +113,6 @@ body.modal-open {
 	function openLoginModal() {
 		$('#loginModal').modal('show');
 	}
-	
-	
 
 	$(function() {
 		/* var star = $('#rv_rate_int' + "1027").val();
@@ -123,15 +121,16 @@ body.modal-open {
 		alert(star2); */
 		
 		 /*<![CDATA[*/ 		 /*]]>*/
-		 
-		function review(rvid) {
+		var star1 = $(rvid).val();
+		star1.each(function(){
+			review(star1);		
+		});
 		
-			var star1 = $('#rv_rate_int' + rvid).val();
+		
+		function review(rvid) {
+			
 			alert(star1);
 			const starElement = document.getElementById("stars");
-		
-		
-			starElement.each(function(){
 				if (star1 == 1) {
 					starElement.innerHTML = "★☆☆☆☆";
 					
@@ -157,10 +156,7 @@ body.modal-open {
 					starElement.innerHTML = "☆☆☆☆☆";
 					return;
 				}
-			})
-		}
 
-		
 		/* var rating2 = $('.rating2');
 		$('#zero').hide();
 		$('#one').hide();
