@@ -16,6 +16,7 @@ import com.first.biz.ReportBiz;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.vo.NewAlarmVO;
+import com.first.vo.ReportVO;
 import com.first.vo.StatusVO;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
@@ -80,22 +81,29 @@ public class AdminController {
 	// 1-1 메인: 일반회원 조회
 	@RequestMapping("")
 	public String admin(Model m, String orderBy, Integer pageNo, HttpSession session) {
+		String result = "";
+		Object level = session.getAttribute("custLevel");
+		if(level == null || !(level.toString().equals("관리자"))) {
+			result = "redirect:/";
+		}else {
+			if(pageNo == null) {
+				pageNo = 1;
+			}
+			int offset = 0;
+			try {
+				List<TraineeVO> list = traineebiz.getbypage(pageNo, amount, orderBy, offset);
+				m.addAttribute("tneelist", list);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			m.addAttribute("center", "admin/admin");
+			m.addAttribute("admincenter", "admin/trainee");
+			m.addAttribute("trainee_info", "admin/trainee_info");
+			m.addAttribute("currentPage", pageNo);
+			result = "index";
+		}
 		
-		if(pageNo == null) {
-			pageNo = 1;
-		}
-		int offset = 0;
-		try {
-			List<TraineeVO> list = traineebiz.getbypage(pageNo, amount, orderBy, offset);
-			m.addAttribute("tneelist", list);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("center", "admin/admin");
-		m.addAttribute("admincenter", "admin/trainee");
-		m.addAttribute("trainee_info", "admin/trainee_info");
-		m.addAttribute("currentPage", pageNo);
-		return "index";
+		return result;
 	}
 	
 	// 1-2 일반회원 pagination
@@ -117,52 +125,62 @@ public class AdminController {
 	
 	// 1-3 일반회원 상세
 	@RequestMapping("/trainees/detail")
-	public String traineedetail(Model m, String id) {
-		try {
-			TraineeVO obj = traineebiz.get(id);
-			m.addAttribute("vo", obj);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public String traineedetail(Model m, String id, HttpSession session) {
+		String result = "";
+		Object level = session.getAttribute("custLevel");
+		if(level == null || !(level.toString().equals("관리자"))) {
+			result = "redirect:/";
+		}else {
+			try {
+				TraineeVO obj = traineebiz.get(id);
+				m.addAttribute("vo", obj);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			m.addAttribute("center", "mypage/mypage");
+			result = "index";
 		}
-		m.addAttribute("center", "mypage/mypage");
-		return "index";
+		return result;
 	}
 	
 	// 2-1 트레이너 조회
 	@RequestMapping("/trainers")
-	public String directPage(Model m, Integer pageNo, String orderBy, String status) {
-		
-		if(pageNo == null) {
-			pageNo = 1;
+	public String directPage(Model m, Integer pageNo, String orderBy, String status, HttpSession session) {
+		String result = "";
+		Object level = session.getAttribute("custLevel");
+		if(level == null || !(level.toString().equals("관리자"))) {
+			result = "redirect:/";
+		}else {
+			if(pageNo == null) {
+				pageNo = 1;
+			}
+			
+			if(status == null) {
+				status = "all";
+			}
+			try {
+				List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, status);
+				m.addAttribute("tnerlist", list);
+				List<StatusVO> statuslist = trainerbiz.getstatus();
+				m.addAttribute("statuslist", statuslist);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			m.addAttribute("statusforpage", status);
+			m.addAttribute("center", "admin/admin");
+			m.addAttribute("admincenter", "admin/trainer");
+			m.addAttribute("trainer_info", "admin/trainer_info");
+			m.addAttribute("currentPage", pageNo);
+			result = "index";
 		}
-		
-		if(status == null) {
-			status = "all";
-		}
-		int offset = 0;
-		try {
-			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
-			m.addAttribute("tnerlist", list);
-			List<StatusVO> statuslist = trainerbiz.getstatus();
-			m.addAttribute("statuslist", statuslist);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		m.addAttribute("statusforpage", status);
-		m.addAttribute("center", "admin/admin");
-		m.addAttribute("admincenter", "admin/trainer");
-		m.addAttribute("trainer_info", "admin/trainer_info");
-		m.addAttribute("currentPage", pageNo);
-		return "index";
+		return result;
 	}
 	
 	// 2-2 트레이너 pagination
 	@RequestMapping("/findtpage")
-	public String findtPage(int pageNo, String orderBy, String status, Model m) {
-		
-		int offset = 0;
+	public String findtPage(int pageNo, String orderBy, String status, Model m, HttpSession session) {
 		try {
-			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, offset, status);
+			List<TrainerVO> list = trainerbiz.getbypage(pageNo, amount, orderBy, status);
 			m.addAttribute("tnerlist", list);
 			List<StatusVO> statuslist = trainerbiz.getstatus();
 			m.addAttribute("statuslist", statuslist);
@@ -176,16 +194,23 @@ public class AdminController {
 	
 	// 2-3 트레이너 상세
 	@RequestMapping("/trainers/detail")
-	public String trainerdetail(Model m, String id) {
-		try {
-			TrainerVO obj = trainerbiz.get(id);
-			m.addAttribute("trainer", obj);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public String trainerdetail(Model m, String id, HttpSession session) {
+		String result = "";
+		Object level = session.getAttribute("custLevel");
+		if(level == null || !(level.toString().equals("관리자"))) {
+			result = "redirect:/";
+		}else {
+			try {
+				TrainerVO obj = trainerbiz.get(id);
+				m.addAttribute("trainer", obj);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			m.addAttribute("center", "mypage/trmypage");
+			m.addAttribute("trainercenter","mypage/trprofile");
+			result =  "index";
 		}
-		m.addAttribute("center", "mypage/trmypage");
-		m.addAttribute("trainercenter","mypage/trprofile");
-		return "index";
+		return result;
 	}
 	
 	// 2-4 트레이너 status 업데이트
@@ -199,8 +224,40 @@ public class AdminController {
 			e.printStackTrace();
 		}
 	}
-
-
+	
+	// 3-1 신고 조회
+	@RequestMapping("/reports")
+	public String reports(Model m, HttpSession session) {
+		String result = "";
+		Object level = session.getAttribute("custLevel");
+		if(level == null || !(level.toString().equals("관리자"))) {
+			result = "redirect:/";
+		}else {
+			try {
+				List<ReportVO> list = reportbiz.get();
+				m.addAttribute("reportlist", list);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			m.addAttribute("center", "admin/admin");
+			m.addAttribute("admincenter", "admin/report");
+			m.addAttribute("report_info", "admin/report_info");
+			result = "index";
+		}
+		return result;
+	}
+	
+	// 3-3 신고 status 업데이트
+	@ResponseBody
+	@RequestMapping("/updateReportStatus")
+	public void updateReportStatus(int id, String rp_status) {
+		ReportVO obj = new ReportVO(id, rp_status);
+		try {
+			reportbiz.modify(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }

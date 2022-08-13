@@ -56,6 +56,12 @@ public class ReportBiz implements Biz<Integer, ReportVO> {
 		NewAlarmVO obj = new NewAlarmVO(newtrainercnt, newreportcnt);
 		return obj;
 	}
+	
+	public List<ReportVO> getbypage(int pageNo, int amount, String rp_status) throws Exception{
+		int offset = (pageNo - 1) * amount;
+		List<ReportVO> list = dao.selectbypage(pageNo, amount, offset, rp_status);
+		return list;
+	}
 
 	
 	

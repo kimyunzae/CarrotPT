@@ -59,6 +59,7 @@ public class MapController {
 		}
 		return positionArr;
 	}
+
 }
 	
 

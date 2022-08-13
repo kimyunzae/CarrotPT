@@ -32,10 +32,38 @@
 	}
 </style>
 <script>
+	
+	function updateimpl(id, newStatus, statusDetail){
+		$.ajax({
+			url:'/admin/updatestatus',
+			data:{
+				'id':id,
+				'newstatus':newStatus,
+				'statusdetail':statusDetail
+			},
+			success: function(result){
+				$('.modal-body').empty();
+				$('.modal-body').append('<p>상태 변경이 완료되었습니다.</p>');
+				$('.modal-footer').empty();
+				$('.modal-footer').append('<button type="button" id="btn_closemodal" class="btn btn-secondary" data-dismiss="modal">Close</button>');
+				closeModal();
+			}
+		});
+	}
+	
+	function closeModal(){
+		$('#btn_closemodal').click(function(){
+			location.reload();
+		});
+	};
+
+	
 	$(function(){
 		$('#trainerAlarm').click(function(){
 			$('#a_trainers').attr('href', "/admin/trainers?status=대기중");
 		});
+		
+		
 	});
 </script>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -61,9 +89,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link px-2" id="a_reports"
-								href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-								target="__blank">
+							<a class="nav-link px-2" id="a_reports" th:href="@{/admin/reports}">
 									<i class="fa-fw far fa-angry mr-1"></i>
 									<span class="adminlist">신고내역</span>
 									<span class="span-alarm" id="reportAlarm" th:if="${newAlarmCnt.newreport > 0}" th:text="${newAlarmCnt.newreport}"></span>

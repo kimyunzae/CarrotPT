@@ -1,4 +1,10 @@
 <style>
+
+ #span_reportGuide{
+	font-size:0.8rem;
+	font-weight:bold;
+ }
+ 
  #ul_status .nav-item:hover{
  	color:#769BCD;
  	cursor:pointer;
@@ -12,6 +18,56 @@
  	font-family: "Poppins", Arial, sans-serif;
  }
  
+ .report_info_detail{
+ 	background-color:#F5F9FC;
+ }
+ 
+ .report.img{
+ 	max-width:200px;
+ 	max-height:200px;
+ 	object-fit:contain;
+ 	cursor:pointer;
+ }
+ 
+ .report_detail{
+ 	align-items:center;
+ 	justify-content:space-between;
+ 	padding-right:2rem;
+ }
+ 
+ #modal_reportimg{
+ 	display:none;
+ 	overflow:auto;
+ 	background-color:rgba(0, 0, 0, 0.8);
+ }
+ 
+ #reportModal_img{
+ 	max-width:700px;
+ 	max-height:500px;
+ 	object-fit:contain;
+ 	display:block;
+ }
+ 
+ .report.modal-content{
+  	cursor:pointer;
+ 	position:fixed !important;
+ 	top:15%;
+ 	max-width:800px;
+ 	max-height:600px;
+ 	animation-name:zoom;
+ 	animation-duration:0.8s;
+ }
+ 
+  @keyframes zoom{
+ 	from{transform:scale(0.7)}
+ 	to{transform:scale(1)}
+ }
+ 
+ .modal-body.report{
+ 	display:grid;
+ 	place-content:center;
+ }
+
 </style>
 <script th:inline="javascript">
 
@@ -170,9 +226,36 @@
 		}
 	
 	}
+
+
+	function openImgModal(rid){
+		$('#modal_reportimg.' + rid).show();
+	};
+	
+	function closeImgModal(rid){
+		$('#modal_reportimg.' + rid).hide();
+	};
+	
+	function closeImgModalOutside(rid){
+		closeImgModal(rid);
+	};
+	
+	function toggleDetail(id){
+		$('.report_info_detail.' + id).slideToggle(200, "swing");
+	}
+	
+	function updateReportStatus(rid){
+		$.ajax({
+			url:'/admin/updateReportStatus',
+			data:{
+				'id':rid,
+				'rp_status':'처리완료'
+			}
+		});
+	}
 	
 	/* 개별 status 변경*/
-	function UpdateStatus(id){
+	function UpdateStatus(rid, id){
 		
 		var newStatus = $('#'+'selectstatus'+id).val();
 		
@@ -186,28 +269,16 @@
 		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-primary" id="btn_status">변경</button></p>');
 		$('.modal-footer.updatestatus').append('<p><button type="button" class="btn btn-secondary" id="btn_closemodal" data-dismiss="modal">취소</button></p>');
 	   
-		// 거절 or 정지: 사유 입력해야 함
-		if(newStatus == "거절" || newStatus == "정지"){
+		closeModal();
+		var refuse = '<label for="select_statusdetail">사유</label>'
+			+ '<select id="select_statusdetail">'
+			+ '<option>신고 누적</option>'
+			+ '<option>폭행</option>'
+			+ '<option>욕설</option>'
+			+ '<option>기타</option>'
+			+ '</select>';
+		
 			
-			if(newStatus == "거절"){
-				var refuse = '<label for="select_statusdetail">거절 사유</label>'
-					+ '<select id="select_statusdetail">'
-					+ '<option>자격 및 경력 증명 서류 미비</option>'
-					+ '<option>근무 여부 확인 불가</option>'
-					+ '<option>프로필 사진 부적합</option>'
-					+ '<option>기타</option>'
-					+ '</select>';
-			}else{
-				var refuse = '<label for="select_statusdetail">정지 사유</label>'
-					+ '<select id="select_statusdetail">'
-					+ '<option>신고 누적</option>'
-					+ '<option>폭행</option>'
-					+ '<option>욕설</option>'
-					+ '<option>기타</option>'
-					+ '</select>';
-			}
-			
-				
 			$('.modal-body.updatestatus').append(refuse);
 				
 			$('#select_statusdetail').change(function(){
@@ -227,22 +298,19 @@
 					statusDetail = refuseReason;
 				}
 				updateimpl(id, newStatus, statusDetail);
+				updateReportStatus(rid);
+				
 			});
-			closeModal();
-		};
-		
-		if(newStatus != '거절' & newStatus != '정지'){
-			$('#btn_status').click(function(){
-				statusDetail = '';
-				updateimpl(id, newStatus, statusDetail);
-			});
-			closeModal();
-		}
+			
 	};
+		
+		
+	
 	
 	$(function(){
 		
 		paging();
+		
 		
 		// 정렬
 		$('#select_order').change(function(){
@@ -268,10 +336,12 @@
 </script>
 
 <ul class="nav nav-tabs" id="ul_status" >
-	<li class="nav-item"><a class="nav-link a_status" th:classappend="${statusforpage} == 'all'? active" id="statustab_all" data-value="all">ALL</a></li>
-	<li class="nav-item" th:each="s : ${statuslist}">
-		<a class="nav-link a_status" th:attr="data-value=${s.status}"
-		th:classappend="${s.status} == ${statusforpage}? active" th:text="${s.status}"></a>
+	<li class="nav-item"><a class="nav-link a_status" id="statustab_all" data-value="all">ALL</a></li>
+	<li class="nav-item">
+		<a class="nav-link a_status">대기중</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link a_status">처리완료</a>
 	</li>
 </ul>
 
@@ -282,20 +352,12 @@
       <div class="col mb-3">
         <div class="e-panel card">
           <div class="card-body">
-          <div>
-          	<form id="form_order">
-				<select name="orderBy" id="select_order">
-					<option value="id">아이디순</option>
-					<option value="name">이름순</option>
-					<option value="num desc" selected>최근 가입 순</option>
-				</select>
-			</form>
-          </div>
+				<span id="span_reportGuide">* 신고 내역을 클릭하면 상세 신고 사유 및 이미지를 확인하고 조치를 취할 수 있습니다.</span>
             <div class="e-table">
             
               <!-- Table Start -->
               <div id="div_trainee_row"
-              th:replace="${trainer_info} ? ${trainer_info} : trainer_info">
+              th:replace="${report_info} ? ${report_info} : report_info">
               </div>
               <!-- Table End-->
               
@@ -313,7 +375,7 @@
 				    </div>
 				  </div>
 				</div>
-               <!-- Modal End -->
+              <!-- Modal End -->
                
               <div class="d-flex justify-content-center">
                 <ul class="pagination mt-3 mb-0" id="pages">

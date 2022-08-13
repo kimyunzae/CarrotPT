@@ -1,0 +1,68 @@
+<div id="div_trainee_row" class="table-responsive table-lg mt-3">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        
+        <th class="sortable" width="100px">#</th>
+        <th class="sortable" width="140px">신고자</th>
+        <th class="sortable" width="140px">대상</th>
+        <th class="sortable" width="140px">사유</th>
+        <th class="sortable" width="120px">신고일</th>
+        <th class="sortable" width="120px">상태</th>
+      </tr>
+    </thead>
+    <tbody th:each="r : ${reportlist}">
+      <tr class="trainee_info" th:onclick="toggleDetail([[${r.id}]])">
+        <td class="text-nowrap align-middle" width="100px" th:text="${r.id}"></td>
+        <td class="text-nowrap align-middle" width="140px" th:text="${r.uid}"></td>
+        <td class="text-nowrap align-middle" width="140px" th:text="${r.tid}"></td>
+        <td class="text-nowrap align-middle" width="140px"th:text="${r.rp_reason}"></td>
+        <td class="text-nowrap align-middle" width="120px" th:text="${#dates.format(r.rp_regdate, 'yyyy-MM-dd')}"></td>
+        <td class="text-nowrap align-middle" width="120px" th:text="${r.rp_status}"></td>
+      </tr>
+      
+      <tr>
+      	<td colspan="6" class="report_info_detail" th:classappend="${r.id}" style="display:none;">
+      		<div class="row report_detail">
+      			<div class="col-5">
+      				<p th:text="${r.rp_detail}"></p>
+      			</div>
+      			<div class="col-2" th:unless="${r.rp_imgname == null or r.rp_imgname == ''}">
+      				<img class="report img" 
+      				th:src="@{'/images/CRUD/rp/' + ${r.rp_imgname}}" th:onclick="openImgModal([[${r.id}]])">
+      			</div>
+      			<div class="col-2">
+      				<div th:if="${r.rp_status == '대기중'}">
+	      				<select th:id="'selectstatus' + ${r.tid}" th:onchange="UpdateStatus([[${r.id}]], [[${r.tid}]])">
+	      					<option selected>--select--</option>
+	      					<option>정지</option>
+	      					<option>탈퇴</option>
+	      				</select>
+      				</div>
+      			</div>
+      		</div>
+      	</td>
+      </tr>
+      
+	   <!-- Modal -->
+		<div class="modal" th:classappend="${r.id}" id="modal_reportimg" tabindex="-1" role="dialog"
+			th:onclick="closeImgModalOutside([[${r.id}]])" style="display:none;">
+		  <div class="modal-dialog" role="document">
+		    <div class="report modal-content" th:classappend="${r.id}">
+		      <div class="modal-header">
+		        <button type="button" class="close" id="btn_closeImgModal" data-dismiss="modal" aria-label="Close"
+		        	th:onclick="closeImgModal([[${r.id}]])">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body report">
+		        <img id="reportModal_img" th:src="@{'/images/CRUD/rp/' + ${r.rp_imgname}}">
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	    <!-- Modal End -->
+    </tbody>
+  </table>
+  
+</div>
