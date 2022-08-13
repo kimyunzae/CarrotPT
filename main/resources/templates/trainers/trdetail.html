@@ -99,7 +99,7 @@ body.modal-open {
 	display: none;
 }
 
-.rating2>label {
+.rating2>p {
 	position: relative;
 	width: 1em;
 	font-size: 22px;
@@ -121,50 +121,35 @@ body.modal-open {
 		alert(star2); */
 		
 		 /*<![CDATA[*/ 		 /*]]>*/
+		 
+		 /*
 		var star1 = $(rvid).val();
 		star1.each(function(){
 			review(star1);		
 		});
-		
-		
-		function review(rvid) {
+		*/
+		const starElement = document.getElementById("stars");
+		$('.rv_stars').each(function(){
+			var starValue = $(this).data("value");
 			
-			alert(star1);
-			const starElement = document.getElementById("stars");
-				if (star1 == 1) {
-					starElement.innerHTML = "★☆☆☆☆";
-					
-					return;
-				}
-				if (star1 == 2) {
-					starElement.innerHTML = "★★☆☆☆";
-					return;
-				}
-				if (star1 == 3) {
-					starElement.innerHTML = "★★★☆☆";
-					return;
-				}
-				if (star1 == 4) {
-					starElement.innerHTML = "★★★★☆";
-					return;
-				}
-				if (star1 == 5) {
-					starElement.innerHTML = "★★★★★";
-					return;
-				}
-				else {
-					starElement.innerHTML = "☆☆☆☆☆";
-					return;
-				}
-
-		/* var rating2 = $('.rating2');
-		$('#zero').hide();
-		$('#one').hide();
-		$('#two').hide();
-		$('#three').hide();
-		$('#four').hide();
-		$('#five').hide();
-		 */
+			if (starValue == 1) {
+				$(this).text("★☆☆☆☆");
+			}
+			if (starValue == 2) {
+				$(this).text("★★☆☆☆");
+			}
+			if (starValue == 3) {
+				$(this).text("★★★☆☆");
+			}
+			if (starValue == 4) {
+				$(this).text("★★★★☆");
+			}
+			if (starValue == 5) {
+				$(this).text("★★★★★");
+			}
+			/* $(this).text(starValue); */
+		});
+		 
 
 		/* var star_int = $('.rating2 input[name="star_int"]').val(); */
 		
@@ -466,7 +451,7 @@ body.modal-open {
 
 
 
-	<div class="col-md-12">
+<div class="col-md-12">
 		<div class="pt-5 mt-5">
 			<h5 class="mb-3 text-center" th:if="${#lists.isEmpty(review)}">아직
 				작성된 리뷰가 없어요</h5>
@@ -478,22 +463,19 @@ body.modal-open {
 						<img src="/images/emptypic.svg" alt="Image placeholder">
 					</div>
 					<div class="comment-body">
-						<h3 th:text="${rv.uid}">one</h3>
+						<h3 th:text="${rv.uid}"></h3> 
 
-						<div class="meta" th:text="${rv.rv_regdate}">October 03,
-							2018 at 2:21pm</div>
+						<div class="meta" th:text="${#dates.format(rv.rv_regdate, 'yyyy-MM-dd')}"></div>
 						<p th:text="${rv.rv_text}"></p>
 						<!-- <span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span> -->
 						<div class="rating2 d-flex justify-content-end">
-							<input type="radio"><label id="stars"></label>
+							<p th:id="'stars' + ${rv.id}" class="rv_stars" th:data-value="${rv.rv_rate}"></p>
 
 							<!-- 	<input type="radio"><label name="four" id="four">★★★★☆</label>
 							<input type="radio"><label name="three" id="three">★★★☆☆</label>
 							<input type="radio"><label name="two" id="two">★★☆☆☆</label>
 							<input type="radio"><label name="one" id="one">★☆☆☆☆</label>
 							<input type="radio"><label name="zero" id="zero">☆☆☆☆☆</label> -->
-
-							<input type="hidden" name="star_int" th:id="'rv_rate_int' + ${rv.id}" class="rate_int" th:value="${rv.rv_rate}">
 
 							<!-- th:id="'rv_rate_int' + ${rv.rv_rate}'"  -->
 						</div>
