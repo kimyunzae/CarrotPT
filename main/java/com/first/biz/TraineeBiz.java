@@ -65,15 +65,15 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 	}
 
 	// 페이지, 정렬
-	public List<TraineeVO> getbypage(Integer pageNo, int amount, String orderBy, int offset) throws Exception {
+	public List<TraineeVO> getbypage(Integer pageNo, int amount, String orderBy) throws Exception {
 		if (orderBy == null) {
 			orderBy = "regdate desc";
 		}
 		if (pageNo == null) {
 			pageNo = 1;
 		}
-		int offset2 = (pageNo - 1) * amount;
-		List<TraineeVO> list = dao.selectbypage(pageNo, amount, orderBy, offset2);
+		int offset = (pageNo - 1) * amount;
+		List<TraineeVO> list = dao.selectbypage(pageNo, amount, orderBy, offset);
 
 		return list;
 	}

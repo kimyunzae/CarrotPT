@@ -109,64 +109,83 @@ body.modal-open {
 }
 </style>
 
-<script th:inline=javascript>
-	function openLoginModal() {
-		$('#loginModal').modal('show');
+<script th:inline="javascript">
+
+	function writeReview(result){
+		var reviewForm = $('#review_form');
+		
+		if (result == "1") {
+			$.ajax({
+				url:'/trainers/reviewaddimpl',
+				data:reviewForm.serialize(),
+				success: function(){
+					location.reload();
+				}
+			});
+		}
+		if (result == "0") {
+			alert("매칭이 완료된 후에 리뷰를 작성하실 수 있습니다.");
+			return;
+		}
 	}
+	
+	function fileReport(result){
+		
+		var reportForm = $('.report_form')[0];
+		var formData = new FormData(reportForm);
+		if (result == "1") {
+			if (confirm("신고 접수하시겠습니까?")) {
+				
+				$.ajax({
+					type:'POST',
+					url:'/trainers/reportaddimpl',
+					enctype:'multipart/form-data',
+					contentType:false,
+					processData:false,
+					data:formData,
+					success: function(){
+						$('#reportModal .modal-body').empty();
+						$('#reportModal .modal-footer').empty();
+						$('#reportModal .modal-body').append('신고가 접수되었습니다.');
+					}
+				});
+				
+			}
+		}
+
+		if (result == "0") {
+			alert("신고 권한이 없습니다.");
+			return;
+		}
+	}
+	
 
 	$(function() {
-		/* var star = $('#rv_rate_int' + "1027").val();
-		var star2 = $('#rv_rate_int' + "1029").val();
-		alert(star);
-		alert(star2); */
+		const uid = $('input[name="uid"]').val();
+		const tid = $('input[name="tid"]').val();
 		
-		 /*<![CDATA[*/ 		 /*]]>*/
-		 
-		 /*
-		var star1 = $(rvid).val();
-		star1.each(function(){
-			review(star1);		
-		});
-		*/
-		$('.rv_stars').each(function(){
-			var starValue = $(this).data("value");
-			$(this).text(starValue);
-		});
-		
-		/* var rating2 = $('.rating2');
-		$('#zero').hide();
-		$('#one').hide();
-		$('#two').hide();
-		$('#three').hide();
-		$('#four').hide();
-		$('#five').hide();
-		 */
-		const starElement = document.getElementById("stars");
 		$('.rv_stars').each(function(){
 			var starValue = $(this).data("value");
 			
-			if (starValue == 1) {
-				$(this).text("★☆☆☆☆");
+			switch(starValue){
+				case 1:
+					$(this).text("★☆☆☆☆");
+					break;
+				case 2:
+					$(this).text("★★☆☆☆");
+					break;
+				case 3:
+					$(this).text("★★★☆☆");
+					break;
+				case 4:
+					$(this).text("★★★★☆");
+					break;
+				case 5:
+					$(this).text("★★★★★");
+					break;
 			}
-			if (starValue == 2) {
-				$(this).text("★★☆☆☆");
-			}
-			if (starValue == 3) {
-				$(this).text("★★★☆☆");
-			}
-			if (starValue == 4) {
-				$(this).text("★★★★☆");
-			}
-			if (starValue == 5) {
-				$(this).text("★★★★★");
-			}
-			/* $(this).text(starValue); */
 		});
 		 
-		/* var star_int = $('.rating2 input[name="star_int"]').val(); */
-		
-		
-	
 		function alignModal() {
 			var modalDialog = $(this).find(".modal-dialog");
 			// Applying the top margin on modal to align it vertically center
@@ -182,42 +201,48 @@ body.modal-open {
 			$(".modal:visible").each(alignModal);
 		});
 
+		
+		/* 상담 신청 */
 		$('#csl_submit_btn').click(function() {
+			var cslForm = $('.csl_form');
+			
 			const workoutdayArr = [];
-
 			$('input[name="workoutday"]:checked').each(function() {
 				workoutdayArr.push($(this).val());
 			});
-
 			$('input[name="csl_workoutday"]').val(workoutdayArr);
 
-			$('.csl_form').attr({
-				'method' : 'post',
-				'action' : 'cslListaddimpl'
+			$.ajax({
+				url:'/trainers/cslListaddimpl',
+				data: cslForm.serialize(),
+				success: function(){
+					$('#bookModal .modal-body').empty();
+					$('#bookModal .modal-footer').empty();
+					$('#bookModal .modal-body').append('상담 신청이 완료되었습니다.');
+				}
 			});
-			$('.csl_form').submit();
-			alert('매칭신청이 완료되었습니다');
-
+			
 		});
 
-		var uid = $('input[name="uid"]').val();
-		var tid = $('input[name="tid"]').val();
+
+		
+		/* 리뷰 작성 */
 		$('#review_submit_btn').click(function() {
+	
 			var star_rate = $('input[name="rating"]:checked').val();
-			var rv_text = $('input[name=rv_text]').val();
-
+			var rv_text = $('textarea[name=rv_text]').val().trim();
 			$('input[name="rv_rate"]').val(star_rate);
-
+			
 			if ($('input[name="rv_rate"]').val(star_rate) == "") {
-				alert("별점을 매겨주세요");
+				alert("별점을 입력해 주세요.");
 				$('input[name=rv_text]').focus();
-				return false
+				return false;
 			}
 
-			if (rv_text == "") {
-				alert("리뷰글을 작성해주세요");
+			if (rv_text.trim() == "") {
+				alert("내용을 입력해 주세요.");
 				$('input[name=rv_text]').focus();
-				return false
+				return false;
 			}
 
 			$.ajax({
@@ -227,26 +252,14 @@ body.modal-open {
 					'uid' : uid,
 					'tid' : tid
 				},
-				success : function(data) {
-					if (data == 1) {
-						if (confirm("리뷰를 작성하시겠습니까?")) {
-							$('#review_form').attr({
-								'method' : 'post',
-								'action' : 'reviewaddimpl'
-							});
-							$('#review_form').submit();
-							alert('리뷰가 작성되었습니다');
-						}
-					}
-
-					if (data == 0) {
-						alert("리뷰작성 권한이 없습니다.");
-						return;
-					}
+				success : function(result) {
+					writeReview(result);
 				}
 			})
 		});
-
+		
+		
+		/* 신고 접수 */
 		$('#report_submit_btn').click(function() {
 			const reasonArr = [];
 
@@ -263,22 +276,7 @@ body.modal-open {
 					'tid' : tid
 				},
 				success : function(data) {
-					if (data == 1) {
-						if (confirm("신고 하시겠습니까?")) {
-							$('.report_form').attr({
-								'enctype' : 'multipart/form-data',
-								'method' : 'post',
-								'action' : 'reportaddimpl'
-							});
-							$('.report_form').submit();
-							alert('신고가 접수되었습니다');
-						}
-					}
-
-					if (data == 0) {
-						alert("신고 권한이 없습니다.");
-						return;
-					}
+					fileReport(data);
 				}
 			})
 
@@ -476,10 +474,12 @@ body.modal-open {
 					</div>
 					<div class="comment-body">
 						<h3 th:text="${rv.uid}"></h3>
+
 						<div class="meta" th:text="${#dates.format(rv.rv_regdate, 'yyyy-MM-dd')}"></div>
 						<p th:text="${rv.rv_text}"></p>
 						<div class="rating2 d-flex justify-content-end">
 							<p th:id="'stars' + ${rv.id}" class="rv_stars" th:data-value="${rv.rv_rate}"></p>
+
 						</div>
 		
 						
@@ -521,15 +521,15 @@ body.modal-open {
 
 				<div class="form-group d-flex justify-content-end">
 					<input type="button" th:if="${session.logincust == null}"
-						id="review_btn_null" value="리뷰작성"
+						id="review_btn_null" value="후기 등록"
 						class="btn py-3 px-4 btn-primary" data-toggle="modal"
 						data-target="#loginModal"> <input id="review_submit_btn"
 						type="button" th:if="${session.logincust != null}" value="리뷰작성"
 						class="btn py-3 px-4 btn-primary">
 				</div>
 				<input type="hidden" name="uid" th:if="${session.logincust != null}"
-					th:value="${session.logincust.id}"> <input type="hidden"
-					name="tid" th:value="${dtrainer?.id}">
+					th:value="${session.logincust.id}">
+				<input type="hidden" name="tid" th:value="${dtrainer?.id}">
 			</form>
 		</div>
 		<!-- 리뷰 끝 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
@@ -551,13 +551,13 @@ body.modal-open {
 					</button>
 				</div>
 				<div class="modal-body">
+				<!-- csl_form Start -->
 					<form class="csl_form">
 
 						<input type="hidden" id="modal_id_input" name="uid"
-							th:if="${session.logincust != null}"
-							th:value="${session.logincust.id}"> <input type="hidden"
-							name="tid" th:value="${dtrainer?.id}"> <input
-							type="hidden" name="csl_workoutday">
+							th:if="${session.logincust != null}" th:value="${session.logincust.id}">
+						<input type="hidden" name="tid" th:value="${dtrainer?.id}">
+						<input type="hidden" name="csl_workoutday">
 
 						<div class="mt-2  px-3">
 							<h5>고객님의 연령대는 어떻게 되나요?</h5>
@@ -630,35 +630,39 @@ body.modal-open {
 							<h5>평소에 운동을 얼마나 자주 하시나요?</h5>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency1"
-									type="radio" name="frequency"> <label
+									type="radio" name="frequency" value="거의 하지
+									않음"> <label
 									class="custom-control-label" for="optFrequency1">거의 하지
 									않음 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency2"
-									type="radio" name="frequency"> <label
+									type="radio" name="frequency" value="한 달에
+									1-2번"> <label
 									class="custom-control-label" for="optFrequency2">한 달에
 									1-2번 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency3"
-									type="radio" name="frequency"> <label
+									type="radio" name="frequency" value="일주일에
+									1번"> <label
 									class="custom-control-label" for="optFrequency3">일주일에
 									1번 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency4"
-									type="radio" name="frequency"> <label
+									type="radio" name="frequency" value="일주일에
+									2-3번"> <label
 									class="custom-control-label" for="optFrequency4">일주일에
 									2-3번 </label>
 							</div>
 							<div class="custom-control custom-radio">
 								<input class="custom-control-input" id="optFrequency5"
-									type="radio" name="frequency"> <label
+									type="radio" name="frequency" value="일주일에
+									4번 이상"> <label
 									class="custom-control-label" for="optFrequency5">일주일에
 									4번 이상 </label>
 							</div>
-							<input type="hidden" name="frequency" id="frequency" />
 
 						</div>
 
@@ -669,42 +673,43 @@ body.modal-open {
 						</div>
 
 					</form>
+				<!-- csl_form End -->
 					<div class="form-group pb-2 px-3 main">
 						<h5>어떤 요일에 운동하고 싶으신가요? 모두 골라 주세요.</h5>
 						<div class="form-check-inline">
 							<div class=" custom-checkbox">
 								<input name="workoutday" id="workday_mon" type="checkbox"
-									value="월"> <label class="" for="workday_mon">월</label>
+									value="월"> <label for="workday_mon">월</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
 								<input name="workoutday" id="workday_tue" type="checkbox"
-									value="화"> <label class="" for="workday_tue">화</label>
+									value="화"> <label for="workday_tue">화</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
 								<input name="workoutday" id="workday_wed" type="checkbox"
-									value="수"> <label class="" for="workday_wed">수</label>
+									value="수"> <label for="workday_wed">수</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
 								<input name="workoutday" id="workday_thu" type="checkbox"
-									value="목"> <label class="" for="workday_thu">목</label>
+									value="목"> <label for="workday_thu">목</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
 								<input name="workoutday" id="workday_fri" type="checkbox"
-									value="금"> <label class="" for="workday_fri">금</label>
+									value="금"> <label for="workday_fri">금</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
 								<input name="workoutday" id="workday_sat" type="checkbox"
-									value="토"> <label class="" for="workday_sat">토</label>
+									value="토"> <label for="workday_sat">토</label>
 							</div>
 
 							<div class="custom-control custom-checkbox">
 								<input name="workoutday" id="workday_sun" type="checkbox"
-									value="일"> <label class="" for="workday_sun">일</label>
+									value="일"> <label for="workday_sun">일</label>
 							</div>
 						</div>
 					</div>
@@ -752,26 +757,26 @@ body.modal-open {
 							<div class="form-check-inline">
 								<div class=" custom-checkbox">
 									<input name="reason" id="reason_violence" type="checkbox"
-										value="폭행"> <label class="" for="reason_violence">폭행</label>
+										value="폭행"> <label for="reason_violence">폭행</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
 									<input name="reason" id="reason_insult" type="checkbox"
-										value="욕설"> <label class="" for="reason_insult">욕설</label>
+										value="욕설"> <label for="reason_insult">욕설</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
 									<input name="reason" id="reason_attitude" type="checkbox"
-										value="불친절"> <label class="" for="reason_attitude">불친절</label>
+										value="불친절"> <label for="reason_attitude">불친절</label>
 								</div>
 
 								<div class="custom-control custom-checkbox">
 									<input name="reason" id="reason_fraud" type="checkbox"
-										value="사기"> <label class="" for="reason_fraud">사기</label>
+										value="사기"> <label for="reason_fraud">사기</label>
 								</div>
 								<div class="custom-control custom-checkbox">
 									<input name="reason" id="reason_etc" type="checkbox" value="기타">
-									<label class="" for="reason_etc">기타</label>
+									<label for="reason_etc">기타</label>
 								</div>
 
 								<input type="hidden" name="rp_reason">
@@ -779,13 +784,13 @@ body.modal-open {
 						</div>
 
 						<div class="form-group pb-2 px-3">
-							<h5>신고 목적을 자세히 설명해주세요.</h5>
+							<h5>신고 이유를 자세히 설명해주세요.</h5>
 							<textarea class="form-control" id="text" name="rp_detail"
-								maxlength="500" placeholder="" rows="4"></textarea>
+								maxlength="500" rows="4"></textarea>
 						</div>
 
 						<div class="form-group pb-2 px-3">
-							<input type="file" id="rp_imgname" name="rp">
+							<input type="file" name="rp">
 						</div>
 					</form>
 

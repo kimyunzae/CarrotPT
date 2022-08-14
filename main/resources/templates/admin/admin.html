@@ -1,35 +1,35 @@
 <style>
-	.span-alarm{
-		background-color:#769BCD;
-		color:white;
-		display:inline-block;
-		width:20px;
-		border-radius:5px;
-		text-align:center;
-		margin-left:5px;
-	}
-	
-	.span-alarm:hover{
-		background-color:#2C4E80;
-	}
-	
-	.adminlist{
- 		--s: 0.1em;   /* the thickness of the line */
-  		--c: #769BCD; /* the color */
-  
-		  color: #0000;
-		  padding-bottom: var(--s);
-		  background: 
-		    linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
-		    linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
-		 -webkit-background-clip: text,padding-box;
-          background-clip: text,padding-box;
-		  transition: 0.5s;
-	}
-	
-	.adminlist:hover{
-		--_p: 100%
-	}
+.span-alarm{
+	background-color:#769BCD;
+	color:white;
+	display:inline-block;
+	width:20px;
+	border-radius:5px;
+	text-align:center;
+	margin-left:5px;
+}
+
+.span-alarm:hover{
+	background-color:#2C4E80;
+}
+
+.adminlist{
+		--s: 0.1em;   /* the thickness of the line */
+ 		--c: #769BCD; /* the color */
+ 
+	  color: #0000;
+	  padding-bottom: var(--s);
+	  background: 
+	    linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+	    linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+	 -webkit-background-clip: text,padding-box;
+         background-clip: text,padding-box;
+	  transition: 0.5s;
+}
+
+.adminlist:hover{
+	--_p: 100%
+}
 </style>
 <script>
 	
@@ -56,15 +56,20 @@
 			location.reload();
 		});
 	};
-
 	
+	function changeOrder(){
+		$('#select_order').change(function(){
+			var searchPage = 1;
+			GetTarget(parseInt(searchPage));
+		});
+	}
+
 	$(function(){
 		$('#trainerAlarm').click(function(){
 			$('#a_trainers').attr('href', "/admin/trainers?status=대기중");
 		});
-		
-		
 	});
+	
 </script>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	
@@ -117,7 +122,6 @@
 						<div class="card-body">
 							<div class="e-profile">
 							<!-- Cart Body Start -->
-								
 								<div th:insert="${admincenter} ? ${admincenter} : admincenter"></div>
 							<!-- Card Body End -->	
 							</div>
@@ -129,6 +133,6 @@
 			</div>
 
 		</div>
-		<!-- Center End -->
+	<!-- Center End -->
 	</div>
 </div>

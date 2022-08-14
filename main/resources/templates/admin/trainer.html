@@ -15,6 +15,10 @@
 </style>
 <script th:inline="javascript">
 
+	$(window).on('popstate', function(event){
+		window.location = document.location.href;
+	});
+
 	function GetTarget(j){
 		var orderBy = $('#select_order').val();
 		var status = $('.active.nav-link.a_status').data("value");
@@ -28,65 +32,17 @@
 			},
 			method:'GET',
 			success: function(result){
-				
 				$('#div_trainee_row').empty();
 				$('#div_trainee_row').append(result);
 				
-				var pages = $('#pages');
-				pages.empty();
+				currentPage = j;
+				totalData = $('#total_hidden').val();
+				totalPages = Math.ceil(totalData / limitPerPage);
+				pageGroup = Math.ceil(currentPage / pageSize);
+				last = pageGroup * pageSize;
 				
-				var currentPage = j;
-				var totalData = $('#total_hidden').val();
-				
-				var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
-				var pageSize = 5; // 화면에 표시될 페이지 수
-				var totalPages = Math.ceil(totalData / limitPerPage);
-				var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
-				var last = pageGroup * pageSize;
-				
-				if(currentPage <= 0){
-					currentPage = 1;
-				}
-				if(last > totalPages){
-					last = totalPages;
-				}
-				var veryFirst = 1;
-				var veryLast = totalPages;
-				var first = last - (pageSize - 1);
-				const next = last + 1;
-				var prev = first - 1;
-				
-				if(totalPages < 1){
-					first = last;
-				}
-				
-				// 1페이지로
-				if(totalPages > 1){
-					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
-				}
-				
-				// prev 버튼
-				if(first > 1){
-					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')"><</a></li>');
-				}
-				
-				for (var k = first; k <= last; k++) {
-					
-					if(currentPage == k){
-						pages.append('<li class="active page-item"><a class="page-link" onclick="GetTarget(' + k + ');"' + '>' + k + '</a></li>');
-					}else if(k > 0){
-						pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ k +')">' + k + '</a></li>');
-						};
-					}
-				
-				if(next > pageSize && next <= totalPages){
-					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
-				};
-				
-				if(totalPages > 1){
-					pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
-				}
-				
+				veryLast = totalPages;
+				calcPage();
 			}
 
 		});
@@ -100,75 +56,15 @@
 		'/admin/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&status=' + status); // url	
 	}
 	
-	$(window).on('popstate', function(event){
-		window.location = document.location.href;
-
-	});
-	
 	function paging(totalData, currentPage){
+		totalData = [[${TrainerTotal}]];
+		currentPage = [[${currentPage}]];
+		totalPages = Math.ceil(totalData / limitPerPage);
+		pageGroup = Math.ceil(currentPage / pageSize);
+		last = pageGroup * pageSize;
+		veryLast = totalPages;
 		
-		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
-		var totalData = [[${TrainerTotal}]];
-		var currentPage = [[${currentPage}]];
-		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
-		var pageSize = 5; // 화면에 표시될 페이지 수
-		var totalPages = Math.ceil(totalData / limitPerPage);
-		var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
-		var last = pageGroup * pageSize;
-		
-		if(currentPage <= 0){
-			currentPage = 1;
-		}
-		if(last > totalPages){
-			last = totalPages;
-		}
-		var veryFirst = 1;
-		var veryLast = totalPages;
-		var first = last - (pageSize - 1);
-		const next = last + 1;
-		var prev = first - 1;
-		
-		if(totalPages < 1){
-			first = last;
-		}
-		
-		var pages = $('#pages');
-		pages.empty();
-		
-		if(totalPages < 1){
-			first = last;
-		}
-		
-		// 1페이지로
-		if(totalPages > 1){
-			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryFirst +')"><<</a></li>');
-		}
-		
-		// prev 버튼
-		if(first > 1){
-			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ first +')"><</a></li>');
-		}
-		
-		// 페이지 숫자
-		for (var j = first; j <= last; j++) {
-			
-			if(currentPage == j){
-				pages.append('<li class="page-item active"><a class="page-link" onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
-			}else if(j > 0){
-				pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ j +')">' + j + '</a></li>');
-				};
-			}
-		
-		// next 버튼
-		if(next > pageSize && next <= totalPages){
-			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget(' + next + ')">></a></li>');
-		};
-		
-		// 마지막 페이지로
-		if(totalPages > 1){
-			pages.append('<li class="page-item"><a class="page-link" onclick="GetTarget('+ veryLast +')">>></a></li>');
-		}
-	
+		calcPage();
 	}
 	
 	/* 개별 status 변경*/
@@ -243,12 +139,7 @@
 	$(function(){
 		
 		paging();
-		
-		// 정렬
-		$('#select_order').change(function(){
-			var searchPage = 1;
-			GetTarget(parseInt(searchPage));
-		});
+		changeOrder();
 		
 		// status별 조회
 		$('.nav-link.a_status').click(function(){

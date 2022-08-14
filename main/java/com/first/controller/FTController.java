@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.first.biz.CslBiz;
 import com.first.biz.CslListBiz;
@@ -187,24 +188,24 @@ public class FTController {
 		return "index";
 	}
 	
+	@ResponseBody
 	@RequestMapping("cslListaddimpl")
-	public String cslListaddimpl(Model m, CslVO csl) {
+	public void cslListaddimpl(Model m, CslVO csl) {
 		try {
 			cslbiz.register(csl);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/";
 	}
 	
+	@ResponseBody
 	@RequestMapping("reviewaddimpl")
-	public String reviewaddimpl(Model m, ReviewVO rv) {
+	public void reviewaddimpl(Model m, ReviewVO rv) {
 		try {
 			rvbiz.register(rv);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/";
 	}
 	
 //	@RequestMapping("cslListaddimpl")
@@ -220,17 +221,22 @@ public class FTController {
 //		return "redirect:/";
 //	}
 	
+	@ResponseBody
 	@RequestMapping("reportaddimpl")
-	public String reportaddimpl(Model m, ReportVO report) {
-		String rp_imgname = report.getRp().getOriginalFilename();
-		report.setRp_imgname(rp_imgname);
+	public void reportaddimpl(Model m, ReportVO report) {
+		
+		if(report.getRp() != null) {
+			String rp_imgname = report.getRp().getOriginalFilename();
+			report.setRp_imgname(rp_imgname);
+			Util.saveFileR(report.getRp(), dir7);
+		}
+		
 		try {
 			rpbiz.register(report);
-			Util.saveFileR(report.getRp(), dir7);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/";
 	}
 	
 

@@ -282,6 +282,10 @@ input[name="tzip"]{
 
 <script th:inline="javascript">
 
+$(window).on('popstate', function(event){
+	window.location = document.location.href;
+});
+
 function GetTarget(j){
 	var orderBy = $('#select_order').val();
 	var loc = $('#select_loc').val();
@@ -300,62 +304,15 @@ function GetTarget(j){
 			$('#div_trainer_row').empty();
 			$('#div_trainer_row').append(result);
 			
-			var currentPage = j;
-			var totalData = $('#input_hiddencnt').val();
-			var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
-			var pageSize = 5; // 화면에 표시될 페이지 수
-			var totalPages = Math.ceil(totalData / limitPerPage);
-			var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
-			var last = pageGroup * pageSize;
+			currentPage = j;
+			totalData = $('#input_hiddencnt').val();
+			totalPages = Math.ceil(totalData / limitPerPage);
+			pageGroup = Math.ceil(currentPage / pageSize);
+			last = pageGroup * pageSize;
+			veryLast = totalPages;
 			
-			var veryFirst = 1;
-			var veryLast = totalPages;
-			
-			if(currentPage <= 0){
-				currentPage = 1;
-			}
-			if(last > totalPages){
-				last = totalPages;
-			}
-			
-			var first = last - (pageSize - 1);
-			const next = last + 1;
-			var prev = first - 1;
-			
-			if(totalPages < 1){
-				first = last;
-			}
-			
-			var pages = $('#pages');
-			pages.empty();
-			
-			if(totalPages > 1){
-				pages.append('<li><a onclick="GetTarget('+ veryFirst +')"><<</a></li>');
-			}
-			
-			if(first > 1){
-				pages.append('<li><a onclick="GetTarget('+ first +')">prev</a></li>');
-			}
-			
-			for (var k = first; k <= last; k++) {
-				
-				if(currentPage == k){
-					pages.append('<li class="active"><a onclick="GetTarget(' + k + ');"' + '>' + k + '</a></li>');
-				}else if(k > 0){
-					pages.append('<li><a onclick="GetTarget('+ k +')">' + k + '</a></li>');
-					};
-				}
-			
-			if(next > pageSize && next <= totalPages){
-				pages.append('<li><a onclick="GetTarget(' + next + ')">next</a></li>');
-			};
-			
-			if(totalPages > 1){
-				pages.append('<li><a onclick="GetTarget('+ veryLast +')">>></a></li>');
-			}
-			
+			calcPage();
 		}
-		
 	});
 	
 	history.pushState({
@@ -366,72 +323,17 @@ function GetTarget(j){
 	'/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&loc=' + loc + '&major=' + major); // url
 }
 
-	$(window).on('popstate', function(event){
-		window.location = document.location.href;
-
-	});
-
-
 
 function paging(totalData, currentPage){
 	
-		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
-		var totalData = $('#input_hiddencnt').val();
-		var currentPage = [[${currentPage}]];
-		var limitPerPage = [[${amount}]]; // 페이지당 데이터 수
-		var pageSize = 5; // 화면에 표시될 페이지 수
-		var totalPages = Math.ceil(totalData / limitPerPage);
-		var pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
-		var last = pageGroup * pageSize;
-		var veryFirst = 1;
-		var veryLast = totalPages;
+		totalData = $('#input_hiddencnt').val();
+		currentPage = [[${currentPage}]];
+		totalPages = Math.ceil(totalData / limitPerPage);
+		pageGroup = Math.ceil(currentPage / pageSize); 
+		last = pageGroup * pageSize;
+		veryLast = totalPages;
 		
-		if(currentPage <= 0){
-			currentPage = 1;
-		}
-		if(last > totalPages){
-			last = totalPages;
-		}
-		
-		var first = last - (pageSize - 1);
-		const next = last + 1;
-		var prev = first - 1;
-		
-		if(totalPages < 1){
-			first = last;
-		}
-		
-		var pages = $('#pages');
-		pages.empty();
-		
-		if(totalPages > 1){
-			pages.append('<li><a onclick="GetTarget('+ veryFirst +')"><<</a></li>');
-		}
-		
-		// prev 버튼
-		if(first > 1){
-			pages.append('<li><a onclick="GetTarget('+ first +')">prev</a></li>');
-		}
-		
-		// 페이지 숫자
-		for (var j = first; j <= last; j++) {
-			
-			if(currentPage == j){
-				pages.append('<li class="active"><a onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
-			}else if(j > 0){
-				pages.append('<li><a onclick="GetTarget('+ j +')">' + j + '</a></li>');
-				};
-			}
-		
-		// next 버튼
-		if(next > pageSize && next <= totalPages){
-			pages.append('<li><a onclick="GetTarget(' + next + ')">next</a></li>');
-		};
-		
-		if(totalPages > 1){
-			pages.append('<li><a onclick="GetTarget('+ veryLast +')">>></a></li>');
-		}
-	
+		calcPage();
 	}
 	
 
@@ -457,12 +359,14 @@ function preferenceModalClose() {
 }	
 	
 $(function(){
+	
 	paging();
 	$('.search').change(function(){
 		var searchPage = 1;
 		GetTarget(parseInt(searchPage));
 	});
 	
+/* 맞춤 트레이너 찾기 Modal */	
 	// Modal Tab으로 이동
 	$(".tabs").click(function(){
 	    
@@ -492,6 +396,7 @@ $(function(){
 	        }
 	    });
 	});
+	
 	
 	// Modal 뒤로 가기
 	$('.previous.round').click(function(){
@@ -527,8 +432,10 @@ $(function(){
 	    
 	});
 	
+	
 	// Modal 앞으로 가기
 	$('.next.round').click(function(){
+		
 	    current_fs = $('fieldset.show');
 		var currentFsClass = $('fieldset.show').attr('class');
 	    var nextFsClass = parseInt(currentFsClass) + 1;
@@ -550,8 +457,6 @@ $(function(){
 	        }
 	    });
 	    
-	    
-	    
 	    // tab
 	    $(".tabs").removeClass("active");
 	    $(".tabs h6").removeClass("font-weight-bold");    
@@ -563,6 +468,8 @@ $(function(){
 	    
 	});
 	
+	
+	// Modal 값 전송	
 	$('#btn_getpreference').click(function(){
 		
 		var tGender = $('input[name="tgender"]:checked').val();
@@ -591,7 +498,6 @@ $(function(){
 		});
 		
 		$('#form_preference').submit();
-		
 		
 	});
 	
