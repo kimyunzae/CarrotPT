@@ -99,7 +99,7 @@ body.modal-open {
 	display: none;
 }
 
-.rating2>label {
+.rating2>p {
 	position: relative;
 	width: 1em;
 	font-size: 22px;
@@ -141,7 +141,28 @@ body.modal-open {
 		$('#four').hide();
 		$('#five').hide();
 		 */
-
+		const starElement = document.getElementById("stars");
+		$('.rv_stars').each(function(){
+			var starValue = $(this).data("value");
+			
+			if (starValue == 1) {
+				$(this).text("★☆☆☆☆");
+			}
+			if (starValue == 2) {
+				$(this).text("★★☆☆☆");
+			}
+			if (starValue == 3) {
+				$(this).text("★★★☆☆");
+			}
+			if (starValue == 4) {
+				$(this).text("★★★★☆");
+			}
+			if (starValue == 5) {
+				$(this).text("★★★★★");
+			}
+			/* $(this).text(starValue); */
+		});
+		 
 		/* var star_int = $('.rating2 input[name="star_int"]').val(); */
 		
 		
@@ -455,6 +476,7 @@ body.modal-open {
 					</div>
 					<div class="comment-body">
 						<h3 th:text="${rv.uid}"></h3>
+						<h3 th:text="${rv.uid}"></h3> 
 
 						<div class="meta" th:text="${#dates.format(rv.rv_regdate, 'yyyy-MM-dd')}"></div>
 						<p th:text="${rv.rv_text}"></p>
