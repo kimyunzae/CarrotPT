@@ -145,22 +145,23 @@ body.modal-open {
 		$('.rv_stars').each(function(){
 			var starValue = $(this).data("value");
 			
-			if (starValue == 1) {
-				$(this).text("★☆☆☆☆");
+			switch(starValue){
+				case 1:
+					$(this).text("★☆☆☆☆");
+					break;
+				case 2:
+					$(this).text("★★☆☆☆");
+					break;
+				case 3:
+					$(this).text("★★★☆☆");
+					break;
+				case 4:
+					$(this).text("★★★★☆");
+					break;
+				case 5:
+					$(this).text("★★★★★");
+					break;
 			}
-			if (starValue == 2) {
-				$(this).text("★★☆☆☆");
-			}
-			if (starValue == 3) {
-				$(this).text("★★★☆☆");
-			}
-			if (starValue == 4) {
-				$(this).text("★★★★☆");
-			}
-			if (starValue == 5) {
-				$(this).text("★★★★★");
-			}
-			/* $(this).text(starValue); */
 		});
 		 
 		/* var star_int = $('.rating2 input[name="star_int"]').val(); */
@@ -476,7 +477,6 @@ body.modal-open {
 					</div>
 					<div class="comment-body">
 						<h3 th:text="${rv.uid}"></h3>
-						<h3 th:text="${rv.uid}"></h3> 
 
 						<div class="meta" th:text="${#dates.format(rv.rv_regdate, 'yyyy-MM-dd')}"></div>
 						<p th:text="${rv.rv_text}"></p>
@@ -484,13 +484,6 @@ body.modal-open {
 						<div class="rating2 d-flex justify-content-end">
 							<p th:id="'stars' + ${rv.id}" class="rv_stars" th:data-value="${rv.rv_rate}"></p>
 
-							<!-- 	<input type="radio"><label name="four" id="four">★★★★☆</label>
-							<input type="radio"><label name="three" id="three">★★★☆☆</label>
-							<input type="radio"><label name="two" id="two">★★☆☆☆</label>
-							<input type="radio"><label name="one" id="one">★☆☆☆☆</label>
-							<input type="radio"><label name="zero" id="zero">☆☆☆☆☆</label> -->
-
-							<!-- th:id="'rv_rate_int' + ${rv.rv_rate}'"  -->
 						</div>
 					</div>
 				</li>
