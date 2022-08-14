@@ -21,8 +21,7 @@ class TraineeSelectByPageTest {
 		int amount = 6;
 		String orderBy = null;
 		try {
-			int offset = 0;
-			List<TraineeVO> list = biz.getbypage(pageNo, amount, orderBy, offset);
+			List<TraineeVO> list = biz.getbypage(pageNo, amount, orderBy);
 			for (TraineeVO obj : list) {
 				System.out.println(obj);
 			}
