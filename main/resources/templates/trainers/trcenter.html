@@ -282,6 +282,9 @@ input[name="tzip"]{
 
 <script th:inline="javascript">
 
+$(window).on('popstate', function(event){
+	window.location = document.location.href;
+});
 
 function GetTarget(j){
 	var orderBy = $('#select_order').val();
@@ -304,10 +307,10 @@ function GetTarget(j){
 			currentPage = j;
 			totalData = $('#input_hiddencnt').val();
 			totalPages = Math.ceil(totalData / limitPerPage);
-			pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+			pageGroup = Math.ceil(currentPage / pageSize);
 			last = pageGroup * pageSize;
-			
 			veryLast = totalPages;
+			
 			calcPage();
 		}
 	});
@@ -320,21 +323,13 @@ function GetTarget(j){
 	'/trainers?pageNo=' + j + '&orderBy=' + orderBy + '&loc=' + loc + '&major=' + major); // url
 }
 
-	$(window).on('popstate', function(event){
-		window.location = document.location.href;
-
-	});
-
-
 
 function paging(totalData, currentPage){
 	
-		/* 변수 totalData: 전체 데이터 수(Back에서 받아옴)*/
-		var totalData = $('#input_hiddencnt').val();
-		var currentPage = [[${currentPage}]];
-		
+		totalData = $('#input_hiddencnt').val();
+		currentPage = [[${currentPage}]];
 		totalPages = Math.ceil(totalData / limitPerPage);
-		pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+		pageGroup = Math.ceil(currentPage / pageSize); 
 		last = pageGroup * pageSize;
 		veryLast = totalPages;
 		
@@ -364,12 +359,14 @@ function preferenceModalClose() {
 }	
 	
 $(function(){
+	
 	paging();
 	$('.search').change(function(){
 		var searchPage = 1;
 		GetTarget(parseInt(searchPage));
 	});
 	
+/* 맞춤 트레이너 찾기 Modal */	
 	// Modal Tab으로 이동
 	$(".tabs").click(function(){
 	    
@@ -399,6 +396,7 @@ $(function(){
 	        }
 	    });
 	});
+	
 	
 	// Modal 뒤로 가기
 	$('.previous.round').click(function(){
@@ -434,8 +432,10 @@ $(function(){
 	    
 	});
 	
+	
 	// Modal 앞으로 가기
 	$('.next.round').click(function(){
+		
 	    current_fs = $('fieldset.show');
 		var currentFsClass = $('fieldset.show').attr('class');
 	    var nextFsClass = parseInt(currentFsClass) + 1;
@@ -457,8 +457,6 @@ $(function(){
 	        }
 	    });
 	    
-	    
-	    
 	    // tab
 	    $(".tabs").removeClass("active");
 	    $(".tabs h6").removeClass("font-weight-bold");    
@@ -470,6 +468,8 @@ $(function(){
 	    
 	});
 	
+	
+	// Modal 값 전송	
 	$('#btn_getpreference').click(function(){
 		
 		var tGender = $('input[name="tgender"]:checked').val();
@@ -498,7 +498,6 @@ $(function(){
 		});
 		
 		$('#form_preference').submit();
-		
 		
 	});
 	

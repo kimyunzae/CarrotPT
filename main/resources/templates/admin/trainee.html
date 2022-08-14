@@ -1,5 +1,9 @@
 <script th:inline="javascript">
 
+	$(window).on('popstate', function(event){
+		window.location = document.location.href;
+	});
+
 	function GetTarget(j){
 		var orderBy = $('#select_order').val();
 		
@@ -34,17 +38,11 @@
 		'/admin?pageNo=' + j + '&orderBy=' + orderBy); // url	
 	}
 	
-	$(window).on('popstate', function(event){
-		window.location = document.location.href;
-
-	});
-	
 	function paging(totalData, currentPage){
-		var totalData = [[${totalData}]];
-		var currentPage = [[${currentPage}]];
-	
+		totalData = [[${totalData}]];
+		currentPage = [[${currentPage}]];
 		totalPages = Math.ceil(totalData / limitPerPage);
-		pageGroup = Math.ceil(currentPage / pageSize); // 페이지 그룹
+		pageGroup = Math.ceil(currentPage / pageSize);
 		last = pageGroup * pageSize;
 		veryLast = totalPages;
 		

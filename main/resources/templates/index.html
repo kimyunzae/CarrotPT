@@ -239,68 +239,70 @@
 
 /* Pagination */
  
-var currentPage = 0;
-var totalData = 0;
-var limitPerPage = [[${amount}]];
-var pageSize = 5;
-var totalPages = 0;
-var pageGroup = 0;
-var last = 0;
-var veryFirst = 1;
-var veryLst = 0;
-var first = 0;
-var next = 0;
-var prev = 0;
+let currentPage = 0;
+let totalData = 0;
+let limitPerPage = [[${amount}]];
+let pageSize = 5;
+let totalPages = 0;
+let pageGroup = 0;
+let last = 0;
+let veryFirst = 1;
+let veryLst = 0;
+let first = 0;
+let next = 0;
+let prev = 0;
 
-function calcPage(){
-	var pages = $('#pages');
-	pages.empty();
-	
-	if(currentPage <= 0){
-		currentPage = 1;
-	}
-	if(last > totalPages){
-		last = totalPages;
-	}
-	
-	first = last - (pageSize - 1);
-	next = last + 1;
-	prev = first - 1;
-	
-	if(totalPages < 1){
-		first = last;
-	}
-	
-	if(totalPages > 1){
-		pages.append('<li><a onclick="GetTarget('+ veryFirst +')"><<</a></li>');
-	}
-	
-	// prev 버튼
-	if(first > 1){
-		pages.append('<li><a onclick="GetTarget('+ first +')"><</a></li>');
-	}
-	
-	// 페이지 숫자
-	for (var j = first; j <= last; j++) {
+	function calcPage(){
+		var pages = $('#pages');
+		pages.empty();
 		
-		if(currentPage == j){
-			pages.append('<li class="active"><a onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
-		}else if(j > 0){
-			pages.append('<li><a onclick="GetTarget('+ j +')">' + j + '</a></li>');
-			};
+		if(currentPage <= 0){
+			currentPage = 1;
 		}
-	
-	// next 버튼
-	if(next > pageSize && next <= totalPages){
-		pages.append('<li><a onclick="GetTarget(' + next + ')">></a></li>');
-	};
-	
-	if(totalPages > 1){
-		pages.append('<li><a onclick="GetTarget('+ veryLast +')">>></a></li>');
-	};
-}
+		if(last > totalPages){
+			last = totalPages;
+		}
+		
+		first = last - (pageSize - 1);
+		next = last + 1;
+		prev = first - 1;
+		
+		if(totalPages < 1){
+			first = last;
+		}
+		
+		if(totalPages > 1){
+			pages.append('<li><a onclick="GetTarget('+ veryFirst +')"><<</a></li>');
+		}
+		
+		// prev 버튼
+		if(first > 1){
+			pages.append('<li><a onclick="GetTarget('+ first +')"><</a></li>');
+		}
+		
+		// 페이지 숫자
+		for (var j = first; j <= last; j++) {
+			
+			if(currentPage == j){
+				pages.append('<li class="active"><a onclick="GetTarget(' + j + ');"' + '>' + j + '</a></li>');
+			}else if(j > 0){
+				pages.append('<li><a onclick="GetTarget('+ j +')">' + j + '</a></li>');
+				};
+			}
+		
+		// next 버튼
+		if(next > pageSize && next <= totalPages){
+			pages.append('<li><a onclick="GetTarget(' + next + ')">></a></li>');
+		};
+		
+		if(totalPages > 1){
+			pages.append('<li><a onclick="GetTarget('+ veryLast +')">>></a></li>');
+		};
+	}
 
 
+
+	
 /* ChatBot */
 	
 	function connect(){
@@ -355,6 +357,9 @@ function calcPage(){
 	}
 	
 	
+	
+/* Login & Logout */	
+
 	function goLogin(){
 		var id = $('.loginform input[name=id]').val();
 		var pwd = $('.loginform input[name=pwd]').val();
