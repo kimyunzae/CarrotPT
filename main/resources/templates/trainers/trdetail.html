@@ -476,22 +476,13 @@ body.modal-open {
 					</div>
 					<div class="comment-body">
 						<h3 th:text="${rv.uid}"></h3>
-						<h3 th:text="${rv.uid}"></h3> 
-
 						<div class="meta" th:text="${#dates.format(rv.rv_regdate, 'yyyy-MM-dd')}"></div>
 						<p th:text="${rv.rv_text}"></p>
-						<!-- <span th:text="'평점 (별모양으로 표시): ' + ${rv.rv_rate}"></span> -->
 						<div class="rating2 d-flex justify-content-end">
 							<p th:id="'stars' + ${rv.id}" class="rv_stars" th:data-value="${rv.rv_rate}"></p>
-
-							<!-- 	<input type="radio"><label name="four" id="four">★★★★☆</label>
-							<input type="radio"><label name="three" id="three">★★★☆☆</label>
-							<input type="radio"><label name="two" id="two">★★☆☆☆</label>
-							<input type="radio"><label name="one" id="one">★☆☆☆☆</label>
-							<input type="radio"><label name="zero" id="zero">☆☆☆☆☆</label> -->
-
-							<!-- th:id="'rv_rate_int' + ${rv.rv_rate}'"  -->
 						</div>
+		
+						
 					</div>
 				</li>
 			</ul>

@@ -20,7 +20,7 @@ class CslSelectListByIdTest {
 	@Test
 	void contextloads() {
 		try {
-			List<CslVO> list = biz.getlistbyid("tid01");
+			List<CslVO> list = biz.getlistbyid("id01");
 			for (CslVO obj : list) {
 				System.out.println(obj);
 			}
