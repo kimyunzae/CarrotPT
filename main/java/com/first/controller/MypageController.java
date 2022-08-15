@@ -1,5 +1,7 @@
 package com.first.controller;
 
+import java.util.List; 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.first.biz.CslBiz;
 import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.frame.Util;
+import com.first.vo.CslVO;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
@@ -27,6 +31,9 @@ public class MypageController {
 
 	@Autowired
 	TrainerBiz trainerbiz;
+	
+	@Autowired
+	CslBiz cslbiz;
 
 	@Value("${dir1}")
 	String dir1;
@@ -194,12 +201,14 @@ public class MypageController {
 
 	// 트레이너 마이페이지: 이용내역
 	@RequestMapping("/trhistory")
-	public String trhistory(Model m, HttpSession session) {
+	public String trhistory(Model m, HttpSession session, String tid) {
 		try {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
+			List<CslVO> csl = cslbiz.getlistbyid(tid);
 			m.addAttribute("center", "mypage/trmypage");
 			m.addAttribute("trainercenter", "mypage/trhistory");
 			m.addAttribute("trainer", trainer);
+			m.addAttribute("csl", csl);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -277,12 +286,14 @@ public class MypageController {
 	
 	// 트레이니 마이페이지: 이용내역
 	@RequestMapping("/tehistory")
-	public String tehistory(Model m, HttpSession session) {
+	public String tehistory(Model m, HttpSession session, String tid) {
 		try {
 			TraineeVO trainee = (TraineeVO) session.getAttribute("logincust");
+			List<CslVO> csl = cslbiz.getlistbyid(tid);
 			m.addAttribute("center", "mypage/tehistory");
 			/* m.addAttribute("trainercenter", "mypage/trmatching"); */
 			m.addAttribute("trainee", trainee);
+			m.addAttribute("csl", csl);
 
 		} catch (Exception e) {
 			e.printStackTrace();
