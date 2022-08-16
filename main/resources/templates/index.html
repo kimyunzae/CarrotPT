@@ -386,7 +386,8 @@ let prev = 0;
 		$.ajax({
 			url:'/logout',
 			success:function(){
-				if (window.location.href.indexOf("mypage") > -1) {
+				if (window.location.href.indexOf("mypage") > -1 ||
+						window.location.href.indexOf("traccount") > -1) {
 				      document.location.href="/";
 				    }
 				else {
