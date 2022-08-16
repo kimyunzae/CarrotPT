@@ -70,7 +70,7 @@ public class UserController {
 					session.setAttribute("custLevel", tnee.getLevel());
 					session.setAttribute("custid", id);
 					m.addAttribute("logincust", tnee);
-					session.setAttribute("logincust", tnee);			
+					session.setAttribute("logincust", tnee);
 				}else {
 					// trainee ID 비밀번호 불일치
 					result = "0";

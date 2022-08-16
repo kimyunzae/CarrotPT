@@ -17,7 +17,7 @@ class CslUpdateReadTest {
 	
 	@Test
 	void contextloads() {
-		CslVO obj = new CslVO(1004, "대기중");
+		CslVO obj = new CslVO(1000, "수락");
 		try {
 			biz.modifyread(obj);
 			System.out.println("Updated: " + obj);

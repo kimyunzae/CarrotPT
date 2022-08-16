@@ -10,16 +10,16 @@ import com.first.vo.ReportVO;
 import com.first.vo.CslVO;
 
 @SpringBootTest
-class CslUpdateProgressTest {
+class CslUpdateMatchest {
 
 	@Autowired
 	CslBiz biz;
 	
 	@Test
 	void contextloads() {
-		CslVO obj = new CslVO(1001, "완료");
+		CslVO obj = new CslVO(1001, "fail");
 		try {
-			biz.modifyprogress(obj);
+			biz.modifymatch(obj);
 			System.out.println("Updated: " + obj);
 		} catch (Exception e) {
 			e.printStackTrace();

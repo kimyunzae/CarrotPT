@@ -16,10 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.socket.WebSocketSession;
 
 import com.first.biz.CslBiz;
 import com.first.vo.ChatMessageVO;
+import com.first.vo.CslNumVO;
 import com.first.vo.CslVO;
 
 @Controller
@@ -31,14 +31,30 @@ public class MatchingController {
 	@ModelAttribute("cslList")
 	public List<CslVO> cslList(HttpSession session){
 		List<CslVO> list = null;
-		String id = session.getAttribute("custid").toString();
+		if(session.getAttribute("logincust") != null) {
+			String id = session.getAttribute("custid").toString();
 
-		try {
-			list = biz.getlistbyid(id);
-		} catch (Exception e) {
-			e.printStackTrace();
+			try {
+				list = biz.getlistbyid(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return list;
+	}
+	
+	@ModelAttribute("cslCnt")
+	public CslNumVO cslNum(HttpSession session) {
+		CslNumVO obj = null;
+		if(session.getAttribute("logincust") != null) {
+			String id = session.getAttribute("custid").toString();
+			try {
+				obj = biz.getnumbyid(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return obj;
 	}
 
 	@RequestMapping("/matching")
@@ -79,6 +95,35 @@ public class MatchingController {
 		
 		currentArr.put(currentObj);
 		return currentArr.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateCslStatus")
+	public void updateCslStatus(int id, String status, HttpSession session) {
+		CslVO obj = new CslVO(id, status);
+		String matchStatus = "대기중";
+		
+		try {
+			if(status.equals("거절")) {
+				matchStatus = "fail";
+			}
+			biz.modifyread(obj);
+			CslVO newObj = new CslVO(id, matchStatus);
+			biz.modifymatch(newObj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateMatchStatus")
+	public void updateMatchStatus(int id, String status) {
+		CslVO obj = new CslVO(id, status);
+		try {
+			biz.modifymatch(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@MessageMapping("/{roomId}")
