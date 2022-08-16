@@ -26,9 +26,6 @@ public class TraineeVO {
 	private Date regdate;
 	private String level;
 	
-	private int cslnew;
-	private int cslwait;
-	private int cslcompleted;
 
 	// for INSERT
 	public TraineeVO(String id, String pwd, String name, String phone, String email, String zip, String addr1,

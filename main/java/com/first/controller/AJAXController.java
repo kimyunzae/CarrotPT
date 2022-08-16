@@ -252,7 +252,7 @@ public class AJAXController {
 		String matching_status = "";
 		try {
 			matching_status = cslbiz.checkmatching(uid, tid);
-			if (matching_status != null && matching_status.equals("success")) {	
+			if (matching_status != null && matching_status.equals("완료")) {	
 				result = "1";
 			}else {
 				result = "0";

@@ -203,15 +203,11 @@
 		
 		// status별 조회
 		$('.nav-link.a_status').click(function(){
-			
 			// 다른 tab에서 active 제거
 			$('.nav-link.a_status').not(this).removeClass("active");
-			
 			// 선택 tab에 active 붙이기
 			$(this).addClass("active");
-			
 			var status = $('.active.nav-link.a_status').data("value");
-			
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
 			

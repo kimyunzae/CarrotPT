@@ -9,9 +9,8 @@ import com.first.frame.Biz;
 import com.first.mapper.CslMapper;
 import com.first.mapper.TraineeMapper;
 import com.first.mapper.TrainerMapper;
+import com.first.vo.CslNumVO;
 import com.first.vo.CslVO;
-import com.first.vo.TraineeVO;
-import com.first.vo.TrainerVO;
 
 @Service("cslbiz")
 public class CslBiz implements Biz<Integer, CslVO> {
@@ -56,8 +55,8 @@ public class CslBiz implements Biz<Integer, CslVO> {
 	}
 	
 	// 상담 완료 여부 수정
-	public void modifyprogress(CslVO v) throws Exception{
-		dao.updateprogress(v);
+	public void modifymatch(CslVO v) throws Exception{
+		dao.updatematch(v);
 	}
 	
 	public List<CslVO> getbyuid(String uid) throws Exception{
@@ -77,6 +76,17 @@ public class CslBiz implements Biz<Integer, CslVO> {
 			list = dao.selectbyuid(id);
 		}
 		return list;
+	}
+	
+	public CslNumVO getnumbyid(String id) throws Exception{
+		String trainer = trainerdao.selectbyid(id);
+		CslNumVO obj = new CslNumVO();
+		if(trainer != null) {
+			obj = dao.selectnumbytid(id);
+		}else {
+			obj = dao.selectnumbyuid(id);
+		}
+		return obj;
 	}
 	
 	public String checkmatching(String uid, String tid) throws Exception {

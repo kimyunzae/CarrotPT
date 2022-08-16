@@ -6,11 +6,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	<select id="select" parameterType="String"
 		resultType="trainerVO">
-		SELECT *,
-		(SELECT COUNT(*) FROM csl WHERE csl_read = '대기중' AND tid = #{id}) AS cslnew,
-		(SELECT COUNT(*) FROM csl WHERE csl_read='수락' AND csl_progress='대기중' AND tid=#{id}) AS cslwait,
-		(SELECT COUNT(*) FROM csl WHERE csl_progress='완료' AND tid=#{id}) AS cslcompleted
- 		FROM trainer WHERE id=#{id}
+		SELECT * FROM trainer WHERE id=#{id};
 	</select>
 	<select id="selectall" resultType="trainerVO">
 		SELECT * FROM trainer

@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		</select>
 		<select id="selectbyuid" parameterType="String" resultType="cslVO">
 			SELECT c.id, c.uid, u.name AS uname, c.tid, t.name AS tname, csl_workoutday, csl_date,
-			csl_time, csl_read, csl_progress, csl_regdate, age, c.gender AS gender, purpose, frequency FROM csl c
+			csl_time, csl_read, csl_progress, csl_regdate, age, c.gender AS gender, purpose, frequency, matching_status FROM csl c
 			INNER JOIN trainee u ON c.uid = u.id
 			INNER JOIN trainer t ON c.tid = t.id
 			WHERE uid=#{uid}
@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		</select>
 		<select id="selectbytid" parameterType="String" resultType="cslVO">
 			SELECT c.id, c.uid, u.name AS uname, c.tid, t.name AS tname, csl_workoutday, csl_date,
-			csl_time, csl_read, csl_progress, csl_regdate, age, c.gender AS gender, purpose, frequency FROM csl c
+			csl_time, csl_read, csl_progress, csl_regdate, age, c.gender AS gender, purpose, frequency, matching_status FROM csl c
 			INNER JOIN trainee u ON c.uid = u.id
 			INNER JOIN trainer t ON c.tid = t.id
 			WHERE tid=#{tid}
@@ -26,9 +26,23 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		<select id="selectall" resultType="cslVO">
 			SELECT * FROM csl
 		</select>
+		<select id="selectnumbyuid" parameterType="String" resultType="cslNumVO">
+			SELECT            
+			(SELECT COUNT(*) FROM csl WHERE csl_read = '대기중' AND uid = #{id}) AS cslnew,
+			(SELECT COUNT(*) FROM csl WHERE matching_status='완료' AND uid=#{id}) AS cslcompleted
+			FROM csl
+			LIMIT 1;
+		</select>
+		<select id="selectnumbytid" parameterType="String" resultType="cslNumVO">
+			SELECT            
+			(SELECT COUNT(*) FROM csl WHERE csl_read = '대기중' AND tid = #{id}) AS cslnew,
+			(SELECT COUNT(*) FROM csl WHERE matching_status='완료' AND tid=#{id}) AS cslcompleted
+			FROM csl
+			LIMIT 1;
+		</select>
 		<insert id="insert" parameterType="cslVO">
 			INSERT INTO csl VALUES(NULL, #{uid}, #{tid}, #{csl_workoutday}, #{csl_date}, #{csl_time}, 
-			DEFAULT, DEFAULT, CURDATE(), #{age}, #{gender}, #{purpose}, #{frequency}, NULL)
+			DEFAULT, DEFAULT, CURDATE(), #{age}, #{gender}, #{purpose}, #{frequency}, DEFAULT)
 		</insert>
 	<!-- 상담 희망 date, time 수정-->
 		<update id="update" parameterType="cslVO">
@@ -41,8 +55,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			WHERE id=#{id}
 		</update>
 	<!-- 상담 여부 수정-->
-		<update id="updateprogress" parameterType="cslVO">
-			UPDATE csl SET csl_progress=#{csl_read}
+		<update id="updatematch" parameterType="cslVO">
+			UPDATE csl SET matching_status=#{csl_read}
 			WHERE id=#{id}
 		</update>
 	<!-- ChatRoom Id 수정-->
