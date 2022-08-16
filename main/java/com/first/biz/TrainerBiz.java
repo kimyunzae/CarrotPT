@@ -73,9 +73,13 @@ public class TrainerBiz implements Biz<String, TrainerVO>{
 	}
 	
 	// email로 선택
-	public TrainerVO getbyemail(String k) throws Exception {
-		TrainerVO obj = dao.selectbyemail(k);
-		trainerinfo(obj);
+	public TrainerVO getbyemail(String k)  {
+		TrainerVO obj = null;
+		try {
+			obj = dao.selectbyemail(k);
+			trainerinfo(obj);
+			
+		} catch(Exception e) {}
 		return obj;
 	}
 	
