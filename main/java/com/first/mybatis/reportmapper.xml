@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <!-- select: rp_status별 select-->
 	<select id="selectcnt" resultType="int">
 		SELECT COUNT(*) FROM report
-		<if test="status != null">
+		<if test="(status != null) and (status != 'all')">
 		WHERE rp_status = #{rp_status}
 		</if>
 	</select>

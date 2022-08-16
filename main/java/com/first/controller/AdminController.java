@@ -218,22 +218,48 @@ public class AdminController {
 	
 	// 3-1 신고 조회
 	@RequestMapping("/reports")
-	public String reports(Model m, HttpSession session) {
+	public String reports(Model m, HttpSession session, Integer pageNo, String orderBy, String status) {
 		String result = "redirect:/";
 		if(checkadmin.checkadmin(session)) {
+			if(pageNo == null) {
+				pageNo = 1;
+			}
+			
+			if(status == null) {
+				status = "all";
+			}
 			try {
-				List<ReportVO> list = reportbiz.get();
+				List<ReportVO> list = reportbiz.getbypage(pageNo, amount, status);
 				m.addAttribute("reportlist", list);
+				int reportCnt = reportbiz.getcnt(status);
+				m.addAttribute("reportTotal", reportCnt);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			m.addAttribute("center", "admin/admin");
 			m.addAttribute("admincenter", "admin/report");
 			m.addAttribute("report_info", "admin/report_info");
+			m.addAttribute("statusforpage", status);
+			m.addAttribute("currentPage", pageNo);
 			result = "index";
 		}
 		
 		return result;
+	}
+	
+	// 3-2 신고 pagination
+	@RequestMapping("/findreports")
+	public String findreports(int pageNo, String status, Model m, HttpSession session) {
+		try {
+			List<ReportVO> list = reportbiz.getbypage(pageNo, amount, status);
+			m.addAttribute("reportlist", list);
+			int reportCnt = reportbiz.getcnt(status);
+			m.addAttribute("reportTotal", reportCnt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.addAttribute("currentPage", pageNo);
+		return "admin/report_info";
 	}
 	
 	// 3-3 신고 status 업데이트

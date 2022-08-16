@@ -70,6 +70,43 @@
 
 </style>
 <script th:inline="javascript">
+	$(window).on('popstate', function(event){
+		window.location = document.location.href;
+	});
+	
+	function GetTarget(j){
+		var status = $('.active.nav-link.a_status').data("value");
+		
+		$.ajax({
+			url:'/admin/findreports',
+			data:{
+				'pageNo':j,
+				'status':status
+			},
+			method:'GET',
+			success: function(result){
+				$('#div_trainee_row').empty();
+				$('#div_trainee_row').append(result);
+				
+				currentPage = j;
+				totalData = $('#total_hidden').val();
+				totalPages = Math.ceil(totalData / limitPerPage);
+				pageGroup = Math.ceil(currentPage / pageSize);
+				last = pageGroup * pageSize;
+				
+				veryLast = totalPages;
+				calcPage();
+			}
+	
+		});
+		history.pushState({
+			data:'/admin/findreports',
+			pageNo: j,
+			status: status
+		}, // state
+		null, // title
+		'/admin/trainers?pageNo=' + j + '&status=' + status); // url	
+	}
 
 	function toggleDetail(id){
 		$('.report_info_detail.' + id).slideToggle(200, "swing");
@@ -148,19 +185,21 @@
 			
 	};
 		
+	function paging(totalData, currentPage){
+		totalData = [[${reportTotal}]];
+		currentPage = [[${currentPage}]];
+		totalPages = Math.ceil(totalData / limitPerPage);
+		pageGroup = Math.ceil(currentPage / pageSize);
+		last = pageGroup * pageSize;
+		veryLast = totalPages;
 		
+		calcPage();
+	}
 	
 	
 	$(function(){
 		
 		paging();
-		
-		
-		// 정렬
-		$('#select_order').change(function(){
-			var searchPage = 1;
-			GetTarget(parseInt(searchPage));
-		});
 		
 		// status별 조회
 		$('.nav-link.a_status').click(function(){
@@ -172,20 +211,24 @@
 			$(this).addClass("active");
 			
 			var status = $('.active.nav-link.a_status').data("value");
+			
 			var searchPage = 1;
 			GetTarget(parseInt(searchPage));
+			
 		});
 		
 	});
 </script>
 
 <ul class="nav nav-tabs" id="ul_status" >
-	<li class="nav-item"><a class="nav-link a_status" id="statustab_all" data-value="all">ALL</a></li>
 	<li class="nav-item">
-		<a class="nav-link a_status">대기중</a>
+		<a class="nav-link a_status" id="statustab_all" data-value="all" th:classappend="${statusforpage} == 'all'? active">ALL</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link a_status">처리완료</a>
+		<a class="nav-link a_status" data-value="대기중" th:classappend="${statusforpage} == '대기중'? active">대기중</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link a_status" data-value="처리완료" th:classappend="${statusforpage} == '처리완료'? active">처리완료</a>
 	</li>
 </ul>
 
