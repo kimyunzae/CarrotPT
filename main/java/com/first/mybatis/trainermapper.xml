@@ -155,6 +155,24 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				,profile3=#{profile3}
 			</otherwise>
 		</choose>
+		<choose>
+			<when test="license1 == null or license1.equals('')"></when>
+			<otherwise>
+				,license1=#{license1}
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="license2 == null or license2.equals('')"></when>
+			<otherwise>
+				,license2=#{license2}
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="license3 == null or license3.equals('')"></when>
+			<otherwise>
+				,license3=#{license3}
+			</otherwise>
+		</choose>
 		
 		WHERE id=#{id}
 	</update>

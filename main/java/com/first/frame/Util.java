@@ -113,6 +113,61 @@ public class Util {
 
 	}
 	
+	public static void saveFile4(MultipartFile lc1, String dir4) {
+
+		byte[] data3;
+
+		String profile3 = lc1.getOriginalFilename();
+
+		try {
+			data3 = lc1.getBytes();
+			FileOutputStream fo3 = new FileOutputStream(dir4 + profile3);
+			fo3.write(data3);
+			fo3.close();
+
+		} catch (Exception e) {
+
+		}
+
+	}
+	
+	public static void saveFile5(MultipartFile lc2, String dir5) {
+
+		byte[] data3;
+
+		String profile3 = lc2.getOriginalFilename();
+
+		try {
+			data3 = lc2.getBytes();
+			FileOutputStream fo3 = new FileOutputStream(dir5 + profile3);
+			fo3.write(data3);
+			fo3.close();
+
+		} catch (Exception e) {
+
+		}
+
+	}
+	
+	public static void saveFile6(MultipartFile lc3, String dir6) {
+
+		byte[] data3;
+
+		String profile3 = lc3.getOriginalFilename();
+
+		try {
+			data3 = lc3.getBytes();
+			FileOutputStream fo3 = new FileOutputStream(dir6 + profile3);
+			fo3.write(data3);
+			fo3.close();
+
+		} catch (Exception e) {
+
+		}
+
+	}
+	
+	
 	public static void saveFileR(MultipartFile rp, String dir7) {
 
 		byte[] dataR;
