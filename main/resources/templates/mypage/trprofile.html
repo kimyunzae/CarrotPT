@@ -32,7 +32,7 @@ img {
 					style="height: 140px; width: 140px; background-color: rgb(233, 236, 239);">
 					<img th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}"
 						style="height: 140px; width: 140px">
-				
+
 				</div>
 			</div>
 		</div>
@@ -63,11 +63,12 @@ img {
 					<div class="col">
 						<div class="row">
 							<div class="col mb-3">
-							
-								<input type="text" id="id-readonly" class="form-control form-control-item" name="id"
-									 th:value="${trainer.id}" readonly="readonly">
-						
-							<div class="form-group">
+
+								<input type="text" id="id-readonly"
+									class="form-control form-control-item" name="id"
+									th:value="${trainer.id}" readonly="readonly">
+
+								<div class="form-group">
 									<label>자기소개글</label>
 									<textarea class="form-control" rows="4" name="intro"
 										th:text="${trainer.intro}"></textarea>
@@ -77,24 +78,22 @@ img {
 									<textarea class="form-control" rows="3" name="career"
 										th:text="${trainer.career}"></textarea>
 								</div>
-								
+
 								<label>프로필</label>
 								<div class="form-group">
-											
+
 									<img class="mr-2 mt-1"
 										th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}"
-										style="height: 240px; width: 220px"> 
-	
-									<img class="mr-2 mt-1"
+										style="height: 240px; width: 220px"> <img
+										class="mr-2 mt-1"
 										th:src="@{'/images/CRUD/pf2/'+${trainer.profile2}}"
-										style="height: 240px; width: 220px"> 
-																 
-									<img class="mr-2 mt-1"
+										style="height: 240px; width: 220px"> <img
+										class="mr-2 mt-1"
 										th:src="@{'/images/CRUD/pf3/'+${trainer.profile3}}"
 										style="height: 240px; width: 220px">
-									 
+
 								</div>
-								
+
 								<div class="form-group">
 									<div class="input-group">
 										<div class="custom-file">
@@ -127,17 +126,38 @@ img {
 												프로필3 설정</label>
 										</div>
 									</div>
-								</div>			
+								</div>
+
+
 							</div>
 						</div>
+
+						<label>자격증명</label>
+						<div class="form-group">
+							<img class="mr-2 mt-1"
+								th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}"
+								style="height: 240px; width: 220px">
+						</div>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input"
+											id="inputGroupFile01" name="lc1"
+											aria-describedby="inputGroupFileAddon01"> <label
+											class="custom-file-label" for="inputGroupFile01">
+											자격증명</label>
+									</div>
+								</div>
+							</div>
+					
 
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col d-flex justify-content-end">
-						<button class="btn btn-primary" id="updateprofile" type="submit">프로필 업데이트
-							</button>
+						<button class="btn btn-primary" id="updateprofile" type="submit">프로필
+							업데이트</button>
 					</div>
 				</div>
 			</form>
