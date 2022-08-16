@@ -247,7 +247,20 @@ p {
 	cursor: auto;
 } 
 
+.zip_btn {
+  font-size: 14px;
+  font-family: "Poppins", Arial, sans-serif; 
+  text-decoration: none;
+  background-color: #769BCD;
+  color: white;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  cursor: pointer;
 
+}
 </style>
 
 
@@ -701,9 +714,9 @@ function sample6_execDaumPostcode() {
 								name="gym_name" placeholder="Name" /> <label
 								class="fieldlabels">우편번호: *</label>
 
-							<button class="btn btn-primary"
-								onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-
+							<!-- <button class="btn btn-primary"
+								onclick="sample6_execDaumPostcode()">우편번호 찾기</button> -->
+							<a class="zip_btn text-light" onclick="sample6_execDaumPostcode()" target="blank">우편번호 찾기</a>
 							<input type="text" id="sample6_postcode" name="gym_zip"
 								placeholder="우편번호"> <label class="fieldlabels">주소:
 								*</label> <input type="text" id="sample6_address" name="gym_addr1"
