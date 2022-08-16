@@ -387,7 +387,8 @@ let prev = 0;
 			url:'/logout',
 			success:function(){
 				if (window.location.href.indexOf("mypage") > -1 ||
-						window.location.href.indexOf("traccount") > -1) {
+					window.location.href.indexOf("traccount") > -1 ||
+					window.location.href.indexOf("trhistory") > -1) {
 				      document.location.href="/";
 				    }
 				else {
