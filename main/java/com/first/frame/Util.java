@@ -18,9 +18,9 @@ public class Util {
 		String profile1 = pf1.getOriginalFilename();
 		String profile2 = pf2.getOriginalFilename();
 		String profile3 = pf3.getOriginalFilename();
-		String lisence1 = lc1.getOriginalFilename();
-		String lisence2 = lc2.getOriginalFilename();
-		String lisence3 = lc3.getOriginalFilename();
+		String license1 = lc1.getOriginalFilename();
+		String license2 = lc2.getOriginalFilename();
+		String license3 = lc3.getOriginalFilename();
 
 		try {
 			data1 = pf1.getBytes();
@@ -39,17 +39,17 @@ public class Util {
 			fo3.close();
 
 			data4 = lc1.getBytes();
-			FileOutputStream fo4 = new FileOutputStream(dir4 + lisence1);
+			FileOutputStream fo4 = new FileOutputStream(dir4 + license1);
 			fo4.write(data4);
 			fo4.close();
 
 			data5 = lc2.getBytes();
-			FileOutputStream fo5 = new FileOutputStream(dir5 + lisence2);
+			FileOutputStream fo5 = new FileOutputStream(dir5 + license2);
 			fo5.write(data5);
 			fo5.close();
 
 			data6 = lc3.getBytes();
-			FileOutputStream fo6 = new FileOutputStream(dir6 + lisence3);
+			FileOutputStream fo6 = new FileOutputStream(dir6 + license3);
 			fo6.write(data6);
 			fo6.close();
 
