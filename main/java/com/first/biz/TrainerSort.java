@@ -29,8 +29,12 @@ public class TrainerSort {
 					break;
 					
 				case "rvcnt":
-					if(o1.getRvcnt() >= o2.getRvcnt()) {
+					if(o1.getRvcnt() > o2.getRvcnt()) {
 						result = -1;
+					}else if(o1.getRvcnt() == o2.getRvcnt()) {
+						result = 0;
+					}else if(o1.getRvcnt() < o2.getRvcnt()) {
+						result = 1;
 					}
 					break;
 					
