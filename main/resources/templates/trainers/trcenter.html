@@ -361,6 +361,9 @@ function preferenceModalClose() {
 $(function(){
 	
 	paging();
+	
+	$('fieldset.1').addClass("show");
+	
 	$('.search').change(function(){
 		var searchPage = 1;
 		GetTarget(parseInt(searchPage));
@@ -552,7 +555,7 @@ $(function(){
 					<!-- Modal Body Start -->
 						
 						<div class="modal-body p-0">
-							<fieldset class="show 1">
+							<fieldset class="1">
 								
 									<!-- <h3 class="text-center mb-4 mt-0 pt-4">질문에 답해주세요</h3> -->
 									
