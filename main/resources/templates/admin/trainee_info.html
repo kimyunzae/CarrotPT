@@ -2,12 +2,6 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="sortable" width="182.39px">
-          <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
-            <input type="checkbox" class="custom-control-input" id="all-items">
-            <label class="custom-control-label" for="all-items"></label>
-          </div>
-        </th>
         <th class="sortable" width="250px">아이디</th>
         <th class="sortable" width="250px">이름</th>
         <th class="sortable" width="300.73px">가입일</th>
@@ -16,12 +10,6 @@
     
     <tbody th:each="t : ${tneelist}">
       <tr class="trainee_info">
-        <td class="text-nowrap align-middle">
-          <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-            <input type="checkbox" class="custom-control-input" id="item-1">
-            <label class="custom-control-label" for="item-1"></label>
-          </div>
-        </td>
         <td class="text-nowrap align-middle">
         	<a th:text="${t.id}" th:href="@{/admin/trainees/detail(id=${t.id})}"></a>
         </td>

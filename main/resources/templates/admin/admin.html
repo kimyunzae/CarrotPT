@@ -92,6 +92,10 @@
 		$('#trainerAlarm').click(function(){
 			$('#a_trainers').attr('href', "/admin/trainers?status=대기중");
 		});
+		
+		$('#reportAlarm').click(function(){
+			$('#a_reports').attr('href', "/admin/reports?status=대기중");
+		});
 	});
 	
 </script>
@@ -122,15 +126,6 @@
 									<i class="fa-fw far fa-angry mr-1"></i>
 									<span class="adminlist">신고내역</span>
 									<span class="span-alarm" id="reportAlarm" th:if="${newAlarmCnt.newreport > 0}" th:text="${newAlarmCnt.newreport}"></span>
-							</a>
-							
-						</li>
-						<li class="nav-item">
-							<a class="nav-link px-2"
-								href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-								target="__blank">
-									<i class="fa fa-fw fa-assistive-listening-systems mr-1"></i>
-									<span class="adminlist">상담신청</span>
 							</a>
 						</li>
 					</ul>
