@@ -36,7 +36,7 @@ class TrainerSortTest {
 			System.out.println(trainerVO);
 		}
 		
-		TrainerSort.sortTrainer(trainerList, "name");
+		TrainerSort.sortTrainer(trainerList, "rvcnt");
 		System.out.println("-------After Sort--------");
 		for (TrainerVO trainerVO : trainerList) {
 			System.out.println(trainerVO);
