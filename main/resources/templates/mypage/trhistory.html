@@ -10,7 +10,7 @@
 								<div style="height:35em;" class="mt-4">
 									<div class="row">
 										<table class="table csl trainer">
-											<thead th:if="@{trhistory(tid=${session.logincust.id}) != null}">
+											<thead>
 												<tr>
 													<th>no.</th>
 													<th>신청일</th>
@@ -21,7 +21,7 @@
 													<th></th>
 												</tr>
 											</thead>
-											<tbody th:each="csl : ${csl}">
+											<tbody th:if="${csl!=null}" th:each="csl : ${csl}">
 												<tr>
 													<td th:text="${csl.id}"></td>
 													<td
@@ -35,9 +35,7 @@
 												</tr>
 											</tbody>
 										</table>
-										<div class="no_csl col-12 mt-4" th:if="@{trhistory(tid=${session.logincust.id}) == null}">
-											<h4 class="text-center">아직 이용내역이 없습니다</h4>
-										</div>
+										
 									</div>
 								</div>
 							</div>

@@ -43,6 +43,15 @@ public class MypageController {
 
 	@Value("${dir3}")
 	String dir3;
+	
+	@Value("${dir4}")
+	String dir4;
+	
+	@Value("${dir5}")
+	String dir5;
+	
+	@Value("${dir6}")
+	String dir6;
 
 	// 트레이너 마이페이지: 메인
 	@RequestMapping("/trmypage")
@@ -83,6 +92,9 @@ public class MypageController {
 		String profile1 = vo.getPf1().getOriginalFilename();
 		String profile2 = vo.getPf2().getOriginalFilename();
 		String profile3 = vo.getPf3().getOriginalFilename();
+		String license1 = vo.getLc1().getOriginalFilename();
+		String license2 = vo.getLc2().getOriginalFilename(); 
+		String license3 = vo.getLc3().getOriginalFilename(); 
 
 		if (!(profile1.equals(""))) {
 			vo.setProfile1(profile1);
@@ -96,6 +108,19 @@ public class MypageController {
 		if (!(profile3.equals(""))) {
 			vo.setProfile3(profile3);
 			Util.saveFile3(vo.getPf3(), dir3);
+		}
+		if (!(license1.equals(""))) {
+			vo.setLicense1(license1);
+			Util.saveFile4(vo.getLc1(), dir4);
+		}
+		if (!(license2.equals(""))) {
+			vo.setLicense2(license2);
+			Util.saveFile5(vo.getLc2(), dir5);
+
+		}
+		if (!(license3.equals(""))) {
+			vo.setLicense3(license3);
+			Util.saveFile6(vo.getLc3(), dir6);
 		}
 
 //		vo.setProfile1(profile1);

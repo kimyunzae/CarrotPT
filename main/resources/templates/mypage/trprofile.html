@@ -6,6 +6,94 @@
 img {
 	object-fit: cover;
 }
+
+#myImg, #myImg2, #myImg3 {
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#myImg:hover, #myImg2:hover, #myImg3:hover {
+	opacity: 0.7;
+}
+
+/* The Modal (background) */
+.modal {
+	margin-top: 7.6vh;
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+	max-height: 120vh;
+	overflow-y: auto;
+}
+
+/* Modal Content (image) */
+.modal-content {
+	margin: auto;
+	display: block; 
+	width: 80%;
+	max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
+	text-align: center;
+	color: #ccc;
+	padding: 10px 0;
+	height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+	-webkit-animation-name: zoom;
+	-webkit-animation-duration: 0.6s;
+	animation-name: zoom;
+	animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+	from {-webkit-transform: scale(0)
+}
+	to {
+	-webkit-transform: scale(1)
+	}
+
+}
+@keyframes zoom {
+	from {transform: scale(0)
+}
+
+to {
+	transform: scale(1)
+	} 
+}
+
+/* The Close Button */
+.close, .close2, .close3{
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #f1f1f1;
+	font-size: 40px;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+.close:hover, .close:focus, .close2:hover, .close2:focus, .close3:hover, .close3:focus {
+	color: #bbb;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+	.modal-content {
+		width: 100%;
+	}
+}
 </style>
 
 <script>
@@ -32,7 +120,7 @@ img {
 					style="height: 140px; width: 140px; background-color: rgb(233, 236, 239);">
 					<img th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}"
 						style="height: 140px; width: 140px">
-				
+
 				</div>
 			</div>
 		</div>
@@ -63,11 +151,12 @@ img {
 					<div class="col">
 						<div class="row">
 							<div class="col mb-3">
-							
-								<input type="text" id="id-readonly" class="form-control form-control-item" name="id"
-									 th:value="${trainer.id}" readonly="readonly">
-						
-							<div class="form-group">
+
+								<input type="text" id="id-readonly"
+									class="form-control form-control-item" name="id"
+									th:value="${trainer.id}" readonly="readonly">
+
+								<div class="form-group">
 									<label>자기소개글</label>
 									<textarea class="form-control" rows="4" name="intro"
 										th:text="${trainer.intro}"></textarea>
@@ -77,24 +166,22 @@ img {
 									<textarea class="form-control" rows="3" name="career"
 										th:text="${trainer.career}"></textarea>
 								</div>
-								
+
 								<label>프로필</label>
 								<div class="form-group">
-											
+
 									<img class="mr-2 mt-1"
 										th:src="@{'/images/CRUD/pf1/'+${trainer.profile1}}"
-										style="height: 240px; width: 220px"> 
-	
-									<img class="mr-2 mt-1"
+										style="height: 240px; width: 220px"> <img
+										class="mr-2 mt-1"
 										th:src="@{'/images/CRUD/pf2/'+${trainer.profile2}}"
-										style="height: 240px; width: 220px"> 
-																 
-									<img class="mr-2 mt-1"
+										style="height: 240px; width: 220px"> <img
+										class="mr-2 mt-1"
 										th:src="@{'/images/CRUD/pf3/'+${trainer.profile3}}"
 										style="height: 240px; width: 220px">
-									 
+
 								</div>
-								
+
 								<div class="form-group">
 									<div class="input-group">
 										<div class="custom-file">
@@ -127,20 +214,146 @@ img {
 												프로필3 설정</label>
 										</div>
 									</div>
-								</div>			
+								</div>
+
+
 							</div>
 						</div>
+
+						<label>자격증명</label>
+						<div class="form-group">
+							<img class="mr-2 mt-1" id="myImg"
+								th:src="@{'/images/CRUD/lc1/'+${trainer.license1}}"
+								style="height: 340px; width: 240px; object-fit: cover; border: 1px solid black;">
+							<img class="mr-2 mt-1" id="myImg2"
+								th:src="@{'/images/CRUD/lc2/'+${trainer.license2}}"
+								style="height: 340px; width: 240px; object-fit: cover; border: 1px solid black;">
+							<img class="mr-2 mt-1" id="myImg3"
+								th:src="@{'/images/CRUD/lc3/'+${trainer.license3}}"
+								style="height: 340px; width: 240px; object-fit: cover; border: 1px solid black;">
+						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input"
+										id="inputGroupFile01" name="lc1"
+										aria-describedby="inputGroupFileAddon01"> <label
+										class="custom-file-label" for="inputGroupFile01">
+										자격증명1</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input"
+										id="inputGroupFile01" name="lc2"
+										aria-describedby="inputGroupFileAddon01"> <label
+										class="custom-file-label" for="inputGroupFile01">
+										자격증명2</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input"
+										id="inputGroupFile01" name="lc3"
+										aria-describedby="inputGroupFileAddon01"> <label
+										class="custom-file-label" for="inputGroupFile01">
+										자격증명3</label>
+								</div>
+							</div>
+						</div>
+
 
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col d-flex justify-content-end">
-						<button class="btn btn-primary" id="updateprofile" type="submit">프로필 업데이트
-							</button>
+						<button class="btn btn-primary" id="updateprofile" type="submit">프로필
+							업데이트</button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+	<span class="close">&times;</span> <img class="modal-content"
+		id="img01">
+	<div id="caption"></div>
+</div>
+
+<div id="myModal2" class="modal">
+	<span class="close2">&times;</span> <img class="modal-content"
+		id="img02">
+	<div id="caption"></div>
+</div>
+
+<div id="myModal3" class="modal">
+	<span class="close3">&times;</span> <img class="modal-content"
+		id="img03">
+	<div id="caption"></div>
+</div>
+
+<script>
+	// Get the modal
+	var modal1 = document.getElementById("myModal");
+	var modal2 = document.getElementById("myModal2");
+	var modal3 = document.getElementById("myModal3");
+
+	// Get the image and insert it inside the modal - use its "alt" text as a caption
+	var img1 = document.getElementById("myImg");
+	var modalImg1 = document.getElementById("img01");
+	
+	var img2 = document.getElementById("myImg2");
+	var modalImg2 = document.getElementById("img02");
+	
+	var img3 = document.getElementById("myImg3");
+	var modalImg3 = document.getElementById("img03");
+	
+	var captionText = document.getElementById("caption");
+	
+	img1.onclick = function() {
+		modal1.style.display = "block";
+		modalImg1.src = this.src;
+		captionText.innerHTML = this.alt;
+	}
+	
+	img2.onclick = function() {
+		modal2.style.display = "block";
+		modalImg2.src = this.src;
+		captionText.innerHTML = this.alt;
+	}
+	
+	img3.onclick = function() {
+		modal3.style.display = "block";
+		modalImg3.src = this.src;
+		captionText.innerHTML = this.alt;
+	}
+
+	// Get the <span> element that closes the modal
+
+	var span1 = document.getElementsByClassName("close")[0];
+	var span2 = document.getElementsByClassName("close2")[0];
+	var span3 = document.getElementsByClassName("close3")[0];
+
+	// When the user clicks on <span> (x), close the modal
+	span1.onclick = function() {
+		modal1.style.display = "none";
+	}
+	
+	span2.onclick = function() {
+		modal2.style.display = "none";
+	}
+	
+	span3.onclick = function() {
+		modal3.style.display = "none";
+	}
+	
+</script>

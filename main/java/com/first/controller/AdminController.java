@@ -127,8 +127,8 @@ public class AdminController {
 		String result = "redirect:/";
 		if(checkadmin.checkadmin(session)) {
 			try {
-				TraineeVO obj = traineebiz.get(id);
-				m.addAttribute("vo", obj);
+				TraineeVO trainee = traineebiz.get(id);
+				m.addAttribute("trainee", trainee);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
