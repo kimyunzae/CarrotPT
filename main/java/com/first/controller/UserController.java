@@ -170,6 +170,11 @@ public class UserController {
 		m.addAttribute("center", "user/login");
 		return "index";
 	}
+	@RequestMapping("/backhome")
+	public String backhome(Model m) {
+		m.addAttribute("center");
+		return "index";
+	}
 	
 
 	
