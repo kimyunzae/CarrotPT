@@ -30,4 +30,6 @@ public interface TraineeMapper {
 	public void updatepwd(TraineeVO v) throws Exception;
 	
 	public void updatepassword(TraineeVO obj) throws Exception;
+	
+	public String selectn(String nloginid) throws Exception;
 }
