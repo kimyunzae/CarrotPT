@@ -129,5 +129,7 @@ public class TraineeBiz implements Biz<String, TraineeVO> {
 	public void modifypassword(TraineeVO v) throws Exception {
 		dao.updatepassword(v);
 	}
-
+	public String selectn(String k) throws Exception {
+		return dao.selectn(k);
+	}
 }
