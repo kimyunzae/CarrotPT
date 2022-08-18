@@ -11,7 +11,11 @@
 ### Overview
 
 - 프로젝트 진행: 2022. 6. 28. - 2022. 8. 19.
-- 제작: Team First(@kimyunzae, @larkmoon, @sangeun100, @hongjihu)
+
+- 제작: Team First
+
+  [@kimyunzae](https://github.com/kimyunzae), [@larkmoon](https://github.com/larkmoon), [@sangeun100](https://github.com/sangeun100), [@hongjihu](https://github.com/hongjihu)
+
   (YouTube 링크 추가하기)
 
 
@@ -23,7 +27,7 @@
 
 - Front-end: ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-- Frameworks: Spring Boot, jQuery, MyBatis, BootStrap
+- Frameworks & Libraries: Spring Boot, jQuery, MyBatis, BootStrap
 
   
 
@@ -39,9 +43,7 @@
 
 ### Architecture
 
-![Spring MVC](./main/resources/static/images)
-
-
+![spring_mvc.png](https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/spring_mvc.png?raw=true)
 
 ## 3. Features
 
