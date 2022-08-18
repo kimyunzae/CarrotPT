@@ -118,9 +118,11 @@ public class MatchingController {
 	@ResponseBody
 	@RequestMapping("/updateMatchStatus")
 	public void updateMatchStatus(int id, String status) {
+		System.out.println("status: " + status);
 		CslVO obj = new CslVO(id, status);
 		try {
 			biz.modifymatch(obj);
+			System.out.println(obj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

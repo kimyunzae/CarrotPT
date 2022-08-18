@@ -25,7 +25,7 @@ public class TraineeVO {
 	private String addr2;
 	private Date regdate;
 	private String level;
-	
+	private String nlogin;
 
 	// for INSERT
 	public TraineeVO(String id, String pwd, String name, String phone, String email, String zip, String addr1,
@@ -63,6 +63,9 @@ public class TraineeVO {
 		this.id = id;
 		this.pwd = pwd;
 	}
-
+	public TraineeVO(String nlogin) {
+		super();
+		this.nlogin = nlogin;
+	}
 
 }

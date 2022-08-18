@@ -80,14 +80,9 @@
 						</div>
 						<div class="col">
 							<div class="form-group">
-								<label>운동종목</label> <select class="form-control" name="major"
-									th:selected="${trainer.major}">
-									<option>보디빌딩</option>
-									<option>파워리프팅</option>
-									<option>피지크</option>
-									<option>필라테스</option>
-									<option>크로스핏</option>
-									<option>요가</option>
+								<label>운동종목</label>
+								<select class="form-control" name="major">
+									<option th:each="m : ${majorlist}" th:text="${m.major}" th:value="${m.major}" th:selected="${trainer.major} == ${m.major}"></option>
 								</select>
 							</div>
 						</div>

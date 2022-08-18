@@ -5,11 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.first.vo.TrainerVO;
-import com.first.vo.WorkdayVO;
 
 @Service
 public class TrainerSort {
@@ -29,8 +27,12 @@ public class TrainerSort {
 					break;
 					
 				case "rvcnt":
-					if(o1.getRvcnt() >= o2.getRvcnt()) {
+					if(o1.getRvcnt() > o2.getRvcnt()) {
 						result = -1;
+					}else if(o1.getRvcnt() == o2.getRvcnt()) {
+						result = 0;
+					}else if(o1.getRvcnt() < o2.getRvcnt()) {
+						result = 1;
 					}
 					break;
 					

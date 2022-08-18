@@ -176,71 +176,32 @@ public class UserController {
 		return "index";
 	}
 	
-
-	
-
-//	@RequestMapping("join/trianeejoin")
-//	public String traineejoin(Model m) {
-//		m.addAttribute("center", "user/traineejoinselect");
-//		return "index";
-//	}
-//	
-	
-//
-//	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
-//	@ResponseBody  //AJAX후 값을 리턴하기위해 작성
-//
-//		public String SendMail(String mail) {
-//			Random random=new Random();  //난수 생성을 위한 랜덤 클래스
-//			String key="";  //인증번호 
-//
-//			SimpleMailMessage message = new SimpleMailMessage();
-//			message.setTo(mail); //스크립트에서 보낸 메일을 받을 사용자 이메일 주소 
-//			//입력 키를 위한 코드
-//			for(int i =0; i<3;i++) {
-//				int index=random.nextInt(25)+65; //A~Z까지 랜덤 알파벳 생성
-//				key+=(char)index;
-//			}
-//			int numIndex=random.nextInt(9999)+1000; //4자리 랜덤 정수를 생성
-//			key+=numIndex;
-//			message.setSubject("인증번호 입력을 위한 메일 전송");
-//			message.setText("인증 번호 : "+key);
-//			JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
-//			javaMailSenderImpl.send(message);
-//	        return key;
-//		}	
-//	
-//	@RequestMapping("/tmypage")
-//	public String tmypage(Model m) {
-//		m.addAttribute("center", "user/tmypage");
-//		return "index";
-//	}
-
-//	@PostMapping("/CheckMail") // AJAX와 URL을 매핑시켜줌 
-//	@ResponseBody  //AJAX후 값을 리턴하기위해 작성
-//
-//		public String SendMail(String mail) {
-//			Random random=new Random();  //난수 생성을 위한 랜덤 클래스
-//			String key="";  //인증번호 
-//
-//			SimpleMailMessage message = new SimpleMailMessage();
-//			message.setTo(mail); //스크립트에서 보낸 메일을 받을 사용자 이메일 주소 
-//			//입력 키를 위한 코드
-//			for(int i =0; i<3;i++) {
-//				int index=random.nextInt(25)+65; //A~Z까지 랜덤 알파벳 생성
-//				key+=(char)index;
-//			}
-//			int numIndex=random.nextInt(9999)+1000; //4자리 랜덤 정수를 생성
-//			key+=numIndex;
-//			message.setSubject("인증번호 입력을 위한 메일 전송");
-//			message.setText("인증 번호 : "+key);
-//			JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
-//			javaMailSenderImpl.send(message);
-//	        return key;
-//		}	
-
-
-
-	
-
+	@ResponseBody
+	@PostMapping(value = "/nlogin")
+	public String nloginid(Model m, String nloginid, HttpSession session) {
+		String result = "";
+		String nlogin = null;
+		try {
+			nlogin = traineebiz.selectn(nloginid);			
+			if(nlogin != null) {
+				if(nlogin.equals("nlogin")) {
+					result = "1";
+					TraineeVO tnee = traineebiz.get(nloginid);
+					session.setAttribute("custLevel", tnee.getLevel());
+					session.setAttribute("custid", nloginid);
+					m.addAttribute("logincust", tnee);
+					session.setAttribute("logincust", tnee);
+				}else {
+					// trainee ID 비밀번호 불일치
+					result = "실패";
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(result);
+		return result;
+		
+	}
 }

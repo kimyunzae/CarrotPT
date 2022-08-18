@@ -1,6 +1,6 @@
 package com.first.controller;
 
-import java.util.List; 
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +20,7 @@ import com.first.biz.TraineeBiz;
 import com.first.biz.TrainerBiz;
 import com.first.frame.Util;
 import com.first.vo.CslVO;
+import com.first.vo.MajorVO;
 import com.first.vo.TraineeVO;
 import com.first.vo.TrainerVO;
 
@@ -60,7 +61,7 @@ public class MypageController {
 			TrainerVO trainer = (TrainerVO) session.getAttribute("logincust");
 			m.addAttribute("center", "mypage/trmypage");
 			m.addAttribute("trainer", trainer);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -148,6 +149,8 @@ public class MypageController {
 			m.addAttribute("center", "mypage/trmypage");
 			m.addAttribute("trainercenter", "mypage/traccount");
 			m.addAttribute("trainer", trainer);
+			List<MajorVO> majorList = trainerbiz.getmajor();
+			m.addAttribute("majorlist", majorList);
 
 		} catch (Exception e) {
 			e.printStackTrace();
