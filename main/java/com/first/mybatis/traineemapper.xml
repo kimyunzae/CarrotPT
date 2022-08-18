@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.first.mapper.TraineeMapper">
 	
 	<insert id="insert" parameterType="TraineeVO">
-		INSERT INTO trainee VALUES (#{id},#{pwd},#{name},#{phone},#{email},#{zip},#{addr1},#{addr2},NOW(),DEFAULT)
+		INSERT INTO trainee VALUES (#{id},#{pwd},#{name},#{phone},#{email},#{zip},#{addr1},#{addr2},NOW(),DEFAULT,null)
 	</insert>
 	<delete id="delete" parameterType="String">
 		DELETE FROM trainee WHERE ID=#{id}
@@ -25,6 +25,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<select id="selectall" resultType="TraineeVO">
 		SELECT * FROM trainee
+	</select>
+	
+<!-- 네이버 로그인 -->
+	<select id="selectn" parameterType="String" resultType="String">
+		SELECT nlogin FROM trainee
+		WHERE ID=#{ID}
 	</select>
 <!-- level='일반회원'만 선택-->
 	<select id="selecttrainees" resultType="TraineeVO">
