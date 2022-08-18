@@ -8,6 +8,9 @@
     3. <a href='#features'>Features</a>
     </details>
 
+<br>
+
+<br>
 
 ##  <span id="about">1. About </span>
 
@@ -25,7 +28,11 @@
 
   (YouTube 링크 추가하기)
 
+<br>
 
+<br>
+
+<br>
 
 ## <span id="tech">2. Tech</span>
 
@@ -46,11 +53,13 @@
 - 형상 관리: Git(GitHub)
 - 협업 도구: Notion, Trello, ERDCloud, Moqups, Zoom
 
+<br>
 
+<br>
 
 ### Architecture
 
-<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/spring_mvc.png?raw=true" width="500px" alt="Spring MVC">
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/spring_mvc.png?raw=true" width="600px" alt="Spring MVC">
 
 ## <span id="features">3. Features</span>
 
@@ -58,7 +67,7 @@
 
 #### (1) 회원가입, 로그인
 
-<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/join.gif?raw=true" width="500px" alt="Sign Up">
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/join.gif?raw=true" width="600px" alt="Sign Up">
 
 
 - 일반회원/트레이너 구분해서 가입
@@ -66,83 +75,126 @@
 
   - ajax를 이용한 폼 유효성 검사 및 로그인/로그아웃
 
+<br>
 
+<br>
 
 #### (2) 마이페이지
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/mypage.gif?raw=true" width="600px" alt="mypage">
 
 - 정보 조회 및 수정
 
+<br>
 
+<br>
 
 #### (3) 아이디/비밀번호 찾기
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/findid.gif?raw=true" width="600px" alt="Find ID and Password">
 
+- 난수 비밀번호 생성 후 Google SMTP 이용해 이메일로 전송
 
+<br>
+
+<br>
+
+<br>
 
 ### 2) Find Trainers
 
 #### (1) 트레이너 목록 조회, 맞춤 트레이너 찾기
 
-<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/findtrainers.gif?raw=true" width="500px" alt="Get trainer list">
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/findtrainers.gif?raw=true" width="600px" alt="Get trainer list">
 
 - 페이지별, 운동 종류별, 지역별 조회
 - 최신순/리뷰 많은 순/이름순 정렬
 
 - 트레이너 성별, 운동 종류, 운동 요일, 지역 입력 후, 응답과 일치율이 가장 높은 트레이너 목록 조회
 
-  
+
+<br>
+
+<br>
 
 #### (2) 상담 신청, 후기 작성
 
-
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/csl.gif?raw=true" width="600px" alt="trainer detail page">
 
 - 트레이너 정보 상세 조회
 - 매칭 완료된 트레이너에 대해 후기 작성 및 신고 접수
 
+<br>
 
+<br>
+
+<br>
 
 ### 3) Match
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/matching.gif?raw=true" width="600px" alt="Find fitness centers on map">
 
 - 상담 신청 내역 조회 및 수락/거절
 - 일반회원-트레이너 채팅
 
+<br>
 
+<br>
+
+<br>
 
 ### 4) Map
 
-<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/map.gif?raw=true" width="500px" alt="Find fitness centers on map">
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/map.gif?raw=true" width="600px" alt="Find fitness centers on map">
 
 - 내 위치로 찾기: 사용자 위치에 기반하여 웹사이트에 등록된 운동 시설 조회
-
 - 검색해서 찾기: 지역, 시설 종류(e.g. '성북구', '요가') 입력 후 운동 시설 조회
 
-  
+<br>
+
+<br>
+
+<br>
 
 ### 5) Chatbot
 
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/chatbot_exported.gif?raw=true" width="400px" alt="ask and get reponse with chatbot">
+
 - Naver CLOVA Chatbot을 이용한 회원 문의 응답
 
+<br>
 
+<br>
+
+<br>
 
 ### 6) Admin
 
 #### (1) 회원 관리
 
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/admintrainers.gif?raw=true" width="600px" alt="Manage members">
+
 - 회원 상태 변경: 수락/거절/정지/탈퇴
 
 - 페이지별, 회원 상태별 조회
 
-  
+
+<br>
+
+<br>
+
+<br>
 
 #### (2) 신고 처리
+
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/admintrainers.gif?raw=true" width="600px" alt="Manage reports">
 
 - 신고 상세 내역 조회
 - 신고 처리 상태별 조회
 - 신고 대상 회원에 대한 조치
 
+<br>
 
+<br>
 
-
+<br>
 
 ## 4. Troubleshooting
-
 
