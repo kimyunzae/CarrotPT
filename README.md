@@ -28,7 +28,7 @@
 
   - 팀원별 역할, 회고 확인하기:  [📓Notion(Click!)](https://www.notion.so/sargassosea/Personal-Trainer-PT-3b2086e394c8412395c225d3beaa4d6c)
 
-- 시연 영상: [🎞Youtube(Click!)](https://www.youtube.com/watch?v=fMG2Zown4Uk)
+- 시연 영상: <a href="https://www.youtube.com/watch?v=fMG2Zown4Uk" target="blank">🎞Youtube(Click!)</a>
 
 <br>
 
@@ -130,7 +130,7 @@
 
 ### 5) Chatbot
 
-<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/chatbot_exported.gif?raw=true" max-width="400px" alt="ask and get reponse with chatbot">
+<img src="https://github.com/larkmoon/CarrotPT/blob/master/main/resources/static/images/documentation/chatbot_exported.gif?raw=true" max-width="300px" alt="ask and get reponse with chatbot">
 
 - Naver CLOVA Chatbot을 이용한 회원 문의 응답
 
@@ -180,7 +180,6 @@
 
 <br>
 
-<<<<<<< HEAD
 ## <span id="lessons">5. Lessons & Reviews</span>
 
 ### Reviews
@@ -204,7 +203,3 @@
 - 구현:
 - 기타: 
 
-=======
-
-## 4. Troubleshooting
->>>>>>> a38b0d4afcb6df9cc0879759faca1c07b44e69a6
