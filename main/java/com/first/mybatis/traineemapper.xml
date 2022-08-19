@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.first.mapper.TraineeMapper">
 	
 	<insert id="insert" parameterType="TraineeVO">
-		INSERT INTO trainee VALUES (#{id},#{pwd},#{name},#{phone},#{email},#{zip},#{addr1},#{addr2},NOW(),DEFAULT,null)
+		INSERT INTO trainee VALUES (#{id},#{pwd},#{name},#{phone},#{email},#{zip},#{addr1},#{addr2},NOW(),DEFAULT,NULL)
 	</insert>
 	<delete id="delete" parameterType="String">
 		DELETE FROM trainee WHERE ID=#{id}

@@ -180,6 +180,7 @@
 
 <br>
 
+<<<<<<< HEAD
 ## <span id="lessons">5. Lessons & Reviews</span>
 
 ### Reviews
@@ -203,3 +204,7 @@
 - 구현:
 - 기타: 
 
+=======
+
+## 4. Troubleshooting
+>>>>>>> a38b0d4afcb6df9cc0879759faca1c07b44e69a6
